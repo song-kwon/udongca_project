@@ -1,0 +1,156 @@
+--create user id:udongca/pwd:master  ( sqlplus sysdba --
+create user udongca identified by master; --유저 생성
+grant all privileges to udongca; --모든 권한 주기
+
+
+--  create table --
+create table code(
+codeId	varchar2(30)	primary key,
+codeName	varchar2(50)	NOT NULL,
+codeType	varchar2(50)	NOT NULL
+);
+
+create table notice_board(
+noticeNo	NUMBER	primary key,
+noticeTitle	varchar2(50)	NOT NULL,
+noticeContent	CLOB	NOT NULL,
+noticeDate	DATE	NOT NULL
+);
+
+create table member(
+memberId	varchar2(50)	primary key,
+memberName	varchar2(50)	NOT NULL,
+memberPassword	varchar2(50)	NOT NULL,
+memberEmail	varchar2(100),
+memberPenalty	NUMBER	,
+login_possibility	varchar2(50)	NOT NULL,
+memberType	varchar2(50)	NOT NULL
+);
+
+
+create table onetoone_inquiry(
+inquiryNo	NUMBER	primary key,
+inquiryTitle	varchar2(50)	NOT NULL,
+inquiryType	varchar2(50)	NOT NULL,
+inquiryContent	CLOB	NOT NULL,
+inquiryReply	CLOB,	
+memberId	varchar2(50)	NOT NULL,
+constraint onetoone_memberId_fk
+foreign key (memberId)
+references member(memberId) on delete cascade
+);
+
+
+create table PRboard(
+cafeNo	NUMBER	primary key,
+cafeName	varchar2(50)	NOT NULL,
+cafeIntro	CLOB	NOT NULL,
+cafeTel	varchar2(50)	NOT NULL,
+cafeFeature	varchar2(50),
+cafeAddress	varchar2(50)	NOT NULL,
+coporateNumb	varchar2(50)	NOT NULL,
+operationHour	varchar2(50)	NOT NULL,
+managerName	varchar2(50)	NOT NULL,
+managerTel	varchar2(50)	NOT NULL,
+cafeRealImage	CLOB	NULL,
+cafeFakeImage	CLOB	NULL,
+memberId	varchar2(50)	NOT NULL,
+constraint prboard_memberId_fk
+foreign key (memberId)
+references member(memberId) on delete cascade
+);
+
+create table review_board(
+reviewNo 	VARCHAR2(50)	primary key,
+reviewTitle	varchar2(50)	NOT NULL,
+reviewDate	DATE	NOT NULL,
+reviewContent	CLOB	NOT NULL,
+reviewGrade	NUMBER	NOT NULL,
+memberId	varchar2(50)	NOT NULL,
+cafeNo	NUMBER	NOT NULL,
+constraint review_board_memberId_fk
+foreign key (memberId)
+references member(memberId) on delete cascade,
+constraint review_cafeNo_fk
+foreign key (cafeNo)
+references PRboard(cafeNo) on delete cascade
+);
+
+
+
+create table report_board(
+reportboardNo	NUMBER	primary key,
+reportMemberId	varchar2(50)	NOT NULL,
+reportReason	varchar2(50)	NOT NULL,
+reportContent	CLOB	NULL,
+reportResult	varchar2(50)	NOT NULL,
+reportCancelReason	CLOB	NULL,
+reportType	VARCHAR2(50)	NOT NULL,
+reportNO 	NUMBER	NOT NULL,
+memberId	varchar2(50)	NOT NULL,
+constraint report_memberId_fk
+foreign key (memberId)
+references member(memberId) on delete cascade
+);
+
+create table menu(
+menuNo	NUMBER	primary key,
+cafeNo	NUMBER	NOT NULL,
+menuType	varchar2(50)	NOT NULL,
+menuName	varchar2(50)	NOT NULL,
+menuRealImage	 CLOB	NULL,
+menuFakeImage	CLOB	NULL,
+constraint menu_cafeNo_fk
+foreign key (cafeNo)
+references PRboard(cafeNo) on delete cascade
+);
+
+create table preferLocation(
+preferLocationNo	NUMBER	primary key,
+address1	varchar2(50)	NOT NULL,
+address2	varchar2(50)	NOT NULL,
+memberId	varchar2(50)	NOT NULL,
+constraint preferLocation_memberId_fk
+foreign key (memberId)
+references member(memberId) on delete cascade
+);
+
+create table review_reply(
+replyNo	NUMBER	primary key,
+replyId	varchar2(50)	NOT NULL,
+replyContent	CLOB	NOT NULL,
+replyDate	DATE	NOT NULL,
+parentReply	NUMBER	NULL,
+targetName	varchar2(50)	NULL,
+reviewNO	VARCHAR2(50)	NOT NULL,
+constraint review_reply_reviewNo_fk
+foreign key (reviewNo)
+references review_board(reviewNo) on delete set null
+);
+-- drop table --
+drop table review_reply;
+drop table preferLocation;
+drop table menu;
+drop table report_board;
+drop table review_board;
+drop table code;
+drop table notice_board;
+drop table onetoone_inquiry;
+drop table PRboard;
+drop table member;
+
+-- address table --
+create table majorcategory(
+major_categoryNo number primary key,
+address1 varchar(40)
+);
+
+create table middlecategory(
+middle_categoryNo number primary key,
+address2 varchar(40),
+major_categoryNo number,
+constraint middle_No_fk_majorNo
+foreign key (major_categoryNo)
+references majorcategory(major_categoryNo)
+)
+
