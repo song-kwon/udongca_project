@@ -1,4 +1,4 @@
-package kr.co.udongca.serviceimpl;
+package kr.co.udongca.service.impl;
 
 import kr.co.udongca.service.MemberService;
 

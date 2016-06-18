@@ -1,4 +1,4 @@
-package kr.co.udongca.daoimpl;
+package kr.co.udongca.dao.impl;
 
 import kr.co.udongca.dao.MemberDao;
 

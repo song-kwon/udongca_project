@@ -1,4 +1,4 @@
-package kr.co.udongca.daoimpl;
+package kr.co.udongca.dao.impl;
 
 public class ReportBoardDaoImpl {
 
