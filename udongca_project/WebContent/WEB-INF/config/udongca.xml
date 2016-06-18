@@ -13,7 +13,7 @@
 	<!-- 단순 링크 -->
 	<mvc:view-controller path="/index.udc" view-name="main.tiles" />
 
-	<!-- JDBC 설정 -->
+		<!-- JDBC 설정 -->
 <!-- 	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 
 		p:url="jdbc:oracle:thin:@localhost:1521:XE"
@@ -29,7 +29,6 @@
 	
 	<bean name="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
 		c:sqlSessionFactory-ref="sqlSessionFactory"/> -->
-
 
 	<!-- Tiles 설정 -->
 	<bean name="tilesConfig"

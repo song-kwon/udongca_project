@@ -23,7 +23,7 @@ memberName	varchar2(50)	NOT NULL,
 memberPassword	varchar2(50)	NOT NULL,
 memberEmail	varchar2(100),
 memberPenalty	NUMBER	,
-login_possibility	varchar2(50)	NOT NULL,
+loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
 
@@ -66,6 +66,8 @@ reviewTitle	varchar2(50)	NOT NULL,
 reviewDate	DATE	NOT NULL,
 reviewContent	CLOB	NOT NULL,
 reviewGrade	NUMBER	NOT NULL,
+reviewRealImage CLOB,
+reviewfakeImage CLOB,
 memberId	varchar2(50)	NOT NULL,
 cafeNo	NUMBER	NOT NULL,
 constraint review_board_memberId_fk
