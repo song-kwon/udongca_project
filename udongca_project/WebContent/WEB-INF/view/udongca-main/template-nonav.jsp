@@ -21,8 +21,10 @@ nav{
 }
 section{
 	padding: 15px;
+	width:1080px;
 	min-height:400px;
 	float:left;
+	
 }
 footer{
 	background-color:skyblue;
@@ -38,12 +40,6 @@ footer{
 <header>
 <tiles:insertAttribute name="header"/>
 </header>
-
-
-<nav>
-<tiles:insertAttribute name="menu"/>
-</nav>
-
 
 <section>
 <tiles:insertAttribute name="body"/>

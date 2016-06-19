@@ -5,13 +5,16 @@
 <!-- Definitions for Tiles documentation   -->
 <tiles-definitions>
 	
-	<definition name="default.tiles" template="/WEB-INF/view/udongca-main/template.jsp">
+	<definition name="default.tiles" template="/WEB-INF/view/udongca-main/template-nonav.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/udongca-layout/header.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/view/udongca-layout/footer.jsp"/>
 	</definition>
 	
 	<definition name="main.tiles" extends="default.tiles">
-		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/main.jsp"/>
+	</definition>
+	
+	<definition name="login.tiles" extends="default.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/login.jsp"/>
 	</definition>
 </tiles-definitions>
