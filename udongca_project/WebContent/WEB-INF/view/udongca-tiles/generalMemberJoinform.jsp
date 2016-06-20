@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	$("#idVerification").on("click",function(){
 		$.ajax({
-				"url":"member/findById.udc",
+				"url":"member/countSameId.udc",
 				"type":"POST",
 				"data":"id="+$("#id").val(),
 				"dataType":"text",
