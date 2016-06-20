@@ -1,13 +1,26 @@
 <%@ page contentType="text/html;charset=utf-8" %>
+<script type="text/javascript">
+$(document).ready(function(){
+	   $(window).resize();
+});
+$(window).resize(function(){
+    $('.loginDiv').css({position:'absolute'}).css({
+        left: ($('#section').width() - $('.loginDiv').width())/2,
+        top: ($('#section').height() - $('.loginDiv').height())/2
+    });
+  });
+</script>
 
-<div style="background-color: aqua; margin-left: 25%;"><h2>로그인</h2></div>
-<div style="background-color: fuchsia; min-height:200px; width:400px; margin-left: 25%;">
+<div class="loginDiv"style="width: 555px; height: auto;margin:0 auto;">
+<div style="min-height: auto; width: 555px;">
 	<form action="member/login.udc" method="post">
 	<div style="float:left; width:230px;">
-		<div style="background-color: green; width:200px; min-height:30px;"><input type="text" style="width:200px; height: 30px;" placeholder="아이디" name="id"></div>
-		<div style="background-color: gray; width:200px; min-height:30px;"><input type="password" style="width:200px; height: 30px;" placeholder="비밀번호" name="password"></div>
+		<div style="width:200px; min-height:30px;"><input type="text" style="width:400px; height: 60px;" placeholder="아이디" name="id"></div>
+		<div style="width:200px; min-height:30px;"><input type="password" style="width:400px; height: 60px;" placeholder="비밀번호" name="password"></div>
 	</div>
-	<div style="background-color: maroon;"><button type="submit" style="width:150px; float:left;">로그인</button></div>
+	<div><button type="submit" style="width:150px; height:132px; float:right;">로그인</button></div>
 	</form>
-	<div style="background-color: teal; clear: both;">아이디찾기/비밀번호찾기</div>
+	<div style="padding-top:15px;clear: both;">아이디찾기/비밀번호찾기</div>
+</div>
+
 </div>

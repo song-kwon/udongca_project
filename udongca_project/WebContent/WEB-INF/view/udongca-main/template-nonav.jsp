@@ -8,33 +8,37 @@
 <script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
 <style type="text/css">
-header{
-	background-color:skyblue;
-	text-align:center;
+header {
+	background-color: skyblue;
+	text-align: center;
 	padding: 5px;
+	min-width: 1024px;
+	width: auto;
 }
-nav{
+
+nav {
 	line-height: 50px;
-	background-color:lightgray;
+	background-color: lightgray;
 	padding: 15px;
-	min-height:700px;
-	width:250px;
-	float:left;
+	min-height: 700px;
+	width: 250px;
+	float: left;
 }
-section{
+
+section {
 	padding: 15px;
-	width:1080px;
-	min-height:400px;
-	margin-left:25%;
-	float:left;
-	
+	width: 100%;
+	min-height: 768px;
+	float: left;
+	margin-left: 50%;
 }
-footer{
-	background-color:skyblue;
-	padding-top:20px;
-	text-align:center;
-	height:50px;
-	clear:both;
+
+footer {
+	background-color: skyblue;
+	padding-top: 20px;
+	text-align: center;
+	height: 50px;
+	clear: both;
 }
 </style>
 </head>
@@ -44,7 +48,7 @@ footer{
 <tiles:insertAttribute name="header"/>
 </header>
 
-<section>
+<section id="section">
 <tiles:insertAttribute name="body"/>
 </section>
 

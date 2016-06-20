@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.vo.PRBoard;
 
+@Repository
 public class SearchDaoImpl implements SearchDao {
 	private String namespace = "prBoardMapper.";
 	@Autowired
