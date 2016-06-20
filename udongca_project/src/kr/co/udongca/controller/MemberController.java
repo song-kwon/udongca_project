@@ -15,17 +15,14 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl memberService;
 
-	@RequestMapping("loginTest.udc")
-	public String loginTest(String id, String pwd,HttpSession session){
-		session.setAttribute("id", id);
-		System.out.println(id);
-		System.out.println(memberService.test());
+	@RequestMapping("login.udc")
+	public String login(String id, String password,HttpSession session) throws Exception{
+		session.setAttribute("login", memberService.login(id, password));
 		return "redirect:/main.udc";
 	}
 	
 	@RequestMapping("logout.udc")
-	public String loginTest(HttpSession session){
-		System.out.println(session.getAttribute("id"));
+	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/main.udc";
 	}

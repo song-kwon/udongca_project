@@ -123,7 +123,7 @@ replyContent	CLOB	NOT NULL,
 replyDate	DATE	NOT NULL,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
-reviewNO	VARCHAR2(50)	NOT NULL,
+reviewNO	NUMBER	NOT NULL,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
