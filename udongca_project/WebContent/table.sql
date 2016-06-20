@@ -2,7 +2,7 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 jmjjjjjjjjj
-
+ 
 --  create table --
 create table code(
 codeId	varchar2(30)	primary key,
