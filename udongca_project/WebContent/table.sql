@@ -2,6 +2,15 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
+-- create sequence --
+create sequence notice_board_noticeNo_seq nocache;
+create sequence onetoone_inquiry_inquiryNo_seq nocache;
+create sequence PRboard_cafeNo_seq nocache;
+create sequence review_board_reviewNo_seq nocache;
+create sequence report_board_reportboardNo_seq nocache;
+create sequence menu_menuNo_seq nocache;
+create sequence review_reply_replyNo_seq nocache;
+
 --  create table --
 create table code(
 codeId	varchar2(30)	primary key,
