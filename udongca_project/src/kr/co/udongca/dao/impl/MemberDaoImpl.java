@@ -24,4 +24,5 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println(id+password);
 		return session.selectOne("memberMapper.login",new Member(id, password));
 	}
+	
 }
