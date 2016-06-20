@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	$("#idVerification").on("click",function(){
 		$.ajax({
-				"url":"member/findById.udc",
+				"url":"member/countSameId.udc",
 				"type":"POST",
 				"data":"id="+$("#id").val(),
 				"dataType":"text",
@@ -14,23 +14,54 @@ $(document).ready(function(){
 					}else{
 						confirm("사용 가능한 아이디입니다. 사용하시겠습니까?");
 						$("#password").focus();
-					}
-				},
-				"beforeSend" : function(){
-					if(!$("#id").val()){
-						alert("아이디를 입력하세요.");
-						$("#id").focus();
-						return false;
+						$("#idVerify").val()==true;
 					}
 				}
 		});
 	});
 });
+
+//패스워드 일치 검사
+function chkPwd(){
+	if($("#password").val()==$("#password2").val()){
+		return true;
+	}else{
+		alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.");
+		$("#password").focus();
+		return false;
+	}
+}
+
+//이메일 입력 검사
+function chkEmail(){
+	if($("#emailAddress").val()=="이메일선택"){
+		alert("이메일 주소를 선택해주세요.")
+		return false;
+	}
+	else
+		return true;
+}
+
+function checkSubmit(){
+	if($("#idVerify").val()==true){
+		//가입 하기 전, 비밀번호 확인과 이메일 확인
+		var checkPassword = chkPwd();
+		var checkEmail = chkEmail();
+		if(checkPassword==true && checkEmail==true){
+			return true;
+		}else
+			return false;
+	}else{
+		alert("아이디 확인을 해주세요.");
+		return false;
+	}
+}
 </script>
 
-<div style="background-color: aqua; margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
-<div style="background-color: aqua; margin-left: 25%;"><font size="8">**모든 사항은 필수 입력 사항입니다.</font></div>
-<form action="member/licenseeMemberJoin" method="post">
+<div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
+<div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
+<form action="licenseeMemberJoin" method="post" onsubmit="return checkSubmit();">
+<input type="hidden" value="false" id="idVerify">
 <table>
 	<tr>
 		<th>아이디</th>
