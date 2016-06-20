@@ -23,6 +23,7 @@ section{
 	padding: 15px;
 	width:1080px;
 	min-height:400px;
+	margin-left:25%;
 	float:left;
 	
 }
