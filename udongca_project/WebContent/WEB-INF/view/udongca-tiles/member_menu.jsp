@@ -3,6 +3,11 @@
 
 <c:choose>
 	<c:when test="${sessionScope.login.memberType == 'licensee' }">
+		내 홍보글<br>
+		신고내역<br>
+		1:1문의<br>
+		정보수정<br>
+		회원탈퇴<br>
 	</c:when>
 	<c:otherwise>
 		즐겨찾기<br>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="form" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div style="background-color: aqua; margin-left: 25%;"><h2>회원 가입</h2></div>
 <form action="/udongca_project/member/join.udc" method="post">

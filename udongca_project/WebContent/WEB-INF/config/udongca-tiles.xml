@@ -24,7 +24,12 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/login.jsp"/>
 	</definition>
 	
-	<definition name="mypage.tiles" extends="default-nav.tiles">
+	<definition name="masterPage.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/master_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/master_page.jsp"/>
+	</definition>
+	
+	<definition name="myPage.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
 	</definition>

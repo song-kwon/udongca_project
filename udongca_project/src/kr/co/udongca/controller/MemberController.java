@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.udongca.service.impl.MemberServiceImpl;
+import kr.co.udongca.vo.Member;
 
 @Controller
 @RequestMapping("/member/")
@@ -25,5 +26,27 @@ public class MemberController {
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/main.udc";
+	}
+	
+	@RequestMapping("member_myPage.udc")
+	public String myPage(HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		if(login != null){
+			if(login.getMemberType().equals("master"))
+				return "master_page.tiles";
+			else
+				return "myPage.tiles";
+		}else{
+		return "redirect:/loginPage.udc";
+		}
+	}
+	
+	@RequestMapping("master_page.udc")
+	public String masterPage(HttpSession session){
+		Member master = (Member)session.getAttribute("login");
+		if(master != null && master.getMemberType().equals("master"))
+			return "masterPage.tiles";
+		else
+			return "redirect:/main.udc";
 	}
 }
