@@ -34,4 +34,12 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
 	</definition>
 	
+	<definition name="generalMemberJoin.tiles" extends="default-nonav.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/generalMemberJoinform.jsp"/>
+	</definition>
+	
+	<definition name="licenseeMemberJoin.tiles" extends="default-nonav.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/licenseeMemberJoinform.jsp"/>
+	</definition>
+	
 </tiles-definitions>

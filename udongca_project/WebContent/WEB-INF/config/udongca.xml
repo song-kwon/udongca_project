@@ -22,7 +22,9 @@
 	<!-- 단순 링크 -->
 	<mvc:view-controller path="/main.udc" view-name="main.tiles" />
 	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" /> <!-- 페이지 확인용 링크 -->
-
+	<mvc:view-controller path="/generalMemberJoin.udc" view-name="generalMemberJoin.tiles"/>
+	<mvc:view-controller path="/licenseeMemberJoin.udc" view-name="licenseeMemberJoin.tiles"/>
+	<mvc:view-controller path="/member/member_myPage.udc" view-name="mypage.tiles"/>
 
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
