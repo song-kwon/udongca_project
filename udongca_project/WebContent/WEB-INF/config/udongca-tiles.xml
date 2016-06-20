@@ -29,5 +29,9 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
 	</definition>
 	
+	<definition name="joinform.tiles" extends="default-nonav.tiles">
+		
+	</definition>
+	
 	
 </tiles-definitions>
