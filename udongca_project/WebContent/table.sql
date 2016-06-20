@@ -3,6 +3,7 @@ create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
 -- create sequence --
+
 create sequence notice_board_noticeNo_seq nocache;
 create sequence onetoone_inquiry_inquiryNo_seq nocache;
 create sequence PRboard_cafeNo_seq nocache;
@@ -148,6 +149,16 @@ drop table notice_board;
 drop table onetoone_inquiry;
 drop table PRboard;
 drop table member;
+
+-- drop sequence--
+
+drop sequence notice_board_noticeNo_seq ;
+drop sequence onetoone_inquiry_inquiryNo_seq ;
+drop sequence PRboard_cafeNo_seq nocache;
+drop sequence review_board_reviewNo_seq ;
+drop sequence report_board_reportboardNo_seq ;
+drop sequence menu_menuNo_seq ;
+drop sequence review_reply_replyNo_seq ;
 
 -- address table --
 create table majorcategory(
