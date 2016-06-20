@@ -15,12 +15,13 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	
-
-	<context:component-scan base-package="kr.co.udongca.controller,kr.co,udongca.service.impl"/>
+	<mvc:view-controller path="/member/myPage.udc" view-name="mypage.tiles"/>
+	
+	<context:component-scan base-package="kr.co.udongca.controller,kr.co.udongca.service.impl,kr.co.udongca.dao.impl"/>
 	
 	<!-- 단순 링크 -->
 	<mvc:view-controller path="/main.udc" view-name="main.tiles" />
-	<mvc:view-controller path="/login.udc" view-name="login.tiles" /> <!-- 페이지 확인용 링크 -->
+	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" /> <!-- 페이지 확인용 링크 -->
 
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"

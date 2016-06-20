@@ -14,7 +14,12 @@ public class Member implements Serializable{
 	
 	public Member() {
 	}
-
+	
+	public Member(String memberId,String memberPassword){
+		this.memberId = memberId;
+		this.memberPassword = memberPassword;
+	}
+	
 	public Member(String memberId, String memberName, String memberPassword, String memberEmail, int memberPenalty,
 			String loginPossibility) {
 		super();
@@ -35,6 +40,64 @@ public class Member implements Serializable{
 		this.memberEmail = memberEmail;
 		this.memberPenalty = memberPenalty;
 		this.loginPossibility = loginPossibility;
+		this.memberType = memberType;
+	}
+	
+	
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberPassword() {
+		return memberPassword;
+	}
+
+	public void setMemberPassword(String memberPassword) {
+		this.memberPassword = memberPassword;
+	}
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+
+	public int getMemberPenalty() {
+		return memberPenalty;
+	}
+
+	public void setMemberPenalty(int memberPenalty) {
+		this.memberPenalty = memberPenalty;
+	}
+
+	public String getLoginPossibility() {
+		return loginPossibility;
+	}
+
+	public void setLoginPossibility(String loginPossibility) {
+		this.loginPossibility = loginPossibility;
+	}
+
+	public String getMemberType() {
+		return memberType;
+	}
+
+	public void setMemberType(String memberType) {
 		this.memberType = memberType;
 	}
 

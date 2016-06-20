@@ -44,6 +44,90 @@ public class Menu {
 
 
 
+	public int getMenuNO() {
+		return menuNO;
+	}
+
+
+
+	public void setMenuNO(int menuNO) {
+		this.menuNO = menuNO;
+	}
+
+
+
+	public int getCafeNumber() {
+		return cafeNumber;
+	}
+
+
+
+	public void setCafeNumber(int cafeNumber) {
+		this.cafeNumber = cafeNumber;
+	}
+
+
+
+	public String getMenuType() {
+		return menuType;
+	}
+
+
+
+	public void setMenuType(String menuType) {
+		this.menuType = menuType;
+	}
+
+
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+
+
+	public String getMenuRealImage() {
+		return menuRealImage;
+	}
+
+
+
+	public void setMenuRealImage(String menuRealImage) {
+		this.menuRealImage = menuRealImage;
+	}
+
+
+
+	public String getMenuFakeImage() {
+		return menuFakeImage;
+	}
+
+
+
+	public void setMenuFakeImage(String menuFakeImage) {
+		this.menuFakeImage = menuFakeImage;
+	}
+
+
+
+	public PRBoard getPrBoard() {
+		return prBoard;
+	}
+
+
+
+	public void setPrBoard(PRBoard prBoard) {
+		this.prBoard = prBoard;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

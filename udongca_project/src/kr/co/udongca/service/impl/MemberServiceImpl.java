@@ -1,22 +1,26 @@
 package kr.co.udongca.service.impl;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.udongca.dao.impl.MemberDaoImpl;
 import kr.co.udongca.service.MemberService;
+import kr.co.udongca.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 	
-	private SqlSessionTemplate session;
-	
 	@Autowired
-	public MemberServiceImpl(SqlSessionTemplate session) {
-		this.session=session;
-	}
+	private MemberDaoImpl memberDaoImpl;
 	
-	public String test(){
-		return "안녕";
+	@Override
+	public Member login(String id, String password) throws Exception {
+		Member login = memberDaoImpl.login(id, password);
+		System.out.println(login);
+		if(login == null){
+			System.out.println("로그인 실패");
+			throw new Exception();
+		}
+		return login;
 	}
 }

@@ -3,6 +3,7 @@ create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
 -- create sequence --
+
 create sequence notice_board_noticeNo_seq nocache;
 create sequence onetoone_inquiry_inquiryNo_seq nocache;
 create sequence PRboard_cafeNo_seq nocache;
@@ -132,7 +133,7 @@ replyContent	CLOB	NOT NULL,
 replyDate	DATE	NOT NULL,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
-reviewNO	VARCHAR2(50)	NOT NULL,
+reviewNO	NUMBER	NOT NULL,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
@@ -148,6 +149,16 @@ drop table notice_board;
 drop table onetoone_inquiry;
 drop table PRboard;
 drop table member;
+
+-- drop sequence--
+
+drop sequence notice_board_noticeNo_seq ;
+drop sequence onetoone_inquiry_inquiryNo_seq ;
+drop sequence PRboard_cafeNo_seq nocache;
+drop sequence review_board_reviewNo_seq ;
+drop sequence report_board_reportboardNo_seq ;
+drop sequence menu_menuNo_seq ;
+drop sequence review_reply_replyNo_seq ;
 
 -- address table --
 create table majorcategory(

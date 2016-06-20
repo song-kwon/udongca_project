@@ -1,5 +1,7 @@
 package kr.co.udongca.dao;
 
-public interface MemberDao {
+import kr.co.udongca.vo.Member;
 
+public interface MemberDao {
+	public Member login(String id,String password);
 }
