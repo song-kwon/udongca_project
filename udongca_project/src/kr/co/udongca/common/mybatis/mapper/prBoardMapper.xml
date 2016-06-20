@@ -1,4 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="prBoardMapper">
+	<!--
+		검색 리스트에서 홍보글들을 간략하게 보여 줄 때 쓰는 SELECT SQL 문(
+		이름, 이미지를 표시하고, No는 Page 처리 및 상세 페이지 링크에 사용
+	-->
+	<sql id="select-basic-PRBoard">
+		SELECT
+			cafeNo,
+			cafeName,
+			cafeFakeImage
+		FROM (
+			SELECT
+				CEIL(rownum/?) page,
+				cafeNo,
+				cafeName,
+				cafeFakeImage
+			FROM (
+				SELECT
+					cafeNo,
+					cafeName,
+					cafeFakeImage
+				FROM PRboard
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page = ?
+	</sql>
+	<!-- 홍보글 상세 내용(사업자 등록 번호 제외)을 보여주는 SELECT SQL 문 -->
+	<sql id="select-full-PRBoard">
+		SELECT
+			cafeNo,
+			cafeName,
+			cafeIntro,
+			cafeTel,
+			cafeFeature,
+			cafeAddress,
+			operationHour,
+			managerName,
+			managerTel,
+			cafeRealImage,
+			cafeFakeImage,
+			memberId
+		FROM PRboard
+	</sql>
+	<!-- 홍보글 추가 -->
+	<insert id="insertPRBoard" parameterType="PRBoard">
+		INSERT INTO PRboard (
+			cafeNo,
+			cafeName,
+			cafeIntro,
+			cafeTel,
+			cafeFeature,
+			cafeAddress,
+			coporateNumb,
+			operationHour,
+			managerName,
+			managerTel,
+			cafeRealImage,
+			cafeFakeImage,
+			memberId
+		)
+		VALUES (
+			#{cafeNo},
+			#{cafeName},
+			#{cafeIntro},
+			#{cafeTel},
+			#{cafeFeature},
+			#{cafeAddress},
+			#{coporateNumb},
+			#{operationHour},
+			#{managerName},
+			#{managerTel},
+			#{cafeRealImage},
+			#{cafeFakeImage},
+			#{memberId}
+		)
+	</insert>
+	<!-- 홍보글 수정 -->
+	<update id="updatePRBoard" parameterType="PRBoard">
+		UPDATE PRboard
+		SET (
+			cafeName = #{cafeName},
+			cafeIntro = #{cafeIntro},
+			cafeTel = #{cafeTel},
+			cafeFeature = #{cafeFeature},
+			cafeAddress = #{cafeAddress},
+			coporateNumb = #{coporateNumb},
+			operationHour = #{operationHour},
+			managerName = #{managerName},
+			managerTel = #{managerTel},
+			cafeRealImage = #{cafeRealImage},
+			cafeFakeImage = #{cafeFakeImage}
+		)
+		WHERE cafeNo = #{cafeNo}
+	</update>
+	<!-- 홍보글 수정 -->
+	<delete id="deletePRBoard" parameterType="_int">
+		DELETE FROM PRBoard
+		WHERE cafeNo = #{cafeNo}
+	</delete>
+	<!-- 지역으로 홍보글 검색 -->
+	<select id="selectPRBoardListByAddress" parameterType="String" resultType="PRBoard">
+		<include refid="select-basic-PRBoard"/>
+		WHERE cafeAddress = #{cafeAddress}
+	</select>
+	<!-- 테마로 홍보글 검색 -->
+	<select id="selectPRBoardListByFeature" parameterType="String" resultType="PRBoard">
+		<include refid="select-basic-PRBoard"/>
+		WHERE cafeFeature = #{cafeFeature}
+	</select>
+	<!-- 홍보글 전체 정보 검색 -->
+	<select id="selectPRBoardByNo" parameterType="_int" resultType="PRBoard">
+		<include refid="select-full-PRBoard"/>
+		WHERE cafeNo = #{cafeNo}
+	</select>
+	<!-- 사업자 등록 번호 중복 확인 -->
+	<select id="selectPRBoardByCoporateNumb" parameterType="String" resultType="PRBoard">
+		<include refid="select-full-PRBoard"/>
+		WHERE coporateNumb = #{coporateNumb}
+	</select>
 </mapper>

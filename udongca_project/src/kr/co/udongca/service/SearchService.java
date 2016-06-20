@@ -1,5 +1,10 @@
 package kr.co.udongca.service;
 
-public interface SearchService {
+import java.util.List;
 
+import kr.co.udongca.vo.PRBoard;
+
+public interface SearchService {
+	public List<PRBoard> selectPRBoardListByAddress (String cafeAddress);
+	public List<PRBoard> selectPRBoardListByFeature (String cafeFeature);
 }
