@@ -19,7 +19,7 @@ public class MemberController {
 	public String loginTest(String id, String pwd,HttpSession session){
 		session.setAttribute("id", id);
 		System.out.println(id);
-		System.out.println(memberService);
+		System.out.println(memberService.test());
 		return "redirect:/main.udc";
 	}
 	

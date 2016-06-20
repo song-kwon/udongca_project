@@ -1,7 +1,7 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
- 변경
+
 --  create table --
 create table code(
 codeId	varchar2(30)	primary key,
@@ -60,7 +60,7 @@ references member(memberId) on delete cascade
 );
 
 create table review_board(
-reviewNo 	VARCHAR2(50)	primary key,
+reviewNo 	NUMBER	primary key,
 reviewTitle	varchar2(50)	NOT NULL,
 reviewDate	DATE	NOT NULL,
 reviewContent	CLOB	NOT NULL,

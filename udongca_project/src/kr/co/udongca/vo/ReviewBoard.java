@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ReviewBoard {
 
-	private String reviewNo;
+	private int reviewNo;
 	private String reviewTitle;
 	private Date reviewDate;
 	private String reviewContent;
@@ -18,7 +18,7 @@ public class ReviewBoard {
 	public ReviewBoard() {
 	}
 
-	public ReviewBoard(String reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
+	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
 			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo) {
 		super();
 		this.reviewNo = reviewNo;
@@ -32,7 +32,7 @@ public class ReviewBoard {
 		this.cafeNo = cafeNo;
 	}
 
-	public ReviewBoard(String reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
+	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
 			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo, PRBoard prBoard) {
 		super();
 		this.reviewNo = reviewNo;
@@ -47,11 +47,11 @@ public class ReviewBoard {
 		this.prBoard = prBoard;
 	}
 
-	public String getReviewNo() {
+	public int getReviewNo() {
 		return reviewNo;
 	}
 
-	public void setReviewNo(String reviewNo) {
+	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
 	}
 
@@ -138,7 +138,7 @@ public class ReviewBoard {
 		result = prime * result + ((reviewDate == null) ? 0 : reviewDate.hashCode());
 		result = prime * result + ((reviewFakeImage == null) ? 0 : reviewFakeImage.hashCode());
 		result = prime * result + ((reviewGrade == null) ? 0 : reviewGrade.hashCode());
-		result = prime * result + ((reviewNo == null) ? 0 : reviewNo.hashCode());
+		result = prime * result + reviewNo;
 		result = prime * result + ((reviewRealImage == null) ? 0 : reviewRealImage.hashCode());
 		result = prime * result + ((reviewTitle == null) ? 0 : reviewTitle.hashCode());
 		return result;
@@ -185,10 +185,7 @@ public class ReviewBoard {
 				return false;
 		} else if (!reviewGrade.equals(other.reviewGrade))
 			return false;
-		if (reviewNo == null) {
-			if (other.reviewNo != null)
-				return false;
-		} else if (!reviewNo.equals(other.reviewNo))
+		if (reviewNo != other.reviewNo)
 			return false;
 		if (reviewRealImage == null) {
 			if (other.reviewRealImage != null)
@@ -210,6 +207,8 @@ public class ReviewBoard {
 				+ ", reviewRealImage=" + reviewRealImage + ", reviewFakeImage=" + reviewFakeImage + ", cafeNo=" + cafeNo
 				+ ", prBoard=" + prBoard + "]";
 	}
+	
+	
 
 	
 }
