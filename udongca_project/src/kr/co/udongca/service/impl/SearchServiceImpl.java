@@ -8,6 +8,7 @@ import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.service.SearchService;
 import kr.co.udongca.vo.PRBoard;
 
+@Service
 public class SearchServiceImpl implements SearchService{
 	@Autowired
 	private SearchDao dao;
