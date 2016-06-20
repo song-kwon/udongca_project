@@ -13,7 +13,7 @@
 	</c:when>
 	
 	<c:otherwise>
-		<div style="text-align:right;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/memberJoin.udc">회원가입</a>|<a href="/udongca_project/loginPage.udc">로그인</a>|<a href="/udongca_project/member/customerCenter.udc">고객센터</a></div>
+		<div style="text-align:right;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/joinSelect.udc">회원가입</a>|<a href="/udongca_project/loginPage.udc">로그인</a>|<a href="/udongca_project/member/customerCenter.udc">고객센터</a></div>
 	</c:otherwise>
 </c:choose>
 <div><a href="/udongca_project/main.udc">헤더</a></div>

@@ -2,8 +2,11 @@ package kr.co.udongca.vo;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Member implements Serializable{
 
+	@NotEmpty
 	private String memberId;
 	private String memberName	;
 	private String memberPassword;
@@ -165,6 +168,4 @@ public class Member implements Serializable{
 				+ ", memberEmail=" + memberEmail + ", memberPenalty=" + memberPenalty + ", loginPossibility="
 				+ loginPossibility + ", memberType=" + memberType + "]";
 	}
-	
-	
 }

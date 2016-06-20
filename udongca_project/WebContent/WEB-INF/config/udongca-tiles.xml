@@ -34,11 +34,11 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
 	</definition>
 	
-	<definition name="generalMemberJoin.tiles" extends="default-nonav.tiles">
+	<definition name="generalMemberJoinform.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/generalMemberJoinform.jsp"/>
 	</definition>
 	
-	<definition name="licenseeMemberJoin.tiles" extends="default-nonav.tiles">
+	<definition name="licenseeMemberJoinform.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/licenseeMemberJoinform.jsp"/>
 	</definition>
 	
@@ -51,4 +51,8 @@
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/member_modify_form.jsp"/>
 	</definition>
+	<definition name="joinSelect.tiles" extends="default-nonav.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/joinSelect.jsp"/>
+	</definition>
+	
 </tiles-definitions>
