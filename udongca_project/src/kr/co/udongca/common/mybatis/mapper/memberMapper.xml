@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
-	<select id="login" parameterType="map" resultType="member">
+	<select id="login" parameterType="member" resultType="member">
 		select memberId,memberPassword,memberName,memberEmail,memberPenalty,loginPossibility, memberType from member
 		where memberId = #{memberId} and memberPassword=#{memberPassword}
 	</select>
+	
+	<update id="member_modify" parameterType="member">
+		update member set memberPassword=#{memberPassword},memberName=#{memberName} where memberId=#{memberId} 
+	</update>
+	
 </mapper>
