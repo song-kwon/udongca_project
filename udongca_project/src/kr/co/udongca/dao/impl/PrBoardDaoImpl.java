@@ -35,7 +35,7 @@ public class PrBoardDaoImpl implements PrBoardDao{
 
 	@Override
 	public PRBoard selectPRBoardByNo(int cafeNo) {
-		return session.selectOne(prBoardNamespace + "selectPRBoardById", cafeNo);
+		return session.selectOne(prBoardNamespace + "selectPRBoardByNo", cafeNo);
 	}
 
 	@Override
