@@ -48,7 +48,6 @@ footer{
 <tiles:insertAttribute name="body"/>
 </section>
 
-
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>

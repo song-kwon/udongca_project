@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 
 <div style="background-color: aqua; margin-left: 25%;"><h2>회원 가입</h2></div>
-<form action="member/join" method="post">
+<form action="/udongca_project/member/join.udc" method="post">
 <table>
 	<tr>
 		<th>아이디</th>
