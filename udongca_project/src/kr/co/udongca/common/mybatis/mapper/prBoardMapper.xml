@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="prBoardMapper">
 	<!--
-		검색 리스트에서 홍보글들을 간략하게 보여 줄 때 쓰는 SELECT SQL 문(
+		검색 리스트에서 홍보글들을 간략하게 보여 줄 때 쓰는 SELECT SQL 문
 		이름, 이미지를 표시하고, No는 Page 처리 및 상세 페이지 링크에 사용
 	-->
 	<sql id="select-basic-PRBoard">
 		SELECT
-			cafeNo,
-			cafeName,
-			cafeFakeImage
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeFakeImage cafeFakeImage
 		FROM (
 			SELECT
 				CEIL(rownum/?) page,
@@ -30,18 +30,18 @@
 	<!-- 홍보글 상세 내용(사업자 등록 번호 제외)을 보여주는 SELECT SQL 문 -->
 	<sql id="select-full-PRBoard">
 		SELECT
-			cafeNo,
-			cafeName,
-			cafeIntro,
-			cafeTel,
-			cafeFeature,
-			cafeAddress,
-			operationHour,
-			managerName,
-			managerTel,
-			cafeRealImage,
-			cafeFakeImage,
-			memberId
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeIntro cafeIntro,
+			cafeTel cafeTel,
+			cafeFeature cafeFeature,
+			cafeAddress cafeAddress,
+			operationHour operationHour,
+			managerName managerName,
+			managerTel managerTel,
+			cafeRealImage cafeRealImage,
+			cafeFakeImage cafeFakeImage,
+			memberId memberId
 		FROM PRboard
 	</sql>
 	<!-- 홍보글 추가 -->

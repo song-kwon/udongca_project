@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="menuMapper">
+	<insert id="insertMenu" parameterType="menu">
+		INSERT INTO menu(
+			menuNo,
+			cafeNo,
+			menuType,
+			menuName,
+			menuRealImage,
+			menuFakeImage
+		)
+		VALUES(
+			#{menuNo},
+			#{cafeNumber},
+			#{menuType},
+			#{menuName},
+			#{menuRealImage},
+			#{menuFakeImage}
+		)
+	</insert>
+	<update id="updateMenu" parameterType="menu">
+		UPDATE menu
+		SET(
+			menuType = #{menuType},
+			menuName = #{menuName},
+			menuRealImage = #{menuRealImage},
+			menuFakeImage = #{menuFakeImage}
+		)
+		WHERE menuNo = #{menuNo}
+	</update>
+	<delete id="deleteMenu" parameterType="_int">
+		DELETE FROM menu
+		WHERE menuNo = #{menuNo}
+	</delete>
+	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
+		SELECT(
+			menuName,
+		)
+		FROM menu
+		WHERE cafeNo = #{cafeNumber}
+		AND menuType = #{menuType}
+	</select>
+	<select id="selectMenuByMenuNo" parameterType="_int" resultType="menu">
+		SELECT(
+			menuRealImage,
+			menuFakeImage
+		)
+		FROM menu
+		WHERE menuNo = #{menuNo}
+	</select>
 </mapper>
