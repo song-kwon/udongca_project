@@ -42,4 +42,13 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/licenseeMemberJoinform.jsp"/>
 	</definition>
 	
+	<definition name="member_verify.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/member_verify.jsp"/>
+	</definition>
+	
+	<definition name="member_modify.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/member_modify_form.jsp"/>
+	</definition>
 </tiles-definitions>

@@ -11,17 +11,22 @@ import kr.co.udongca.vo.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate session;
 
 	public MemberDaoImpl(SqlSessionTemplate session) {
-		this.session=session;
+		this.session = session;
 	}
-	
+
 	@Override
 	public Member login(String id, String password) {
-		System.out.println(id+password);
-		return session.selectOne("memberMapper.login",new Member(id, password));
+		System.out.println(id + password);
+		return session.selectOne("memberMapper.login", new Member(id, password));
+	}
+
+	@Override
+	public int memberModify(Member member) {
+		return session.update("memberMapper.member_modify",member);
 	}
 }
