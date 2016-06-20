@@ -1,12 +1,16 @@
 package kr.co.udongca.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.udongca.service.impl.MemberServiceImpl;
+import kr.co.udongca.vo.Member;
 
 @Controller
 @RequestMapping("/member/")
@@ -25,5 +29,15 @@ public class MemberController {
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/main.udc";
+	}
+	
+	@RequestMapping("generalMemberJoin.udc")
+	public String generalMemberJoin(@ModelAttribute @Valid Member member){
+		return "redirect:/joinSuccess.udc";
+	}
+	
+	@RequestMapping("licenseeMemberJoin.udc")
+	public String licenseeMemberJoin(@ModelAttribute @Valid Member member){
+		return "redirect:/joinSuccess.udc";
 	}
 }

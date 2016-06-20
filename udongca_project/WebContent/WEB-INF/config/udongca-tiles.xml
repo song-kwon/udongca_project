@@ -25,13 +25,16 @@
 	</definition>
 	
 	<definition name="mypage.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/menu.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
 	</definition>
 	
-	<definition name="joinform.tiles" extends="default-nonav.tiles">
-		
+	<definition name="generalMemberJoin.tiles" extends="default-nonav.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/generalMemberJoinform.jsp"/>
 	</definition>
 	
+	<definition name="licenseeMemberJoin.tiles" extends="default-nonav.tiles">
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/licenseeMemberJoinform.jsp"/>
+	</definition>
 	
 </tiles-definitions>
