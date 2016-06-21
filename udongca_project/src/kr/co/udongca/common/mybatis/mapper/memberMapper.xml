@@ -22,4 +22,7 @@
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
 	</select>
 	
+	<select id="selectMajorCategory" resultType="majorCategory">
+		SELECT majorcategoryno, address1 from majorcategory
+	</select>
 </mapper>

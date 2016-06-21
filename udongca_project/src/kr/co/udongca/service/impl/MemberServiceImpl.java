@@ -1,5 +1,7 @@
 package kr.co.udongca.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
+import kr.co.udongca.vo.MajorCategory;
 import kr.co.udongca.vo.Member;
 
 @Service
@@ -33,5 +36,10 @@ public class MemberServiceImpl implements MemberService{
 		if(password != null) modifyMember.setMemberPassword(password);
 		
 		return memberDaoImpl.memberModify(modifyMember);
+	}
+	
+	@Override
+	public List<MajorCategory> majorCategoryList() {
+		return memberDaoImpl.selectMajorCategory();
 	}
 }

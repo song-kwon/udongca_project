@@ -1,12 +1,13 @@
 package kr.co.udongca.dao.impl;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.MemberDao;
+import kr.co.udongca.vo.MajorCategory;
 import kr.co.udongca.vo.Member;
 
 @Repository
@@ -40,4 +41,8 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("memberMapper.count_same_id", memberId);
 	}
 	
+	@Override
+	public List<MajorCategory> selectMajorCategory() {
+		return session.selectList("memberMapper.selectMajorCategory"); 
+	}
 }

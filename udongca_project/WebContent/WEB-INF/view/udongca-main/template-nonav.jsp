@@ -30,7 +30,6 @@ section {
 	width: 100%;
 	min-height: 768px;
 	float: left;
-	margin-left: 50%;
 }
 
 footer {
@@ -48,7 +47,7 @@ footer {
 <tiles:insertAttribute name="header"/>
 </header>
 
-<section id="section">
+<section class="nonav_section">
 <tiles:insertAttribute name="body"/>
 </section>
 

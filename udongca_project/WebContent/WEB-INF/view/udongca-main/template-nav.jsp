@@ -23,7 +23,8 @@ nav{
 }
 section{
 	padding: 15px;
-	min-height:400px;
+	width:350px;
+	min-height:700px;
 	float:left;
 }
 footer{
@@ -41,11 +42,11 @@ footer{
 <tiles:insertAttribute name="header"/>
 </header>
 
-<nav>
+<nav class="nav">
 <tiles:insertAttribute name="menu"/>
 </nav>
 
-<section>
+<section class="nav_section">
 <tiles:insertAttribute name="body"/>
 </section>
 

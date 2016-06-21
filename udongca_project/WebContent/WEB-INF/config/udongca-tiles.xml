@@ -29,10 +29,6 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/master_page.jsp"/>
 	</definition>
 	
-	<definition name="myPage.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
-		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/mypage.jsp"/>
-	</definition>
 	
 	<definition name="generalMemberJoinform.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/generalMemberJoinform.jsp"/>
@@ -42,21 +38,17 @@
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/licenseeMemberJoinform.jsp"/>
 	</definition>
 	
-	<definition name="member_verify.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
-		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/member_verify.jsp"/>
-	</definition>
-	
-	<definition name="member_modify.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
-		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/member_modify_form.jsp"/>
-	</definition>
 	<definition name="joinSelect.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/joinSelect.jsp"/>
 	</definition>
-	<definition name="masterPage.tiles" extends="default-nav.tiles">
+	<definition name="master/masterPage.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/master_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/master_page.jsp"/>
+	</definition>
+	
+	<definition name="member/*.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/member_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>

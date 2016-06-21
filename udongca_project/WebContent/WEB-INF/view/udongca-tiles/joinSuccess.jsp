@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 
-<div style="background-color: aqua; margin-left: 25%;"><h2>회원 가입 완료</h2></div>
+<div style="background-color: aqua; margin-left: 25%;" class="nonav_bodyDiv"><h2>회원 가입 완료</h2></div>
 <table>
 	<tr>
 		<th>아이디</th>

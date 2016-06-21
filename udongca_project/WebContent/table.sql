@@ -3,6 +3,8 @@ create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
 -- create sequence --
+insert into member values ('id','name','pwd','email',0,'possible','generalMember')
+delete  from member where memberid='id'
 
 create sequence notice_board_noticeNo_seq nocache;
 create sequence onetoone_inquiry_inquiryNo_seq nocache;
@@ -160,18 +162,23 @@ drop sequence report_board_reportboardNo_seq ;
 drop sequence menu_menuNo_seq ;
 drop sequence review_reply_replyNo_seq ;
 
+
 -- address table --
 create table majorcategory(
-major_categoryNo number primary key,
+majorCategoryNo number primary key,
 address1 varchar(40)
 );
 
 create table middlecategory(
-middle_categoryNo number primary key,
+middleCategoryNo number primary key,
 address2 varchar(40),
-major_categoryNo number,
+majorCategoryNo number,
 constraint middle_No_fk_majorNo
-foreign key (major_categoryNo)
-references majorcategory(major_categoryNo)
+foreign key (majorCategoryNo)
+references majorcategory(majorCategoryNo)
 )
 
+-- category drop --
+
+drop table middlecategory;
+drop table majorcategory;

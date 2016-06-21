@@ -1,5 +1,7 @@
 package kr.co.udongca.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.udongca.service.MemberService;
+import kr.co.udongca.vo.MajorCategory;
 import kr.co.udongca.vo.Member;
 
 @Controller
@@ -36,9 +39,9 @@ public class MemberController {
 		Member login = (Member)session.getAttribute("login");
 		if(login != null){
 			if(login.getMemberType().equals("master"))
-				return "master_page.tiles";
+				return "master/master_page.tiles";
 			else
-				return "myPage.tiles";
+				return "member/mypage.tiles";
 		}else{
 		return "redirect:/loginPage.udc";
 		}
@@ -48,7 +51,7 @@ public class MemberController {
 	public String masterPage(HttpSession session){
 		Member master = (Member)session.getAttribute("login");
 		if(master != null && master.getMemberType().equals("master"))
-			return "masterPage.tiles";
+			return "member/masterPage.tiles";
 		else
 			return "redirect:/main.udc";
 	}
@@ -67,7 +70,7 @@ public class MemberController {
 	public String memberModify(HttpSession session){
 		Member login = (Member)session.getAttribute("login");
 		if(login != null && !login.getMemberType().equals("master"))
-			return "member_verify.tiles";
+			return "member/member_verify.tiles";
 		else
 			return "redirect:/login.udc";
 	}
@@ -86,7 +89,7 @@ public class MemberController {
 	public String memberModifyForm(HttpSession session){
 		Member login=(Member)session.getAttribute("login");
 		if(login != null && !login.getMemberType().equals("master"))
-			return "member_modify.tiles";
+			return "member/member_modify.tiles";
 		else
 			return "redirect:/login.udc";
 	}
@@ -104,5 +107,15 @@ public class MemberController {
 			return "fail";
 		}
 	}
-
+	
+	@RequestMapping("member_preferLocation_form.udc")
+	public String myPreferLocation(){
+		return "member/member_preferLocation_form.tiles";
+	}
+	
+	@RequestMapping("majorCategory.udc")
+	@ResponseBody
+	public List<MajorCategory> majorCategory(){
+		return memberService.majorCategoryList();
+	}
 }

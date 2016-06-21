@@ -57,7 +57,7 @@ function checkSubmit(){
 	}
 }
 </script>
-
+<div class="nonav_bodyDiv">
 <div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
 <div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
 <form action="licenseeMemberJoin" method="post" onsubmit="return checkSubmit();">
@@ -103,3 +103,4 @@ function checkSubmit(){
 	</tr>
 </table>
 </form>
+</div>
