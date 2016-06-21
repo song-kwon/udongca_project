@@ -21,5 +21,7 @@
 	<select id="count_same_id" parameterType="String" resultType="member">
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
 	</select>
-	
+	<select id="member_list" resultType="member">
+		<include refid="select-basic"/>
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package kr.co.udongca.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -104,5 +106,11 @@ public class MemberController {
 			return "fail";
 		}
 	}
-
+	@RequestMapping("memberList.udc")
+	@ResponseBody
+	public List memberList(){
+	    List list = memberService.memberList();
+	    return list;
+	}
+	
 }

@@ -1,5 +1,7 @@
 package kr.co.udongca.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +35,9 @@ public class MemberServiceImpl implements MemberService{
 		if(password != null) modifyMember.setMemberPassword(password);
 		
 		return memberDaoImpl.memberModify(modifyMember);
+	}
+	@Override
+	public List memberList(){
+	    return memberDaoImpl.selectList();
 	}
 }

@@ -1,6 +1,6 @@
 package kr.co.udongca.dao.impl;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,10 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int countSameId(String memberId){
 		return session.selectOne("memberMapper.count_same_id", memberId);
+	}
+	@Override
+	public List selectList(){
+	    return session.selectList("memberMapper.member_list");
 	}
 	
 }

@@ -58,5 +58,8 @@
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/master_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/master_page.jsp"/>
 	</definition>
-	
+	<definition name="memberList.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/master_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/memberList.jsp"/>
+	</definition>
 </tiles-definitions>

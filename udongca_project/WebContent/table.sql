@@ -49,7 +49,7 @@ foreign key (memberId)
 references member(memberId) on delete cascade
 );
 
-
+SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry
 create table PRboard(
 cafeNo	NUMBER	primary key,
 cafeName	varchar2(50)	NOT NULL,
