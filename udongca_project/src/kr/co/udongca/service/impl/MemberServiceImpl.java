@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.udongca.dao.impl.MemberDaoImpl;
+import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Member;
 
@@ -13,7 +13,7 @@ import kr.co.udongca.vo.Member;
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
-	private MemberDaoImpl memberDaoImpl;
+	private MemberDao memberDaoImpl;
 	
 	@Override
 	public Member login(String id, String password) throws Exception {

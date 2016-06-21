@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.udongca.service.impl.MemberServiceImpl;
+import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Member;
 
 @Controller
@@ -17,7 +17,7 @@ import kr.co.udongca.vo.Member;
 public class MemberController {
 	
 	@Autowired
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 
 	@RequestMapping("login.udc")
 	public String login(String id, String password,HttpSession session) throws Exception{

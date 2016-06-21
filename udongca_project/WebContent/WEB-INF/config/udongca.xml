@@ -43,6 +43,12 @@
 	
 	<bean name="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
 		c:sqlSessionFactory-ref="sqlSessionFactory"/> 
+		
+	<!--  transaction bean 등록 -->
+	
+	<bean name="txmanager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+	 	p:dataSource-ref="dataSource"/>
+	 <tx:annotation-driven transaction-manager="txmanager"/>
 
 	<!-- Tiles 설정 -->
 	<bean name="tilesConfig"
