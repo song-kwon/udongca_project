@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
-import kr.co.udongca.vo.MajorCategory;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 @Service
@@ -40,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MajorCategory> majorCategoryList() {
-		return memberDaoImpl.selectMajorCategory();
+	public List<Address> AddressList() {
+		return memberDaoImpl.selectAddress();
 	}
 	
 	public int countSameId(String memberId) {

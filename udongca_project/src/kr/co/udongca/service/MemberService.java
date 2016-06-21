@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import kr.co.udongca.vo.MajorCategory;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 public interface MemberService {
@@ -13,7 +13,7 @@ public interface MemberService {
 
 	public int memberModify(String name, String password, HttpSession session);
 
-	public List<MajorCategory> majorCategoryList();
+	public List<Address> AddressList();
 
 	public int generalMemberJoin(Member member);
 

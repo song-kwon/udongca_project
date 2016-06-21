@@ -2,7 +2,7 @@ package kr.co.udongca.dao;
 
 import java.util.List;
 
-import kr.co.udongca.vo.MajorCategory;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 public interface MemberDao {
@@ -16,7 +16,7 @@ public interface MemberDao {
 
 	public int countSameId(String memberId);
 
-	public List<MajorCategory> selectMajorCategory();
+	public List<Address> selectAddress();
 
 	public Member findById(String memberId);
 }

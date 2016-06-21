@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.MemberService;
-import kr.co.udongca.vo.MajorCategory;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 @Controller
@@ -148,9 +148,9 @@ public class MemberController {
 		return "member/member_preferLocation_form.tiles";
 	}
 	
-	@RequestMapping("majorCategory.udc")
+	@RequestMapping("Address.udc")
 	@ResponseBody
-	public List<MajorCategory> majorCategory(){
-		return memberService.majorCategoryList();
+	public List<Address> Address(){
+		return memberService.AddressList();
 	}
 }

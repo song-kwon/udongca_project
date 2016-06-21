@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.MemberDao;
-import kr.co.udongca.vo.MajorCategory;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 @Repository
@@ -47,8 +47,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<MajorCategory> selectMajorCategory() {
-		return session.selectList("addressMapper.selectMajorCategory");
+	public List<Address> selectAddress() {
+		return session.selectList("addressMapper.selectAddress");
 	}
 
 	public Member findById(String memberId) {
