@@ -40,7 +40,7 @@ public class PrBoardDaoImpl implements PrBoardDao{
 
 	@Override
 	public PRBoard selectPRBoardByCoporateNumb(String coporateNumb) {
-		return session.selectOne(prBoardNamespace + "selectCoporateNumbFromPRBoard", coporateNumb);
+		return session.selectOne(prBoardNamespace + "selectPRBoardByCoporateNumb", coporateNumb);
 	}
 
 	@Override
