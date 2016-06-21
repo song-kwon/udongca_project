@@ -22,4 +22,6 @@ public interface MemberService {
 	public int countSameId(String memberId);
 
 	public Member findById(String memberId);
+	
+	public List<Member> memberList();
 }

@@ -53,10 +53,10 @@ public class MemberController {
 	public String masterPage(HttpSession session){
 		Member master = (Member)session.getAttribute("login");
 		if(master != null && master.getMemberType().equals("master"))
-			return "member/masterPage.tiles";
+			return "master/master_page.tiles";
 		else
 			return "redirect:/main.udc";
-	}
+	} 
 	
 	@RequestMapping("countSameId.udc")
 	@ResponseBody
@@ -152,5 +152,10 @@ public class MemberController {
 	@ResponseBody
 	public List<Address> Address(){
 		return memberService.AddressList();
+	}
+	@RequestMapping("memberList.udc") 
+	@ResponseBody
+	public List<Member> memberList(){
+	    return memberService.memberList();
 	}
 }

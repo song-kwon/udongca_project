@@ -54,5 +54,8 @@ public class MemberDaoImpl implements MemberDao {
 	public Member findById(String memberId) {
 		return session.selectOne("memberMapper.find_by_id", memberId);
 	}
+	public List<Member> selectList(){
+	    return session.selectList("memberMapper.member_list");
+	}
 
 }

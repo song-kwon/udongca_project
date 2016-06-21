@@ -19,4 +19,6 @@ public interface MemberDao {
 	public List<Address> selectAddress();
 
 	public Member findById(String memberId);
+	
+	public List<Member> selectList();
 }

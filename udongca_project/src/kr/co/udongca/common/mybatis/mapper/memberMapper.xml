@@ -40,5 +40,8 @@
 		<include refid="select-basic" />
 		WHERE memberId=#{memberId}
 	</select>
-
+	<select id="member_list" resultType="member">
+	
+	<include refid="select-basic" />
+	</select>
 </mapper>
