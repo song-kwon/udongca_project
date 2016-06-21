@@ -13,7 +13,7 @@ public interface MemberService {
 
 	public int memberModify(String name, String password, HttpSession session);
 
-	public List<Address> AddressList();
+	public List<Address> majorList();
 
 	public int generalMemberJoin(Member member);
 
@@ -24,4 +24,5 @@ public interface MemberService {
 	public Member findById(String memberId);
 	
 	public List<Member> memberList();
+	public List<Address> middleList(int majorNo);
 }

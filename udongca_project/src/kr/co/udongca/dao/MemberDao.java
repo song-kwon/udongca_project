@@ -16,7 +16,9 @@ public interface MemberDao {
 
 	public int countSameId(String memberId);
 
-	public List<Address> selectAddress();
+	public List<Address> selectMajor();
+	
+	public List<Address> selectMiddle(int majorNo);
 
 	public Member findById(String memberId);
 	

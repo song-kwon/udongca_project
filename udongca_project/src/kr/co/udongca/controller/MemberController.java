@@ -150,8 +150,15 @@ public class MemberController {
 	
 	@RequestMapping("majorCategory.udc")
 	@ResponseBody
-	public List<Address> Address(){
-		return memberService.AddressList();
+	public List<Address> majorList(){
+		return memberService.majorList();
+	}
+	
+	@RequestMapping("middleCategory.udc")
+	@ResponseBody
+	public List<Address> middleList(int majorNo){
+		System.out.println("asd");
+		return memberService.middleList(majorNo);
 	}
 	@RequestMapping("memberList.udc") 
 	@ResponseBody

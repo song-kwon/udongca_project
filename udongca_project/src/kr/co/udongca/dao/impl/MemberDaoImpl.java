@@ -47,8 +47,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Address> selectAddress() {
+	public List<Address> selectMajor() {
 		return session.selectList("addressMapper.selectAllMajorAddress");
+	}
+
+	@Override
+	public List<Address> selectMiddle(int majorNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("addressMapper.selectMiddleAddressByMajorAddressNo",majorNo);
 	}
 
 	public Member findById(String memberId) {
