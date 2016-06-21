@@ -20,8 +20,6 @@ public class SearchController {
 	@RequestMapping("selectAllMajorAddress.udc")
 	@ResponseBody
 	public List<Address> selectAllMajorAddress(){
-		System.out.println("selectAllMajorAddress");
-		System.out.println(service.selectAllMajorAddress());
 		return service.selectAllMajorAddress();
 	}
 	

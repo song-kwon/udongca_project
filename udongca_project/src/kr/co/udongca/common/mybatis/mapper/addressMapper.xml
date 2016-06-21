@@ -12,6 +12,6 @@
 			middle_categoryNo addressId,
 			address2 addressName
 			FROM middlecategory
-			WHERE address1_id = #{value}
+			WHERE major_categoryNo = #{value}
 	</select>
 </mapper>
