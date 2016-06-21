@@ -2,27 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 	<sql id="select-basic">
-		SELECT memberId, memberName, memberPassword, memberEmail FROM member
+		SELECT memberId, memberName, memberPassword, memberEmail
+		FROM member
 	</sql>
-	
+
 	<select id="login" parameterType="member" resultType="member">
-		select memberId,memberPassword,memberName,memberEmail,memberPenalty,loginPossibility, memberType from member
-		where memberId = #{memberId} and memberPassword=#{memberPassword}
+		select
+		memberId,memberPassword,memberName,memberEmail,memberPenalty,loginPossibility,
+		memberType from member
+		where memberId = #{memberId} and
+		memberPassword=#{memberPassword}
 	</select>
-	
+
 	<update id="member_modify" parameterType="member">
-		update member set memberPassword=#{memberPassword},memberName=#{memberName} where memberId=#{memberId} 
+		update member set
+		memberPassword=#{memberPassword},memberName=#{memberName} where
+		memberId=#{memberId}
 	</update>
-	
-	<insert id="member_insert" parameterType="member">
-		INSERT INTO member VALUES (#{memberId}, #{memberName}, #{memberPassword}, #{memberEmail})
+
+	<insert id="general_member_insert" parameterType="member">
+		INSERT INTO
+		member VALUES (#{memberId}, #{memberName}, #{memberPassword},
+		#{memberEmail}, 0, 'possible', 'generalMember')
 	</insert>
-	
-	<select id="count_same_id" parameterType="String" resultType="member">
+
+	<insert id="licensee_member_insert" parameterType="member">
+		INSERT INTO
+		member VALUES (#{memberId}, #{memberName}, #{memberPassword},
+		#{memberEmail}, 0, 'possible', 'licenseeMember')
+	</insert>
+
+	<select id="count_same_id" parameterType="String" resultType="int">
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
 	</select>
-	
+
 	<select id="selectMajorCategory" resultType="majorCategory">
-		SELECT majorcategoryno, address1 from majorcategory
+		SELECT
+		majorcategoryno, address1 from majorcategory
 	</select>
+
+	<select id="find_by_id" parameterType="String" resultType="member">
+		<include refid="select-basic" />
+		WHERE memberId=#{memberId}
+	</select>
+
 </mapper>

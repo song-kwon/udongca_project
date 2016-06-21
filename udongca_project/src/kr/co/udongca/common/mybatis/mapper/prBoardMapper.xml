@@ -80,8 +80,7 @@
 	<!-- 홍보글 수정 -->
 	<update id="updatePRBoard" parameterType="PRBoard">
 		UPDATE PRboard
-		SET (
-			cafeName = #{cafeName},
+		SET cafeName = #{cafeName},
 			cafeIntro = #{cafeIntro},
 			cafeTel = #{cafeTel},
 			cafeFeature = #{cafeFeature},
@@ -92,10 +91,9 @@
 			managerTel = #{managerTel},
 			cafeRealImage = #{cafeRealImage},
 			cafeFakeImage = #{cafeFakeImage}
-		)
 		WHERE cafeNo = #{cafeNo}
 	</update>
-	<!-- 홍보글 수정 -->
+	<!-- 홍보글 삭제 -->
 	<delete id="deletePRBoard" parameterType="_int">
 		DELETE FROM PRBoard
 		WHERE cafeNo = #{cafeNo}

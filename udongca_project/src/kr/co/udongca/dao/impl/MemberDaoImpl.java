@@ -28,21 +28,31 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int memberModify(Member member) {
-		return session.update("memberMapper.member_modify",member);
+		return session.update("memberMapper.member_modify", member);
 	}
-	
+
 	@Override
-	public int insertMember(Member member){
-		return session.insert("memberMapper.member_insert", member);
+	public int insertGeneralMember(Member member) {
+		return session.insert("memberMapper.general_member_insert", member);
 	}
-	
+
 	@Override
-	public int countSameId(String memberId){
+	public int insertLicenseeMember(Member member) {
+		return session.insert("memberMapper.licensee_member_insert", member);
+	}
+
+	@Override
+	public int countSameId(String memberId) {
 		return session.selectOne("memberMapper.count_same_id", memberId);
 	}
-	
+
 	@Override
 	public List<MajorCategory> selectMajorCategory() {
-		return session.selectList("memberMapper.selectMajorCategory"); 
+		return session.selectList("memberMapper.selectMajorCategory");
 	}
+
+	public Member findById(String memberId) {
+		return session.selectOne("memberMapper.find_by_id", memberId);
+	}
+
 }
