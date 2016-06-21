@@ -40,8 +40,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Address> AddressList() {
-		return memberDaoImpl.selectAddress();
+	public List<Address> majorList() {
+		return memberDaoImpl.selectMajor();
+	}
+	
+	@Override
+	public List<Address> middleList(int majorNo) {
+		// TODO Auto-generated method stub
+		return memberDaoImpl.selectMiddle(majorNo);
 	}
 	
 	public int countSameId(String memberId) {
@@ -62,4 +68,6 @@ public class MemberServiceImpl implements MemberService {
 	public int licenseeMemberJoin(Member member) {
 		return memberDaoImpl.insertLicenseeMember(member);
 	}
+	
+	
 }
