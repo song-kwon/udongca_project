@@ -148,7 +148,7 @@ public class MemberController {
 		return "member/member_preferLocation_form.tiles";
 	}
 	
-	@RequestMapping("Address.udc")
+	@RequestMapping("majorCategory.udc")
 	@ResponseBody
 	public List<Address> Address(){
 		return memberService.AddressList();

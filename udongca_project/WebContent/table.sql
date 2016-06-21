@@ -165,18 +165,18 @@ drop sequence review_reply_replyNo_seq ;
 
 -- address table --
 create table majorcategory(
-majorCategoryNo number primary key,
+major_CategoryNo number primary key,
 address1 varchar(40)
 );
 
 create table middlecategory(
-middleCategoryNo number primary key,
+middle_CategoryNo number primary key,
 address2 varchar(40),
-majorCategoryNo number,
+major_CategoryNo number,
 constraint middle_No_fk_majorNo
-foreign key (majorCategoryNo)
-references majorcategory(majorCategoryNo)
-)
+foreign key (major_CategoryNo)
+references majorcategory(major_CategoryNo)
+);
 
 -- category drop --
 
