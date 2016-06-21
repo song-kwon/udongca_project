@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,23 @@ public class SearchController {
 		return service.selectMiddleAddressByMajorAddressNo(majorAddressNo);
 	}
 	
-	@RequestMapping("locationSearchResult.udc")
 	@ResponseBody
-	public List<PRBoard> locationSearchResult(String cafeAddress){
-		return service.selectPRBoardListByAddress(cafeAddress);
+	public List<PRBoard> locationSearchResult(String cafeAddress, int page, int itemsPerPage){
+		HashMap map = new HashMap();
+		map.put ("cafeAddress", cafeAddress);
+		map.put ("page", page);
+		map.put ("itemsPerPage", itemsPerPage);
+		System.out.println("locationSearchResult: " + map);
+		return service.selectPRBoardListByAddress(map);
 	}
 	
 	@RequestMapping("themeSearchResult.udc")
 	@ResponseBody
-	public List<PRBoard> themeSearchResult(String cafeFeature){
-		return service.selectPRBoardListByFeature(cafeFeature);
+	public List<PRBoard> themeSearchResult(String cafeFeature, int page, int itemsPerPage){
+		HashMap map = new HashMap();
+		map.put ("cafeFeature", cafeFeature);
+		map.put ("page", page);
+		map.put ("itemsPerPage", itemsPerPage);
+		return service.selectPRBoardListByFeature(map);
 	}
 }
