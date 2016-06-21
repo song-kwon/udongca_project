@@ -1,4 +1,4 @@
-package kr.co.udongca.common.util;
+package kr.co.udongca.common.util.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

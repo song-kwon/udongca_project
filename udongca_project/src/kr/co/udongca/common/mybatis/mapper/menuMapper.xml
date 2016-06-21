@@ -11,7 +11,7 @@
 			menuFakeImage
 		)
 		VALUES(
-			#{menuNo},
+			#{menuNO},
 			#{cafeNumber},
 			#{menuType},
 			#{menuName},
@@ -21,32 +21,27 @@
 	</insert>
 	<update id="updateMenu" parameterType="menu">
 		UPDATE menu
-		SET(
-			menuType = #{menuType},
+		SET menuType = #{menuType},
 			menuName = #{menuName},
 			menuRealImage = #{menuRealImage},
 			menuFakeImage = #{menuFakeImage}
-		)
-		WHERE menuNo = #{menuNo}
+		WHERE menuNo = #{menuNO}
 	</update>
 	<delete id="deleteMenu" parameterType="_int">
 		DELETE FROM menu
-		WHERE menuNo = #{menuNo}
+		WHERE menuNo = #{menuNO}
 	</delete>
 	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
-		SELECT(
-			menuName,
-		)
+		SELECT menuName
 		FROM menu
 		WHERE cafeNo = #{cafeNumber}
 		AND menuType = #{menuType}
 	</select>
 	<select id="selectMenuByMenuNo" parameterType="_int" resultType="menu">
-		SELECT(
+		SELECT
 			menuRealImage,
 			menuFakeImage
-		)
 		FROM menu
-		WHERE menuNo = #{menuNo}
+		WHERE menuNo = #{menuNO}
 	</select>
 </mapper>

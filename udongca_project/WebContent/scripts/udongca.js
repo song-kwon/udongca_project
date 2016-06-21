@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#idVerification").on("click",function(){
+/*	$("#idVerification").on("click",function(){
 		$.ajax({
 				"url":"member/findById.udc",
 				"type":"POST",
@@ -22,7 +22,7 @@ $(document).ready(function(){
 					}
 				}
 		})
-	});
+	});*/
 	
 	$('#member_modify').on('click',function(){
 		location.replace('/udongca_project/member/member_modify_form.udc');
