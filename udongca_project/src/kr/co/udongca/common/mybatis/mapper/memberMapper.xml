@@ -36,11 +36,6 @@
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
 	</select>
 
-	<select id="selectMajorCategory" resultType="majorCategory">
-		SELECT
-		majorcategoryno, address1 from majorcategory
-	</select>
-
 	<select id="find_by_id" parameterType="String" resultType="member">
 		<include refid="select-basic" />
 		WHERE memberId=#{memberId}
