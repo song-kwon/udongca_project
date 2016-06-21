@@ -30,6 +30,7 @@ public class SearchController {
 		return service.selectMiddleAddressByMajorAddressNo(majorAddressNo);
 	}
 	
+	@RequestMapping("locationSearchResult.udc")
 	@ResponseBody
 	public List<PRBoard> locationSearchResult(String cafeAddress, int page, int itemsPerPage){
 		HashMap map = new HashMap();
