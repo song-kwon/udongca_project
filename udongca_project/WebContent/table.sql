@@ -36,7 +36,7 @@ loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
 
-
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','admin')
 create table onetoone_inquiry(
 inquiryNo	NUMBER	primary key,
 inquiryTitle	varchar2(50)	NOT NULL,

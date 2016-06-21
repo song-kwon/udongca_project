@@ -26,7 +26,7 @@
 	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="licenseeMemberJoinform.tiles"/>
 	<mvc:view-controller path="/member/member_myPage.udc" view-name="mypage.tiles"/>
 	<mvc:view-controller path="/joinSelect.udc" view-name="joinSelect.tiles"/>
-
+	<mvc:view-controller path="/member/master_page.udc" view-name="masterPage.tiles"/>
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 
