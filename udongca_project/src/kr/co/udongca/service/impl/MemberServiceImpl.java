@@ -34,4 +34,24 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDaoImpl.memberModify(modifyMember);
 	}
+	
+	@Override
+	public int countSameId(String memberId){
+		return memberDaoImpl.countSameId(memberId);
+	}
+	
+	@Override
+	public Member findById(String memberId){
+		return memberDaoImpl.findById(memberId);
+	}
+	
+	@Override
+	public int generalMemberJoin(Member member){
+		return memberDaoImpl.insertGeneralMember(member);
+	}
+	
+	@Override
+	public int licenseeMemberJoin(Member member){
+		return memberDaoImpl.insertLicenseeMember(member);
+	}
 }

@@ -5,9 +5,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Member;
@@ -53,14 +55,47 @@ public class MemberController {
 			return "redirect:/main.udc";
 	}
 	
+	@RequestMapping("countSameId.udc")
+	@ResponseBody
+	public String countSameId(String memberId){
+		String number = ""+memberService.countSameId(memberId);
+		return number;
+	}
+	
+	@RequestMapping("findById.udc")
+	public Member findById(String memberId){
+		Member member = memberService.findById(memberId);
+		return member;
+	}
+	
 	@RequestMapping("generalMemberJoin.udc")
-	public String generalMemberJoin(@ModelAttribute @Valid Member member){
-		return "redirect:/joinSuccess.udc";
+	public String generalMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress, BindingResult errors){
+		if(errors.hasErrors()){
+			return "generalMemberJoinform.tiles";
+		}else{
+			String email = member.getMemberEmail()+"@"+emailAddress;
+			member.setMemberEmail(email);
+			memberService.generalMemberJoin(member);
+			return "redirect:/member/joinSuccess.udc?memberId="+member.getMemberId();
+		}
 	}
 	
 	@RequestMapping("licenseeMemberJoin.udc")
-	public String licenseeMemberJoin(@ModelAttribute @Valid Member member){
-		return "redirect:/joinSuccess.udc";
+	public String licenseeMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress, BindingResult errors){
+		if(errors.hasErrors()){
+			return "licenseeMemberJoinform.tiles";
+		}else{
+			String email = member.getMemberEmail()+"@"+emailAddress;
+			member.setMemberEmail(email);
+			memberService.generalMemberJoin(member);
+			return "redirect:/member/joinSuccess.udc?memberId="+member.getMemberId();
+		}
+	}
+	
+	@RequestMapping("joinSuccess.udc")
+	public ModelAndView joinSuccess(String memberId){
+		Member member = memberService.findById(memberId);
+		return new ModelAndView("joinSuccess.tiles", "member", member);
 	}
 	
 	@RequestMapping("member_modify_form.udc")

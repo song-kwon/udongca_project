@@ -31,13 +31,23 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public int insertMember(Member member){
-		return session.insert("memberMapper.member_insert", member);
+	public int insertGeneralMember(Member member){
+		return session.insert("memberMapper.general_member_insert", member);
+	}
+	
+	@Override
+	public int insertLicenseeMember(Member member){
+		return session.insert("memberMapper.licensee_member_insert", member);
 	}
 	
 	@Override
 	public int countSameId(String memberId){
 		return session.selectOne("memberMapper.count_same_id", memberId);
+	}
+	
+	@Override
+	public Member findById(String memberId){
+		return session.selectOne("memberMapper.find_by_id", memberId);
 	}
 	
 }

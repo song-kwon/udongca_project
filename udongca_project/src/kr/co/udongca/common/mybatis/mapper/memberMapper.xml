@@ -14,12 +14,20 @@
 		update member set memberPassword=#{memberPassword},memberName=#{memberName} where memberId=#{memberId} 
 	</update>
 	
-	<insert id="member_insert" parameterType="member">
-		INSERT INTO member VALUES (#{memberId}, #{memberName}, #{memberPassword}, #{memberEmail})
+	<insert id="general_member_insert" parameterType="member">
+		INSERT INTO member VALUES (#{memberId}, #{memberName}, #{memberPassword}, #{memberEmail}, 0, 'possible', 'generalMember')
 	</insert>
 	
-	<select id="count_same_id" parameterType="String" resultType="member">
+	<insert id="licensee_member_insert" parameterType="member">
+		INSERT INTO member VALUES (#{memberId}, #{memberName}, #{memberPassword}, #{memberEmail}, 0, 'possible', 'licenseeMember')
+	</insert>
+	
+	<select id="count_same_id" parameterType="String" resultType="int">
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
+	</select>
+	
+	<select id="find_by_id" parameterType="String" resultType="member">
+		<include refid="select-basic"/> WHERE memberId=#{memberId}
 	</select>
 	
 </mapper>

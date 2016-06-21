@@ -3,18 +3,24 @@
 $(document).ready(function(){
 	$("#idVerification").on("click",function(){
 		$.ajax({
-				"url":"member/countSameId.udc",
+				"url":"/udongca_project/member/countSameId.udc",
 				"type":"POST",
-				"data":"id="+$("#id").val(),
+				"data":"memberId="+$("#id").val(),
 				"dataType":"text",
-				"success" : function(id){
-					if(id){
+				"success" : function(countId){
+					if(countId!=0){
 						alert("이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.");
 						$("#id").focus();
 					}else{
 						confirm("사용 가능한 아이디입니다. 사용하시겠습니까?");
 						$("#password").focus();
-						$("#idVerify").val()==true;
+						$("#idVerify").val(true);
+					}
+				},
+				"beforeSend" : function(){
+					if($("#id").val().length<6){
+						alert("아이디는 6글자 이상 입력해주세요.");
+						return false;
 					}
 				}
 		});
@@ -43,7 +49,7 @@ function chkEmail(){
 }
 
 function checkSubmit(){
-	if($("#idVerify").val()==true){
+	if($("#idVerify").val()=="true"){
 		//가입 하기 전, 비밀번호 확인과 이메일 확인
 		var checkPassword = chkPwd();
 		var checkEmail = chkEmail();
@@ -60,30 +66,38 @@ function checkSubmit(){
 
 <div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
 <div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
-<form action="licenseeMemberJoin" method="post" onsubmit="return checkSubmit();">
+<form action="/udongca_project/member/licenseeMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
 <table>
 	<tr>
+		<td>   </td>
+	</tr>
+	<tr>
 		<th>아이디</th>
-		<td><input type="text" name="id" value="${requestScope.licenseeMember.id }"><span class="error"><form:errors path="licenseeMember.id"/></td>
+		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }"></td>
 		<td><input type="button" id="idVerification" value="아이디 확인"></td>
+		<td><span class="error"><form:errors path="member.memberId"/></span></td>
 	</tr>
 	<tr>
 		<th>비밀번호</th>
-		<td><input type="password" name="password" value="${requestScope.licenseeMember.password }"><span class="error"><form:errors path="licenseeMember.password"/></td>
+		<td><input type="password" id="password" name="memberPassword" value="${requestScope.member.memberPassword }"></td>
+		<td> </td>
+		<td><span class="error"><form:errors path="member.memberPassword"/></span></td>
 	</tr>
 	<tr>
 		<th>비밀번호 확인</th>
-		<td><input type="password" name="password2" value="${requestScope.licenseeMember.password2 }"><span class="error"><form:errors path="licenseeMember.password2"/></td>
+		<td><input type="password" id="password2"></td>
 	</tr>
 	<tr>
 		<th>이름</th>
-		<td><input type="text" name="name" value="${requestScope.licenseeMember.name }"><span class="error"><form:errors path="licenseeMember.name"/></td>
+		<td><input type="text" id="name" name="memberName" value="${requestScope.member.memberName }"></td>
+		<td> </td>
+		<td><span class="error"><form:errors path="member.memberName"/></span></td>
 	</tr>
 	<tr>
 		<th>이메일</th>
-		<td><input type="text" name="email" value="${requestScope.licenseeMember.email }"><span class="error"><form:errors path="licenseeMember.email"/></td>
-		<td>@<select id="emailAddress">
+		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }"></td>
+		<td>@<select id="emailAddress" name="emailAddress">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
@@ -92,13 +106,14 @@ function checkSubmit(){
 				<option>nate.com</option>
 			</select>
 		</td>
+		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="submit" value="가입하기">
+			<input type="submit" value="가입하기"/>
 		</td>
 		<td colspan="2">
-			<a href="main.udc"><input type="button" id="cancel" value="취소"></a>
+			<a href="/udongca_project/main.udc"><input type="button" id="cancel" value="취소"></a>
 		</td>
 	</tr>
 </table>
