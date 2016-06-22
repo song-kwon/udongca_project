@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=utf-8"%>
-
 <div><h2>회원 가입 완료</h2></div>
 <table>
 	<tr>

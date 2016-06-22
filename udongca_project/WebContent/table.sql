@@ -13,6 +13,7 @@ create sequence review_board_reviewNo_seq nocache;
 create sequence report_board_reportboardNo_seq nocache;
 create sequence menu_menuNo_seq nocache;
 create sequence review_reply_replyNo_seq nocache;
+create sequence preferLocationNo_seq nocache;
 
 --  create table --
 create table code(
@@ -120,8 +121,9 @@ references PRboard(cafeNo) on delete cascade
 
 create table preferLocation(
 preferLocationNo	NUMBER	primary key,
-address1	varchar2(50)	NOT NULL,
-address2	varchar2(50)	NOT NULL,
+address1	number default 0,
+address2	number default 0,
+address3	number default 0,
 memberId	varchar2(50)	NOT NULL,
 constraint preferLocation_memberId_fk
 foreign key (memberId)

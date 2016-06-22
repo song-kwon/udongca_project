@@ -1,6 +1,7 @@
 package kr.co.udongca.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PreferLocation;
 
 @Controller
 @RequestMapping("/member/")
@@ -144,8 +146,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping("member_preferLocation_form.udc")
-	public String myPreferLocation(){
-		return "member/member_preferLocation_form.tiles";
+	public ModelAndView PreferLocationPage(HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		if(login != null && !login.getMemberType().equals("master")){
+			
+			ModelAndView mav = memberService.myPreferLocationPage(login.getMemberId());
+			
+			return mav;
+		}
+		else{
+			return null;
+		}
+		
 	}
 	
 	@RequestMapping("majorCategory.udc")
@@ -157,7 +169,33 @@ public class MemberController {
 	@RequestMapping("middleCategory.udc")
 	@ResponseBody
 	public List<Address> middleList(int majorNo){
-		System.out.println("asd");
 		return memberService.middleList(majorNo);
+	}
+
+	@RequestMapping("modify_preferLocation.udc")
+	@ResponseBody
+	public String modifyPreferLocation(int [] location,HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		PreferLocation pl = new PreferLocation(0, location[0], location[1], location[2], login.getMemberId());
+		if(login != null && !login.getMemberType().equals("master")){
+			memberService.managePreferLocation(pl);
+			return "sucess";
+		}
+		else{
+			return "fail";
+		}
+		
+	}
+	
+	@RequestMapping("my_preferLocation.udc")
+	@ResponseBody
+	public List myPreferLocation(HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		if(login != null && !login.getMemberType().equals("master")){
+			return memberService.myPreferLocation(login.getMemberId());
+		}
+		else{
+			return null;
+		}
 	}
 }
