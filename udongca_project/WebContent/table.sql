@@ -163,7 +163,7 @@ drop sequence review_board_reviewNo_seq ;
 drop sequence report_board_reportboardNo_seq ;
 drop sequence menu_menuNo_seq ;
 drop sequence review_reply_replyNo_seq ;
-
+drop sequence preferLocationNo_seq;
 
 -- address table --
 create table majorcategory(

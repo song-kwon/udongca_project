@@ -1,15 +1,13 @@
 package kr.co.udongca.service.impl;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.service.SearchService;
-import kr.co.udongca.vo.Address;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 @Service
 public class SearchServiceImpl implements SearchService{
