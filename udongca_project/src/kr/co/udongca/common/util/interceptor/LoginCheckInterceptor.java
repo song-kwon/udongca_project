@@ -2,10 +2,12 @@ package kr.co.udongca.common.util.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 @Component
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -13,7 +15,15 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		return false;
+		
+		//로그인 체크
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login") == null){
+			throw new ModelAndViewDefiningException(new ModelAndView("/udongca_page/main.udc","error","로그인이 필요합니다."));
+		}
+		
+		
+		return true;
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ $(document).ready(function(){
 	});
 });
 </script>
+<div class="nonav_bodyDiv">
 <div><h2>우동카 회원가입</h2></div>
 <table>
 	<tr align="center">
@@ -22,3 +23,4 @@ $(document).ready(function(){
 		<td id="a" colspan="2"><input type="button" value="회원가입하기"></td>
 	</tr>
 </table>
+</div>

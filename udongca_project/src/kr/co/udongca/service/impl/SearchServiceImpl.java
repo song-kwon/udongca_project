@@ -1,6 +1,7 @@
 package kr.co.udongca.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,13 @@ public class SearchServiceImpl implements SearchService{
 	}
 	
 	@Override
-	public List<PRBoard> selectPRBoardListByAddress(String cafeAddress) {
-		return dao.selectPRBoardListByAddress(cafeAddress);
+	public List<PRBoard> selectPRBoardListByAddress(Map map) {
+		System.out.println("selectPRBoardListByAddress: " + map);
+		return dao.selectPRBoardListByAddress(map);
 	}
 
 	@Override
-	public List<PRBoard> selectPRBoardListByFeature(String cafeFeature) {
-		return dao.selectPRBoardListByFeature(cafeFeature);
+	public List<PRBoard> selectPRBoardListByFeature(Map map) {
+		return dao.selectPRBoardListByFeature(map);
 	}
 }

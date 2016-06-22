@@ -21,10 +21,10 @@
 	
 	<!-- 단순 링크 -->
 	<mvc:view-controller path="/main.udc" view-name="main.tiles" />
-	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" /> <!-- 페이지 확인용 링크 -->
+	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" />
 	<mvc:view-controller path="/generalMemberJoinform.udc" view-name="generalMemberJoinform.tiles"/>
 	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="licenseeMemberJoinform.tiles"/>
-	<mvc:view-controller path="/member/member_myPage.udc" view-name="mypage.tiles"/>
+	<mvc:view-controller path="/member/member_myPage.udc" view-name="member/mypage.tiles"/>
 	<mvc:view-controller path="/joinSelect.udc" view-name="joinSelect.tiles"/>
 	<mvc:view-controller path="/member/master_page.udc" view-name="masterPage.tiles"/>
 	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterform.udc" view-name="noticeBoardResgisterform.tiles"/>
@@ -33,6 +33,8 @@
 	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterform.udc" view-name="oneToOneInquiryRegisterform.tiles"/>
 	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc" view-name="oneToOneInquiryRegisterSuccess.tiles"/>
 	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryModifySuccess.udc" view-name="oneToOneInquiryModifySuccess.tiles"/>
+	<mvc:view-controller path="/master/member_list.udc" view-name="master/member_list.tiles"/>
+	
 	
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
