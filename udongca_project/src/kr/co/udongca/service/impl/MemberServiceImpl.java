@@ -38,9 +38,8 @@ public class MemberServiceImpl implements MemberService {
 	public int memberModify(String name, String password, HttpSession session) {
 		Member modifyMember = (Member) session.getAttribute("login");
 		modifyMember.setMemberName(name);
-		if (password != null)
-			modifyMember.setMemberPassword(password);
-
+		if(password != null) modifyMember.setMemberPassword(password);
+		
 		return memberDaoImpl.memberModify(modifyMember);
 	}
 
@@ -50,13 +49,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int countSameId(String memberId){
+		return memberDaoImpl.countSameId(memberId);
+	}
 	public List<Address> middleList(int majorNo) {
 		// TODO Auto-generated method stub
 		return memberDaoImpl.selectMiddle(majorNo);
-	}
-	
-	public int countSameId(String memberId) {
-		return memberDaoImpl.countSameId(memberId);
 	}
 
 	@Override
@@ -73,6 +71,8 @@ public class MemberServiceImpl implements MemberService {
 	public int licenseeMemberJoin(Member member) {
 		return memberDaoImpl.insertLicenseeMember(member);
 	}
+	
+	@Override
 	public List<Member> memberList(){
 	    return memberDaoImpl.selectList();
 	}

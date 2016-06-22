@@ -1,10 +1,8 @@
 package kr.co.udongca.dao;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import kr.co.udongca.vo.Menu;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 public interface PrBoardDao {
 	public int insertPRBoard(PRBoard prBoard);
@@ -12,6 +10,7 @@ public interface PrBoardDao {
 	public int deletePRBoard(int cafeNo);
 	public PRBoard selectPRBoardByNo (int cafeNo);
 	public PRBoard selectPRBoardByCoporateNumb (String coporateNumb);
+	public int selectNextPRBoardSequence();
 	public int insertMenu(Menu menu);
 	public int updateMenu(Menu menu);
 	public int deleteMenu(int menuNo);

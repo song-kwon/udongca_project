@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="inquiryMapper">
+
+	<sql id="select-basic-oneToOneInquiry">
+		SELECT #{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{inquiryReply}, #{memberId} FROM onetoone_inquiry
+	</sql>
+	
+	<resultMap type="oneToOneInquiry" id="oneToOneInquiry-basic-resultmap">
+		<id column="inquiryNo" property="inquiryNo"/>
+		<result column="inquiryTitle" property="inquiryTitle"/>
+		<result column="inquiryType" property="inquiryType"/>
+		<result column="inquiryContent" property="inquiryContent"/>
+		<result column="inquiryReply" property="inquiryReply"/>
+		<result column="memberId" property="memberId"/>
+	</resultMap>
+	
+	<select id="select-no-oneToOneInquiry">
+		SELECT onetoone_inquiry_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insert_oneToOneInquiry" parameterType="oneToOneInquiry">
+		INSERT INTO onetoone_inquiry VALUES (#{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{memberId})
+	</insert>
+	
+	<delete id="delete_oneToOneInquiry" parameterType="_int">
+		DELETE FROM onetoone_inquiry WHERE inquiryNo=#{inquiryNo}
+	</delete>
+	
+	<update id="update_oneToOneInquiry" parameterType="_int">
+		UPDATE onetoone_inquiry SET inquiryTitle=#{inquiryTitle}, inquiryContent=#{inquiryContent} WHERE inquiryNo=#{inquiryNo}
+	</update>
+	
+	<select id="select_oneToOneInquiry" parameterType="_int" resultMap="oneToOneInquiry-basic-resultmap">
+		<include refid="select-basic-oneToOneInquiry"/> WHERE inquiryNo=#{inquiryNo}
+	</select>
+	
+	<select id="selectList_oneToOneInquiry" resultMap="oneToOneInquiry-basic-resultmap">
+		<include refid="select-basic-oneToOneInquiry"/>
+	</select>
+</mapper>
