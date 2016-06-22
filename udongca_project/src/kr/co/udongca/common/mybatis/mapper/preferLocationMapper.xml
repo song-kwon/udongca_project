@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="preferLocationMapper">
+	<sql id="preferLocation-default">
+		preferLocationNo,
+		address1,
+		address2,
+		address3,
+		memberId
+	</sql> 
+	
+	<resultMap type="hashMap" id="addressMap">
+		<result column="address1" property="address1" javaType="int"/>
+		<result column="address2" property="address2" javaType="int"/>
+		<result column="address3" property="address3" javaType="int"/>
+	</resultMap>
+
+	<select id="countPreferLocationByMemberId" parameterType="string" resultType="int">
+		SELECT  count(preferLocationNo)
+		FROM preferlocation
+		where memberId = #{memberId}
+	</select>
+	
+	<insert id="addPreferLocation" parameterType="preferLocation">
+		insert into preferlocation 
+		values(preferLocationNo_seq.nextval,#{address1},#{address2},#{address3},#{memberId})
+	</insert>
+	
+	<update id="updatePreferLocationByMemberId" parameterType="preferLocation">
+		update preferlocation 
+		set address1=#{address1},address2=#{address2},address3=#{address3}
+		where memberId=#{memberId}
+	</update>
+	
+	<select id="selectPreferLocationByMemberId" parameterType="string" resultMap="addressMap">
+		SELECT  address1,address2,address3
+		FROM preferlocation
+		where memberId = #{memberId}
+	</select>
+</mapper>

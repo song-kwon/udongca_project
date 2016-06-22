@@ -1,15 +1,13 @@
 package kr.co.udongca.service.impl;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.service.PrBoardService;
-import kr.co.udongca.vo.Menu;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 @Service
 public class PrBoardServiceImpl implements PrBoardService{
@@ -39,6 +37,11 @@ public class PrBoardServiceImpl implements PrBoardService{
 	@Override
 	public PRBoard selectPRBoardByCoporateNumb(String coporateNumb) {
 		return dao.selectPRBoardByCoporateNumb(coporateNumb);
+	}
+	
+	@Override
+	public int selectNextPRBoardSequence() {
+		return dao.selectNextPRBoardSequence();
 	}
 
 	@Override

@@ -1,16 +1,21 @@
 package kr.co.udongca.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PreferLocation;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -68,6 +73,52 @@ public class MemberServiceImpl implements MemberService {
 	public int licenseeMemberJoin(Member member) {
 		return memberDaoImpl.insertLicenseeMember(member);
 	}
+	public List<Member> memberList(){
+	    return memberDaoImpl.selectList();
+	}
 	
+	@Override
+	public int managePreferLocation(PreferLocation location) {
+		if(memberDaoImpl.countPreferLocationByMemberId(location.getMemberId()) ==0)
+			return memberDaoImpl.addPreferLocationByMemberId(location);
+		else
+			return memberDaoImpl.updatePreferLocationByMemberId(location);
+		
+	}
 	
+	@Override
+	public List myPreferLocation(String memberId) {
+		if(memberDaoImpl.countPreferLocationByMemberId(memberId)!=0){
+			Map map = memberDaoImpl.selectPreferLocationByMemberId(memberId);
+			List list = new ArrayList<>();
+			for(int i = 1 ; i <= 3 ; i++ ){
+				int no =(int) map.get("address"+i);
+				list.add(memberDaoImpl.selectPreferLocationByMiddleCategoryNo(no));
+			}
+			return list;
+		}
+		return null;
+	}
+	
+	@Override
+	public ModelAndView myPreferLocationPage(String memberId) {
+		
+		List majorCategory = majorList();
+		
+		List myLocationList = myPreferLocation(memberId);
+		List middleCategory = new ArrayList<>();
+		
+		for(int idx= 0; idx< myLocationList.size(); idx++){
+			if(myLocationList.get(idx) != null){
+				Address address = (Address)myLocationList.get(idx);
+				middleCategory.add(middleList(address.getMajorCategoryNo()));
+			}
+		}
+		System.out.println(myLocationList.get(0));
+		Map map = new HashMap<>();
+		map.put("majorList", majorCategory);
+		map.put("myLocationList", myLocationList);
+		map.put("middleList", middleCategory);
+		return new ModelAndView("member/member_preferLocation_form.tiles","category",map);
+	}
 }

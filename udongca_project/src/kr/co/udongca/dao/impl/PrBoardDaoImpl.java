@@ -1,15 +1,13 @@
 package kr.co.udongca.dao.impl;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.PrBoardDao;
-import kr.co.udongca.vo.Menu;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 @Repository
 public class PrBoardDaoImpl implements PrBoardDao{
@@ -41,6 +39,11 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	@Override
 	public PRBoard selectPRBoardByCoporateNumb(String coporateNumb) {
 		return session.selectOne(prBoardNamespace + "selectPRBoardByCoporateNumb", coporateNumb);
+	}
+	
+	@Override
+	public int selectNextPRBoardSequence() {
+		return session.selectOne(prBoardNamespace + "selectNextPRBoardSequence");
 	}
 
 	@Override

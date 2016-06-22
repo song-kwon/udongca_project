@@ -1,10 +1,8 @@
 package kr.co.udongca.dao;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import kr.co.udongca.vo.Address;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 public interface SearchDao {
 	public List<Address> selectAllMajorAddress();

@@ -1,10 +1,8 @@
 package kr.co.udongca.service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import kr.co.udongca.vo.Address;
-import kr.co.udongca.vo.PRBoard;
+import kr.co.udongca.vo.*;
 
 public interface SearchService {
 	public List<Address> selectAllMajorAddress();
