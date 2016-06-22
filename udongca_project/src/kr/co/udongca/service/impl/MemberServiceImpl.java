@@ -73,6 +73,9 @@ public class MemberServiceImpl implements MemberService {
 	public int licenseeMemberJoin(Member member) {
 		return memberDaoImpl.insertLicenseeMember(member);
 	}
+	public List<Member> memberList(){
+	    return memberDaoImpl.selectList();
+	}
 	
 	@Override
 	public int managePreferLocation(PreferLocation location) {

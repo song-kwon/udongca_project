@@ -19,18 +19,20 @@ public interface MemberDao {
 	public int countSameId(String memberId);
 
 	public List<Address> selectMajor();
-	
+
 	public List<Address> selectMiddle(int majorNo);
 
 	public Member findById(String memberId);
-	
+
 	public int countPreferLocationByMemberId(String memberId);
-	
+
 	public int addPreferLocationByMemberId(PreferLocation location);
-	
+
 	public int updatePreferLocationByMemberId(PreferLocation location);
-	
+
 	public Map selectPreferLocationByMemberId(String memberId);
-	
+
 	public Address selectPreferLocationByMiddleCategoryNo(int categoryNo);
+
+	public List<Member> selectList();
 }

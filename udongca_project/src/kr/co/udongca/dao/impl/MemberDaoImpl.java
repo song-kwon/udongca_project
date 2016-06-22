@@ -56,35 +56,40 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Address> selectMiddle(int majorNo) {
 		// TODO Auto-generated method stub
-		return session.selectList("addressMapper.selectMiddleAddressByMajorAddressNo",majorNo);
+		return session.selectList("addressMapper.selectMiddleAddressByMajorAddressNo", majorNo);
 	}
 
 	public Member findById(String memberId) {
 		return session.selectOne("memberMapper.find_by_id", memberId);
 	}
-	
+
 	@Override
 	public int countPreferLocationByMemberId(String memberId) {
-		return session.selectOne("preferLocationMapper.countPreferLocationByMemberId",memberId);
+		return session.selectOne("preferLocationMapper.countPreferLocationByMemberId", memberId);
 	}
-	
+
 	@Override
 	public int addPreferLocationByMemberId(PreferLocation location) {
-		return session.insert("preferLocationMapper.addPreferLocation",location);
+		return session.insert("preferLocationMapper.addPreferLocation", location);
 	}
-	
+
 	@Override
 	public int updatePreferLocationByMemberId(PreferLocation location) {
-		return session.update("preferLocationMapper.updatePreferLocationByMemberId",location);
+		return session.update("preferLocationMapper.updatePreferLocationByMemberId", location);
 	}
-	
+
 	@Override
 	public Map selectPreferLocationByMemberId(String memberId) {
-		return session.selectOne("preferLocationMapper.selectPreferLocationByMemberId",memberId);
+		return session.selectOne("preferLocationMapper.selectPreferLocationByMemberId", memberId);
 	}
-	
+
 	@Override
 	public Address selectPreferLocationByMiddleCategoryNo(int categoryNo) {
-		return session.selectOne("addressMapper.selectPreferLocationByMiddleAddressNo",categoryNo);
+		return session.selectOne("addressMapper.selectPreferLocationByMiddleAddressNo", categoryNo);
 	}
+
+	public List<Member> selectList() {
+		return session.selectList("memberMapper.member_list");
+	}
+
 }
