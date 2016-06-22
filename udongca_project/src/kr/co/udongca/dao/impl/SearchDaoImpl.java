@@ -1,6 +1,7 @@
 package kr.co.udongca.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,13 @@ public class SearchDaoImpl implements SearchDao {
 	}
 	
 	@Override
-	public List<PRBoard> selectPRBoardListByAddress(String cafeAddress) {
-		return session.selectList(prNamespace + "selectPRBoardListByAddress", cafeAddress);
+	public List<PRBoard> selectPRBoardListByAddress(Map map) {
+		System.out.println("selectPRBoardListByAddress: " + map);
+		return session.selectList(prNamespace + "selectPRBoardListByAddress", map);
 	}
 
 	@Override
-	public List<PRBoard> selectPRBoardListByFeature(String cafeFeature) {
-		return session.selectList(prNamespace + "selectPRBoardListByFeature", cafeFeature);
+	public List<PRBoard> selectPRBoardListByFeature(Map map) {
+		return session.selectList(prNamespace + "selectPRBoardListByFeature", map);
 	}
 }

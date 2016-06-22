@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.MemberDao;
+import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 
 @Repository
@@ -27,21 +28,41 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int memberModify(Member member) {
-		return session.update("memberMapper.member_modify",member);
+		return session.update("memberMapper.member_modify", member);
 	}
-	
+
 	@Override
-	public int insertMember(Member member){
-		return session.insert("memberMapper.member_insert", member);
+	public int insertGeneralMember(Member member) {
+		return session.insert("memberMapper.general_member_insert", member);
 	}
-	
+
 	@Override
-	public int countSameId(String memberId){
+	public int insertLicenseeMember(Member member) {
+		return session.insert("memberMapper.licensee_member_insert", member);
+	}
+
+	@Override
+	public int countSameId(String memberId) {
 		return session.selectOne("memberMapper.count_same_id", memberId);
 	}
+	
+
 	@Override
-	public List selectList(){
+	public List<Address> selectMajor() {
+		return session.selectList("addressMapper.selectAllMajorAddress");
+	}
+
+	@Override
+	public List<Address> selectMiddle(int majorNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("addressMapper.selectMiddleAddressByMajorAddressNo",majorNo);
+	}
+
+	public Member findById(String memberId) {
+		return session.selectOne("memberMapper.find_by_id", memberId);
+	}
+	public List<Member> selectList(){
 	    return session.selectList("memberMapper.member_list");
 	}
-	
+
 }

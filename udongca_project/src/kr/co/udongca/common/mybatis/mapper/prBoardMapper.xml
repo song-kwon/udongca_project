@@ -15,17 +15,21 @@
 				CEIL(rownum/#{itemsPerPage}) page,
 				cafeNo,
 				cafeName,
+				cafeFeature,
+				cafeAddress,
 				cafeFakeImage
 			FROM (
 				SELECT
 					cafeNo,
 					cafeName,
+					cafeFeature,
+					cafeAddress,
 					cafeFakeImage
 				FROM PRboard
 				ORDER BY cafeNo DESC
 				)
 			)
-		WHERE page = #{page}
+		WHERE page = #{page} 
 	</sql>
 	<!-- 홍보글 상세 내용(사업자 등록 번호 제외)을 보여주는 SELECT SQL 문 -->
 	<sql id="select-full-PRBoard">
@@ -99,14 +103,14 @@
 		WHERE cafeNo = #{cafeNo}
 	</delete>
 	<!-- 지역으로 홍보글 검색 -->
-	<select id="selectPRBoardListByAddress" parameterType="String" resultType="PRBoard">
+	<select id="selectPRBoardListByAddress" parameterType="Map" resultType="PRBoard">
 		<include refid="select-basic-PRBoard"/>
-		WHERE cafeAddress = #{cafeAddress}
+		AND cafeAddress LIKE '#{cafeAddress}%'
 	</select>
 	<!-- 테마로 홍보글 검색 -->
-	<select id="selectPRBoardListByFeature" parameterType="String" resultType="PRBoard">
+	<select id="selectPRBoardListByFeature" parameterType="Map" resultType="PRBoard">
 		<include refid="select-basic-PRBoard"/>
-		WHERE cafeFeature = #{cafeFeature}
+		AND cafeFeature LIKE '%#{cafeFeature}%'
 	</select>
 	<!-- 홍보글 전체 정보 검색 -->
 	<select id="selectPRBoardByNo" parameterType="_int" resultType="PRBoard">

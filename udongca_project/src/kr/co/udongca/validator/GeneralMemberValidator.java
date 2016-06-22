@@ -19,7 +19,6 @@ public class GeneralMemberValidator implements Validator{
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memberId", "", "아이디를 입력해주세요.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memberPassword", "", "패스워드를 입력해주세요.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memberPassword2", "", "패스워드를 확인해주세요.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memberName", "", "이름을 입력해주세요.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memberEmail", "", "이메일을 입력해주세요.");
 		

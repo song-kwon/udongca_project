@@ -1,17 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" %>
-<script type="text/javascript">
-$(document).ready(function(){
-	   $(window).resize();
-});
-$(window).resize(function(){
-    $('.loginDiv').css({position:'absolute'}).css({
-        left: ($('#section').width() - $('.loginDiv').width())/2,
-        top: ($('#section').height() - $('.loginDiv').height())/2
-    });
-  });
-</script>
-
-<div class="loginDiv"style="width: 555px; height: auto;margin:0 auto;">
+<div class="nonav_bodyDiv" style="width: 555px; height: auto;margin:0 auto;">
 <div style="min-height: auto; width: 555px;">
 	<form action="member/login.udc" method="post">
 	<div style="float:left; width:230px;">

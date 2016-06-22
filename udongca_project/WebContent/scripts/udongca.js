@@ -57,5 +57,59 @@ $(document).ready(function(){
 			}
 		});
 	});
+	if('http://127.0.0.1:4322/udongca_project/member/member_preferLocation_form.udc'==document.URL){
+		$.ajax({
+			'url':'/udongca_project/member/majorCategory.udc',
+			'type':'post',
+			'dataType':'json',
+			'success':function(list){
+				var options = "<option>시/도 선택</option>";
+				for(var index = 0 ; index < list.length; index++){
+					options = options + "<option value="+list[index].addressId+">"+list[index].addressName+"</option>";
+				}
+				$("#first_category").html(options);
+				$("#second_category").html(options);
+				$("#third_category").html(options);
+			}
+		});
+		
+		$('.major_category').on('change',function(){
+			var category = this;
+			var categoryValue=this.value;
+			$.ajax({
+				'url':'/udongca_project/member/middleCategory.udc',
+				'type':'post',
+				'data':'majorNo='+categoryValue,
+				'dataType':'json',
+				'success':function(list){
+					var options = "<option>군/구 선택</option>";
+					for(var index = 0 ; index < list.length; index++){
+						options = options + "<option value="+list[index].addressId+">"+list[index].addressName+"</option>";
+					}
+					
+					var id=$(category).prop('id');
+					alert(id);
+					$('select[name='+id+']').html(options);
+				}
+				
+			})
+		});
+	}
+	
+	
+	$(window).resize();
 	
 });
+
+
+$(window).resize(function(){
+    $('.nonav_bodyDiv').css({position:'absloute'}).css({
+        left: ($('.nonav_section').width() - $('.nonav_bodyDiv').width())/2,
+        top: ($('.nonav_section').height() - $('.nonav_bodyDiv').height())/2
+    });
+    
+    $('.nav_bodyDiv').css({position:'absolute'}).css({
+    	left: $('.nav').width()+($('.nav_section').width() - $('.nav_bodyDiv').width())/2,
+        top:($('.nav_section').height() - $('.nav_bodyDiv').height())/2
+    });
+  });
