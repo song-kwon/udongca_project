@@ -34,4 +34,9 @@ public interface MemberService {
 	public List myPreferLocation(String memberId);
 	
 	public ModelAndView myPreferLocationPage(String memberId);
+	
+	public int memberDrop(String memberId);
+	
+	public ModelAndView memberIdFind(Member member);
+	
 }

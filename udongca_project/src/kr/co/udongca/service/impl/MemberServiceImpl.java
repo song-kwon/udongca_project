@@ -102,10 +102,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public ModelAndView myPreferLocationPage(String memberId) {
+		Map map = new HashMap<>();
 		
 		List majorCategory = majorList();
 		
 		List myLocationList = myPreferLocation(memberId);
+		map.put("majorList", majorCategory);
+		
+		if(myLocationList == null){
+			return new ModelAndView("member/member_preferLocation_form.tiles","category",map);
+		}
+		
 		List middleCategory = new ArrayList<>();
 		
 		for(int idx= 0; idx< myLocationList.size(); idx++){
@@ -114,11 +121,28 @@ public class MemberServiceImpl implements MemberService {
 				middleCategory.add(middleList(address.getMajorCategoryNo()));
 			}
 		}
-		System.out.println(myLocationList.get(0));
-		Map map = new HashMap<>();
-		map.put("majorList", majorCategory);
+		
 		map.put("myLocationList", myLocationList);
 		map.put("middleList", middleCategory);
 		return new ModelAndView("member/member_preferLocation_form.tiles","category",map);
+	}
+	
+	@Override
+	public int memberDrop(String memberId) {
+		return memberDaoImpl.memberDrop(memberId);
+	}
+	
+	@Override
+	public ModelAndView memberIdFind(Member member) {
+		ModelAndView mav = null;
+		if(memberDaoImpl.countMemberIdFind(member)==0){
+			mav = new ModelAndView("/udongca_project/memberId_find_form.udc","error","가입 정보가 없습니다.");
+			return mav;
+		}else{
+			System.out.println(memberDaoImpl.memberIdFind(member));
+			mav= new ModelAndView("/udongca_project/member/memberId_find_success_form.udc","success",memberDaoImpl.memberIdFind(member));
+			System.out.println(mav);
+			return mav;
+		}
 	}
 }

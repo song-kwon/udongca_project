@@ -16,6 +16,6 @@
 		신고내역<br>
 		1:1문의<br>
 		<a href="/udongca_project/member/member_modify_form.udc">정보수정</a><br>
-		회원탈퇴<br>
+		<a href="/udongca_project/member/member_drop.udc">회원탈퇴</a><br>
 	</c:otherwise>
 </c:choose>

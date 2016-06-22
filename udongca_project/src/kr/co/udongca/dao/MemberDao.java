@@ -35,4 +35,10 @@ public interface MemberDao {
 	public Address selectPreferLocationByMiddleCategoryNo(int categoryNo);
 
 	public List<Member> selectList();
+	
+	public int memberDrop(String memberId);
+	
+	public int countMemberIdFind(Member member);
+	
+	public Member memberIdFind(Member member);
 }

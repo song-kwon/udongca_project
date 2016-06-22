@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,13 @@ public class MemberController {
 
 	@RequestMapping("login.udc")
 	public String login(String id, String password, HttpSession session) throws Exception {
-		session.setAttribute("login", memberService.login(id, password));
-		return "redirect:/main.udc";
+		Member login = memberService.login(id, password);
+		if (login.getLoginPossibility().equals("false")) {
+			return "redirect:/loginPage.udc";
+		} else {
+			session.setAttribute("login", login);
+			return "redirect:/main.udc";
+		}
 	}
 
 	@RequestMapping("logout.udc")
@@ -111,7 +117,7 @@ public class MemberController {
 		if (login != null && !login.getMemberType().equals("master"))
 			return "member/member_verify.tiles";
 		else
-			return "redirect:/login.udc";
+			return "redirect:/loginPage.udc";
 	}
 
 	@RequestMapping("verify.udc")
@@ -130,7 +136,7 @@ public class MemberController {
 		if (login != null && !login.getMemberType().equals("master"))
 			return "member/member_modify.tiles";
 		else
-			return "redirect:/login.udc";
+			return "redirect:/loginPage.udc";
 	}
 
 	@RequestMapping("member_modify.udc")
@@ -202,5 +208,32 @@ public class MemberController {
 	@ResponseBody
 	public List<Member> memberList() {
 		return memberService.memberList();
+	}
+
+	@RequestMapping("member_drop.udc")
+	public String memberDrop(HttpSession session) {
+		Member login = (Member) session.getAttribute("login");
+
+		if (login != null && !login.getMemberType().equals("master")) {
+			memberService.memberDrop(login.getMemberId());
+			session.invalidate();
+			return "redirect:/main.udc";
+		} else {
+			return "redirect:/loginPage.udc";
+		}
+	}
+	
+	@RequestMapping("memberId_find.udc")
+	public ModelAndView memberIdFind(String memberName,String memberEmail,String emailAddress){
+		Member findMember = new Member();
+		findMember.setMemberName(memberName);
+		findMember.setMemberEmail(memberEmail+"@"+emailAddress);
+		
+		return memberService.memberIdFind(findMember);
+	}
+	
+	@RequestMapping("memberId_find_success.udc")
+	public ModelAndView memberIdFindSuccess(Member success){
+		return new ModelAndView("/member_find_success_form.udc","success",success);
 	}
 }

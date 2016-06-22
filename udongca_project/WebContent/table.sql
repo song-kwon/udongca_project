@@ -184,3 +184,4 @@ references majorcategory(major_CategoryNo)
 
 drop table middlecategory;
 drop table majorcategory;
+

@@ -91,5 +91,19 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> selectList() {
 		return session.selectList("memberMapper.member_list");
 	}
-
+	
+	@Override
+	public int memberDrop(String memberId) {
+		return session.update("memberMapper.member_drop",memberId);
+	}
+	
+	@Override
+	public int countMemberIdFind(Member member) {
+		return session.selectOne("memberMapper.count_memberId_find",member);
+	}
+	
+	@Override
+	public Member memberIdFind(Member member) {
+		return session.selectOne("memberMapper.memberId_find",member);
+	}
 }

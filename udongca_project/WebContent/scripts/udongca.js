@@ -131,3 +131,7 @@ function getMiddleCategory(){
 		
 	});
 }
+
+function memberId_find_form(){
+	window.open('/udongca_project/memberId_find_form.udc','newWin','width=140px','height=150px');
+}
