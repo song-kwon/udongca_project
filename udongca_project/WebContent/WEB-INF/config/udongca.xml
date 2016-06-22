@@ -27,6 +27,13 @@
 	<mvc:view-controller path="/member/member_myPage.udc" view-name="mypage.tiles"/>
 	<mvc:view-controller path="/joinSelect.udc" view-name="joinSelect.tiles"/>
 	<mvc:view-controller path="/member/master_page.udc" view-name="masterPage.tiles"/>
+	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterform.udc" view-name="noticeBoardResgisterform.tiles"/>
+	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterSuccess.udc" view-name="noticeBoardRegisterSuccess.tiles"/>
+	<mvc:view-controller path="/noticeBoard/noticeBoardModifySuccess.udc" view-name="noticeBoardModifySuccess.tiles"/>
+	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterform.udc" view-name="oneToOneInquiryRegisterform.tiles"/>
+	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc" view-name="oneToOneInquiryRegisterSuccess.tiles"/>
+	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryModifySuccess.udc" view-name="oneToOneInquiryModifySuccess.tiles"/>
+	
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 

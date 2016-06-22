@@ -13,11 +13,11 @@ import kr.co.udongca.vo.Member;
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
-	private MemberDao memberDaoImpl;
+	private MemberDao dao;
 	
 	@Override
 	public Member login(String id, String password) throws Exception {
-		Member login = memberDaoImpl.login(id, password);
+		Member login = dao.login(id, password);
 		System.out.println(login);
 		if(login == null){
 			System.out.println("로그인 실패");
@@ -32,26 +32,26 @@ public class MemberServiceImpl implements MemberService{
 		modifyMember.setMemberName(name);
 		if(password != null) modifyMember.setMemberPassword(password);
 		
-		return memberDaoImpl.memberModify(modifyMember);
+		return dao.memberModify(modifyMember);
 	}
 	
 	@Override
 	public int countSameId(String memberId){
-		return memberDaoImpl.countSameId(memberId);
+		return dao.countSameId(memberId);
 	}
 	
 	@Override
 	public Member findById(String memberId){
-		return memberDaoImpl.findById(memberId);
+		return dao.findById(memberId);
 	}
 	
 	@Override
 	public int generalMemberJoin(Member member){
-		return memberDaoImpl.insertGeneralMember(member);
+		return dao.insertGeneralMember(member);
 	}
 	
 	@Override
 	public int licenseeMemberJoin(Member member){
-		return memberDaoImpl.insertLicenseeMember(member);
+		return dao.insertLicenseeMember(member);
 	}
 }

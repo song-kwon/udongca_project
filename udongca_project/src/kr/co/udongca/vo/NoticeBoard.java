@@ -7,18 +7,18 @@ public class NoticeBoard {
 	private int noticeNo;
 	private String noticeTitle;
 	private String noticeContent;
-	private String importance;
+	private String category;
 	private Date noticeDate;
 	
 	public NoticeBoard() {
 	}
 
-	public NoticeBoard(int noticeNo, String noticeTitle, String noticeContent, String importance, Date noticeDate) {
+	public NoticeBoard(int noticeNo, String noticeTitle, String noticeContent, String category, Date noticeDate) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
-		this.importance = importance;
+		this.category = category;
 		this.noticeDate = noticeDate;
 	}
 
@@ -46,12 +46,12 @@ public class NoticeBoard {
 		this.noticeContent = noticeContent;
 	}
 
-	public String getImportance() {
-		return importance;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setImportance(String importance) {
-		this.importance = importance;
+	public void setCategory(String importance) {
+		this.category = importance;
 	}
 
 	public Date getNoticeDate() {
@@ -66,7 +66,7 @@ public class NoticeBoard {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((importance == null) ? 0 : importance.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((noticeContent == null) ? 0 : noticeContent.hashCode());
 		result = prime * result + ((noticeDate == null) ? 0 : noticeDate.hashCode());
 		result = prime * result + noticeNo;
@@ -83,10 +83,10 @@ public class NoticeBoard {
 		if (getClass() != obj.getClass())
 			return false;
 		NoticeBoard other = (NoticeBoard) obj;
-		if (importance == null) {
-			if (other.importance != null)
+		if (category == null) {
+			if (other.category != null)
 				return false;
-		} else if (!importance.equals(other.importance))
+		} else if (!category.equals(other.category))
 			return false;
 		if (noticeContent == null) {
 			if (other.noticeContent != null)
@@ -111,7 +111,7 @@ public class NoticeBoard {
 	@Override
 	public String toString() {
 		return "NoticeBoard [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", importance=" + importance + ", noticeDate=" + noticeDate + "]";
+				+ ", category=" + category + ", noticeDate=" + noticeDate + "]";
 	}
 	
 	
