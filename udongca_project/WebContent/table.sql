@@ -13,6 +13,7 @@ create sequence review_board_reviewNo_seq nocache;
 create sequence report_board_reportboardNo_seq nocache;
 create sequence menu_menuNo_seq nocache;
 create sequence review_reply_replyNo_seq nocache;
+create sequence preferLocation_preferLocationNo_seq nocache;
 
 --  create table --
 create table code(
@@ -161,7 +162,7 @@ drop sequence review_board_reviewNo_seq ;
 drop sequence report_board_reportboardNo_seq ;
 drop sequence menu_menuNo_seq ;
 drop sequence review_reply_replyNo_seq ;
-
+drop sequence preferLocation_preferLocationNo_seq;
 
 -- address table --
 create table majorcategory(
