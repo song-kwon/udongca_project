@@ -3,7 +3,7 @@
 <mapper namespace="inquiryMapper">
 
 	<sql id="select-basic-oneToOneInquiry">
-		SELECT #{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{inquiryReply}, #{memberId} FROM onetoone_inquiry
+		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId FROM onetoone_inquiry
 	</sql>
 	
 	<resultMap type="oneToOneInquiry" id="oneToOneInquiry-basic-resultmap">
@@ -37,5 +37,23 @@
 	
 	<select id="selectList_oneToOneInquiry" resultMap="oneToOneInquiry-basic-resultmap">
 		<include refid="select-basic-oneToOneInquiry"/>
+	</select>
+	
+	<select id="select_member_inquiry_list_page" parameterType="map" resultType="oneToOneInquiry">
+		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryType, inquiryTitle, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
+					     FROM onetoone_inquiry  where memberId = #{memberId} order by inquiryNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="countMemberInquiry" parameterType="String" resultType="int">
+		select count(inquiryNo) from onetoone_inquiry where memberId=#{memberId}
+	</select>
+	
+	<select id="countInquiry" parameterType="int" resultType="int">
+		select count(inquiryNo) from onetoone_inquiry where inquiryNo=#{inquiryNo}
 	</select>
 </mapper>

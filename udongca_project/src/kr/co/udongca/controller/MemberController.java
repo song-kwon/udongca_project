@@ -30,13 +30,14 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping("login.udc")
-	public String login(String id, String password, HttpSession session) throws Exception {
+	public ModelAndView login(String id, String password, HttpSession session) throws Exception {
+
 		Member login = memberService.login(id, password);
-		if (login.getLoginPossibility().equals("false")) {
-			return "redirect:/loginPage.udc";
+		if (login == null || login.getLoginPossibility().equals("false")) {
+			return new ModelAndView("login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else {
 			session.setAttribute("login", login);
-			return "redirect:/main.udc";
+			return new ModelAndView("main.tiles");
 		}
 	}
 
@@ -222,36 +223,58 @@ public class MemberController {
 			return "redirect:/loginPage.udc";
 		}
 	}
-	
+
 	@RequestMapping("memberId_find.udc")
-	public ModelAndView memberIdFind(String memberName,String memberEmail,String emailAddress) throws UnsupportedEncodingException{
+	public ModelAndView memberIdFind(String memberName, String memberEmail, String emailAddress)
+			throws UnsupportedEncodingException {
 		Member findMember = new Member();
 		findMember.setMemberName(memberName);
-		findMember.setMemberEmail(memberEmail+"@"+emailAddress);
+		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
 		return memberService.memberIdFind(findMember);
 	}
-	
-/*	@RequestMapping("memberId_find_success.udc")
-	public ModelAndView memberIdFindSuccess(Member success) throws UnsupportedEncodingException{
-		SendEmailConfig send = new SendEmailConfig();
-		String content = String.format("%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", success.getMemberName(),success.getMemberId());
-		System.out.println(content + " "+send.sendEmail(success,content)); 
-		return new ModelAndView("/member_find_success_form.udc","success",success);
+
+	@RequestMapping("memberListPaging.udc")
+	public ModelAndView memberListPageing(@RequestParam(required = false) String pnum) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+			System.out.println(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			Map<String, Object> map = memberService.memberList(page);
+			return new ModelAndView("memberListPaging.tilse", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
 	}
-*/
-	@RequestMapping("memberListPaging.udc")      
-	public ModelAndView memberListPageing(@RequestParam(required=false) String pnum){
-	    int page = 1;
-	    try{
-		page = Integer.parseInt(pnum);
-		System.out.println(pnum);
-	    }catch(Exception e){}
-	    try{
-		Map<String, Object> map = memberService.memberList(page);
-		return new ModelAndView("memberListPaging.tilse",map);
-	    }catch(Exception e){
-		e.printStackTrace();
-		return new ModelAndView("/WEB-INF/view/error.jsp","error_message", e.getMessage());
-	    }
-	} 
+
+	@RequestMapping("memberPassword_find.udc")
+	public ModelAndView memberPasswordFind(String memberId, String memberName, String memberEmail, String emailAddress)
+			throws UnsupportedEncodingException {
+		Member findMember = new Member();
+		findMember.setMemberId(memberId);
+		findMember.setMemberName(memberName);
+		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
+		return memberService.memberPasswordFind(findMember);
+	}
+	
+	@RequestMapping("memberInquiryListPaging.udc")
+	public ModelAndView memberInquiryListPageing(@RequestParam(required = false) String pnum,HttpSession session) {
+		Member login = (Member)session.getAttribute("login");
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+			System.out.println(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			Map<String, Object> map = memberService.memberInquiryList(page,login.getMemberId());
+			return new ModelAndView("member/member_inquiryList.tiles", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
+	}
 }

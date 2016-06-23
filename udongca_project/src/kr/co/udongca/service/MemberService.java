@@ -14,7 +14,7 @@ import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberService {
 
-	public Member login(String id, String password) throws Exception;
+	public Member login(String id, String password);
 
 	public int memberModify(String name, String password, HttpSession session);
 	
@@ -44,4 +44,7 @@ public interface MemberService {
 	
 	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException;
 	
+	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException;
+
+	public Map memberInquiryList(int page,String memberId);
 }

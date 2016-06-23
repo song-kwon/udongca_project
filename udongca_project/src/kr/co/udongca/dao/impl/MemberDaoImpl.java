@@ -12,6 +12,7 @@ import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.OneToOneInquiry;
 import kr.co.udongca.vo.PreferLocation;
 
 @Repository
@@ -115,5 +116,24 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member memberIdFind(Member member) {
 		return session.selectOne("memberMapper.memberId_find",member);
+	}
+	
+	@Override
+	public int countMemberPasswordFind(Member member) {
+		return session.selectOne("memberMapper.count_memberPassword_find",member);
+	}
+	
+	@Override
+	public Member memberPasswordFind(Member member) {
+		return session.selectOne("memberMapper.memberPassword_find",member);
+	}
+	
+	public int countMemberInquiryList(String memberId) {
+		return session.selectOne("inquiryMapper.countMemberInquiry",memberId);
+	};
+	
+	@Override
+	public List<OneToOneInquiry> memberInquriyList(Map map) {
+		return session.selectList("inquiryMapper.select_member_inquiry_list_page",map);
 	}
 }

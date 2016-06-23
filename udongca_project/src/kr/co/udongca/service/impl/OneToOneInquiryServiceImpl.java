@@ -33,6 +33,9 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	
 	@Override
 	public OneToOneInquiry selectOneToOneInquiry(int inquiryNo){
+		if(dao.countInquiry(inquiryNo) == 0 ){
+			return null;
+		}
 		return dao.selectOneToOneInquiry(inquiryNo);
 	}
 	

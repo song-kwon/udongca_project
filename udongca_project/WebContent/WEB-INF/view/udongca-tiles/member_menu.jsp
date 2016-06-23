@@ -14,7 +14,7 @@
 		<a href="/udongca_project/member/member_preferLocation_form.udc">선호지역</a><br>
 		내가쓴리뷰<br>
 		신고내역<br>
-		1:1문의<br>
+		<a href="/udongca_project/member/memberInquiryListPaging.udc">1:1문의</a><br>
 		<a href="/udongca_project/member/member_verify.udc">정보수정</a><br>
 		<a href="/udongca_project/member/member_drop.udc">회원탈퇴</a><br>
 	</c:otherwise>

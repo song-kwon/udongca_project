@@ -75,6 +75,7 @@
 			<put-attribute name="menu"
 			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
 	</definition>
+	
 	<definition name="member/*.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu"
 			value="/WEB-INF/view/udongca-tiles/member_menu.jsp" />

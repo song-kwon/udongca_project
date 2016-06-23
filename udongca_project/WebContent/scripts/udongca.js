@@ -58,6 +58,10 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("#memberInquiryList").on("click", "tr", function(){//tr에 event 처리
+			location.replace('/udongca_project/controller/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
+		});
+		
 	
 		$('.major_category').bind('change',getMiddleCategory);
 				
@@ -83,8 +87,6 @@ $(document).ready(function(){
 			});
 			
 		});
-	
-	
 	
 	
 	/*$(window).resize();*/
@@ -132,6 +134,68 @@ function getMiddleCategory(){
 	});
 }
 
-function memberId_find_form(){
-	window.open('/udongca_project/memberId_find_form.udc','newWin','width=140px','height=150px');
+function loginCheck(){
+	var loginId = $('#id').val();
+	var loginPassword = $('#password').val();
+	
+	if(loginId.length == 0){
+		alert('id를 입력하세요');
+		return false;
+	}
+	
+	if(loginPassword.length == 0){
+		alert('비밀번호를 입력하세요');
+		return false;
+	}
+	
 }
+
+function error(){
+	if($('#error').val().length!=0){
+		alert($('#error').val());
+	}
+}
+
+//1:1 문의 ajax
+function inquiryAjax(pageNum){
+	$.ajax({
+		type:"POST", 
+		url:"/udongca_project/member/memberInquiryListPaging.udc",
+		data:'pnum='+pageNum,
+		dataType:"JSON",
+		success:function(jsonData){
+			$("#tbody").empty();
+		
+			$.each(jsonData['list'], function(){
+				$("#tbody").append(
+						$("<tr>").append($("<td>").text(this.inquiryNo))
+									  .append($("<td>").text('['+this.inquiryType+']'+this.inquiryTitle))
+								  	  .append($("<td>").text(this.inquiryReply == '' ? '처리중':'처리완료'))
+				);
+			});
+			
+			var pageBean = jsonData['pageBean'];
+			if(pageBean.previousPageGroup){
+				$('#previousBtn').attr('href','/udongca_project/member/memberInquiryListPaging.udc?pnum='+pageBean.beginPage-1);
+			}
+			var num="";
+			
+			for (var idx = pageBean.beginPage; idx <= pageBean.endPage; idx++) {
+			
+				if(idx!=pageBean.page){
+					num = num + '<a class="pageNum">'+idx+'</a>';
+				}else{
+					num = num + '['+idx+']'
+				}
+			}
+			
+			$('#pageBtn').empty().html(num);
+			
+			if(pageBean.nextPageGroup){
+				$('#endBtn').attr('href','/udongca_project/member/memberInquiryListPaging.udc?pnum='+pageBean.endPage+1);
+			}
+			
+		}
+	});
+}
+

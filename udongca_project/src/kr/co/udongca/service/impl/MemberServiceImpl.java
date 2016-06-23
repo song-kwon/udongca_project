@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.SendEmailConfig;
+import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
@@ -27,14 +28,13 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDaoImpl;
 
 	@Override
-	public Member login(String id, String password) throws Exception {
-		Member login = memberDaoImpl.login(id, password);
-		System.out.println(login);
-		if (login == null) {
-			System.out.println("로그인 실패");
-			throw new Exception();
+	public Member login(String id, String password){
+		if(memberDaoImpl.countSameId(id)==0){
+			return null;
+		}else{
+			Member login = memberDaoImpl.login(id, password);
+			return login;
 		}
-		return login;
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException {
 		ModelAndView mav = null;
 		if(memberDaoImpl.countMemberIdFind(member)==0){
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_form.jsp");
+			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_form.jsp","error","회원 정보가 없습니다.");
 			return mav;
 		}else{
 			Member findMember = memberDaoImpl.memberIdFind(member);
@@ -155,5 +155,35 @@ public class MemberServiceImpl implements MemberService {
 			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
 			return mav;
 		}
+	}
+	
+	@Override
+	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException {
+		ModelAndView mav = null;
+		if(memberDaoImpl.countMemberPasswordFind(member)==0){
+			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp","error","회원 정보가 없습니다.");
+			return mav;
+		}else{
+			Member findMember = memberDaoImpl.memberIdFind(member);
+			SendEmailConfig send = new SendEmailConfig();
+			String content = String.format("%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", findMember.getMemberName(),findMember.getMemberId(),findMember.getMemberPassword());
+			System.out.println(content + " "+send.sendEmail(findMember,content)); 
+			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
+			return mav;
+		}
+	}
+	
+	@Override
+	public Map memberInquiryList(int page, String memberId) {
+	    HashMap map = new HashMap();
+	    map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	    map.put("page", page);
+	    map.put("memberId",memberId);
+	    List list = memberDaoImpl.memberInquriyList(map);
+	    System.out.println(list);
+	    PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
+	    map.put("list", list);
+	    map.put("pageBean", pagingBean);
+	    return map;
 	}
 }
