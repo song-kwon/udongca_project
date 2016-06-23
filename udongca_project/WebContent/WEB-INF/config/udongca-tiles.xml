@@ -32,14 +32,7 @@
 			value="/WEB-INF/view/udongca-tiles/login.jsp" />
 	</definition>
 
-	<definition name="masterPage.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/master_page.jsp" />
-	</definition>
-
-
+	
 	<definition name="generalMemberJoinform.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/generalMemberJoinform.jsp" />
@@ -68,7 +61,7 @@
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/joinSelect.jsp" />
 	</definition>
-
+	
 	<definition name="joinSuccess.tiles" extends="default-nonav.tiles">
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/joinSuccess.jsp"></put-attribute>
@@ -80,7 +73,18 @@
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/{1}.jsp" />
 	</definition>
-
+	<definition name="memberListPaging.tilse" extends="default-nav.tiles">
+		<put-attribute name="body"
+			value="/WEB-INF/view/udongca-tiles/memberList.jsp"/>
+			<put-attribute name="menu"
+			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
+	</definition>
+	<definition name="reportList.tilse" extends="default-nav.tiles">
+		<put-attribute name="body"
+			value="/WEB-INF/view/udongca-tiles/reportList.jsp"/>
+			<put-attribute name="menu"
+			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
+	</definition>
 	<definition name="member/*.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu"
 			value="/WEB-INF/view/udongca-tiles/member_menu.jsp" />

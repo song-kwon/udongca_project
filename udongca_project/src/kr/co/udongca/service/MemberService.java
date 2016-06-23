@@ -1,6 +1,7 @@
 package kr.co.udongca.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,4 +28,6 @@ public interface MemberService {
 	public List<Member> memberList();
 	
 	public List<Address> middleList(int majorNo);
+	
+	public Map<String, Object> memberList(int page);
 }

@@ -27,6 +27,12 @@ noticeTitle	varchar2(50)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
 noticeDate	DATE	NOT NULL
 );
+insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust4','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust5','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust6','asdf','cust1','sjung7674','0','true','cust')
 
 create table member(
 memberId	varchar2(50)	primary key,
@@ -88,9 +94,9 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'cust1')
 
-
-
+insert into report_board values()
 create table report_board(
 reportboardNo	NUMBER	primary key,
 reportMemberId	varchar2(50)	NOT NULL,

@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
-			"url":"/WEB-INF/view/udongca-tiles/master_page.jsp",
+			"url":"",
 			"type":"post",
 			"dataType":"json",
 			"success":function(obj){

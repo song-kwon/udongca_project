@@ -4,7 +4,7 @@
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
 			<c:when test="${sessionScope.login.memberType =='master'}" >
-				<div style="text-align:right;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리페이지</a>|<a href="/udongca_project/member/customerCenter.udc">고객센터</a></div>
+				<div style="text-align:right;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/master/master_page.udc">관리페이지</a>|<a href="/udongca_project/member/customerCenter.udc">고객센터</a></div>
 			</c:when>
 			<c:otherwise>
 				<div style="text-align:right;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<a href="/udongca_project/member/customerCenter.udc">고객센터</a></div>

@@ -38,12 +38,20 @@
 	<select id="member_list" resultType="member">
 		<include refid="select-basic"/>
 	</select>
+	<select id="select_list_page" parameterType="map" resultType="member">
+		SELECT memberId, memberName, memberPassword, memberEmail
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, memberId, memberName, memberPassword, memberEmail
+			     FROM(SELECT memberId, memberName, memberPassword, memberEmail
+					     FROM member order by memberId asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
 	<select id="find_by_id" parameterType="String" resultType="member">
 		<include refid="select-basic" />
 		WHERE memberId=#{memberId}
 	</select>
-	<select id="member_list" resultType="member">
-	
-	<include refid="select-basic" />
+	<select id="count_member" resultType="_int">
+	SELECT count(memberId) from member
 	</select>
 </mapper>

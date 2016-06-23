@@ -24,4 +24,8 @@ public interface MemberDao {
 	public Member findById(String memberId);
 	
 	public List<Member> selectList();
+	
+	public List<Member> selectList(int page);
+	
+	public int countMember();
 }
