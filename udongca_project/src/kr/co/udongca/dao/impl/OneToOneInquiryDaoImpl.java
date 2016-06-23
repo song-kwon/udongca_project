@@ -14,6 +14,10 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	@Autowired
 	private SqlSessionTemplate session;
 	
+	public OneToOneInquiryDaoImpl(SqlSessionTemplate session) {
+	   this.session = session;
+	}
+	
 	@Override
 	public int selectNoOneToOneInquiry(){
 		return session.selectOne("inquiryMapper.select-no-oneToOneInquiry");

@@ -17,13 +17,13 @@ import kr.co.udongca.service.ReportBoardService;
 public class ReportBoardController {
     @Autowired
     private ReportBoardService reportService;
-    int page;
+
     @RequestMapping("/reportBoardList.udc")
     @ResponseBody
     public List reportList(@RequestParam(required=false,defaultValue="1") String pnum, @RequestParam(required=false,defaultValue="review") String reportType){
-	//int page=1;
+	int page = 0;
 	try{
-	    page = Integer.parseInt(pnum);
+	     page = Integer.parseInt(pnum);
 	    System.out.println(page);
 	}catch(Exception e){}
 	    System.out.println(reportType);
@@ -35,7 +35,7 @@ public class ReportBoardController {
     
     @RequestMapping("/reportBoard.udc")
     public ModelAndView reportBoard(@RequestParam(required=false,defaultValue="1") String pnum, @RequestParam(required=false,defaultValue="review") String reportType){
-	//int page=1;
+	int page=0;
 	try{
 	    page = Integer.parseInt(pnum);
 	}catch(Exception e){}
