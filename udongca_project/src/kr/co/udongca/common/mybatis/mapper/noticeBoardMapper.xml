@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="noticeMapper">
+	<sql id="select-basic-noticeBoard">
+		SELECT #{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeDate} FROM notice_board
+	</sql>
+	
+	<resultMap type="noticeBoard" id="noticeBoard-basic-resultmap">
+		<id column="noticeNo" property="noticeNo"/>
+		<result column="noticeTitle" property="noticeTitle"/>
+		<result column="noticeContent" property="noticeContent"/>
+		<result column="noticeDate" property="noticeDate"/>
+	</resultMap>
+	
+	<select id="select-no-noticeBoard">
+		SELECT notice_board_seq.nextval FROM dual
+	</select>
+
+	<insert id="insert_noticeBoard" parameterType="noticeBoard">
+		INSERT INTO notice_board VALUES (#{noticeNo}, #{noticeTitle}, #{noticeContent}, sysdate)
+	</insert>
+	
+	<update id="update_noticeBoard" parameterType="_int">
+		UPDATE notice_board SET noticeTitle=#{noticeTitle}, noticeContent=#{noticeContent} WHERE noticeNo=#{noticeNo}
+	</update>
+	
+	<delete id="delete_noticeBoard" parameterType="_int">
+		DELETE FROM notice_board WHERE noticeNo=#{noticeNo}
+	</delete>
+	
+	<select id="select_noticeBoard" parameterType="_int" resultMap="noticeBoard-basic-resultmap">
+		<include refid="select-basic-noticeBoard"/> WHERE noticeNo=#{noticeNo}
+	</select>
+	
+	<select id="selectList_noticeBoard" resultMap="noticeBoard-basic-resultmap">
+		<include refid="select-basic-noticeBoard"/>
+	</select>
 </mapper>

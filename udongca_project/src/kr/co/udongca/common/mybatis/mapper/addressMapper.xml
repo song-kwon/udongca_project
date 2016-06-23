@@ -3,15 +3,25 @@
 <mapper namespace="addressMapper">
 	<select id="selectAllMajorAddress" resultType="address">
 		SELECT
-			major_categoryNo addressId,
+			major_categoryNo majorCategoryNo,
 			address1 addressName
 			FROM majorcategory
 	</select>
+	
 	<select id="selectMiddleAddressByMajorAddressNo" parameterType="int" resultType="address">
 		SELECT
-			middle_categoryNo addressId,
+			middle_categoryNo middlecategoryNo,
 			address2 addressName
 			FROM middlecategory
 			WHERE major_categoryNo = #{value}
+	</select>
+	
+	<select id="selectPreferLocationByMiddleAddressNo" parameterType="int" resultType="address">
+		SELECT
+			middle_categoryNo middleCategoryNo,
+			major_categoryNo majorCategoryNo,
+			address2 addressName
+			FROM middlecategory
+			WHERE middle_categoryNo = #{value}
 	</select>
 </mapper>

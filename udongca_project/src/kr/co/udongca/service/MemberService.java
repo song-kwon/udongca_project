@@ -5,8 +5,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberService {
 
@@ -30,4 +33,14 @@ public interface MemberService {
 	public List<Address> middleList(int majorNo);
 	
 	public Map<String, Object> memberList(int page);
+	public int managePreferLocation(PreferLocation location);
+	
+	public List myPreferLocation(String memberId);
+	
+	public ModelAndView myPreferLocationPage(String memberId);
+	
+	public int memberDrop(String memberId);
+	
+	public ModelAndView memberIdFind(Member member);
+	
 }

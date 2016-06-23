@@ -54,4 +54,17 @@
 	<select id="count_member" resultType="_int">
 	SELECT count(memberId) from member
 	</select>
+	
+	<update id="member_drop" parameterType="string">
+		update member set loginpossibility='false' where memberId=#{memberId}
+	</update>
+	
+	<select id="count_memberId_find" parameterType="member" resultType="int">
+		select count(memberId) from member where memberName=#{memberName} and memberEmail=#{memberEmail}
+	</select>
+	
+	<select id="memberId_find" parameterType="member" resultType="member">
+		<include refid="select-basic"/>
+		where memberName=#{memberName} and memberEmail=#{memberEmail}
+	</select>
 </mapper>
