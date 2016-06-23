@@ -35,4 +35,5 @@
 	<select id="selectList_noticeBoard" resultMap="noticeBoard-basic-resultmap">
 		<include refid="select-basic-noticeBoard"/>
 	</select>
+	
 </mapper>
