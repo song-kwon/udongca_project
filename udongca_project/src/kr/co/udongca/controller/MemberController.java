@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -28,13 +30,14 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping("login.udc")
-	public String login(String id, String password, HttpSession session) throws Exception {
+	public ModelAndView login(String id, String password, HttpSession session) throws Exception {
+
 		Member login = memberService.login(id, password);
-		if (login.getLoginPossibility().equals("false")) {
-			return "redirect:/loginPage.udc";
+		if (login == null || login.getLoginPossibility().equals("false")) {
+			return new ModelAndView("login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else {
 			session.setAttribute("login", login);
-			return "redirect:/main.udc";
+			return new ModelAndView("main.tiles");
 		}
 	}
 
@@ -111,7 +114,7 @@ public class MemberController {
 		return new ModelAndView("joinSuccess.tiles", "member", member);
 	}
 
-	@RequestMapping("member_modify_form.udc")
+	@RequestMapping("member_verify.udc")
 	public String memberModify(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master"))
@@ -130,11 +133,11 @@ public class MemberController {
 			return "false";
 	}
 
-	@RequestMapping("modify_form.udc")
+	@RequestMapping("member_modify_form.udc")
 	public String memberModifyForm(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master"))
-			return "member/member_modify.tiles";
+			return "member/member_modify_form.tiles";
 		else
 			return "redirect:/loginPage.udc";
 	}
@@ -157,9 +160,7 @@ public class MemberController {
 	public ModelAndView PreferLocationPage(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master")) {
-
 			ModelAndView mav = memberService.myPreferLocationPage(login.getMemberId());
-
 			return mav;
 		} else {
 			return null;
@@ -222,33 +223,58 @@ public class MemberController {
 			return "redirect:/loginPage.udc";
 		}
 	}
-	
+
 	@RequestMapping("memberId_find.udc")
-	public ModelAndView memberIdFind(String memberName,String memberEmail,String emailAddress){
+	public ModelAndView memberIdFind(String memberName, String memberEmail, String emailAddress)
+			throws UnsupportedEncodingException {
 		Member findMember = new Member();
 		findMember.setMemberName(memberName);
-		findMember.setMemberEmail(memberEmail+"@"+emailAddress);
-		
+		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
 		return memberService.memberIdFind(findMember);
 	}
-	
-	@RequestMapping("memberId_find_success.udc")
-	public ModelAndView memberIdFindSuccess(Member success){
-		return new ModelAndView("/member_find_success_form.udc","success",success);
+
+	@RequestMapping("memberListPaging.udc")
+	public ModelAndView memberListPageing(@RequestParam(required = false) String pnum) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+			System.out.println(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			Map<String, Object> map = memberService.memberList(page);
+			return new ModelAndView("memberListPaging.tilse", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
 	}
-	@RequestMapping("memberListPaging.udc")      
-	public ModelAndView memberListPageing(@RequestParam(required=false) String pnum){
-	    int page = 1;
-	    try{
-		page = Integer.parseInt(pnum);
-		System.out.println(pnum);
-	    }catch(Exception e){}
-	    try{
-		Map<String, Object> map = memberService.memberList(page);
-		return new ModelAndView("memberListPaging.tilse",map);
-	    }catch(Exception e){
-		e.printStackTrace();
-		return new ModelAndView("/WEB-INF/view/error.jsp","error_message", e.getMessage());
-	    }
-	} 
+
+	@RequestMapping("memberPassword_find.udc")
+	public ModelAndView memberPasswordFind(String memberId, String memberName, String memberEmail, String emailAddress)
+			throws UnsupportedEncodingException {
+		Member findMember = new Member();
+		findMember.setMemberId(memberId);
+		findMember.setMemberName(memberName);
+		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
+		return memberService.memberPasswordFind(findMember);
+	}
+	
+	@RequestMapping("memberInquiryListPaging.udc")
+	public ModelAndView memberInquiryListPageing(@RequestParam(required = false) String pnum,HttpSession session) {
+		Member login = (Member)session.getAttribute("login");
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+			System.out.println(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			Map<String, Object> map = memberService.memberInquiryList(page,login.getMemberId());
+			return new ModelAndView("member/member_inquiryList.tiles", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
+	}
 }

@@ -4,5 +4,4 @@
 <c:if test="${sessionScope.login.memberId=='udongca' }">
 	<div align="right"><input type="submit" value="답글달기"></div>
 </c:if>
-
 </form>

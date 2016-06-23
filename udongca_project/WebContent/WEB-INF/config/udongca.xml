@@ -38,6 +38,8 @@
 	<mvc:view-controller path="/master/member_list.udc" view-name="master/member_list.tiles"/>
 	<mvc:view-controller path="/memberId_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_form.jsp"/>
 	<mvc:view-controller path="/memberId_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp"/>
+	<mvc:view-controller path="/memberPassword_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp"/>
+	<mvc:view-controller path="/memberPassword_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp"/>	
 	
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"

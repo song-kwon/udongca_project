@@ -11,6 +11,7 @@ import kr.co.udongca.vo.NoticeBoard;
 
 @Service
 public class NoticeBoardServiceImpl implements NoticeBoardService {
+	
 	@Autowired
 	private NoticeBoardDao dao;
 	

@@ -67,4 +67,13 @@
 		<include refid="select-basic"/>
 		where memberName=#{memberName} and memberEmail=#{memberEmail}
 	</select>
+	
+	<select id="count_memberPassword_find" parameterType="member" resultType="int">
+		select count(memberId) from member where memberId=#{memberId} and memberName=#{memberName} and memberEmail=#{memberEmail}
+	</select>
+	
+	<select id="memberPassword_find" parameterType="member" resultType="member">
+		<include refid="select-basic"/>
+		where memberId=#{memberId} and memberName=#{memberName} and memberEmail=#{memberEmail}
+	</select>
 </mapper>

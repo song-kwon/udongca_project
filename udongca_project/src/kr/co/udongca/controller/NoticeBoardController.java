@@ -14,6 +14,7 @@ import kr.co.udongca.vo.NoticeBoard;
 @Controller
 @RequestMapping("/noticeBoard/")
 public class NoticeBoardController {
+	
 	@Autowired
 	private NoticeBoardService service;
 	
