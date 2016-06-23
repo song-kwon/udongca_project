@@ -3,12 +3,15 @@ package kr.co.udongca.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.NoticeBoardDao;
 import kr.co.udongca.service.NoticeBoardService;
 import kr.co.udongca.vo.NoticeBoard;
 
+@Service
 public class NoticeBoardServiceImpl implements NoticeBoardService {
+	
 	@Autowired
 	private NoticeBoardDao dao;
 	

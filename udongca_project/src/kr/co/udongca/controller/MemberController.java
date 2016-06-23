@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -111,7 +113,7 @@ public class MemberController {
 		return new ModelAndView("joinSuccess.tiles", "member", member);
 	}
 
-	@RequestMapping("member_modify_form.udc")
+	@RequestMapping("member_verify.udc")
 	public String memberModify(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master"))
@@ -130,11 +132,11 @@ public class MemberController {
 			return "false";
 	}
 
-	@RequestMapping("modify_form.udc")
+	@RequestMapping("member_modify_form.udc")
 	public String memberModifyForm(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master"))
-			return "member/member_modify.tiles";
+			return "member/member_modify_form.tiles";
 		else
 			return "redirect:/loginPage.udc";
 	}
@@ -157,9 +159,7 @@ public class MemberController {
 	public ModelAndView PreferLocationPage(HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master")) {
-
 			ModelAndView mav = memberService.myPreferLocationPage(login.getMemberId());
-
 			return mav;
 		} else {
 			return null;
@@ -224,16 +224,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("memberId_find.udc")
-	public ModelAndView memberIdFind(String memberName,String memberEmail,String emailAddress){
+	public ModelAndView memberIdFind(String memberName,String memberEmail,String emailAddress) throws UnsupportedEncodingException{
 		Member findMember = new Member();
 		findMember.setMemberName(memberName);
 		findMember.setMemberEmail(memberEmail+"@"+emailAddress);
-		
 		return memberService.memberIdFind(findMember);
 	}
 	
-	@RequestMapping("memberId_find_success.udc")
-	public ModelAndView memberIdFindSuccess(Member success){
+/*	@RequestMapping("memberId_find_success.udc")
+	public ModelAndView memberIdFindSuccess(Member success) throws UnsupportedEncodingException{
+		SendEmailConfig send = new SendEmailConfig();
+		String content = String.format("%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", success.getMemberName(),success.getMemberId());
+		System.out.println(content + " "+send.sendEmail(success,content)); 
 		return new ModelAndView("/member_find_success_form.udc","success",success);
 	}
+*/
 }

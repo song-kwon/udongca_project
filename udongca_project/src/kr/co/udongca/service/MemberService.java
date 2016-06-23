@@ -1,5 +1,6 @@
 package kr.co.udongca.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +38,6 @@ public interface MemberService {
 	
 	public int memberDrop(String memberId);
 	
-	public ModelAndView memberIdFind(Member member);
+	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException;
 	
 }

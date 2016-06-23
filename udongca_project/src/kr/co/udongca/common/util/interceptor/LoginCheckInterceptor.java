@@ -19,7 +19,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		//로그인 체크
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login") == null){
-			throw new ModelAndViewDefiningException(new ModelAndView("/udongca_page/main.udc","error","로그인이 필요합니다."));
+			throw new ModelAndViewDefiningException(new ModelAndView("main.tiles","error","로그인이 필요합니다."));
 		}
 		
 		

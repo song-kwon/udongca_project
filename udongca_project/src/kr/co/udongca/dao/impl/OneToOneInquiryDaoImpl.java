@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.OneToOneInquiryDao;
 import kr.co.udongca.vo.OneToOneInquiry;
 
+@Repository
 public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	@Autowired
 	private SqlSessionTemplate session;

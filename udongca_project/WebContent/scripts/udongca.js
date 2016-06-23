@@ -33,7 +33,7 @@ $(document).ready(function(){
 			'data':{'id':$('#id').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'true')
-					location.replace('/udongca_project/member/modify_form.udc');
+					location.replace('/udongca_project/member/member_modify_form.udc');
 				else
 					alert(txt);
 			}

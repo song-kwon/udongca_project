@@ -3,11 +3,13 @@ package kr.co.udongca.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import kr.co.udongca.dao.OneToOneInquiryDao;
 import kr.co.udongca.service.OneToOneInquiryService;
 import kr.co.udongca.vo.OneToOneInquiry;
 
+@Service
 public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	@Autowired
 	private OneToOneInquiryDao dao;
