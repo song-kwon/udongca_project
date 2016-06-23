@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.SendEmailConfig;
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
@@ -63,8 +64,6 @@ public class MemberServiceImpl implements MemberService {
 	public Member findById(String memberId) {
 		return memberDaoImpl.findById(memberId);
 	}
-
-	@Override
 	public int generalMemberJoin(Member member) {
 		return memberDaoImpl.insertGeneralMember(member);
 	}
@@ -79,6 +78,14 @@ public class MemberServiceImpl implements MemberService {
 	    return memberDaoImpl.selectList();
 	}
 	
+	public Map<String, Object> memberList(int page){
+	    HashMap<String, Object> map = new HashMap<String,Object>();
+	    List list = memberDaoImpl.selectList(page);
+	    map.put("list", list);
+	    PagingBean pagingBean = new PagingBean(memberDaoImpl.countMember(), page);
+	    map.put("pageBean", pagingBean);
+	    return map;
+	}
 	@Override
 	public int managePreferLocation(PreferLocation location) {
 		if(memberDaoImpl.countPreferLocationByMemberId(location.getMemberId()) ==0)

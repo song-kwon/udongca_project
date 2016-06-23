@@ -2,6 +2,7 @@ package kr.co.udongca.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ public interface MemberService {
 	public Member login(String id, String password) throws Exception;
 
 	public int memberModify(String name, String password, HttpSession session);
+	
 
 	public List<Address> majorList();
 
@@ -28,8 +30,10 @@ public interface MemberService {
 	public Member findById(String memberId);
 	
 	public List<Member> memberList();
+	
 	public List<Address> middleList(int majorNo);
 	
+	public Map<String, Object> memberList(int page);
 	public int managePreferLocation(PreferLocation location);
 	
 	public List myPreferLocation(String memberId);

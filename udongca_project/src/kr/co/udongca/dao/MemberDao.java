@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.udongca.vo.Address;
+//github.com/song-kwon/udongca_project.git
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
 
@@ -36,6 +37,10 @@ public interface MemberDao {
 
 	public List<Member> selectList();
 	
+	public List<Member> selectList(int page);
+	
+	public int countMember();
+
 	public int memberDrop(String memberId);
 	
 	public int countMemberIdFind(Member member);

@@ -1,5 +1,6 @@
 package kr.co.udongca.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -46,6 +48,7 @@ public class MemberDaoImpl implements MemberDao {
 	public int countSameId(String memberId) {
 		return session.selectOne("memberMapper.count_same_id", memberId);
 	}
+	
 
 	@Override
 	public List<Address> selectMajor() {
@@ -66,7 +69,15 @@ public class MemberDaoImpl implements MemberDao {
 	public int countPreferLocationByMemberId(String memberId) {
 		return session.selectOne("preferLocationMapper.countPreferLocationByMemberId", memberId);
 	}
-
+	public List selectList(int page){
+	    HashMap param = new HashMap();
+	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	    param.put("page", page);
+	    return session.selectList("memberMapper.select_list_page",param);
+	} 
+	public int countMember(){
+	    return session.selectOne("memberMapper.count_member");
+	}
 	@Override
 	public int addPreferLocationByMemberId(PreferLocation location) {
 		return session.insert("preferLocationMapper.addPreferLocation", location);

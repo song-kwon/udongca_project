@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -239,4 +242,19 @@ public class MemberController {
 		return new ModelAndView("/member_find_success_form.udc","success",success);
 	}
 */
+	@RequestMapping("memberListPaging.udc")      
+	public ModelAndView memberListPageing(@RequestParam(required=false) String pnum){
+	    int page = 1;
+	    try{
+		page = Integer.parseInt(pnum);
+		System.out.println(pnum);
+	    }catch(Exception e){}
+	    try{
+		Map<String, Object> map = memberService.memberList(page);
+		return new ModelAndView("memberListPaging.tilse",map);
+	    }catch(Exception e){
+		e.printStackTrace();
+		return new ModelAndView("/WEB-INF/view/error.jsp","error_message", e.getMessage());
+	    }
+	} 
 }
