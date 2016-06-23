@@ -14,6 +14,10 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	@Autowired
 	private SqlSessionTemplate session;
 	
+	public NoticeBoardDaoImpl(SqlSessionTemplate session) {
+	    this.session = session;
+	
+	}
 	@Override
 	public int selectNoNoticeBoard(){
 		return session.selectOne("noticeMapper.select-no-noticeBoard");
