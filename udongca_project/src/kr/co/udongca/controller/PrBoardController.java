@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.udongca.service.impl.PrBoardServiceImpl;
+import kr.co.udongca.vo.Menu;
 import kr.co.udongca.vo.PRBoard;
 
 @Controller
@@ -27,9 +29,12 @@ public class PrBoardController {
 	}
 	
 	@RequestMapping("prWrite.udc")
-	public void prWrite(@RequestParam Map map, MultipartFile[] cafeImage,
+	@Transactional
+	public String prWrite(@RequestParam Map map, MultipartFile[] cafeImage,
 			String[] menuNameArray, String[] menuTypeArray,
-			MultipartFile[] menuRealImage, HttpServletRequest req) throws IllegalStateException, IOException{
+			MultipartFile[] menuImageArray, HttpServletRequest req,
+			ModelMap model)
+					throws IllegalStateException, IOException{
 		PRBoard prBoard = new PRBoard();
 		int cafeNo = service.selectNextPRBoardSequence();
 		String cafeRealImagesName="";
@@ -47,18 +52,13 @@ public class PrBoardController {
 		prBoard.setManagerTel((String)map.get("managerTel"));
 		prBoard.setMemberId("qwerty"); // !
 		
-		System.out.println(cafeImage);
-		
 		if (cafeImage.length != 0 && cafeImage != null) {
 			for(int idx = 0 ; idx < cafeImage.length ; idx++){
 				String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
 				
-				System.out.println(imageName);
-				
 				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
 				// 최종 저장소 디렉토리 조회
 				String dir = req.getServletContext().getRealPath("/images");
-				System.out.println(dir);
 				long fake = System.currentTimeMillis();
 				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
 	
@@ -71,23 +71,15 @@ public class PrBoardController {
 		prBoard.setCafeRealImage(cafeRealImagesName);
 		prBoard.setCafeFakeImage(cafeFakeImagesName);
 		
-		System.out.println(prBoard);
-		//service.insertPRBoard(prBoard);
-		System.out.println();
-		for(String str : menuNameArray){
-			System.out.print(str + " ");
-		}
-		System.out.println();
-		for(String str : menuTypeArray){
-			System.out.print(str + " ");
-		}
-		System.out.println();
-		for(MultipartFile file : menuRealImage){
-			System.out.print(file + " ");
-		}
-		System.out.println();
+		service.insertPRBoard(prBoard);
 		
-		return;
+		for(int i = 0; i < menuNameArray.length; i++){
+			menuAdd(cafeNo, menuNameArray[i], menuTypeArray[i], menuImageArray[i], req);
+		}
+		
+		model.put("cafeNo", cafeNo);
+		
+		return "/ParkTest/prRead.jsp";
 	}
 
 	@RequestMapping("prModify.udc")
@@ -154,7 +146,49 @@ public class PrBoardController {
 	}
 
 	@RequestMapping("menuAdd.udc")
+	@Transactional
 	public void menuAdd(){
+		return;
+	}
+	
+	@Transactional
+	private void menuAdd(int cafeNumber, String menuType, String menuName,
+			MultipartFile menuImage, HttpServletRequest req)
+					throws IllegalStateException, IOException{
+		Menu menu = new Menu();
+		String menuRealImage = null;
+		String menuFakeImage = null;
+		int menuNo = service.selectNextMenuSequence();
+		System.out.println(menuNo);
+		
+		menu.setMenuNO(menuNo);
+		menu.setCafeNumber(cafeNumber);
+		menu.setMenuType(menuType);
+		menu.setMenuName(menuName);
+		
+		if (menuImage != null) {
+			String imageName = menuImage.getOriginalFilename();// 업로드된 파일명
+			
+			System.out.println(imageName);
+			
+			// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+			// 최종 저장소 디렉토리 조회
+			String dir = req.getServletContext().getRealPath("/images");
+			System.out.println(dir);
+			long fake = System.currentTimeMillis();
+			File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+
+			menuImage.transferTo(dest);
+			
+			menuRealImage = imageName;
+			menuFakeImage = fake+imageName;
+		}
+		
+		menu.setMenuRealImage(menuRealImage);
+		menu.setMenuFakeImage(menuFakeImage);
+		
+		service.insertMenu(menu);
+		
 		return;
 	}
 

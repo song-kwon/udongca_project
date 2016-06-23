@@ -26,7 +26,7 @@
 				}
 				
 				$("#menuAdd").on("click", function(){
-					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray'><option>종류</option></select> <b>이름:</b> <input type='text' name='menuNameArray'> 사진: <input type='file' name='menuRealImageArray'><br></div>");
+					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray'><option>종류</option></select> <b>이름:</b> <input type='text' name='menuNameArray'> 사진: <input type='file' name='menuImageArray'><br></div>");
 					if (menuTypeList){
 						for(var i = 0; i < menuTypeList.length; i++){
 							$("[name='menuType']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
@@ -83,7 +83,7 @@
 						<div>
 							<b>종류:</b> <select name="menuTypeArray"><option>종류</option></select>
 							<b>이름:</b> <input type="text" name="menuNameArray">
-							사진: <input type="file" name="menuRealImageArray"><br>
+							사진: <input type="file" name="menuImageArray"><br>
 						</div>
 					</td>
 					<td><input type="button" value="메뉴 추가" id="menuAdd"><input type="button" value="메뉴 삭제" id="menuDelete"></td>

@@ -16,4 +16,5 @@ public interface PrBoardService {
 	public int deleteMenu(int menuNo);
 	public List<Menu> selectMenuListByCafeNoAndMenuType (Map map);
 	public Menu selectMenuByMenuNo(int menuNo);
+	public int selectNextMenuSequence();
 }

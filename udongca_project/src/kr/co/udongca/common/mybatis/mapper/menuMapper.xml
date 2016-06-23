@@ -44,4 +44,7 @@
 		FROM menu
 		WHERE menuNo = #{menuNO}
 	</select>
+	<select id="selectNextMenuSequence" resultType="_int">
+		SELECT menu_menuNo_seq.nextval FROM dual
+	</select>
 </mapper>

@@ -68,4 +68,9 @@ public class PrBoardServiceImpl implements PrBoardService{
 	public Menu selectMenuByMenuNo(int menuNo) {
 		return dao.selectMenuByMenuNo(menuNo);
 	}
+
+	@Override
+	public int selectNextMenuSequence() {
+		return dao.selectNextMenuSequence();
+	}
 }
