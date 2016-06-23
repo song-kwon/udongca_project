@@ -24,8 +24,8 @@ public class SearchDaoImpl implements SearchDao {
 	}
 
 	@Override
-	public List<Address> selectMiddleAddressByMajorAddressNo(int majorAddressNo) {
-		return session.selectList(addressNamespace + "selectMiddleAddressByMajorAddressNo", majorAddressNo);
+	public List<Address> selectMiddleAddressByMajorCategoryNo(int majorCategoryNo) {
+		return session.selectList(addressNamespace + "selectMiddleAddressByMajorCategoryNo", majorCategoryNo);
 	}
 	
 	@Override

@@ -71,7 +71,10 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<!-- MultipartResolver 설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 
 	<!-- ViewResolver 설정 -->
 	<bean name="vr1"

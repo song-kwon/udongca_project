@@ -1,11 +1,16 @@
 package kr.co.udongca.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.udongca.service.impl.PrBoardServiceImpl;
 import kr.co.udongca.vo.PRBoard;
@@ -22,16 +27,71 @@ public class PrBoardController {
 	}
 	
 	@RequestMapping("prWrite.udc")
-	public void prWrite(PRBoard prBoard){
-		prBoard.setCafeNo(service.selectNextPRBoardSequence());
-		prBoard.setMemberId("qwerty");
+	public void prWrite(@RequestParam Map map, MultipartFile[] cafeImage,
+			String[] menuNameArray, String[] menuTypeArray,
+			MultipartFile[] menuRealImage, HttpServletRequest req) throws IllegalStateException, IOException{
+		PRBoard prBoard = new PRBoard();
+		int cafeNo = service.selectNextPRBoardSequence();
+		String cafeRealImagesName="";
+		String cafeFakeImagesName="";
+		
+		prBoard.setCafeNo(cafeNo);
+		prBoard.setCafeName((String)map.get("cafeName"));
+		prBoard.setCafeIntro((String)map.get("cafeIntro"));
+		prBoard.setCafeTel((String)map.get("cafeTel"));
+		prBoard.setCafeFeature((String)map.get("cafeFeature"));
+		prBoard.setCafeAddress((String)map.get("cafeAddress"));
+		prBoard.setCoporateNumb((String)map.get("coporateNumb"));
+		prBoard.setOperationHour((String)map.get("operationHour"));
+		prBoard.setManagerName((String)map.get("managerName"));
+		prBoard.setManagerTel((String)map.get("managerTel"));
+		prBoard.setMemberId("qwerty"); // !
+		
+		System.out.println(cafeImage);
+		
+		if (cafeImage.length != 0 && cafeImage != null) {
+			for(int idx = 0 ; idx < cafeImage.length ; idx++){
+				String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
+				
+				System.out.println(imageName);
+				
+				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+				// 최종 저장소 디렉토리 조회
+				String dir = req.getServletContext().getRealPath("/images");
+				System.out.println(dir);
+				long fake = System.currentTimeMillis();
+				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+	
+				cafeImage[idx].transferTo(dest);
+				cafeRealImagesName += imageName+";";
+				cafeFakeImagesName += fake+imageName+";";
+			}
+		}
+		
+		prBoard.setCafeRealImage(cafeRealImagesName);
+		prBoard.setCafeFakeImage(cafeFakeImagesName);
+		
 		System.out.println(prBoard);
-		service.insertPRBoard(prBoard);
+		//service.insertPRBoard(prBoard);
+		System.out.println();
+		for(String str : menuNameArray){
+			System.out.print(str + " ");
+		}
+		System.out.println();
+		for(String str : menuTypeArray){
+			System.out.print(str + " ");
+		}
+		System.out.println();
+		for(MultipartFile file : menuRealImage){
+			System.out.print(file + " ");
+		}
+		System.out.println();
+		
 		return;
 	}
 
 	@RequestMapping("prModify.udc")
-	public void prModify(@RequestParam PRBoard prBoard){
+	public void prModify(PRBoard prBoard){
 		return;
 	}
 
