@@ -4,14 +4,20 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.NoticeBoardDao;
 import kr.co.udongca.vo.NoticeBoard;
 
+@Repository
 public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	@Autowired
 	private SqlSessionTemplate session;
 	
+	public NoticeBoardDaoImpl(SqlSessionTemplate session) {
+	    this.session = session;
+	
+	}
 	@Override
 	public int selectNoNoticeBoard(){
 		return session.selectOne("noticeMapper.select-no-noticeBoard");
