@@ -29,7 +29,7 @@
 	<mvc:view-controller path="/master/master_page.udc" view-name="master/master_page.tiles"/>
 	<mvc:view-controller path="/member/member_list.udc" view-name="memberList.tiles"/> 
 	<mvc:view-controller path="/member/master_page.udc" view-name="masterPage.tiles"/>
-	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterform.udc" view-name="noticeBoardResgisterform.tiles"/>
+	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterform.udc" view-name="noticeBoardRegisterform.tiles"/>
 	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterSuccess.udc" view-name="noticeBoardRegisterSuccess.tiles"/>
 	<mvc:view-controller path="/noticeBoard/noticeBoardModifySuccess.udc" view-name="noticeBoardModifySuccess.tiles"/>
 	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterform.udc" view-name="oneToOneInquiryRegisterform.tiles"/>
@@ -38,6 +38,7 @@
 	<mvc:view-controller path="/master/member_list.udc" view-name="master/member_list.tiles"/>
 	<mvc:view-controller path="/memberId_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_form.jsp"/>
 	<mvc:view-controller path="/memberId_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp"/>
+	<mvc:view-controller path="/member/customerCenter.udc" view-name="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
 	<mvc:view-controller path="/memberPassword_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp"/>
 	<mvc:view-controller path="/memberPassword_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp"/>	
 	

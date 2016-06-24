@@ -9,6 +9,7 @@ public interface NoticeBoardDao {
 	public int insertNoticeBoard(NoticeBoard noticeBoard);
 	public int deleteNoticeBoard(int noticeNo);
 	public NoticeBoard selectNoticeBoard(int noticeNo);
-	public List<NoticeBoard> selectListNoticeBoard();
-	public int updateNoticeBoard(int noticeNo);
+	public List<NoticeBoard> selectListNoticeBoard(int page);
+	public int updateNoticeBoard(NoticeBoard noticeBoard);
+	public int countNoticeBoard();
 }

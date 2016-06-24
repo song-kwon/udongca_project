@@ -38,16 +38,21 @@ function checkSubmit(){
 </script>
 
 <div><h2>공지 사항 수정</h2></div>
-<form action="/udongca_project/noticeBoard/modifyNoticeBoard.udc?noticeNo=${requestScope.notice.noticeNo }" method="post" onsubmit="return checkSubmit();">
+<form action="/udongca_project/noticeBoard/modifyNoticeBoard.udc?noticeNo=${requestScope.noticeBoard.noticeNo}" method="post" onsubmit="return checkSubmit();">
 <table>
 	<tr>
 		<td>말머리</td>
 		<td>
-			<select id="category" name="noticeCategory">
+			<select id="category" name="category">
+				<option>말머리선택</option>
+				<option>말머리1</option>
+				<option>말머리2</option>
+			<!-- 
 				<c:forEach items="${requestScope.code.codeType }" var="code">
 					<option>말머리선택</option>
 					<option ${code == param.category?'selected="selected"':'' }>${code.codeName }</option>
 				</c:forEach>
+			-->
 			</select>
 		</td>
 	</tr>
@@ -57,8 +62,8 @@ function checkSubmit(){
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea name="noticeContent" id="content" rows="80" cols="100" placeholder="내용을 입력해주세요..">${requestScope.noticeBoard.noticeContent }</textarea></td>
+		<td><textarea name="noticeContent" id="content" rows="30" cols="50" placeholder="내용을 입력해주세요..">${requestScope.noticeBoard.noticeContent }</textarea></td>
 	</tr>
 </table>
-<div><input type="submit" value="등록"> <a href=""><input type="button" id="cancel" value="취소"></a></div>
+<div align="center"><input type="submit" value="수정"> <a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc"><input type="button" id="cancel" value="취소"></a></div>
 </form>

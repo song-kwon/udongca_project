@@ -14,6 +14,7 @@ header {
 	padding: 5px;
 	min-width: 1024px;
 	width: auto;
+	height:150px;
 }
 
 nav {

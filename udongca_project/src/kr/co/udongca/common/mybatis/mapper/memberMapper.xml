@@ -51,6 +51,7 @@
 		<include refid="select-basic" />
 		WHERE memberId=#{memberId}
 	</select>
+	
 	<select id="count_member" resultType="_int">
 	SELECT count(memberId) from member
 	</select>

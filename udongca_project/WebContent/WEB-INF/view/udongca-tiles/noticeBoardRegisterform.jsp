@@ -4,14 +4,12 @@
 <script  type="text/javascript">
 function chkTitle(){
 	if(!$("#title").val()){
-		alert("제목을 입력해주세요.");
 		return false;
 	}else
 		return true;
 }
 function chkContent(){
 	if(!$("#content").val()){
-		alert("내용을 입력해주세요.");
 		return false;
 	}else
 		return true;
@@ -19,7 +17,6 @@ function chkContent(){
 
 function chkCategory(){
 	if($("#category").val()=="말머리선택"){
-		alert("말머리를 선택해주세요.")
 		return false;
 	}
 	else
@@ -31,10 +28,17 @@ function checkSubmit(){
 	var checkTitle = chkTitle();
 	var checkContent = chkContent();
 	
-	if(checkCategory==true && checkTitle==true && checkContent==true)
-		return true;
-	else
+	if(checkCategory==false){
+		alert("말머리를 선택해주세요.");
 		return false;
+	}else if(checkTitle==false){
+		alert("제목을 입력해주세요.");
+		return false;
+	}else if(checkContent==false){
+		alert("내용을 입력해주세요.");
+		return false;
+	}else
+		return true;
 }
 </script>
 
@@ -44,10 +48,12 @@ function checkSubmit(){
 	<tr>
 		<td>말머리</td>
 		<td>
-			<select id="category" name="noticeCategory">
-				<c:forEach items="${requestScope.code.codeType }" var="code">
+			<select id="category" name="category">
 					<option>말머리선택</option>
-					<option ${code == param.category?'selected="selected"':'' }>${code.codeName }</option>
+					<option>말머리</option>
+					<option>말머리2</option>
+					<c:forEach items="${requestScope.code.codeType }" var="code">
+					<!-- <option ${code == param.category?'selected="selected"':'' }>${code.codeName }</option> -->
 				</c:forEach>
 			</select>
 		</td>
@@ -58,8 +64,8 @@ function checkSubmit(){
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea name="noticeContent" id="content" rows="80" cols="100" placeholder="내용을 입력해주세요.."></textarea></td>
+		<td><textarea name="noticeContent" id="content" rows="30" cols="80" placeholder="내용을 입력해주세요.."></textarea></td>
 	</tr>
 </table>
-<div><input type="submit" value="등록"> <a href=""><input type="button" id="cancel" value="취소"></a></div>
+<div align="center"><input type="submit" value="등록"> <a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc"><input type="button" id="cancel" value="취소"></a></div>
 </form>

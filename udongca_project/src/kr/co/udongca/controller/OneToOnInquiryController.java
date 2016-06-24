@@ -14,39 +14,65 @@ import kr.co.udongca.service.OneToOneInquiryService;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 @Controller
-@RequestMapping({"/controller/","/member/"})
+@RequestMapping("/oneToOneInquiry")
 public class OneToOnInquiryController {
 	@Autowired
 	private OneToOneInquiryService service;
 	
-	@RequestMapping("oneToOneInquiryList.udc")
-	public ModelAndView selectListOneToOneInquiry(){
-		List<OneToOneInquiry> inquiryList = service.selectListOneToOneInquiry();
-		return new ModelAndView("oneToOneInquiryList.tiles","oneToOneInquiryList",inquiryList);
+	@RequestMapping("oneToOneInquiryListPaging.udc")
+	public ModelAndView selectListNoticeBoard(@RequestParam(required=false) String pnum){
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+		} catch (Exception e) {}
+		
+		try {
+			Map<String, Object> map = service.selectListOneToOneInquiry(page);
+			return new ModelAndView("oneToOneInquiryList.tiles", "map", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
 	}
 	
 	@RequestMapping("registerOneToOneInquiry.udc")
-	public ModelAndView registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId){
-		service.registerOneToOneInquiry(oneToOneInquiry);
-		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.tiles", "memberId", memberId);
+	public String registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId){
+		service.registerOneToOneInquiry(oneToOneInquiry, memberId);
+		return "redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc";
 	}
 	
 	@RequestMapping("deleteOneToOneInquiry.udc")
 	public String deleteOneToOneInquiry(int inquiryNo){
 		service.deleteOneToOneInquiry(inquiryNo);
-		return "redirect:/oneToOneInquiry/oneToOneInquiryList.udc";
+		return "redirect:/oneToOneInquiry/oneToOneInquiryListPaging.udc";
 	}
 	
-	@RequestMapping("modifyNoticeBoardform.udc")
-	public ModelAndView oneToOneInquiryModifyForm(int inquiryNo, String memberId){
+	@RequestMapping("modifyOneToOneInquiryform.udc")
+	public ModelAndView oneToOneInquiryModifyForm(int inquiryNo){
 		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
 		return new ModelAndView("oneToOneInquiryModifyform.tiles","oneToOneInquiry", oneToOneInquiry);
 	}
 	
 	@RequestMapping("modifyOneToOneInquiry.udc")
-	public ModelAndView modifyOneToOneInquiry(int inquiryNo, String memberId){
-		service.updateOneToOneInquiry(inquiryNo);
-		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.tiles","memberId",memberId);
+	public String modifyOneToOneInquiry(OneToOneInquiry afterInquiry, int inquiryNo){
+		service.selectOneToOneInquiry(inquiryNo).setInquiryNo(inquiryNo);
+		service.updateOneToOneInquiry(afterInquiry);
+		
+		return "redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc";
+	}
+	
+	@RequestMapping("modifyOneToOneInquiryReplyform.udc")
+	public ModelAndView oneToOneInquiryReplyModifyForm(int inquiryNo){
+		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
+		
+		return new ModelAndView("oneToOneInquiryReplyModify.tiles","oneToOneInquiry", oneToOneInquiry);
+	}
+	
+	@RequestMapping("modifyOneToOneInquiryReply.udc")
+	public String oneToOneInquiryReply(OneToOneInquiry afterInquiry){
+		service.updateReplyOneToOneInquiry(afterInquiry);
+		
+		return "redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc";
 	}
 	
 	@RequestMapping("oneToOneInquiry.udc")
