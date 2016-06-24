@@ -2,6 +2,8 @@ package kr.co.udongca.vo;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
@@ -17,6 +19,8 @@ public class Member implements Serializable{
 	private String memberPassword;
 	@NotEmpty(message="이메일을 입력해주세요.")
 	private String memberEmail;
+	@NotNull(message="벌점입력 해주세요")
+	@Range(min=0,max=3,message="벌점은 0~3점 까지입니다.")
 	private int memberPenalty;
 	private String loginPossibility;
 	private String memberType;

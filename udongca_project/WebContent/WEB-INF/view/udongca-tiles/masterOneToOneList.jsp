@@ -1,16 +1,5 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-	$("#list").on("click",function(){
-		var id = $("#id").text()
-			$.post("/udongca_project/member/memberInfoMaster.udc",{"id" : id});
-		
-	});
-});
-
-
-</script> -->
 <style type="text/css">
 table, td, th{
 	border: 1px solid gray;
@@ -24,27 +13,28 @@ td,th{
 }
 </style>
 <div id="page">
-<h3>회원리스트</h3> 
+<h3>1:1문의관리</h3> 
 <table id = "table" border="1" >
 	<tr>
-		<td>아이디</td>
-		<td>이름</td>
-		<td>이메일</td>
-		<td>페널티</td>
+		<td>NO</td>
+		<td>제목</td>
+		<td>문의유형</td>
+		<td>id</td>
 	</tr>
 	<c:forEach items="${requestScope.list }" var="list">
-	<tr id="list" onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${list.memberId}&page=${requestScope.page }"' style="cursor:hand;">
-		<td id="id">${list.memberId }</td>
-		<td>${list.memberName }</td>
-		<td>${list.memberEmail }</td>
-		<td>${list.memberPenalty }</td>
+	<tr onclick='location.href="/udongca_project/controller/master/oneInfo.udc?page=${requestScope.pageBean.page}&inquiryNo=${list.inquiryNo }"'>
+		<td>${list.inquiryNo }</td>
+		<td>${list.inquiryTitle }</td>
+		<td>${list.inquiryType }</td>
+		<td>${list.memberId }</td>
+		
 	<tr>
 	</c:forEach>
 </table>
 <!-- 이전페이지그룹 -->
 <c:choose>
  	<c:when test="${requestScope.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.pageBean.beginPage-1 }">
+ 		<a href="/udongca_project/controller/master/oneToOneList.udc?page=${requestScope.pageBean.beginPage-1 }">
  			◀
  		</a>	
  	</c:when>
@@ -57,7 +47,7 @@ td,th{
 			   var="p">
 	<c:choose>
 		<c:when test="${p != requestScope.pageBean.page }">
-			<a href="/udongca_project/member/memberListPaging.udc?pnum=${p }">
+			<a href="/udongca_project/controller/master/oneToOneList.udc?page=${p }">
 				${p }
 			</a>
 			&nbsp;&nbsp;
@@ -70,7 +60,7 @@ td,th{
 <!-- 다음페이지그룹 -->
 <c:choose>
 	<c:when test="${requestScope.pageBean.nextPageGroup }">
-		<a href="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.pageBean.endPage+1 }">
+		<a href="/udongca_project/controller/master/oneToOneList.udc?page=${requestScope.pageBean.endPage+1 }">
 			▶			
 		</a>
 	</c:when>

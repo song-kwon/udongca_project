@@ -13,7 +13,12 @@
 		where memberId = #{memberId} and
 		memberPassword=#{memberPassword}
 	</select>
-
+	<select id="member_info" parameterType="string" resultType="member">
+		select
+		memberId,memberName,memberPassword,memberEmail,memberPenalty,loginPossibility,memberType
+		from member
+		where memberId=#{memberId}
+	</select>
 	<update id="member_modify" parameterType="member">
 		update member set
 		memberPassword=#{memberPassword},memberName=#{memberName} where
@@ -67,4 +72,8 @@
 		<include refid="select-basic"/>
 		where memberName=#{memberName} and memberEmail=#{memberEmail}
 	</select>
+	
+	<update id="member_update" parameterType="member">
+		update member set memberPenalty=#{memberPenalty}, loginpossibility=#{loginPossibility} where memberId=#{memberId}
+	</update>
 </mapper>

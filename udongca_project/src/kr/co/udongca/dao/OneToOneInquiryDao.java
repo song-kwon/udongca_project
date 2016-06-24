@@ -18,4 +18,11 @@ public interface OneToOneInquiryDao {
 
 	public int selectNoOneToOneInquiry();
 
+	public List selectList(int page);
+	
+	public int countList();
+	
+	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry);
+	
+	public OneToOneInquiry selectOneInquiry(int inquiryNo);
 }

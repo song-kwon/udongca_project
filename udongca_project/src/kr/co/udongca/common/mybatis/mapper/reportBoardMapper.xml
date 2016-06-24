@@ -5,13 +5,38 @@
 	SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
 			     FROM(SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
-					     FROM report_board WHERE reporttype= #{reportType} order by reportboardNo desc
+					     FROM report_board WHERE reporttype = #{reportType} order by reportboardNo desc
 					     )
 				 )
 		WHERE page = #{page}
 	</select>
 	<select id="count_report_list" parameterType="string" resultType="_int">
-	SELECT count(reportboardNo) FROM report_board WHERE reporttype = #{reportType}
+	SELECT count(reportboardNo) FROM report_board Where reporttype = #{reportType}
 	</select>
-		
+	<select	id="report_list_all" parameterType="map" resultType="reportBoard">
+	SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+			     FROM(SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+					     FROM report_board order by reportboardNo desc
+					     )
+				 )
+		WHERE page = #{page}
+	
+	
+	</select>
+	<select id="count_report_list_all" parameterType="string" resultType="_int">
+	SELECT count(reportboardNo) FROM report_board 
+	</select>
+	<select id="report_info" parameterType="_int" resultType="reportBoard">
+		SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+		FROM report_board
+		WHERE reportboardNo = #{reportboardNo}
+	</select>
+	<update id="update_info" parameterType="map">
+		UPDATE report_board SET reportResult = #{reportResult}, reportCancelReason = #{reportCancelReason} WHERE reportboardNo = #{reportboardNo}
+	</update>
+	<delete id="delete_article" parameterType="map">
+		DELETE FROM ${reportType} WHERE ${CorR}No = #{reportNo}
+	</delete>
+	
 </mapper>

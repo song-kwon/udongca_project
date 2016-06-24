@@ -46,4 +46,8 @@ public interface MemberDao {
 	public int countMemberIdFind(Member member);
 	
 	public Member memberIdFind(Member member);
+	
+	public Member memberInfo(String memberId);
+	
+	public int memberUpdate(Member member);
 }

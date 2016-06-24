@@ -116,4 +116,12 @@ public class MemberDaoImpl implements MemberDao {
 	public Member memberIdFind(Member member) {
 		return session.selectOne("memberMapper.memberId_find",member);
 	}
+	
+	public Member memberInfo(String memberId){
+	    return session.selectOne("memberMapper.member_info", memberId);
+	}
+	
+	public int memberUpdate(Member member){
+	    return session.update("memberMapper.member_update", member);
+	}
 }

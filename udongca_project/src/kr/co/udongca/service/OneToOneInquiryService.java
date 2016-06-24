@@ -1,6 +1,7 @@
 package kr.co.udongca.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.udongca.vo.OneToOneInquiry;
 
@@ -15,5 +16,10 @@ public interface OneToOneInquiryService {
 	public OneToOneInquiry selectOneToOneInquiry(int inquiryNo);
 
 	public List<OneToOneInquiry> selectListOneToOneInquiry();
-
+	
+	public Map<String, Object> oneToOneList(int page);
+	
+	public OneToOneInquiry selectOneInquiry(int inquiryNo);
+	
+	 public int updateInquiryReply(OneToOneInquiry oneToOneInquiry);
 }

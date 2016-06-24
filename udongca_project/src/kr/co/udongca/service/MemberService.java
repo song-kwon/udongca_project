@@ -43,4 +43,9 @@ public interface MemberService {
 	
 	public ModelAndView memberIdFind(Member member);
 	
+	public Member memberIdMaster(String memberId);
+	
+	public List loginPossibility(String code);
+	
+	public int memberUpdateMaster(Member member);
 }

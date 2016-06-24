@@ -16,6 +16,8 @@ create sequence review_reply_replyNo_seq nocache;
 create sequence preferLocationNo_seq nocache;
 
 --  create table --
+insert into code values('login_true','로그인허용','login_possibility')
+insert into code values('login_false','로그인불가','login_possibility')
 create table code(
 codeId	varchar2(30)	primary key,
 codeName	varchar2(50)	NOT NULL,
@@ -28,13 +30,14 @@ noticeTitle	varchar2(50)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
 noticeDate	DATE	NOT NULL
 );
+update member set memberPenalty=1, loginpossibility='false' where memberId='cust1'
 insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust4','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust5','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust6','asdf','cust1','sjung7674','0','true','cust')
-
+insert into member values('cust7','asdf','cust1','sjung7674','0','false','cust')
 create table member(
 memberId	varchar2(50)	primary key,
 memberName	varchar2(50)	NOT NULL,
@@ -45,7 +48,7 @@ loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
 
-insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','admin')
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','master')
 create table onetoone_inquiry(
 inquiryNo	NUMBER	primary key,
 inquiryTitle	varchar2(50)	NOT NULL,
@@ -57,7 +60,7 @@ constraint onetoone_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-
+insert into PRBOARD values(1,'text','text','text','text','text','text','text','text','text','text','text','cust11')
 SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry
 create table PRboard(
 cafeNo	NUMBER	primary key,
@@ -77,7 +80,7 @@ constraint prboard_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-
+insert into REVIEW_BOARD values(1,'text','2010-03-09','text',5,'text','text','cust12',1)
 create table review_board(
 reviewNo 	NUMBER	primary key,
 reviewTitle	varchar2(50)	NOT NULL,
@@ -95,8 +98,7 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'cust1')
-
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust11','reason','content','result','cancelre','prboard',1,'cust12')
 insert into report_board values()
 create table report_board(
 reportboardNo	NUMBER	primary key,
@@ -112,7 +114,7 @@ constraint report_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-
+DELETE FROM review_board1 WHERE reviewNo = 1
 create table menu(
 menuNo	NUMBER	primary key,
 cafeNo	NUMBER	NOT NULL,

@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.PagingBean;
+import kr.co.udongca.dao.CodeDao;
 import kr.co.udongca.dao.MemberDao;
+import kr.co.udongca.dao.impl.CodeDaoImpl;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
 
@@ -23,7 +26,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberDao memberDaoImpl;
-
+	@Autowired 
+	private CodeDao codeDaoImpl;
 	@Override
 	public Member login(String id, String password) throws Exception {
 		Member login = memberDaoImpl.login(id, password);
@@ -152,4 +156,15 @@ public class MemberServiceImpl implements MemberService {
 			return mav;
 		}
 	}
+	public Member memberIdMaster(String memberId){
+	    return memberDaoImpl.memberInfo(memberId);
+	}
+	public List loginPossibility(String code){
+	  return codeDaoImpl.selectCode(code);
+	}
+	
+	public int memberUpdateMaster(Member member){
+	    return memberDaoImpl.memberUpdate(member);
+	}
+	
 }

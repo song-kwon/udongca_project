@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="inquiryMapper">
-
+	<sql id="select-basic">
+		inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+	</sql>
 	<sql id="select-basic-oneToOneInquiry">
 		SELECT #{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{inquiryReply}, #{memberId} FROM onetoone_inquiry
 	</sql>
@@ -38,4 +40,22 @@
 	<select id="selectList_oneToOneInquiry" resultMap="oneToOneInquiry-basic-resultmap">
 		<include refid="select-basic-oneToOneInquiry"/>
 	</select>
+	<select id="oneToOne_list_admin" parameterType="map" resultType="OneToOneInquiry">
+	SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry order by inquiryNo desc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	<select id="count_oneToone_list" parameterType="string" resultType="_int">
+	SELECT count(inquiryNo) FROM onetoone_inquiry 
+	</select>
+	<select id="select_oneToOneInquiry2" parameterType="_int" resultType="oneToOneInquiry">
+		SELECT <include refid="select-basic"/> FROM onetoone_inquiry WHERE inquiryNo=#{inquiryNo}
+	</select>
+	<update id="update_inquiry_reply" parameterType="oneToOneInquiry">
+		UPDATE onetoone_inquiry SET inquiryReply=#{inquiryReply} WHERE inquiryNo=#{inquiryNo}
+	</update>
 </mapper>
