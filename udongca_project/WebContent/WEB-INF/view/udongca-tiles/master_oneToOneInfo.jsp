@@ -5,7 +5,7 @@
 function requiryReply(){
 		
 		$.ajax({
-			"url" : "/udongca_project/controller/master/requiryReply.udc",
+			"url" : "/udongca_project/oneToOneInquiry/master/requiryReply.udc",
 			"type" : "post",
 			"data" : {
 						inquiryNo : $("#no").val(),
@@ -47,4 +47,4 @@ function requiryReply(){
 
 	<textarea rows="10" cols="100" id="reply">${requestScope.inquiryNo.inquiryReply }</textarea>
 	<button onclick="requiryReply()">답변등록</button>
-	<button onclick='location.href="/udongca_project/controller/master/oneToOneList.udc?page=${requestScope.page }"'>뒤로가기</button>
+	<button onclick='location.href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.page }"'>뒤로가기</button>

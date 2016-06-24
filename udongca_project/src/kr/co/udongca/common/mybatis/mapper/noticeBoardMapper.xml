@@ -2,37 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="noticeMapper">
 	<sql id="select-basic-noticeBoard">
-		SELECT #{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeDate} FROM notice_board
+		SELECT noticeNo, noticeTitle, noticeContent, noticeDate FROM notice_board
 	</sql>
 	
-	<resultMap type="noticeBoard" id="noticeBoard-basic-resultmap">
-		<id column="noticeNo" property="noticeNo"/>
-		<result column="noticeTitle" property="noticeTitle"/>
-		<result column="noticeContent" property="noticeContent"/>
-		<result column="noticeDate" property="noticeDate"/>
-	</resultMap>
-	
-	<select id="select-no-noticeBoard">
-		SELECT notice_board_seq.nextval FROM dual
+	<select id="select-no-noticeBoard" resultType="_int">
+		SELECT notice_board_noticeNo_seq.nextval FROM dual
 	</select>
 
 	<insert id="insert_noticeBoard" parameterType="noticeBoard">
-		INSERT INTO notice_board VALUES (#{noticeNo}, #{noticeTitle}, #{noticeContent}, sysdate)
+		INSERT INTO notice_board VALUES (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{category}, sysdate)
 	</insert>
 	
-	<update id="update_noticeBoard" parameterType="_int">
-		UPDATE notice_board SET noticeTitle=#{noticeTitle}, noticeContent=#{noticeContent} WHERE noticeNo=#{noticeNo}
+	<update id="update_noticeBoard" parameterType="noticeBoard">
+		UPDATE notice_board SET noticeTitle=#{noticeTitle}, noticeContent=#{noticeContent}, category=#{category} WHERE noticeNo=#{noticeNo}
 	</update>
 	
 	<delete id="delete_noticeBoard" parameterType="_int">
 		DELETE FROM notice_board WHERE noticeNo=#{noticeNo}
 	</delete>
 	
-	<select id="select_noticeBoard" parameterType="_int" resultMap="noticeBoard-basic-resultmap">
+	<select id="select_noticeBoard" parameterType="_int" resultType="noticeBoard">
 		<include refid="select-basic-noticeBoard"/> WHERE noticeNo=#{noticeNo}
 	</select>
 	
-	<select id="selectList_noticeBoard" resultMap="noticeBoard-basic-resultmap">
+	<select id="selectList_noticeBoard" resultType="noticeBoard">
 		<include refid="select-basic-noticeBoard"/>
 	</select>
+	
+	<select id="selectList_noticeBoard_page" parameterType="map" resultType="noticeBoard">
+		SELECT noticeNo, noticeTitle, noticeContent, noticeDate
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, noticeNo, noticeTitle, noticeContent, noticeDate
+			     FROM(SELECT noticeNo, noticeTitle, noticeContent, noticeDate
+					     FROM notice_board order by noticeNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="count_noticeBoard" resultType="_int">
+		SELECT count(noticeNo) from notice_board
+	</select>
+	
 </mapper>

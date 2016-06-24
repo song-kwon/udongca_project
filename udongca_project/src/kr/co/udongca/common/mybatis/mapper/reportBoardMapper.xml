@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reportMapper">
+	
+	<sql id="report_board_column">
+		reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+	</sql>
+
+	
 	<select id="report_list" parameterType="map" resultType="reportBoard">
-	SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
-		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
-			     FROM(SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
-					     FROM report_board WHERE reporttype = #{reportType} order by reportboardNo desc
+	SELECT <include refid="report_board_column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="report_board_column"/>
+			     FROM(SELECT <include refid="report_board_column"/>
+					     FROM report_board WHERE reporttype= #{reportType} order by reportboardNo desc
 					     )
 				 )
 		WHERE page = #{page}
 	</select>
+	
 	<select id="count_report_list" parameterType="string" resultType="_int">
 	SELECT count(reportboardNo) FROM report_board Where reporttype = #{reportType}
 	</select>
@@ -39,4 +46,24 @@
 		DELETE FROM ${reportType} WHERE ${CorR}No = #{reportNo}
 	</delete>
 	
-</mapper>
+	
+	<select id="count_member_report_list" parameterType="string" resultType="_int">
+	SELECT count(reportboardNo) FROM report_board WHERE memberId=#{memberId}
+	</select>
+		
+	<select id="member_report_list" parameterType="map" resultType="reportBoard">
+	SELECT <include refid="report_board_column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="report_board_column"/>
+			     FROM(SELECT <include refid="report_board_column"/>
+					     FROM report_board WHERE memberId=#{memberId} order by reportboardNo desc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="member_report_detail" parameterType="int" resultType="reportBoard">
+		select <include refid="report_board_column"/>
+		from report_board
+		where reportboardNo=#{reportboardNo}
+	</select>
+ </mapper>

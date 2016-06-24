@@ -33,7 +33,7 @@ $(document).ready(function(){
 			'data':{'id':$('#id').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'true')
-					location.replace('/udongca_project/member/modify_form.udc');
+					location.replace('/udongca_project/member/member_modify_form.udc');
 				else
 					alert(txt);
 			}
@@ -58,6 +58,10 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("#memberInquiryList").on("click", "tr", function(){//tr에 event 처리
+			location.replace('/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
+		});
+		
 	
 		$('.major_category').bind('change',getMiddleCategory);
 				
@@ -84,25 +88,32 @@ $(document).ready(function(){
 			
 		});
 	
+		
+	//tr 선택시 random 색상 칠하기
+	$('.tbody tr').hover(function(){
+		$(this).css({'background-color':randColor()})
+	},
+	function(){
+		$(this).css({'background-color':'inherit'})
+	});
 	
 	
-	
-	/*$(window).resize();*/
+	$(window).resize();
 	
 });
 
 
-/*$(window).resize(function(){
+$(window).resize(function(){
     $('.nonav_bodyDiv').css({position:'absloute'}).css({
-        left: ($('.nonav_section').width() - $('.nonav_bodyDiv').width())/2,
-        top: ($('.nonav_section').height() - $('.nonav_bodyDiv').height())/2
+        'margin-left': ($('.nonav_section').width() - $('.nonav_bodyDiv').outerWidth())/2,
+        'margin-top': ($('.nonav_section').height() - $('.nonav_bodyDiv').outerHeight())/2
     });
     
-    $('.nav_bodyDiv').css({position:'absolute'}).css({
-    	left: $('.nav').width()+($('.nav_section').width() - $('.nav_bodyDiv').width())/2,
-        top:($('.nav_section').height() - $('.nav_bodyDiv').height())/2
+/*    $('.nav_bodyDiv').css({position:'absolute'}).css({
+    	'margin-left': $('.nav').width()+(($(window).width()/2) - $('.nav_bodyDiv').width())/2,
+        'margin-top':($('.nav_section').height() - $('.nav_bodyDiv').height())/2
     });
-  });*/
+*/  });
 
 function getMiddleCategory(){
 	var category = this;
@@ -132,6 +143,105 @@ function getMiddleCategory(){
 	});
 }
 
-function memberId_find_form(){
-	window.open('/udongca_project/memberId_find_form.udc','newWin','width=140px','height=150px');
+function loginCheck(){
+	var loginId = $('#id').val();
+	var loginPassword = $('#password').val();
+	
+	if(loginId.length == 0){
+		alert('id를 입력하세요');
+		return false;
+	}
+	
+	if(loginPassword.length == 0){
+		alert('비밀번호를 입력하세요');
+		return false;
+	}
+	
+}
+
+function error(){
+	if($('#error').val().length!=0){
+		alert($('#error').val());
+	}
+}
+
+//1:1 문의 ajax
+function inquiryAjax(pageNum){
+	$.ajax({
+		type:"POST", 
+		url:"/udongca_project/member/memberInquiryListPaging.udc",
+		data:'pnum='+pageNum,
+		dataType:"JSON",
+		success:function(jsonData){
+			$("#tbody").empty();
+		
+			$.each(jsonData['list'], function(){
+				$("#tbody").append(
+						$("<tr>").append($("<td>").text(this.inquiryNo))
+									  .append($("<td>").text('['+this.inquiryType+']'+this.inquiryTitle))
+								  	  .append($("<td>").text(this.inquiryReply == '' ? '처리중':'처리완료'))
+				);
+			});
+			
+			var pageBean = jsonData['pageBean'];
+			if(pageBean.previousPageGroup){
+				$('#previousBtn').attr('href','/udongca_project/member/memberInquiryListPaging.udc?pnum='+pageBean.beginPage-1);
+			}
+			var num="";
+			
+			for (var idx = pageBean.beginPage; idx <= pageBean.endPage; idx++) {
+			
+				if(idx!=pageBean.page){
+					num = num + '<a class="pageNum">'+idx+'</a>';
+				}else{
+					num = num + '['+idx+']'
+				}
+			}
+			
+			$('#pageBtn').empty().html(num);
+			
+			if(pageBean.nextPageGroup){
+				$('#endBtn').attr('href','/udongca_project/member/memberInquiryListPaging.udc?pnum='+pageBean.endPage+1);
+			}
+			
+		}
+	});
+}
+
+function bookmarkDelete(no){
+	alert(no);
+}
+
+
+//랜덤 색상
+function getRandNum(value) {
+	return Math.floor(Math.random() * (value + 1));	
+}
+
+function randColor() {
+	var rgbHexadecimal = 0;
+
+	var red = 0;
+	var green = 0;
+	var blue = 0;
+	
+	red = getRandNum(255).toString(16);
+	green = getRandNum(255).toString(16);
+	blue = getRandNum(255).toString(16);
+	
+	if(red.length < 2) 	red = "0" + red;	
+	if(red.length < 2) 	green = "0" + green;
+	if(red.length < 2) 	blue = "0" + blue;
+	
+	rgbHexadecimal = "#" + red + green + blue;
+	if(rgbHexadecimal =='#FFFFFF'){
+		randColor();
+		return false;
+	}
+	
+	return rgbHexadecimal;
+}
+
+function memberReportDetail(reportboardNo){
+	window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=140px','height=150px');
 }

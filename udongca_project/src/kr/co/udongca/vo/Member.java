@@ -14,8 +14,6 @@ public class Member implements Serializable{
 	private String memberId;
 	@NotEmpty(message="이름을 입력해주세요.")
 	private String memberName;
-	@NotEmpty(message="패스워드를 입력해주세요.")
-	@Length(min=8,max=30, message="패스워드는 8글자 이상입니다.")
 	private String memberPassword;
 	@NotEmpty(message="이메일을 입력해주세요.")
 	private String memberEmail;

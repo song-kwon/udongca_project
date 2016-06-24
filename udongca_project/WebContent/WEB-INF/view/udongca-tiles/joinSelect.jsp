@@ -12,7 +12,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-<div class="nonav_bodyDiv">
+<div class="nonav_bodyDiv" style="width:350px;">
 <div><h2>우동카 회원가입</h2></div>
 <table>
 	<tr align="center">

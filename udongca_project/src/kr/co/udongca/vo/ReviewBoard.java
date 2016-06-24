@@ -1,6 +1,6 @@
 package kr.co.udongca.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ReviewBoard {
 

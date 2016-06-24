@@ -22,7 +22,7 @@ td,th{
 		<td>id</td>
 	</tr>
 	<c:forEach items="${requestScope.list }" var="list">
-	<tr onclick='location.href="/udongca_project/controller/master/oneInfo.udc?page=${requestScope.pageBean.page}&inquiryNo=${list.inquiryNo }"'>
+	<tr onclick='location.href="/udongca_project/oneToOneInquiry/master/oneInfo.udc?page=${requestScope.pageBean.page}&inquiryNo=${list.inquiryNo }"'>
 		<td>${list.inquiryNo }</td>
 		<td>${list.inquiryTitle }</td>
 		<td>${list.inquiryType }</td>
@@ -34,7 +34,7 @@ td,th{
 <!-- 이전페이지그룹 -->
 <c:choose>
  	<c:when test="${requestScope.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/controller/master/oneToOneList.udc?page=${requestScope.pageBean.beginPage-1 }">
+ 		<a href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.pageBean.beginPage-1 }">
  			◀
  		</a>	
  	</c:when>
@@ -47,7 +47,7 @@ td,th{
 			   var="p">
 	<c:choose>
 		<c:when test="${p != requestScope.pageBean.page }">
-			<a href="/udongca_project/controller/master/oneToOneList.udc?page=${p }">
+			<a href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${p }">
 				${p }
 			</a>
 			&nbsp;&nbsp;
@@ -60,7 +60,7 @@ td,th{
 <!-- 다음페이지그룹 -->
 <c:choose>
 	<c:when test="${requestScope.pageBean.nextPageGroup }">
-		<a href="/udongca_project/controller/master/oneToOneList.udc?page=${requestScope.pageBean.endPage+1 }">
+		<a href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.pageBean.endPage+1 }">
 			▶			
 		</a>
 	</c:when>

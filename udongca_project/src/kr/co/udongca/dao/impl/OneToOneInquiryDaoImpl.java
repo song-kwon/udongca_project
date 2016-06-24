@@ -13,6 +13,7 @@ import kr.co.udongca.vo.OneToOneInquiry;
 
 @Repository
 public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
+
     @Autowired
     private SqlSessionTemplate session;
 
@@ -36,8 +37,13 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
     }
 
     @Override
-    public int updateOneToOneInquiry(int inquiryNo) {
-	return session.update("inquiryMapper.update_oneToOneInquiry", inquiryNo);
+    public int updateOneToOneInquiry(OneToOneInquiry oneToOneInquiry) {
+	return session.update("inquiryMapper.update_oneToOneInquiry", oneToOneInquiry);
+    }
+
+    @Override
+    public int updateReplyOneToOneInquiry(OneToOneInquiry oneToOneInquiry) {
+	return session.update("inquiryMapper.update_reply_oneToOneInquiry", oneToOneInquiry);
     }
 
     @Override
@@ -46,10 +52,13 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
     }
 
     @Override
-    public List<OneToOneInquiry> selectListOneToOneInquiry() {
-	return session.selectList("inquiryMapper.selectList_oneToOneInquiry");
+    public List<OneToOneInquiry> selectListOneToOneInquiry(int page) {
+	HashMap param = new HashMap();
+	param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	param.put("page", page);
+	return session.selectList("inquiryMapper.selectList_oneToOneInquiry_page", param);
     }
-
+    @Override
     public List selectList(int page) {
 	HashMap param = new HashMap();
 	param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
@@ -57,13 +66,25 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	return session.selectList("inquiryMapper.oneToOne_list_admin", param);
     }
 
+    @Override
+    public int countOneToOneInquiry() {
+	return session.selectOne("inquiryMapper.count_oneToOneInquiry");
+    }
+
     public int countList() {
 	return session.selectOne("inquiryMapper.count_oneToone_list");
     }
-    public OneToOneInquiry selectOneInquiry(int inquiryNo){
+
+    @Override
+    public int countInquiry(int inquiryNo) {
+	return session.selectOne("inquiryMapper.countInquiry", inquiryNo);
+    }
+
+    public OneToOneInquiry selectOneInquiry(int inquiryNo) {
 	return session.selectOne("inquiryMapper.select_oneToOneInquiry2", inquiryNo);
     }
-    public int updateInquiryReply(OneToOneInquiry oneToOneInquiry){
+
+    public int updateInquiryReply(OneToOneInquiry oneToOneInquiry) {
 	return session.update("inquiryMapper.update_inquiry_reply", oneToOneInquiry);
     }
 }

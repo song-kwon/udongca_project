@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bookmarkMapper">
+	<sql id="bookmark_column">
+		ceil(rownum) no,memberId,cafeNo
+	</sql>
+	
+	<select id="countMemberBookmark" parameterType="string" resultType="int">
+		select count(memberId)
+		from bookmark
+		where memberId=#{memberId}
+	</select>
+	
+	<select id="memberBookmarkListPaging" parameterType="map" resultType="bookmark">
+		SELECT ceil(rownum) no, memberId, cafeNo , cafeName
+		FROM (SELECT CEIL(rownum/#{itemPerPage}) page, ceil(rownum) no, memberId,cafeNo,cafeName
+			FROM(SELECT ceil(rownum) no, b.memberId, b.cafeNo, p.cafeName
+				FROM bookmark b , prboard p where b.memberId =  #{memberId} and p.cafeNo = b.cafeNo order by no asc
+					)
+				) 
+		WHERE page =  #{page}
+	</select>
+</mapper>

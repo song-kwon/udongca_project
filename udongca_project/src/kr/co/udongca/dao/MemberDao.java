@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.udongca.vo.Address;
 //github.com/song-kwon/udongca_project.git
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.OneToOneInquiry;
 import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberDao {
@@ -50,4 +51,13 @@ public interface MemberDao {
 	public Member memberInfo(String memberId);
 	
 	public int memberUpdate(Member member);
+	public int countMemberPasswordFind(Member member);
+	
+	public Member memberPasswordFind(Member member);
+	
+	public List<OneToOneInquiry> memberInquriyList(Map map);
+	
+	public int countMemberInquiryList(String memberId);
+
+	public int loginPossible(Member member);
 }

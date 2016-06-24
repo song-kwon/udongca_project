@@ -2,6 +2,7 @@ package kr.co.udongca.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +21,10 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
 	this.session = session;
     }
 	
-    public List selectList(int page,String reportType){
-	    HashMap param = new HashMap();
-	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
-	    param.put("page", page);
-	    param.put("reportType", reportType);
-	    return session.selectList("reportMapper.report_list",param);
-	}
     public int countReport(String reportType){
 	return session.selectOne("reportMapper.count_report_list",reportType);
     }
-    public List selectList(int page){
-	 HashMap param = new HashMap();
-	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
-	    param.put("page", page);
-	    return session.selectList("reportMapper.report_list_all",param);
-    }
+    
     public int countReport(){
 	return session.selectOne("reportMapper.count_report_list_all");
     }
@@ -51,7 +40,6 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
     }
     public int deleteArt(String reportType, int reportNo){
 	 HashMap map = new HashMap();
-	 System.out.println(reportType+"  "+reportNo);
 	if(reportType.equals("review")){
 	    map.put("reportType", "review_board");
 	    map.put("CorR", "review");
@@ -64,5 +52,33 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
 	    return session.delete("reportMapper.delete_article",map);
 	} 
     }
-    
+    public List selectList(int page){
+	 HashMap param = new HashMap();
+	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	    param.put("page", page);
+	    return session.selectList("reportMapper.report_list_all",param);
+   }
+
+	public List<ReportBoard> selectList(int page, String reportType) {
+		HashMap param = new HashMap();
+		param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+		param.put("page", page);
+		param.put("reportType", reportType);
+		return session.selectList("reportMapper.report_list", param);
+	}
+
+	@Override
+	public int countMemberReport(String memberId) {
+		return session.selectOne("reportMapper.count_member_report_list",memberId);
+	}
+	
+	@Override
+	public List<ReportBoard> memberReportList(Map map) {
+		return session.selectList("reportMapper.member_report_list",map);
+	}
+	
+	@Override
+	public ReportBoard memberReportDetail(int reportboardNo) {
+		return session.selectOne("reportMapper.member_report_detail",reportboardNo);
+	}
 }

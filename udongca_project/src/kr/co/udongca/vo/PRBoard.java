@@ -10,7 +10,7 @@ public class PRBoard implements Serializable{
 	private String cafeTel;
 	private String cafeFeature;
 	private String cafeAddress;
-	private String coporateNumb;
+	private String coporateNumber;
 	private String operationHour;
 	private String managerName;
 	private String managerTel;
@@ -32,7 +32,7 @@ public class PRBoard implements Serializable{
 		this.cafeTel = cafeTel;
 		this.cafeFeature = cafeFeature;
 		this.cafeAddress = cafeAddress;
-		this.coporateNumb = coporateNumb;
+		this.coporateNumber = coporateNumb;
 		this.operationHour = operationHour;
 		this.managerName = managerName;
 		this.managerTel = managerTel;
@@ -51,7 +51,7 @@ public class PRBoard implements Serializable{
 		this.cafeTel = cafeTel;
 		this.cafeFeature = cafeFeature;
 		this.cafeAddress = cafeAddress;
-		this.coporateNumb = coporateNumb;
+		this.coporateNumber = coporateNumb;
 		this.operationHour = operationHour;
 		this.managerName = managerName;
 		this.managerTel = managerTel;
@@ -110,11 +110,11 @@ public class PRBoard implements Serializable{
 	}
 
 	public String getCoporateNumb() {
-		return coporateNumb;
+		return coporateNumber;
 	}
 
 	public void setCoporateNumb(String coporateNumb) {
-		this.coporateNumb = coporateNumb;
+		this.coporateNumber = coporateNumb;
 	}
 
 	public String getOperationHour() {
@@ -185,7 +185,7 @@ public class PRBoard implements Serializable{
 		result = prime * result + cafeNo;
 		result = prime * result + ((cafeRealImage == null) ? 0 : cafeRealImage.hashCode());
 		result = prime * result + ((cafeTel == null) ? 0 : cafeTel.hashCode());
-		result = prime * result + ((coporateNumb == null) ? 0 : coporateNumb.hashCode());
+		result = prime * result + ((coporateNumber == null) ? 0 : coporateNumber.hashCode());
 		result = prime * result + ((managerName == null) ? 0 : managerName.hashCode());
 		result = prime * result + ((managerTel == null) ? 0 : managerTel.hashCode());
 		result = prime * result + ((member == null) ? 0 : member.hashCode());
@@ -240,10 +240,10 @@ public class PRBoard implements Serializable{
 				return false;
 		} else if (!cafeTel.equals(other.cafeTel))
 			return false;
-		if (coporateNumb == null) {
-			if (other.coporateNumb != null)
+		if (coporateNumber == null) {
+			if (other.coporateNumber != null)
 				return false;
-		} else if (!coporateNumb.equals(other.coporateNumb))
+		} else if (!coporateNumber.equals(other.coporateNumber))
 			return false;
 		if (managerName == null) {
 			if (other.managerName != null)
@@ -277,7 +277,7 @@ public class PRBoard implements Serializable{
 	public String toString() {
 		return "PrBoard [cafeNo=" + cafeNo + ", cafeName=" + cafeName + ", cafeIntro=" + cafeIntro + ", cafeTel="
 				+ cafeTel + ", cafeFeature=" + cafeFeature + ", cafeAddress=" + cafeAddress + ", coporateNumb="
-				+ coporateNumb + ", operationHour=" + operationHour + ", managerName=" + managerName + ", managerTel="
+				+ coporateNumber + ", operationHour=" + operationHour + ", managerName=" + managerName + ", managerTel="
 				+ managerTel + ", cafeRealImage=" + cafeRealImage + ", cafeFakeImage=" + cafeFakeImage + ", memberId="
 				+ memberId + ", member=" + member + "]";
 	}
