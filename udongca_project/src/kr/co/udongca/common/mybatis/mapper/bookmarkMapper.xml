@@ -5,6 +5,18 @@
 		ceil(rownum) no,memberId,cafeNo
 	</sql>
 	
+	<insert id="insertBookmark" parameterType="bookmark">
+		INSERT INTO bookmark (memberId, cafeNo) VALUES (#{memberId}, #{cafeNo})
+	</insert>
+	
+	<delete id="deleteBookmark" parameterType="bookmark">
+		DELETE FROM bookmark WHERE memberId = #{memberId} AND cafeNo = #{cafeNo}
+	</delete>
+	
+	<select id="selectBookmarkByMemberId" parameterType="string" resultType="int">
+		SELECT cafeNo FROM bookmark WHERE memberId = #{memberId}
+	</select>
+	
 	<select id="countMemberBookmark" parameterType="string" resultType="int">
 		select count(memberId)
 		from bookmark

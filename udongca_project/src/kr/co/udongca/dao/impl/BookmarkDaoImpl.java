@@ -28,4 +28,19 @@ public class BookmarkDaoImpl implements BookmarkDao {
 	public List<Bookmark> memberBookmarkListPaging(Map map) {
 		return session.selectList("bookmarkMapper.memberBookmarkListPaging",map);
 	}
+
+	@Override
+	public int insertBookmark(Bookmark bookmark) {
+		return session.insert("bookmarkMapper.insertBookmark",bookmark);
+	}
+
+	@Override
+	public int deleteBookmark(Map map) {
+		return session.delete("bookmarkMapper.deleteBookmark",map);
+	}
+
+	@Override
+	public List<Bookmark> selectBookmarkByMemberId(String memberId) {
+		return session.selectList("bookmarkMapper.selectBookmarkByMemberId", memberId);
+	}
 }

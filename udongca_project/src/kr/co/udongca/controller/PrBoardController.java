@@ -43,7 +43,7 @@ public class PrBoardController {
 		 * TODO: 조회 성공이든 실패든 prRead.jsp로 이동 예정
 		 * 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
 		 */
-		return "/ParkTest/prRead.jsp";
+		return "/ParkTest/prRead.jsp?cafeNo=" + cafeNo;
 	}
 	
 	/**
@@ -119,9 +119,7 @@ public class PrBoardController {
 			menuAdd(cafeNo, menuNameArray[i], menuTypeArray[i], menuImageArray[i], req, session);
 		}
 		
-		model.put("cafeNo", cafeNo);
-		
-		return "/ParkTest/prRead.jsp";
+		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
 	/**
@@ -278,7 +276,6 @@ public class PrBoardController {
 		String menuRealImage = null;
 		String menuFakeImage = null;
 		int menuNo = service.selectNextMenuSequence();
-		System.out.println(menuNo);
 		
 		/*
 		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
