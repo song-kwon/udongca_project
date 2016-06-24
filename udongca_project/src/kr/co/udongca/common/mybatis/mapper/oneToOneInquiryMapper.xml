@@ -47,4 +47,22 @@
 	<select id="count_oneToOneInquiry" resultType="_int">
 		SELECT count(inquiryNo) from onetoone_inquiry
 	</select>
+	
+	<select id="select_member_inquiry_list_page" parameterType="map" resultType="oneToOneInquiry">
+		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryType, inquiryTitle, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
+					     FROM onetoone_inquiry  where memberId = #{memberId} order by inquiryNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="countMemberInquiry" parameterType="String" resultType="int">
+		select count(inquiryNo) from onetoone_inquiry where memberId=#{memberId}
+	</select>
+	
+	<select id="countInquiry" parameterType="int" resultType="int">
+		select count(inquiryNo) from onetoone_inquiry where inquiryNo=#{inquiryNo}
+	</select>
 </mapper>

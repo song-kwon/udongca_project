@@ -39,6 +39,9 @@
 	<mvc:view-controller path="/memberId_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_form.jsp"/>
 	<mvc:view-controller path="/memberId_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp"/>
 	<mvc:view-controller path="/member/customerCenter.udc" view-name="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+	<mvc:view-controller path="/memberPassword_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp"/>
+	<mvc:view-controller path="/memberPassword_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp"/>	
+	
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 
@@ -71,7 +74,10 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<!-- MultipartResolver 설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 
 	<!-- ViewResolver 설정 -->
 	<bean name="vr1"

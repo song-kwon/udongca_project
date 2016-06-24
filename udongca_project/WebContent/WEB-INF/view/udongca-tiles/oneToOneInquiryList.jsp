@@ -69,3 +69,8 @@ $(document).ready(function(){
 		▶
 	</c:otherwise>
 </c:choose>
+<form action="/udongca_project/oneToOneInquiry/registerOneToOneInquiry.udc" method="post">
+<c:if test="${sessionScope.login.memberId=='udongca' }">
+	<div align="right"><input type="submit" value="답글달기"></div>
+</c:if>
+</form>

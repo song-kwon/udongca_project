@@ -1,5 +1,6 @@
 package kr.co.udongca.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberService {
 
-	public Member login(String id, String password) throws Exception;
+	public Member login(String id, String password);
 
 	public int memberModify(String name, String password, HttpSession session);
 	
@@ -41,6 +42,9 @@ public interface MemberService {
 	
 	public int memberDrop(String memberId);
 	
-	public ModelAndView memberIdFind(Member member);
+	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException;
 	
+	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException;
+
+	public Map memberInquiryList(int page,String memberId);
 }

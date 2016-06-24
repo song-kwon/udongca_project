@@ -70,4 +70,9 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	public Menu selectMenuByMenuNo(int menuNo) {
 		return session.selectOne(menuNamespace + "selectMenuByMenuNo", menuNo);
 	}
+
+	@Override
+	public int selectNextMenuSequence() {
+		return session.selectOne(menuNamespace + "selectNextMenuSequence");
+	}
 }

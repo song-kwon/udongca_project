@@ -62,4 +62,9 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	public int countOneToOneInquiry(){
 	    return session.selectOne("inquiryMapper.count_oneToOneInquiry");
 	}
+	
+	@Override
+	public int countInquiry(int inquiryNo) {
+		return session.selectOne("inquiryMapper.countInquiry",inquiryNo);
+	}
 }

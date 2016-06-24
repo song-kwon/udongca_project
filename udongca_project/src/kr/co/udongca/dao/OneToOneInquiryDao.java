@@ -17,6 +17,8 @@ public interface OneToOneInquiryDao {
 	public List<OneToOneInquiry> selectListOneToOneInquiry(int page);
 
 	public int selectNoOneToOneInquiry();
+	
+	public int countInquiry(int inquiryNo);
 
 	public int countOneToOneInquiry();
 

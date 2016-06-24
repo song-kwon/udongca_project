@@ -20,8 +20,8 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	@Override
-	public List<Address> selectMiddleAddressByMajorAddressNo(int majorAddressNo) {
-		return dao.selectMiddleAddressByMajorAddressNo(majorAddressNo);
+	public List<Address> selectMiddleAddressByMajorCategoryNo(int majorCategoryNo) {
+		return dao.selectMiddleAddressByMajorCategoryNo(majorCategoryNo);
 	}
 	
 	@Override

@@ -24,10 +24,10 @@ public class SearchController {
 		return service.selectAllMajorAddress();
 	}
 	
-	@RequestMapping("selectMiddleAddressByMajorAddressNo.udc")
+	@RequestMapping("selectMiddleAddressByMajorCategoryNo.udc")
 	@ResponseBody
-	public List<Address> selectMiddleAddressByMajorAddressNo(int majorAddressNo){
-		return service.selectMiddleAddressByMajorAddressNo(majorAddressNo);
+	public List<Address> selectMiddleAddressByMajorCategoryNo(int majorCategoryNo){
+		return service.selectMiddleAddressByMajorCategoryNo(majorCategoryNo);
 	}
 	
 	@RequestMapping("locationSearchResult.udc")
