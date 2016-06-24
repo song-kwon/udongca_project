@@ -11,6 +11,11 @@ import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.PRBoard;
 
+/**
+ * 홍보글 검색에 관련된 DAO Interface를 구현한 Class
+ * @author 박재훈
+ *
+ */
 @Repository
 public class SearchDaoImpl implements SearchDao {
 	private String prNamespace = "prBoardMapper.";
