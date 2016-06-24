@@ -4,24 +4,24 @@
 	<select id="selectAllMajorAddress" resultType="address">
 		SELECT
 			major_categoryNo majorCategoryNo,
-			address1 addressName
+			address1 AddressName
 			FROM majorcategory
 	</select>
 	
 	<select id="selectMiddleAddressByMajorCategoryNo" parameterType="int" resultType="address">
 		SELECT
-			middle_categoryNo middlecategoryNo,
-			address2 addressName
+			middle_categoryNo middleCategoryNo,
+			address2 AddressName
 			FROM middlecategory
-			WHERE major_categoryNo = #{value}
+			WHERE major_categoryNo = #{majorCategoryNo}
 	</select>
 	
 	<select id="selectPreferLocationByMiddleAddressNo" parameterType="int" resultType="address">
 		SELECT
 			middle_categoryNo middleCategoryNo,
 			major_categoryNo majorCategoryNo,
-			address2 addressName
+			address2 AddressName
 			FROM middlecategory
-			WHERE middle_categoryNo = #{value}
+			WHERE middle_categoryNo = #{middleCategoryNo}
 	</select>
 </mapper>

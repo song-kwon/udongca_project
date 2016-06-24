@@ -70,9 +70,8 @@ noticeContent	CLOB	NOT NULL,
 category varchar2(50) NOT NULL,
 noticeDate	DATE	NOT NULL
 );
-<<<<<<< HEAD
 update member set memberPenalty=1, loginpossibility='false' where memberId='cust1'
-=======
+
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST1','내용없어요',sysdate);
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST2','내용없어요',sysdate);
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST3','내용없어요',sysdate);
@@ -109,9 +108,8 @@ loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
 
-<<<<<<< HEAD
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','master')
-=======
+
 insert into member values('udongca','udongca','master','master@udongca.com','0','possible','master');
 insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalmember');
 insert into member values('test1','test1','test1','a@a.com','0','possible','licenseemember');
