@@ -1,10 +1,13 @@
 package kr.co.udongca.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.NoticeBoardDao;
 import kr.co.udongca.service.NoticeBoardService;
 import kr.co.udongca.vo.NoticeBoard;
@@ -27,8 +30,8 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 	
 	@Override
-	public int updateNoticeBoard(int noticeNo){
-		return dao.updateNoticeBoard(noticeNo);
+	public int updateNoticeBoard(NoticeBoard noticeBoard){
+		return dao.updateNoticeBoard(noticeBoard);
 	}
 	
 	@Override
@@ -37,7 +40,12 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 	
 	@Override
-	public List<NoticeBoard> selectListNoticeBoard(){
-		return dao.selectListNoticeBoard();
+	public Map<String, Object> selectListNoticeBoard(int page){
+	    HashMap<String, Object> map = new HashMap<String,Object>();
+	    List list = dao.selectListNoticeBoard(page);
+	    map.put("noticeBoardList", list);
+	    PagingBean pagingBean = new PagingBean(dao.countNoticeBoard(), page);
+	    map.put("pageBean", pagingBean);
+	    return map;
 	}
 }

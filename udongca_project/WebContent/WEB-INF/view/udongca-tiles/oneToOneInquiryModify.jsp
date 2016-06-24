@@ -36,7 +36,7 @@ function checkSubmit(){
 </script>
 
 <div><h2>1:1 문의 수정</h2></div>
-<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?memberId=${sessionScope.login.memberId }" method="post" onsubmit="return checkSubmit();">
+<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?inquiryNo=${requestScope.oneToOneInquiry.inquiryNo}" method="post" onsubmit="return checkSubmit();">
 <table>
 	<tr>
 		<td>아이디</td>
@@ -44,7 +44,7 @@ function checkSubmit(){
 	</tr>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="title" placeholder="제목 입력" value="${requestScope.oneToOneInquiry.inquiryTitle }"></td>
+		<td><input type="text" name="inquiryTitle" placeholder="제목 입력" value="${requestScope.oneToOneInquiry.inquiryTitle }"></td>
 	</tr>
 	<tr>
 		<td>문의 유형</td>
@@ -57,13 +57,8 @@ function checkSubmit(){
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea rows="80" cols="100" placeholder="내용을 입력해주세요..">${requestScope.oneToOneInquiry.inquiryContent }</textarea>
+		<td><textarea name="inquiryContent" rows="80" cols="100" placeholder="내용을 입력해주세요..">${requestScope.oneToOneInquiry.inquiryContent }</textarea>
 	</tr>
-	<c:if test="${sessionScope.login.memberId=='udongca' }">
-	<tr>
-		<td>답변</td>
-		<td><textarea rows="50" cols="100" placeholder="관리자만 입력가능합니다. 문의에 대한 답변을 남겨주세요.."></textarea></td>
-	</c:if>
 </table>
 <div><input type="submit" value="등록"> <a href="/udongca_project/oneToOneInquiry/oneToOneInquiryList.udc"><input type="button" value="취소"></a></div>
 </form>

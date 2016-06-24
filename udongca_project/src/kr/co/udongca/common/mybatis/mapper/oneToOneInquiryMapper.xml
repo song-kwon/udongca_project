@@ -3,39 +3,48 @@
 <mapper namespace="inquiryMapper">
 
 	<sql id="select-basic-oneToOneInquiry">
-		SELECT #{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{inquiryReply}, #{memberId} FROM onetoone_inquiry
+		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId FROM onetoone_inquiry
 	</sql>
 	
-	<resultMap type="oneToOneInquiry" id="oneToOneInquiry-basic-resultmap">
-		<id column="inquiryNo" property="inquiryNo"/>
-		<result column="inquiryTitle" property="inquiryTitle"/>
-		<result column="inquiryType" property="inquiryType"/>
-		<result column="inquiryContent" property="inquiryContent"/>
-		<result column="inquiryReply" property="inquiryReply"/>
-		<result column="memberId" property="memberId"/>
-	</resultMap>
-	
-	<select id="select-no-oneToOneInquiry">
-		SELECT onetoone_inquiry_seq.nextval FROM dual
+	<select id="select-no-oneToOneInquiry" resultType="_int">
+		SELECT onetoone_inquiry_inquiryNo_seq.nextval FROM dual
 	</select>
 	
 	<insert id="insert_oneToOneInquiry" parameterType="oneToOneInquiry">
-		INSERT INTO onetoone_inquiry VALUES (#{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{memberId})
+		INSERT INTO onetoone_inquiry VALUES (#{inquiryNo}, #{inquiryTitle}, #{inquiryType}, #{inquiryContent}, #{inquiryReply}, #{memberId})
 	</insert>
 	
 	<delete id="delete_oneToOneInquiry" parameterType="_int">
 		DELETE FROM onetoone_inquiry WHERE inquiryNo=#{inquiryNo}
 	</delete>
 	
-	<update id="update_oneToOneInquiry" parameterType="_int">
-		UPDATE onetoone_inquiry SET inquiryTitle=#{inquiryTitle}, inquiryContent=#{inquiryContent} WHERE inquiryNo=#{inquiryNo}
+	<update id="update_oneToOneInquiry" parameterType="oneToOneInquiry">
+		UPDATE onetoone_inquiry SET inquiryTitle=#{inquiryTitle}, inquiryType= #{inquiryType}, inquiryContent=#{inquiryContent} WHERE inquiryNo=#{inquiryNo}
 	</update>
 	
-	<select id="select_oneToOneInquiry" parameterType="_int" resultMap="oneToOneInquiry-basic-resultmap">
+	<update id="update_reply_oneToOneInquiry" parameterType="oneToOneInquiry">
+		UPDATE onetoone_inquiry SET inquiryReply=#{inquiryReply} WHERE inquiryNo=#{inquiryNo}
+	</update>
+	
+	<select id="select_oneToOneInquiry" parameterType="_int" resultType="oneToOneInquiry">
 		<include refid="select-basic-oneToOneInquiry"/> WHERE inquiryNo=#{inquiryNo}
 	</select>
 	
-	<select id="selectList_oneToOneInquiry" resultMap="oneToOneInquiry-basic-resultmap">
+	<select id="selectList_oneToOneInquiry" resultType="oneToOneInquiry">
 		<include refid="select-basic-oneToOneInquiry"/>
+	</select>
+	
+	<select id="selectList_oneToOneInquiry_page" parameterType="map" resultType="oneToOneInquiry">
+		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry order by inquiryNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="count_oneToOneInquiry" resultType="_int">
+		SELECT count(inquiryNo) from onetoone_inquiry
 	</select>
 </mapper>

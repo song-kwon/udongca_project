@@ -26,8 +26,10 @@ create table notice_board(
 noticeNo	NUMBER	primary key,
 noticeTitle	varchar2(50)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
+category varchar2(50) NOT NULL,
 noticeDate	DATE	NOT NULL
 );
+
 insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
 insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')

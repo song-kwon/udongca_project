@@ -10,12 +10,16 @@ public interface OneToOneInquiryDao {
 
 	public int deleteOneToOneInquiry(int inquiryNo);
 
-	public int updateOneToOneInquiry(int inquiryNo);
+	public int updateOneToOneInquiry(OneToOneInquiry oneToOneInquiry);
 
 	public OneToOneInquiry selectOneToOneInquiry(int inquiryNo);
 
-	public List<OneToOneInquiry> selectListOneToOneInquiry();
+	public List<OneToOneInquiry> selectListOneToOneInquiry(int page);
 
 	public int selectNoOneToOneInquiry();
+
+	public int countOneToOneInquiry();
+
+	public int updateReplyOneToOneInquiry(OneToOneInquiry oneToOneInquiry);
 
 }
