@@ -29,6 +29,11 @@ public class MemberDaoImpl implements MemberDao {
 	public Member login(String id, String password) {
 		return session.selectOne("memberMapper.login", new Member(id, password));
 	}
+	
+	@Override
+	public int loginPossible(Member member){
+		return session.update("memberMapper.member_login_possible", member);
+	}
 
 	@Override
 	public int memberModify(Member member) {

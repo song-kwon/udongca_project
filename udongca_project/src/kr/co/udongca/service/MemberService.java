@@ -47,4 +47,6 @@ public interface MemberService {
 	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException;
 
 	public Map memberInquiryList(int page,String memberId);
+
+	public int loginPossible(Member member);
 }

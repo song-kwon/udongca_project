@@ -27,8 +27,38 @@ $(document).ready(function(){
 	});
 });
 
+//패스워드 조건 검사
+function chkPwd1(str){
+	 var pw = str;
+	 var num = pw.search(/[0-9]/g);
+	 var eng = pw.search(/[a-z]/ig);
+	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	 if(pw.length < 10 || pw.length > 20){
+	  alert("비밀번호는 10자리 ~ 20자리 이내로 입력해주세요.");
+	  return false;
+	 }
+
+	 if(pw.search(/₩s/) != -1){
+	  alert("비밀번호는 공백없이 입력해주세요.");
+	  return false;
+	 }
+
+	 if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
+	  alert("비밀번호는 영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+	  return false;
+	 }
+	 
+	if(!chkPwd1( $.trim($('#password').val()))){
+	   $('#password').val('');
+	   $('#password').focus();
+	   return false;
+	}
+	
+	return true;
+}
+
 //패스워드 일치 검사
-function chkPwd(){
+function chkPwd2(){
 	if($("#password").val()==$("#password2").val()){
 		return true;
 	}else{
@@ -51,9 +81,10 @@ function chkEmail(){
 function checkSubmit(){
 	if($("#idVerify").val()=="true"){
 		//가입 하기 전, 비밀번호 확인과 이메일 확인
-		var checkPassword = chkPwd();
+		var checkPassword1 = chkPwd1($("#password").val());
+		var checkPassword2 = chkPwd2();
 		var checkEmail = chkEmail();
-		if(checkPassword==true && checkEmail==true){
+		if(checkPassword1==true && checkPassword2==true && checkEmail==true){
 			return true;
 		}else
 			return false;
@@ -65,7 +96,8 @@ function checkSubmit(){
 </script>
 <div class="nonav_bodyDiv">
 <div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
-<div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
+<div><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
+<div><font size="1">비밀 번호는 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
 <form action="/udongca_project/member/licenseeMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
 <table>

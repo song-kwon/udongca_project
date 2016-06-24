@@ -33,7 +33,7 @@ public class MemberController {
 	public ModelAndView login(String id, String password, HttpSession session) throws Exception {
 
 		Member login = memberService.login(id, password);
-		if (login == null || login.getLoginPossibility().equals("false")) {
+		if (login == null || login.getLoginPossibility().equals("Impossible")) {
 			return new ModelAndView("login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else {
 			session.setAttribute("login", login);
@@ -84,28 +84,44 @@ public class MemberController {
 
 	@RequestMapping("generalMemberJoin.udc")
 	public String generalMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
-			BindingResult errors) {
+			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
 			return "generalMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
 			memberService.generalMemberJoin(member);
-			return "redirect:/member/joinSuccess.udc?memberId=" + member.getMemberId();
+			String memberId = member.getMemberId();
+			
+			SendEmailConfig sendEmail = new SendEmailConfig();
+			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>");
+			return "redirect:/member/joinSuccess.udc?memberId=" + memberId;
 		}
 	}
 
 	@RequestMapping("licenseeMemberJoin.udc")
 	public String licenseeMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
-			BindingResult errors) {
+			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
 			return "licenseeMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
-			memberService.generalMemberJoin(member);
+			memberService.licenseeMemberJoin(member);
+			
+			String memberId = member.getMemberId();
+			
+			SendEmailConfig sendEmail = new SendEmailConfig();
+			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>");
 			return "redirect:/member/joinSuccess.udc?memberId=" + member.getMemberId();
 		}
+	}
+	
+	@RequestMapping("memberLoginPossible.udc")
+	public ModelAndView memberLoginPossible(String memberId){
+		Member member = memberService.findById(memberId);
+		memberService.loginPossible(member);
+		return new ModelAndView("loginPossible.tiles", "member", member);
 	}
 
 	@RequestMapping("joinSuccess.udc")

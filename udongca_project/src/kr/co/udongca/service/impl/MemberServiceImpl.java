@@ -36,6 +36,11 @@ public class MemberServiceImpl implements MemberService {
 			return login;
 		}
 	}
+	
+	@Override
+	public int loginPossible(Member member){
+		return memberDaoImpl.loginPossible(member);
+	}
 
 	@Override
 	public int memberModify(String name, String password, HttpSession session) {
@@ -151,7 +156,7 @@ public class MemberServiceImpl implements MemberService {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format("%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", findMember.getMemberName(),findMember.getMemberId());
-			System.out.println(content + " "+send.sendEmail(findMember,content)); 
+			send.sendEmail(findMember, content);
 			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
 			return mav;
 		}
@@ -167,7 +172,6 @@ public class MemberServiceImpl implements MemberService {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format("%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", findMember.getMemberName(),findMember.getMemberId(),findMember.getMemberPassword());
-			System.out.println(content + " "+send.sendEmail(findMember,content)); 
 			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
 			return mav;
 		}
@@ -180,7 +184,6 @@ public class MemberServiceImpl implements MemberService {
 	    map.put("page", page);
 	    map.put("memberId",memberId);
 	    List list = memberDaoImpl.memberInquriyList(map);
-	    System.out.println(list);
 	    PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
 	    map.put("list", list);
 	    map.put("pageBean", pagingBean);

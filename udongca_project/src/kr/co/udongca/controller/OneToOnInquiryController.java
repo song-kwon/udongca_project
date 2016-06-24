@@ -91,13 +91,11 @@ public class OneToOnInquiryController {
 		ModelAndView mav;
 		OneToOneInquiry oto = service.selectOneToOneInquiry(inquiryNo);
 		
-		System.out.println(oto);
 		if( oto == null){
 			mav = new ModelAndView("memberInquiryListPaging.udc","error","선택한 번호의 문의글은 없습니다.");
 		}else{
 			mav = new ModelAndView("member/oneToOneInquiry.tiles","map",oto);
 		}
-		System.out.println(mav);
 		return mav;
 	}
 }
