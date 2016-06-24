@@ -88,23 +88,32 @@ $(document).ready(function(){
 			
 		});
 	
+		
+	//tr 선택시 random 색상 칠하기
+	$('.tbody tr').hover(function(){
+		$(this).css({'background-color':randColor()})
+	},
+	function(){
+		$(this).css({'background-color':'inherit'})
+	});
 	
-	/*$(window).resize();*/
+	
+	$(window).resize();
 	
 });
 
 
-/*$(window).resize(function(){
+$(window).resize(function(){
     $('.nonav_bodyDiv').css({position:'absloute'}).css({
-        left: ($('.nonav_section').width() - $('.nonav_bodyDiv').width())/2,
-        top: ($('.nonav_section').height() - $('.nonav_bodyDiv').height())/2
+        'margin-left': ($('.nonav_section').width() - $('.nonav_bodyDiv').outerWidth())/2,
+        'margin-top': ($('.nonav_section').height() - $('.nonav_bodyDiv').outerHeight())/2
     });
     
-    $('.nav_bodyDiv').css({position:'absolute'}).css({
-    	left: $('.nav').width()+($('.nav_section').width() - $('.nav_bodyDiv').width())/2,
-        top:($('.nav_section').height() - $('.nav_bodyDiv').height())/2
+/*    $('.nav_bodyDiv').css({position:'absolute'}).css({
+    	'margin-left': $('.nav').width()+(($(window).width()/2) - $('.nav_bodyDiv').width())/2,
+        'margin-top':($('.nav_section').height() - $('.nav_bodyDiv').height())/2
     });
-  });*/
+*/  });
 
 function getMiddleCategory(){
 	var category = this;
@@ -199,3 +208,40 @@ function inquiryAjax(pageNum){
 	});
 }
 
+function bookmarkDelete(no){
+	alert(no);
+}
+
+
+//랜덤 색상
+function getRandNum(value) {
+	return Math.floor(Math.random() * (value + 1));	
+}
+
+function randColor() {
+	var rgbHexadecimal = 0;
+
+	var red = 0;
+	var green = 0;
+	var blue = 0;
+	
+	red = getRandNum(255).toString(16);
+	green = getRandNum(255).toString(16);
+	blue = getRandNum(255).toString(16);
+	
+	if(red.length < 2) 	red = "0" + red;	
+	if(red.length < 2) 	green = "0" + green;
+	if(red.length < 2) 	blue = "0" + blue;
+	
+	rgbHexadecimal = "#" + red + green + blue;
+	if(rgbHexadecimal =='#FFFFFF'){
+		randColor();
+		return false;
+	}
+	
+	return rgbHexadecimal;
+}
+
+function memberReportDetail(reportboardNo){
+	window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=140px','height=150px');
+}

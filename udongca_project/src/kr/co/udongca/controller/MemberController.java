@@ -266,7 +266,6 @@ public class MemberController {
 		int page = 1;
 		try {
 			page = Integer.parseInt(pnum);
-			System.out.println(pnum);
 		} catch (Exception e) {
 		}
 		try {

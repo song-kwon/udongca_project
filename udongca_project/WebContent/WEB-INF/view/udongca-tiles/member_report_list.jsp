@@ -17,8 +17,8 @@ a{
 </style>
 <input type="hidden" value="${requestScope.error }" id="error">
 <div id="page" style="width:700px;">
-<h2>나의 1:1 문의 내역</h2> 
-<table id = "memberInquiryList" border="1" >
+<h2>나의 신고 내역</h2> 
+<table id = "memberReportList" border="1" >
 	<thead>
 		<tr>
 			<td>번호</td>
@@ -26,22 +26,21 @@ a{
 			<td>처리결과</td>
 		</tr>
 	</thead>
-	<tbody class="tbody">
-	<c:forEach items="${requestScope.list }" var="list">
-		<tr>
-			<td>${list.inquiryNo }</td>
-			<td>[${list.inquiryType}]${list.inquiryTitle }</td>
-			<td>${list.inquiryReply == '' ? '처리중':'처리됨'}</td>
+	<tbody class="tbody" id="reportList">
+	<c:forEach items="${requestScope.reportList.list }" var="list">
+		<tr onclick="memberReportDetail(${list.reportboardNo})">
+			<td>${list.reportboardNo }</td>
+			<td>[${list.reportType}]${list.reportReason }</td>
+			<td>${list.reportResult == '' ? '처리중':'처리됨'}</td>
 		<tr>
 	</c:forEach>
 	</tbody>
 </table>
 <!-- 이전페이지그룹 -->
-<div style="float: right;margin-top: 5px;"><input type="button" value="문의 등록"></div>
 <div style="text-align: center; margin-top: 6px;">
 <c:choose>
- 	<c:when test="${requestScope.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.beginPage-1 }">
+ 	<c:when test="${requestScope.reportList.pageBean.previousPageGroup }">
+ 		<a href="/udongca_project/member/memberReportListPaging.udc?pnum=${requestScope.reportList.pageBean.beginPage-1 }">
  			◀
  		</a>	
  	</c:when>
@@ -50,11 +49,11 @@ a{
  	</c:otherwise>
  </c:choose>
 <!-- 숫자 -->
-<c:forEach begin="${requestScope.pageBean.beginPage }" end="${requestScope.pageBean.endPage }"
+<c:forEach begin="${requestScope.reportList.pageBean.beginPage }" end="${requestScope.reportList.pageBean.endPage }"
 			   var="p">
 	<c:choose>
-		<c:when test="${p != requestScope.pageBean.page }">
-			<a href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${p }">
+		<c:when test="${p != requestScope.reportList.pageBean.page }">
+			<a href="/udongca_project/member/memberReportListPaging.udc?pnum=${p }">
 				${p }
 			</a>
 			&nbsp;&nbsp;
@@ -66,8 +65,8 @@ a{
 </c:forEach>	
 <!-- 다음페이지그룹 -->
 <c:choose>
-	<c:when test="${requestScope.pageBean.nextPageGroup }">
-		<a href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.endPage+1 }">
+	<c:when test="${requestScope.reportList.pageBean.nextPageGroup }">
+		<a href="/udongca_project/member/memberReportListPaging.udc?pnum=${requestScope.reportList.pageBean.endPage+1 }">
 			▶			
 		</a>
 	</c:when>
@@ -76,4 +75,6 @@ a{
 	</c:otherwise>
 </c:choose>
 </div>
+</div>
+<div>
 </div>

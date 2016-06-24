@@ -64,6 +64,7 @@ function checkSubmit(){
 	}
 }
 </script>
+<div class="nonav_bodyDiv" style="width:400px;">
 <div><h2>일반 회원 가입</h2></div>
 <div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
 <form action="/udongca_project/member/generalMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
@@ -118,4 +119,5 @@ function checkSubmit(){
 	</tr>
 </table>
 </form>
+</div>
 </div>

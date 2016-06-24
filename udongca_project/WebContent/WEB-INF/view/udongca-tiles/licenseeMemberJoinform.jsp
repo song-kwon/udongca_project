@@ -63,8 +63,8 @@ function checkSubmit(){
 	}
 }
 </script>
-<div class="nonav_bodyDiv">
-<div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
+<div class="nonav_bodyDiv" style="width:400px;">
+<div><h2>사업자 회원 가입</h2></div>
 <div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
 <form action="/udongca_project/member/licenseeMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
@@ -109,10 +109,8 @@ function checkSubmit(){
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="3" align="center">
 			<input type="submit" value="가입하기"/>
-		</td>
-		<td colspan="2">
 			<a href="/udongca_project/main.udc"><input type="button" id="cancel" value="취소"></a>
 		</td>
 	</tr>

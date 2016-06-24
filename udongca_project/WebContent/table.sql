@@ -2,6 +2,13 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
+		SELECT ceil(rownum) no, memberId, cafeNo , cafeName
+		FROM (SELECT CEIL(rownum/#{itemPerPage}) page, ceil(rownum) no, memberId,cafeNo,cafeName
+			FROM(SELECT ceil(rownum) no, b.memberId, b.cafeNo, p.cafeName
+				FROM bookmark b , prboard p where b.memberId =  #{memberId} and p.cafeNo = b.cafeNo order by no asc
+					)
+				) 
+		WHERE page =  1
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
@@ -28,12 +35,18 @@ noticeTitle	varchar2(50)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
 noticeDate	DATE	NOT NULL
 );
-insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust4','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust5','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust6','asdf','cust1','sjung7674','0','true','cust')
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST1','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST2','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST3','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST4','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST5','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST6','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST7','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST8','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST9','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST10','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST11','내용없어요',sysdate);
+
 
 create table member(
 memberId	varchar2(50)	primary key,
@@ -45,7 +58,18 @@ loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
 
-insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','admin')
+insert into member values('udongca','udongca','master','master@udongca.com','0','possible','master');
+insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalmember');
+insert into member values('test1','test1','test1','a@a.com','0','possible','licenseemember');
+insert into member values('test2','test2','test2','b@b.com','0','possible','generalmember');
+insert into member values('test3','test3','test3','c@c.com','0','possible','generalmember');
+insert into member values('test4','test4','test4','d@d.com','0','possible','generalmember');
+insert into member values('test5','test5','test5','e@d.com','0','possible','licenseemember');
+insert into member values('test6','test6','test6','f@d.com','0','possible','licenseemember');
+insert into member values('test7','test7','test7','g@d.com','0','possible','licenseemember');
+
+
+
 create table onetoone_inquiry(
 inquiryNo	NUMBER	primary key,
 inquiryTitle	varchar2(50)	NOT NULL,
@@ -57,8 +81,19 @@ constraint onetoone_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','test2');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST5','TEST5','TEST5','TEST5','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST6','TEST6','TEST6','TEST6','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST7','TEST7','TEST7','TEST7','scott');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST8','TEST8','TEST8','TEST8','test1');
+insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST9','TEST9','TEST9','TEST9','scott');
 
-SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry
+SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry;
+
+
 create table PRboard(
 cafeNo	NUMBER	primary key,
 cafeName	varchar2(50)	NOT NULL,
@@ -66,7 +101,7 @@ cafeIntro	CLOB	NOT NULL,
 cafeTel	varchar2(50)	NOT NULL,
 cafeFeature	varchar2(50),
 cafeAddress	varchar2(50)	NOT NULL,
-coporateNumb	varchar2(50)	NOT NULL,
+coporateNumber	varchar2(50)	NOT NULL,
 operationHour	varchar2(50)	NOT NULL,
 managerName	varchar2(50)	NOT NULL,
 managerTel	varchar2(50)	NOT NULL,
@@ -77,6 +112,10 @@ constraint prboard_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','test1');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','test5');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','test6');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','test7');
 
 create table review_board(
 reviewNo 	NUMBER	primary key,
@@ -95,9 +134,17 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'cust1')
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1','scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2','scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3','test1',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4',1,'TEST4','TEST4','scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5',1,'TEST1','TEST5','test3',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6','scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7',1,'TEST3','TEST7','scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8',1,'TEST4','TEST8','test2',1);
 
-insert into report_board values()
+
+
 create table report_board(
 reportboardNo	NUMBER	primary key,
 reportMemberId	varchar2(50)	NOT NULL,
@@ -112,6 +159,21 @@ constraint report_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
+
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'test1');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'test2');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'test4');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
+
+
 
 create table menu(
 menuNo	NUMBER	primary key,
@@ -148,7 +210,30 @@ constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
+
+create table bookmark(
+memberId	varchar2(50) not null,
+cafeNo	NUMBER not null,
+constraint bookmark_fk_memberId
+foreign key (memberId)
+references member(memberId) on delete set null,
+constraint bookmark_fk_PRboard
+foreign key (cafeNo)
+references prboard(cafeNo) on delete set null
+);
+
+insert into bookmark values('scott',1);
+insert into bookmark values('scott',2);
+insert into bookmark values('scott',3);
+insert into bookmark values('scott',4);
+insert into bookmark values('test1',1);
+insert into bookmark values('test1',2);
+insert into bookmark values('test1',3);
+insert into bookmark values('test1',4);
+
+
 -- drop table --
+drop table bookmark;
 drop table review_reply;
 drop table preferLocation;
 drop table menu;
@@ -164,7 +249,7 @@ drop table member;
 
 drop sequence notice_board_noticeNo_seq ;
 drop sequence onetoone_inquiry_inquiryNo_seq ;
-drop sequence PRboard_cafeNo_seq nocache;
+drop sequence PRboard_cafeNo_seq;
 drop sequence review_board_reviewNo_seq ;
 drop sequence report_board_reportboardNo_seq ;
 drop sequence menu_menuNo_seq ;
