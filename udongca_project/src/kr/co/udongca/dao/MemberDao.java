@@ -55,4 +55,6 @@ public interface MemberDao {
 	public List<OneToOneInquiry> memberInquriyList(Map map);
 	
 	public int countMemberInquiryList(String memberId);
+
+	public int loginPossible(Member member);
 }

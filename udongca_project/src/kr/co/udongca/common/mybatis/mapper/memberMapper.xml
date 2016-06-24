@@ -13,6 +13,10 @@
 		where memberId = #{memberId} and
 		memberPassword=#{memberPassword}
 	</select>
+	
+	<update id="member_login_possible" parameterType="member">
+		UPDATE member SET loginPossibility='possible' WHERE memberId=#{memberId}
+	</update>
 
 	<update id="member_modify" parameterType="member">
 		update member set
@@ -23,13 +27,13 @@
 	<insert id="general_member_insert" parameterType="member">
 		INSERT INTO
 		member VALUES (#{memberId}, #{memberName}, #{memberPassword},
-		#{memberEmail}, 0, 'possible', 'generalMember')
+		#{memberEmail}, 0, 'impossible', 'generalMember')
 	</insert>
 
 	<insert id="licensee_member_insert" parameterType="member">
 		INSERT INTO
 		member VALUES (#{memberId}, #{memberName}, #{memberPassword},
-		#{memberEmail}, 0, 'possible', 'licenseeMember')
+		#{memberEmail}, 0, 'impossible', 'licenseeMember')
 	</insert>
 
 	<select id="count_same_id" parameterType="String" resultType="int">
@@ -48,15 +52,15 @@
 		WHERE page = #{page}
 	</select>
 	<select id="find_by_id" parameterType="String" resultType="member">
-		<include refid="select-basic" />
-		WHERE memberId=#{memberId}
+		SELECT memberId, memberName, memberPassword, memberEmail, memberPenalty, loginPossibility, memberType FROM member WHERE memberId=#{memberId}
 	</select>
+	
 	<select id="count_member" resultType="_int">
 	SELECT count(memberId) from member
 	</select>
 	
 	<update id="member_drop" parameterType="string">
-		update member set loginpossibility='false' where memberId=#{memberId}
+		update member set loginpossibility='Impossible' where memberId=#{memberId}
 	</update>
 	
 	<select id="count_memberId_find" parameterType="member" resultType="int">

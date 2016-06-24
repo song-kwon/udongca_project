@@ -3,23 +3,22 @@
 <script  type="text/javascript">
 function chkTitle(){
 	if(!$("#title").val()){
-		alert("제목을 입력해주세요.");
 		return false;
 	}else
 		return true;
 }
 function chkContent(){
 	if(!$("#content").val()){
-		alert("내용을 입력해주세요.");
 		return false;
 	}else
 		return true;
 }
+
 function chkType(){
-	if($("#inquiryType")=="유형 선택"){
-		alert("문의 유형을 선택해주세요.");
+	if($("#inquiryType").val()=="유형 선택"){
 		return false;
-	}else
+	}
+	else
 		return true;
 }
 
@@ -28,15 +27,22 @@ function checkSubmit(){
 	var checkTitle = chkTitle();
 	var checkContent = chkContent();
 	
-	if(checkType==true && checkTitle==true && checkContent==true){
-		return true;
-	}else
+	if(checkTitle==false){
+		alert("제목을 입력해주세요.");
 		return false;
+	}else if(checkType==false){
+		alert("문의 유형을 선택해주세요.");
+		return false;
+	}else if(checkContent==false){
+		alert("내용을 입력해주세요.");
+		return false;
+	}else
+		return true;
 }
 </script>
 
 <div><h2>1:1 문의 수정</h2></div>
-<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?memberId=${sessionScope.login.memberId }" method="post" onsubmit="return checkSubmit();">
+<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?inquiryNo=${requestScope.oneToOneInquiry.inquiryNo}" method="post" onsubmit="return checkSubmit();">
 <table>
 	<tr>
 		<td>아이디</td>
@@ -44,26 +50,22 @@ function checkSubmit(){
 	</tr>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="title" placeholder="제목 입력" value="${requestScope.oneToOneInquiry.inquiryTitle }"></td>
+		<td><input type="text" id="title" name="inquiryTitle" placeholder="제목 입력" value="${requestScope.oneToOneInquiry.inquiryTitle }"></td>
 	</tr>
 	<tr>
 		<td>문의 유형</td>
 		<td>
 			<select id="inquiryType" name="inquiryType">
 				<option>유형 선택</option>
-				<option></option>
+				<option>유형1</option>
+				<option>유형2</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea rows="80" cols="100" placeholder="내용을 입력해주세요..">${requestScope.oneToOneInquiry.inquiryContent }</textarea>
+		<td><textarea id="content" name="inquiryContent" rows="30" cols="50" placeholder="내용을 입력해주세요..">${requestScope.oneToOneInquiry.inquiryContent }</textarea>
 	</tr>
-	<c:if test="${sessionScope.login.memberId=='udongca' }">
-	<tr>
-		<td>답변</td>
-		<td><textarea rows="50" cols="100" placeholder="관리자만 입력가능합니다. 문의에 대한 답변을 남겨주세요.."></textarea></td>
-	</c:if>
 </table>
-<div><input type="submit" value="등록"> <a href="/udongca_project/oneToOneInquiry/oneToOneInquiryList.udc"><input type="button" value="취소"></a></div>
+<div><input type="submit" value="등록"> <a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc"><input type="button" value="취소"></a></div>
 </form>

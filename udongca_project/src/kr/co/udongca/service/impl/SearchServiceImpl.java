@@ -9,6 +9,11 @@ import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.service.SearchService;
 import kr.co.udongca.vo.*;
 
+/**
+ * 홍보글 검색에 관련된 Service Interface를 구현한 Class
+ * @author 박재훈
+ *
+ */
 @Service
 public class SearchServiceImpl implements SearchService{
 	@Autowired
@@ -20,8 +25,8 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	@Override
-	public List<Address> selectMiddleAddressByMajorAddressNo(int majorAddressNo) {
-		return dao.selectMiddleAddressByMajorAddressNo(majorAddressNo);
+	public List<Address> selectMiddleAddressByMajorCategoryNo(int majorCategoryNo) {
+		return dao.selectMiddleAddressByMajorCategoryNo(majorCategoryNo);
 	}
 	
 	@Override

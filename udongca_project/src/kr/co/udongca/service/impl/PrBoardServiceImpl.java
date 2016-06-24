@@ -9,6 +9,11 @@ import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.service.PrBoardService;
 import kr.co.udongca.vo.*;
 
+/**
+ * 홍보글 관련 Service Interface를 구현한 Class
+ * @author 박재훈
+ *
+ */
 @Service
 public class PrBoardServiceImpl implements PrBoardService{
 	@Autowired
@@ -67,5 +72,10 @@ public class PrBoardServiceImpl implements PrBoardService{
 	@Override
 	public Menu selectMenuByMenuNo(int menuNo) {
 		return dao.selectMenuByMenuNo(menuNo);
+	}
+
+	@Override
+	public int selectNextMenuSequence() {
+		return dao.selectNextMenuSequence();
 	}
 }

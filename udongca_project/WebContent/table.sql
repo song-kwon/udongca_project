@@ -29,10 +29,43 @@ codeName	varchar2(50)	NOT NULL,
 codeType	varchar2(50)	NOT NULL
 );
 
+insert into code values('notice1', '홍보글', 'noticeType');
+insert into code values('notice2', '리뷰', 'noticeType');
+insert into code values('notice3', '신고', 'noticeType');
+insert into code values('notice4', '댓글', 'noticeType');
+insert into code values('notice5', '사업자회원', 'noticeType');
+insert into code values('notice6', '일반회원', 'noticeType');
+insert into code values('inquiry1', '홍보글', 'inquiryType');
+insert into code values('inquiry2', '리뷰', 'inquiryType');
+insert into code values('inquiry3', '신고', 'inquiryType');
+insert into code values('inquiry4', '댓글', 'inquiryType');
+insert into code values('inquiry5', '사업자회원', 'inquiryType');
+insert into code values('inquiry6', '일반회원', 'inquiryType');
+insert into code values('cafeTheme1', '디저트', 'cafeTheme');
+insert into code values('cafeTheme2', '북', 'cafeTheme');
+insert into code values('cafeTheme3', '강아지', 'cafeTheme');
+insert into code values('cafeTheme4', '고양이', 'cafeTheme');
+insert into code values('cafeTheme5', '키즈', 'cafeTheme');
+insert into code values('cafeTheme6', '기타', 'cafeTheme');
+insert into code values('cafeMenu1', 'Coffee', 'cafeMenu');
+insert into code values('cafeMenu2', 'Beverage', 'cafeMenu');
+insert into code values('cafeMenu3', 'Frappuccino', 'cafeMenu');
+insert into code values('cafeMenu4', 'Dessert', 'cafeMenu');
+insert into code values('cafeMenu5', 'Bakery', 'cafeMenu');
+insert into code values('cafeMenu6', 'etc.', 'cafeMenu');
+insert into code values('loginP', 'loginP', 'login');
+insert into code values('loginIP', 'loginIP', 'login');
+
+
+
+
+
+
 create table notice_board(
 noticeNo	NUMBER	primary key,
 noticeTitle	varchar2(50)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
+category varchar2(50) NOT NULL,
 noticeDate	DATE	NOT NULL
 );
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST1','내용없어요',sysdate);
@@ -47,6 +80,14 @@ insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST9','내�
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST10','내용없어요',sysdate);
 insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST11','내용없어요',sysdate);
 
+
+insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust4','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust5','asdf','cust1','sjung7674','0','true','cust')
+insert into member values('cust6','asdf','cust1','sjung7674','0','true','cust')
+>>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 
 create table member(
 memberId	varchar2(50)	primary key,

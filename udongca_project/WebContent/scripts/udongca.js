@@ -59,7 +59,7 @@ $(document).ready(function(){
 	});
 	
 	$("#memberInquiryList").on("click", "tr", function(){//tr에 event 처리
-			location.replace('/udongca_project/controller/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
+			location.replace('/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
 		});
 		
 	

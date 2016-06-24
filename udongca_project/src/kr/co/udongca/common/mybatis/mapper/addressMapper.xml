@@ -8,7 +8,7 @@
 			FROM majorcategory
 	</select>
 	
-	<select id="selectMiddleAddressByMajorAddressNo" parameterType="int" resultType="address">
+	<select id="selectMiddleAddressByMajorCategoryNo" parameterType="int" resultType="address">
 		SELECT
 			middle_categoryNo middlecategoryNo,
 			address2 addressName

@@ -1,10 +1,13 @@
 package kr.co.udongca.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.OneToOneInquiryDao;
 import kr.co.udongca.service.OneToOneInquiryService;
 import kr.co.udongca.vo.OneToOneInquiry;
@@ -15,9 +18,10 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	private OneToOneInquiryDao dao;
 	
 	@Override
-	public int registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry){
+	public int registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId){
 		int inquiryNo = dao.selectNoOneToOneInquiry();
 		oneToOneInquiry.setInquiryNo(inquiryNo);
+		oneToOneInquiry.setMemberId(memberId);
 		return dao.insertOneToOneInquiry(oneToOneInquiry);
 	}
 	
@@ -27,8 +31,14 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	}
 	
 	@Override
-	public int updateOneToOneInquiry(int inquiryNo){
-		return dao.updateOneToOneInquiry(inquiryNo);
+	public int updateOneToOneInquiry(OneToOneInquiry afterInquiry){
+		return dao.updateOneToOneInquiry(afterInquiry);
+	}
+	
+	@Override
+	public int updateReplyOneToOneInquiry(OneToOneInquiry afterInquiry){
+		
+		return dao.updateReplyOneToOneInquiry(afterInquiry);
 	}
 	
 	@Override
@@ -40,7 +50,12 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	}
 	
 	@Override
-	public List<OneToOneInquiry> selectListOneToOneInquiry(){
-		return dao.selectListOneToOneInquiry();
+	public Map<String, Object> selectListOneToOneInquiry(int page){
+	    HashMap<String, Object> map = new HashMap<String,Object>();
+	    List list = dao.selectListOneToOneInquiry(page);
+	    map.put("oneToOneInquiryList", list);
+	    PagingBean pagingBean = new PagingBean(dao.countOneToOneInquiry(), page);
+	    map.put("pageBean", pagingBean);
+	    return map;
 	}
 }

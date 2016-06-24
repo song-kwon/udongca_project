@@ -1,11 +1,13 @@
 package kr.co.udongca.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.NoticeBoardDao;
 import kr.co.udongca.vo.NoticeBoard;
 
@@ -34,8 +36,8 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	}
 	
 	@Override
-	public int updateNoticeBoard(int noticeNo){
-		return session.update("noticeMapper.update_noticeBoard", noticeNo);
+	public int updateNoticeBoard(NoticeBoard noticeBoard){
+		return session.update("noticeMapper.update_noticeBoard", noticeBoard);
 	}
 	
 	@Override
@@ -44,7 +46,15 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	}
 	
 	@Override
-	public List<NoticeBoard> selectListNoticeBoard(){
-		return session.selectList("noticeMapper.selectList_noticeBoard");
+	public List<NoticeBoard> selectListNoticeBoard(int page){
+		HashMap param = new HashMap();
+	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	    param.put("page", page);
+		return session.selectList("noticeMapper.selectList_noticeBoard_page", param);
+	}
+	
+	@Override
+	public int countNoticeBoard(){
+	    return session.selectOne("noticeMapper.count_noticeBoard");
 	}
 }

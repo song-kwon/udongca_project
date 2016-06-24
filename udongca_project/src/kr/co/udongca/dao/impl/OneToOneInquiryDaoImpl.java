@@ -1,11 +1,13 @@
 package kr.co.udongca.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.OneToOneInquiryDao;
 import kr.co.udongca.vo.OneToOneInquiry;
 
@@ -34,8 +36,13 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	}
 	
 	@Override
-	public int updateOneToOneInquiry(int inquiryNo){
-		return session.update("inquiryMapper.update_oneToOneInquiry", inquiryNo);
+	public int updateOneToOneInquiry(OneToOneInquiry oneToOneInquiry){
+		return session.update("inquiryMapper.update_oneToOneInquiry", oneToOneInquiry);
+	}
+	
+	@Override
+	public int updateReplyOneToOneInquiry(OneToOneInquiry oneToOneInquiry){
+		return session.update("inquiryMapper.update_reply_oneToOneInquiry", oneToOneInquiry);
 	}
 	
 	@Override
@@ -44,8 +51,16 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
 	}
 	
 	@Override
-	public List<OneToOneInquiry> selectListOneToOneInquiry(){
-		return session.selectList("inquiryMapper.selectList_oneToOneInquiry");
+	public List<OneToOneInquiry> selectListOneToOneInquiry(int page){
+		HashMap param = new HashMap();
+	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+	    param.put("page", page);
+		return session.selectList("inquiryMapper.selectList_oneToOneInquiry_page", param);
+	}
+	
+	@Override
+	public int countOneToOneInquiry(){
+	    return session.selectOne("inquiryMapper.count_oneToOneInquiry");
 	}
 	
 	@Override

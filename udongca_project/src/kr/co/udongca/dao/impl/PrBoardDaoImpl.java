@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.vo.*;
 
+/**
+ * 홍보글 관련 DAO Interface를 구현한 Class
+ * @author 박재훈
+ *
+ */
 @Repository
 public class PrBoardDaoImpl implements PrBoardDao{
 	private String prBoardNamespace = "prBoardMapper.";
@@ -69,5 +74,10 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	@Override
 	public Menu selectMenuByMenuNo(int menuNo) {
 		return session.selectOne(menuNamespace + "selectMenuByMenuNo", menuNo);
+	}
+
+	@Override
+	public int selectNextMenuSequence() {
+		return session.selectOne(menuNamespace + "selectNextMenuSequence");
 	}
 }

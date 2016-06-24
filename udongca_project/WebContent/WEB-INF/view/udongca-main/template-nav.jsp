@@ -10,6 +10,7 @@
 <style type="text/css">
 header{
 	background-color:skyblue;
+	height:150px;
 	text-align:center;
 	padding: 5px;
 }

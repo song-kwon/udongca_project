@@ -105,12 +105,12 @@
 	<!-- 지역으로 홍보글 검색 -->
 	<select id="selectPRBoardListByAddress" parameterType="Map" resultType="PRBoard">
 		<include refid="select-basic-PRBoard"/>
-		AND cafeAddress LIKE '#{cafeAddress}%'
+		AND cafeAddress LIKE '${cafeAddress}%'
 	</select>
 	<!-- 테마로 홍보글 검색 -->
 	<select id="selectPRBoardListByFeature" parameterType="Map" resultType="PRBoard">
 		<include refid="select-basic-PRBoard"/>
-		AND cafeFeature LIKE '%#{cafeFeature}%'
+		AND cafeFeature LIKE '%${cafeFeature}%'
 	</select>
 	<!-- 홍보글 전체 정보 검색 -->
 	<select id="selectPRBoardByNo" parameterType="_int" resultType="PRBoard">
@@ -122,6 +122,7 @@
 		<include refid="select-full-PRBoard"/>
 		WHERE coporateNumb = #{coporateNumber}
 	</select>
+	<!-- 홍보글 번호 Sequence -->
 	<select id="selectNextPRBoardSequence" resultType="_int">
 		SELECT PRboard_cafeNo_seq.nextval FROM dual
 	</select>
