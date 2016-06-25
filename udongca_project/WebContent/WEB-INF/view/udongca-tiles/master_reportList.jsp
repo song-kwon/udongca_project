@@ -69,6 +69,13 @@ $(document).ready(function(){
 <script type="text/javascript">
 		
 		$(document).ready(function(){
+			if($("#memberCheck").val()!="master"){
+				alert("권한이 없습니다.");
+				location.href="/udongca_project/main.udc";
+			}
+			if($("#a").val()==$("#hidden").val()){
+				$("#a").prop("selected","selected");
+			}
 			if($("#r").val()==$("#hidden").val()){
 				$("#r").prop("selected","selected");
 			}
@@ -95,10 +102,13 @@ td,th{
 }
 </style>
 <div id="div">
+<input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
+<c:if test="${sessionScope.login.memberType != master}">
 <h3 id="head">${requestScope.reportType}신고리스트</h3> 
 <input type="hidden" id="hidden" value="${requestScope.reportType}">
 <form id="form" method="post">
 <select id="type" >
+	<option id="a">all</option>
 	<option id="r">review</option>
 	<option id="p">prboard</option>
 </select>
@@ -160,5 +170,5 @@ td,th{
 		▶
 	</c:otherwise>
 </c:choose>
-
+</c:if>
 </div>

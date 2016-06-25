@@ -34,14 +34,6 @@
 	<!-- <definition name="login.tiles" extends="default-nonav.tiles"> <put-attribute 
 		name="body" value="/WEB-INF/view/udongca-tiles/login.jsp" /> </definition> -->
 
-	
-	<definition name="masterPage.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/master_page.jsp" />
-	</definition>
-
 
 	<definition name="member_verify.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu"
@@ -63,21 +55,15 @@
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/{1}.jsp" />
 	</definition>
-	<definition name="memberListPaging.tilse" extends="default-nav.tiles">
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/memberList.jsp"/>
-			<put-attribute name="menu"
+  	<definition name="master/master_reportList.tilse" extends="default-nav.tiles">
+		<put-attribute name="menu"
 			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
-	</definition>
-	<definition name="reportList.tilse" extends="default-nav.tiles">
 		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/reportList.jsp"/>
-			<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
+			value="/WEB-INF/view/udongca-tiles/master_reportList.jsp" />
 	</definition>
-	<definition name="oneToOneList.tilse" extends="default-nav.tiles">
+	<definition name="master/master_oneToOneList.tilse" extends="default-nav.tiles">
 		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/masterOneToOneList.jsp"/>
+			value="/WEB-INF/view/udongca-tiles/master_oneToOneList.jsp"/>
 			<put-attribute name="menu"
 			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
 	</definition>
@@ -88,15 +74,6 @@
 		<put-attribute name="body"
 			value="/WEB-INF/view/udongca-tiles/{1}.jsp" />
 	</definition>
-
-	<definition name="memberList.tiles" extends="default-nav.tiles">
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/master_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/member_list.jsp" />
-	</definition>
-	
-	
 
 	<definition name="noticeBoardRegisterform.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp"/>
