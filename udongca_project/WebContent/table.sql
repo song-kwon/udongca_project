@@ -23,8 +23,9 @@ create sequence review_reply_replyNo_seq nocache;
 create sequence preferLocationNo_seq nocache;
 
 --  create table --
-insert into code values('login_true','로그인허용','login_possibility')
-insert into code values('login_false','로그인불가','login_possibility')
+insert into code values('possible','로그인허용','login_possibility');
+insert into code values('impossible','로그인불가','login_possibility')
+delete from code where codeType='login_possibility'
 create table code(
 codeId	varchar2(30)	primary key,
 codeName	varchar2(50)	NOT NULL,

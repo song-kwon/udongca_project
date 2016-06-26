@@ -1,7 +1,12 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <script type="text/javascript">
+$(document).ready(function(){
+	if($("#memberCheck").val()!="master"){
+		alert("권한이 없습니다.");
+		location.href="/udongca_project/main.udc";
+	}
+});
 	function update(){
-		
 			$.ajax({
 				"url" : "/udongca_project/master/updateInfo.udc",
 				"type" : "post",
@@ -81,6 +86,8 @@ $(document).ready(function(){
 	$("#penalty").prop("formaction","/udongca_project/member/memberInfoMaster.udc?reportMemberId="+$("#reportMemberId").val());
 } 
 </script>
+<input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
+<h3>신고처리</h3>
 	<table border="1">
 		<tr>
 			<td>
@@ -114,7 +121,7 @@ $(document).ready(function(){
 	</table>
 	
 	<input type="hidden" id="page"	value="${requestScope.page }">
-	<input type="button" onclick="update()" value="취소이유등록">
+	<input type="button" onclick="update()" value="등록">
 	<input type="button" onclick="deleteArticle()" value="게시글 삭제">
 	<button onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${requestScope.reportInfo.reportMemberId }&page=${requestScope.page }"' >id벌점</button>
 	<input type="button" onclick='location.href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportInfo.reportType }&page=${requestScope.page }"' value="취소">

@@ -1,9 +1,9 @@
 package kr.co.udongca.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.udongca.service.OneToOneInquiryService;
 import kr.co.udongca.service.ReportBoardService;
+import kr.co.udongca.vo.Member;
 
 @Controller
 @RequestMapping("/master")
@@ -20,15 +21,22 @@ public class ThreeBoardController {
     private OneToOneInquiryService oneService;
     @Autowired
     private ReportBoardService reportService;
-    
+
     @RequestMapping("/masterPage.udc")
     @ResponseBody
-    public List oneToOneBoard(){
+    public List threeBoard(HttpSession session) {
 	ArrayList list = new ArrayList();
-	list.add(oneService.oneToOneList(1).get("list"));
-	list.add(reportService.reportList(1, "review").get("list"));
-	list.add(reportService.reportList(1, "prboard").get("list"));
-	return list;
-	
+	Member master = (Member) session.getAttribute("login");
+	if (master != null && master.getMemberType().equals("master")) {
+	    list.add(oneService.oneToOneList(1).get("list"));
+	    list.add(reportService.reportList(1, "review").get("list"));
+	    list.add(reportService.reportList(1, "prboard").get("list"));
+	    return list;
+
+	} else {
+	    list.add("권한이 없습니다");
+	    return list;
+
+	}
     }
 }

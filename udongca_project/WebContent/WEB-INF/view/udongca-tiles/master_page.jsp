@@ -19,11 +19,12 @@
 					 }
 				 } 
 			},
-		"error":function(xhr, status, errorMsg){
+			"error":function(xhr, status, errorMsg){
 			alert(xhr+status+errorMsg);
-		}
+			}
 		});
 	});
+	
 </script>
 <style type="text/css">
 table, td, th{

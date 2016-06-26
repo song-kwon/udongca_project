@@ -93,20 +93,30 @@ public class MemberController {
     
 
     @RequestMapping("memberInfoMaster.udc")
-    public String memberInfoMaster(@RequestParam("id") String id ,@RequestParam(value="page",required=false,defaultValue="1") int page, Model model) {
-	model.addAttribute("memberInfo", memberService.memberIdMaster(id));
-	model.addAttribute("code", memberService.loginPossibility("login_possibility"));
-	model.addAttribute("page",page);
-	return "master/master_memberInfo.tiles";
+    public String memberInfoMaster(@RequestParam("id") String id ,@RequestParam(value="page",required=false,defaultValue="1") int page, HttpSession session, Model model) {
+	Member master = (Member) session.getAttribute("login");
+	if (master != null && master.getMemberType().equals("master")){
+	       	model.addAttribute("memberInfo", memberService.memberIdMaster(id));
+        	model.addAttribute("code", memberService.loginPossibility("login_possibility"));
+        	model.addAttribute("page",page);
+        	return "master/master_memberInfo.tiles";
+	}else{
+	    return "redirect:/main.udc"; 
+	}
     }
     @RequestMapping("memberUpdate.udc")
-    public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,
+    public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,Model model,HttpSession session,
 	    BindingResult errors) {
-	if (errors.hasErrors()) {
-	    return "redirect:/member/memberInfoMaster.udc?id="+member.getMemberId()+"&page="+page;
-	} else {
-	    int a = memberService.memberUpdateMaster(member);
-	    return "redirect:/member/memberListPaging.udc?pnum=" + page;
+	Member master = (Member) session.getAttribute("login");
+	if (master != null && master.getMemberType().equals("master")){
+	    if (errors.hasErrors()) {
+		return "redirect:/member/memberInfoMaster.udc?id="+member.getMemberId()+"&page="+page;
+	    } else {
+		int a = memberService.memberUpdateMaster(member);
+		return "redirect:/member/memberListPaging.udc?pnum=" + page +"&success="+a;
+	    }
+	}else{
+	    return "redirect:/main.udc"; 
 	}
     }
 	@RequestMapping("generalMemberJoin.udc")
@@ -279,20 +289,24 @@ public class MemberController {
 		return memberService.memberIdFind(findMember);
 	}
 	@RequestMapping("memberListPaging.udc")
-	    public ModelAndView memberListPageing(@RequestParam(required = false) String pnum, Model model) {
+	    public String memberListPageing(@RequestParam(required = false) String pnum, Model model,HttpSession session) {
 		int page = 1;
+		Member master = (Member) session.getAttribute("login");
+		if (master != null && master.getMemberType().equals("master")){
 		try {
 		    page = Integer.parseInt(pnum);
-		    System.out.println(pnum);
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		try {
 		    Map<String, Object> map = memberService.memberList(page);
 		    model.addAttribute("page",page);
-		    return new ModelAndView("memberListPaging.tilse", map);
+		    model.addAttribute("map",map);
+		    return "master/master_memberList.tiles";
 		} catch (Exception e) {
 		    e.printStackTrace();
-		    return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		    return "error.tiles";
+		}
+		}else{
+		    return "redirect:/main.udc"; 
 		}
 	    }
 	@RequestMapping("memberPassword_find.udc")

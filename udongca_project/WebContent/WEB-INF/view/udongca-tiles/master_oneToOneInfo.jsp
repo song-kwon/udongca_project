@@ -1,9 +1,12 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <script type="text/javascript">
-
-
+$(document).ready(function(){
+	if($("#memberCheck").val()!="master"){
+		alert("권한이 없습니다.");
+		location.href="/udongca_project/main.udc";
+	}
+});
 function requiryReply(){
-		
 		$.ajax({
 			"url" : "/udongca_project/oneToOneInquiry/master/requiryReply.udc",
 			"type" : "post",
@@ -29,6 +32,8 @@ function requiryReply(){
 	
 }
 </script>
+<h3>1:1문의</h3>
+<input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <table>
 <tr>
 	<td>
