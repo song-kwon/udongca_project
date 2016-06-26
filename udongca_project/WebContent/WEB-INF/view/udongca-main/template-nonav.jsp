@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@ header {
 	padding: 5px;
 	min-width: 1024px;
 	width: auto;
-	height:150px;
+	height: 150px;
 }
 
 nav {
@@ -40,21 +40,27 @@ footer {
 	height: 50px;
 	clear: both;
 }
+a{
+	text-decoration: none;
+}
+#wrap{
+	width:1280px;
+}
 </style>
 </head>
 <body>
+<div id="wrap">	
+		<header>
+			<tiles:insertAttribute name="header" />
+		</header>
 
-<header>
-<tiles:insertAttribute name="header"/>
-</header>
+		<section class="nonav_section">
+			<tiles:insertAttribute name="body" />
+		</section>
 
-<section class="nonav_section">
-<tiles:insertAttribute name="body"/>
-</section>
-
-<footer>
-<tiles:insertAttribute name="footer"/>
-</footer>
-
+		<footer>
+			<tiles:insertAttribute name="footer" />
+		</footer>
+</div>
 </body>
 </html>

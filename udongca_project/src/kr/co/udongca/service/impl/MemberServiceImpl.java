@@ -29,8 +29,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberDao memberDaoImpl;
-	@Autowired 
+	@Autowired
 	private CodeDao codeDaoImpl;
+
 	@Override
 	public Member login(String id, String password) {
 		if (memberDaoImpl.countSameId(id) == 0) {
@@ -40,9 +41,9 @@ public class MemberServiceImpl implements MemberService {
 			return login;
 		}
 	}
-	
+
 	@Override
-	public int loginPossible(Member member){
+	public int loginPossible(Member member) {
 		return memberDaoImpl.loginPossible(member);
 	}
 
@@ -141,9 +142,10 @@ public class MemberServiceImpl implements MemberService {
 			if (myLocationList.get(idx) != null) {
 				Address address = (Address) myLocationList.get(idx);
 				middleCategory.add(middleList(address.getMajorCategoryNo()));
+			} else {
+				middleCategory.add(null);
 			}
 		}
-
 		map.put("myLocationList", myLocationList);
 		map.put("middleList", middleCategory);
 		return new ModelAndView("member/member_preferLocation_form.tiles", "category", map);
@@ -163,23 +165,27 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
-			String content = String.format("%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", findMember.getMemberName(),findMember.getMemberId());
+			String content = String.format(
+					"%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동",
+					findMember.getMemberName(), findMember.getMemberId());
 			send.sendEmail(findMember, content);
-			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
+			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp", "success",
+					memberDaoImpl.memberIdFind(member));
 			return mav;
 		}
 	}
-	public Member memberIdMaster(String memberId){
-	    return memberDaoImpl.memberInfo(memberId);
+
+	public Member memberIdMaster(String memberId) {
+		return memberDaoImpl.memberInfo(memberId);
 	}
-	public List loginPossibility(String code){
-	  return codeDaoImpl.selectCode(code);
+
+	public List loginPossibility(String code) {
+		return codeDaoImpl.selectCode(code);
 	}
-	
-	public int memberUpdateMaster(Member member){
-	    return memberDaoImpl.memberUpdate(member);
+
+	public int memberUpdateMaster(Member member) {
+		return memberDaoImpl.memberUpdate(member);
 	}
-	
 
 	@Override
 	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException {
@@ -190,8 +196,11 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
-			String content = String.format("%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동", findMember.getMemberName(),findMember.getMemberId(),findMember.getMemberPassword());
-			mav= new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp","success",memberDaoImpl.memberIdFind(member));
+			String content = String.format(
+					"%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동",
+					findMember.getMemberName(), findMember.getMemberId(), findMember.getMemberPassword());
+			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp", "success",
+					memberDaoImpl.memberIdFind(member));
 			return mav;
 		}
 	}
@@ -199,13 +208,17 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Map memberInquiryList(int page, String memberId) {
 		HashMap map = new HashMap();
-		map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
-		map.put("page", page);
-		map.put("memberId", memberId);
-		List list = memberDaoImpl.memberInquriyList(map);
-		PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
-		map.put("list", list);
-		map.put("pageBean", pagingBean);
-		return map;
+
+		if (memberDaoImpl.countMemberInquiryList(memberId) == 0) {
+			map.put("error", "문의 내역이 없습니다.");
+		}
+			map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+			map.put("page", page);
+			map.put("memberId", memberId);
+			List list = memberDaoImpl.memberInquriyList(map);
+			PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
+			map.put("list", list);
+			map.put("pageBean", pagingBean);
+			return map;
 	}
 }

@@ -9,6 +9,7 @@
 $(document).ready(function(){
 	$('tr').find(':first').css({'font-size':25})	;
 	$('tr').find(':second').css({'font-size':20});
+	
 })
 
 </script>
@@ -16,6 +17,7 @@ $(document).ready(function(){
 textarea {
 	border: thin;
 	background-color: white;
+	resize:none;
 }
 table, td, th{
 	border: 1px solid gray;
@@ -53,9 +55,9 @@ div{
 		<tr>
 			<td colspan="2">처리결과
 		<tr>
-			<td colspan="2"><textarea rows="10" cols="30" readonly="readonly">${requestScope.report.reportResult }</textarea>
+			<td colspan="2"><textarea rows="10" cols="30" readonly="readonly" >${requestScope.report.reportResult }</textarea>
 		</table>
-<div align="center"><button>버튼</button></div>
+<div style="margin-top:5px;" align="center" onclick="window.close()"><button>닫기</button></div>
 </div>
 </body>
 </html>

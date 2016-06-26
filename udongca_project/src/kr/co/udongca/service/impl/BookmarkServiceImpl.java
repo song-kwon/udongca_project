@@ -29,7 +29,7 @@ public class BookmarkServiceImpl  implements BookmarkService{
 		ModelAndView mav = null;
 		Map map = new HashMap<>();
 		if (dao.countMemberBookmark(memberId) == 0) {
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/error", "error", "즐겨찾기한 카페가 없습니다.");
+			mav = new ModelAndView("member/member_bookmark.tiles", "error", "즐겨찾기한 카페가 없습니다.");
 			return mav;
 		} else {
 			map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
@@ -42,5 +42,10 @@ public class BookmarkServiceImpl  implements BookmarkService{
 			mav = new ModelAndView("member/member_bookmark.tiles","bookmarkList",map);
 			return mav;
 		}
+	}
+	
+	@Override
+	public int deleteBookmark(int cafeNo, String memberId) {
+		return dao.deleteBookmark(new Bookmark(0, memberId, cafeNo, null));
 	}
 }

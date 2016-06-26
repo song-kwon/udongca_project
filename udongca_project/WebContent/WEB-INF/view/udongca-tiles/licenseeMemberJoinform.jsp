@@ -94,16 +94,11 @@ function checkSubmit(){
 	}
 }
 </script>
-<<<<<<< HEAD
 <div class="nonav_bodyDiv" style="width:400px;">
 <div><h2>사업자 회원 가입</h2></div>
 <div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
-=======
-<div class="nonav_bodyDiv">
-<div style="margin-left: 25%;"><h2>사업자 회원 가입</h2></div>
 <div><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
 <div><font size="1">비밀 번호는 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 <form action="/udongca_project/member/licenseeMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
 <table>

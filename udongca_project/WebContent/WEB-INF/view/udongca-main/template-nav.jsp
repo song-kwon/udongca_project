@@ -34,10 +34,16 @@ footer{
 	height:50px;
 	clear:both;
 }
+a{
+	text-decoration: none;
+}
+#wrap{
+	width:1280px;
+}
 </style>
 </head>
 <body>
-
+<div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
 </header>
@@ -53,6 +59,6 @@ footer{
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>
-
+</div>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div>
+<style type="text/css">
+.major_category{
+	width:120px;
+}
+.middle_category{
+	min-width:100px;
+	text-align: center;
+}
+</style>
+<div align="left">
 	선호지역 1 : <select class="major_category" id="first_category">
 		<option value="0">시/도 선택</option>
 		<c:forEach items="${requestScope.category.majorList }" var="majorList" varStatus="status">

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 /*	$("#idVerification").on("click",function(){
 		$.ajax({
 				"url":"member/findById.udc",
@@ -23,7 +24,6 @@ $(document).ready(function(){
 				}
 		})
 	});*/
-	
 	
 	/*정보수정 클릭시 비밀번호 확인 페이지에서 버튼 클릭 이벤트*/
 	$('#verify').on('click',function(){
@@ -63,7 +63,7 @@ $(document).ready(function(){
 		});
 		
 	
-		$('.major_category').bind('change',getMiddleCategory);
+		$('.major_category').bind('click',getMiddleCategory);
 				
 		/*수정 버튼 클릭*/
 		$('#preferLocation_modiftBtn').on('click',function(){
@@ -75,7 +75,6 @@ $(document).ready(function(){
 					$('select[name=second_category]').val(),
 					$('select[name=third_category]').val()];
 
-			alert($("select[name='first_category']").val());
 			$.ajax({
 				'url':'/udongca_project/member/modify_preferLocation.udc',
 				'type':'post',
@@ -97,6 +96,28 @@ $(document).ready(function(){
 		$(this).css({'background-color':'inherit'})
 	});
 	
+
+	//북마크 취소
+	$('tbody tr td').on('click','.deleteBookmark',function(){
+		var cafeNo=$(this).parent().prop('id');
+		$.ajax({
+			'url':'/udongca_project/member/deleteBookmark.udc',
+			'type':'post',
+			'data':{'cafeNo':cafeNo},
+			'success':function(){
+				if(this){
+					alert('즐겨찾기를 해제했습니다.');
+					location.reload();
+				}
+				else{
+					alert('다시 시도해주세요.');
+					location.reload();
+				}
+			}
+		})
+	})
+	
+	
 	
 	$(window).resize();
 	
@@ -113,7 +134,13 @@ $(window).resize(function(){
     	'margin-left': $('.nav').width()+(($(window).width()/2) - $('.nav_bodyDiv').width())/2,
         'margin-top':($('.nav_section').height() - $('.nav_bodyDiv').height())/2
     });
-*/  });
+*/  
+    if($(window).width()>$('#wrap').outerWidth()){
+    	$('#wrap').css({position:'absloute'}).css({
+    	'margin-left': ($(window).width() - $('#wrap').outerWidth())/2
+    	})
+    }
+});
 
 function getMiddleCategory(){
 	var category = this;
@@ -208,9 +235,6 @@ function inquiryAjax(pageNum){
 	});
 }
 
-function bookmarkDelete(no){
-	alert(no);
-}
 
 
 //랜덤 색상
@@ -243,5 +267,17 @@ function randColor() {
 }
 
 function memberReportDetail(reportboardNo){
-	window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=140px','height=150px');
+	window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=400px height=610px');
+}
+
+function sessionCheck(memberId){
+	if(!memberId){
+		if(confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?\n(확인:로그인페이지 / 취소:메인페이지)')){
+			location.replace('http://192.168.0.116:4322/udongca_project/loginPage.udc');
+			return false;
+		}else{
+			location.replace('http://192.168.0.116:4322/udongca_project/main.udc');
+			return false;
+		}
+	}
 }

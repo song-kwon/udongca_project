@@ -10,6 +10,6 @@ public interface BookmarkDao {
 	public int countMemberBookmark(String memberId);
 	public List<Bookmark> memberBookmarkListPaging(Map map);
 	public int insertBookmark(Bookmark bookmark);
-	public int deleteBookmark(Map map);
+	public int deleteBookmark(Bookmark bookmark);
 	public List<Bookmark> selectBookmarkByMemberId(String memberId);
 }

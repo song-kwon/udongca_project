@@ -52,12 +52,12 @@ public class MemberController {
     }
 
     @RequestMapping("master_page.udc")
-    public String masterPage(HttpSession session) {
+    public ModelAndView masterPage(HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master"))
-	    return "master/master_page.tiles";
+	    return new ModelAndView("/master/master_page.tiles");
 	else
-	    return "redirect:/main.udc";
+	    return new ModelAndView("loginPage.udc","error"," 마스터 로그인이 필요합니다.");
     }
 
     @RequestMapping("countSameId.udc")
@@ -201,12 +201,14 @@ public class MemberController {
 
 	@RequestMapping("member_preferLocation_form.udc")
 	public ModelAndView PreferLocationPage(HttpSession session) {
+		ModelAndView mav;
 		Member login = (Member) session.getAttribute("login");
 		if (login != null && !login.getMemberType().equals("master")) {
-			ModelAndView mav = memberService.myPreferLocationPage(login.getMemberId());
+			mav = memberService.myPreferLocationPage(login.getMemberId());
 			return mav;
 		} else {
-			return null;
+			mav = new ModelAndView("loginPage.udc", "error", "로그인이 필요하다네");
+			return mav;
 		}
 
 	}
@@ -226,6 +228,7 @@ public class MemberController {
 	@RequestMapping("modify_preferLocation.udc")
 	@ResponseBody
 	public String modifyPreferLocation(int[] location, HttpSession session) {
+		System.out.println(location[0]+" "+location[1]+" "+location[2]);
 		Member login = (Member) session.getAttribute("login");
 		PreferLocation pl = new PreferLocation(0, location[0], location[1], location[2], login.getMemberId());
 		if (login != null && !login.getMemberType().equals("master")) {
@@ -315,7 +318,7 @@ public class MemberController {
 			return new ModelAndView("member/member_inquiryList.tiles", map);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+			return new ModelAndView("error.tiles", "error_message", e.getMessage());
 		}
 	}
 }

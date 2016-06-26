@@ -72,32 +72,20 @@ noticeDate	DATE	NOT NULL
 );
 update member set memberPenalty=1, loginpossibility='false' where memberId='cust1'
 
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST1','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST2','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST3','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST4','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST5','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST6','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST7','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST8','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST9','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST10','내용없어요',sysdate);
-insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST11','내용없어요',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST1','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST2','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST3','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST4','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST5','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST6','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST7','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST8','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST9','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST10','내용없어요','notice1',sysdate);
+insert into notice_board values(notice_board_noticeNo_seq.nextval,'TEST11','내용없어요','notice1',sysdate);
 
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
-insert into member values('cust1','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust2','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust3','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust4','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust5','asdf','cust1','sjung7674','0','true','cust')
-insert into member values('cust6','asdf','cust1','sjung7674','0','true','cust')
-<<<<<<< HEAD
-insert into member values('cust7','asdf','cust1','sjung7674','0','false','cust')
-=======
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 create table member(
 memberId	varchar2(50)	primary key,
 memberName	varchar2(50)	NOT NULL,
@@ -107,8 +95,6 @@ memberPenalty	NUMBER	,
 loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
 );
-
-insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'테스트','테스트','테스트','테스트','master')
 
 insert into member values('udongca','udongca','master','master@udongca.com','0','possible','master');
 insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalmember');
@@ -122,7 +108,6 @@ insert into member values('test7','test7','test7','g@d.com','0','possible','lice
 
 
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 create table onetoone_inquiry(
 inquiryNo	NUMBER	primary key,
 inquiryTitle	varchar2(50)	NOT NULL,
@@ -134,10 +119,8 @@ constraint onetoone_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-<<<<<<< HEAD
-insert into PRBOARD values(1,'text','text','text','text','text','text','text','text','text','text','text','cust11')
-SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry
-=======
+
+
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','scott');
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','scott');
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','scott');
@@ -148,10 +131,7 @@ insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST8','TEST8','TEST8','TEST8','test1');
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST9','TEST9','TEST9','TEST9','scott');
 
-SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId from onetoone_inquiry;
 
-
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 create table PRboard(
 cafeNo	NUMBER	primary key,
 cafeName	varchar2(50)	NOT NULL,
@@ -170,15 +150,12 @@ constraint prboard_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-<<<<<<< HEAD
-insert into REVIEW_BOARD values(1,'text','2010-03-09','text',5,'text','text','cust12',1)
-=======
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','test1');
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','test5');
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','test6');
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','test7');
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
+
 create table review_board(
 reviewNo 	NUMBER	primary key,
 reviewTitle	varchar2(50)	NOT NULL,
@@ -196,10 +173,6 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-<<<<<<< HEAD
-insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust11','reason','content','result','cancelre','prboard',1,'cust12')
-insert into report_board values()
-=======
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1','scott',1);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2','scott',1);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3','test1',1);
@@ -211,7 +184,6 @@ insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdat
 
 
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 create table report_board(
 reportboardNo	NUMBER	primary key,
 reportMemberId	varchar2(50)	NOT NULL,
@@ -226,9 +198,6 @@ constraint report_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-<<<<<<< HEAD
-DELETE FROM review_board1 WHERE reviewNo = 1
-=======
 
 insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
 insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
@@ -245,7 +214,6 @@ insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','r
 
 
 
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 create table menu(
 menuNo	NUMBER	primary key,
 cafeNo	NUMBER	NOT NULL,

@@ -17,7 +17,7 @@
 	
 	
 	
-	<context:component-scan base-package="kr.co.udongca.controller,kr.co.udongca.service.impl,kr.co.udongca.dao.impl"/>
+	<context:component-scan base-package="kr.co.udongca.controller,kr.co.udongca.service.impl,kr.co.udongca.dao.impl, kr.co.udongca.common.util"/>
 	
 	<!-- 단순 링크 -->
 	<mvc:view-controller path="/main.udc" view-name="main.tiles" />
@@ -91,5 +91,6 @@
 	<bean name="vr3"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:order="3" />
+
 
 </beans>

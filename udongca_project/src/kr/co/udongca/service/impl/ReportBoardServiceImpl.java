@@ -48,7 +48,7 @@ public class ReportBoardServiceImpl implements ReportBoardService {
     public ModelAndView memberReportList(int page, String memberId) {
 		ModelAndView mav;
 		if(reportBoardDaoImpl.countMemberReport(memberId)==0){
-			mav = new ModelAndView("","error","등록된 리뷰가 없습니다.");
+			mav = new ModelAndView("member/member_report_list.tiles","error","신고 내역 없습니다.");
 		}else{
 			Map map = new HashMap<>();
 			map.put("itemPerPage", Constants.ITEMS_PER_PAGE);

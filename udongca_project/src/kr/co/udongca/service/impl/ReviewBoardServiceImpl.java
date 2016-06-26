@@ -26,7 +26,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	public ModelAndView myReviewListPaging(int page,String memberId) {
 		ModelAndView mav;
 		if(dao.countMyReview(memberId) == 0){
-			mav = new ModelAndView("","error","등록된 리뷰가 없습니다.");
+			mav = new ModelAndView("member/member_review_list.tiles","error","등록된 리뷰가 없습니다.");
 		}else{
 			Map map = new HashMap<>();
 			map.put("itemPerPage", Constants.ITEMS_PER_PAGE);

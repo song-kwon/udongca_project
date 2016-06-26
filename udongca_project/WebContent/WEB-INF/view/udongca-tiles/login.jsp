@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="nonav_bodyDiv" style="width: 555px; height: 170px;margin:0 auto;">
+<div class="nonav_bodyDiv" id="loginPage" style="width: 555px; height: 170px;margin:0 auto;">
 <div style="min-height: auto; width: 555px;">
 	<form action="/udongca_project/member/login.udc" method="post" onsubmit="return loginCheck();">
 	<div style="float:left; width:230px;">

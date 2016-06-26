@@ -35,8 +35,8 @@ public class BookmarkDaoImpl implements BookmarkDao {
 	}
 
 	@Override
-	public int deleteBookmark(Map map) {
-		return session.delete("bookmarkMapper.deleteBookmark",map);
+	public int deleteBookmark(Bookmark bookmark) {
+		return session.delete("bookmarkMapper.deleteBookmark",bookmark);
 	}
 
 	@Override

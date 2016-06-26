@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.BookmarkService;
@@ -25,7 +26,7 @@ public class BookmarkController {
 	public ModelAndView memberBookmarkListPaging(@RequestParam(required = false) String no, HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
 		if (login == null) {
-			return new ModelAndView("login.tailes", "error", "로그인이 필요한 서비스 입니다.");
+			return new ModelAndView("login.tiles", "error", "로그인이 필요한 서비스 입니다.");
 		} else {
 			int page = 1;
 			try {
@@ -40,5 +41,18 @@ public class BookmarkController {
 				return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
 			}
 		}
+	}
+	
+	@RequestMapping("deleteBookmark.udc")
+	@ResponseBody
+	public boolean deleteBookmark(int cafeNo, HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		
+		int result = service.deleteBookmark(cafeNo, login.getMemberId());
+		
+		if(result == 1)
+			return true;
+		else
+			return false;
 	}
 }

@@ -58,7 +58,7 @@
 		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
-					     FROM onetoone_inquiry order by inquiryNo asc
+					     FROM onetoone_inquiry order by inquiryNo desc
 					     )
 				 )
 		WHERE page = #{page}
@@ -72,7 +72,7 @@
 		SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryType, inquiryTitle, inquiryReply, memberId
 			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryReply, memberId
-					     FROM onetoone_inquiry  where memberId = #{memberId} order by inquiryNo asc
+					     FROM onetoone_inquiry  where memberId = #{memberId} order by inquiryNo desc
 					     )
 				 )
 		WHERE page = #{page}
