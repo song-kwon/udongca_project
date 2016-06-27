@@ -89,7 +89,6 @@
 			cafeTel = #{cafeTel},
 			cafeFeature = #{cafeFeature},
 			cafeAddress = #{cafeAddress},
-			coporateNumber = #{coporateNumber},
 			operationHour = #{operationHour},
 			managerName = #{managerName},
 			managerTel = #{managerTel},

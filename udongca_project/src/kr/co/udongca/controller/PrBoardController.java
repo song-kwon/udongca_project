@@ -40,8 +40,7 @@ public class PrBoardController {
 	public String prView(int cafeNo, ModelMap map){
 		map.put("prBoard", service.selectPRBoardByNo(cafeNo));
 		/*
-		 * TODO: 조회 성공이든 실패든 prRead.jsp로 이동 예정
-		 * 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
+		 * TODO: 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
 		 */
 		return "/ParkTest/prRead.jsp";
 	}
@@ -90,7 +89,7 @@ public class PrBoardController {
 		prBoard.setOperationHour((String)map.get("operationHour"));
 		prBoard.setManagerName((String)map.get("managerName"));
 		prBoard.setManagerTel((String)map.get("managerTel"));
-		prBoard.setMemberId(mem.getMemberId()); // !
+		prBoard.setMemberId(mem.getMemberId());
 		
 		if (cafeImage.length != 0 && cafeImage != null) {
 			for(int idx = 0 ; idx < cafeImage.length ; idx++){
