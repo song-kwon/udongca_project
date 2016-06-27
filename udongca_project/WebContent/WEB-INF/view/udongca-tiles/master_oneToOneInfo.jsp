@@ -32,6 +32,7 @@ function requiryReply(){
 	
 }
 </script>
+<div class="container">
 <h3>1:1문의</h3>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <table>
@@ -47,9 +48,16 @@ function requiryReply(){
 		<textarea rows="10" cols="100" id="content" readonly="readonly">${requestScope.inquiryNo.inquiryContent }</textarea>
 	</td>
 </tr>
-</table>
-<p>
-
+	<tr>
+		<td colspan="1">
 	<textarea rows="10" cols="100" id="reply">${requestScope.inquiryNo.inquiryReply }</textarea>
-	<button onclick="requiryReply()">답변등록</button>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<button onclick="requiryReply()">답변등록</button>
 	<button onclick='location.href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.page }"'>뒤로가기</button>
+	</td>
+	</tr>
+	</table>
+</div>

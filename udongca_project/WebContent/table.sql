@@ -155,6 +155,9 @@ insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST1','TEST1','TEST1','T
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','test5');
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','test6');
 insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','test7');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','test2');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','test3');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','test4');
 
 
 create table review_board(

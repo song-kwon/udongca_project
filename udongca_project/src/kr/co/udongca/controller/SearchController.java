@@ -1,13 +1,20 @@
 package kr.co.udongca.controller;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.udongca.common.util.Constants;
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.service.SearchService;
-import kr.co.udongca.vo.*;
+import kr.co.udongca.vo.Address;
+import kr.co.udongca.vo.Code;
+import kr.co.udongca.vo.PRBoard;
 
 /**
  * 홍보글 검색에 관련된 Controller
@@ -53,12 +60,11 @@ public class SearchController {
 	 */
 	@RequestMapping("locationSearchResult.udc")
 	@ResponseBody
-	public List<PRBoard> locationSearchResult(String cafeAddress, int page){
+	public Map locationSearchResult(String cafeAddress, int page){
 		HashMap map = new HashMap();
 		map.put ("cafeAddress", cafeAddress);
 		map.put ("page", page);
-		map.put ("itemsPerPage", 10);
-		System.out.println("locationSearchResult: " + map);
+		map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
 		return service.selectPRBoardListByAddress(map);
 	}
 	
@@ -70,11 +76,20 @@ public class SearchController {
 	 */
 	@RequestMapping("themeSearchResult.udc")
 	@ResponseBody
-	public List<PRBoard> themeSearchResult(String cafeFeature, int page){
+	public Map themeSearchResult(String cafeFeature, int page){
 		HashMap map = new HashMap();
 		map.put ("cafeFeature", cafeFeature);
 		map.put ("page", page);
-		map.put ("itemsPerPage", 10);
+		map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
 		return service.selectPRBoardListByFeature(map);
+	}
+	
+	/**
+	 * code table - select theme
+	 */
+	@RequestMapping("selectThemeCategory.udc")
+	@ResponseBody
+	public List<Code> selectThemeCategory(){
+		return service.selectThemeCategroy();
 	}
 }
