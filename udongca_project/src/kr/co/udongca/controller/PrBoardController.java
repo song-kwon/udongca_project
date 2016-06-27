@@ -159,7 +159,7 @@ public class PrBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		service.deletePRBoard(cafeNo);
-		return "/main.jsp";
+		return "/";
 	}
 	
 	/**
@@ -185,7 +185,6 @@ public class PrBoardController {
 	public String moveToNewPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
 			HttpSession session, ModelMap model){
 		Member mem = (Member)session.getAttribute("login");
-		System.out.println(mem);
 		if (mem == null || !mem.getMemberType().equals("licenseemember")){
 			return "redirect:/loginPage.udc";
 		}
