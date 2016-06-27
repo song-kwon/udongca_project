@@ -13,7 +13,7 @@
 			middle_categoryNo middleCategoryNo,
 			address2 AddressName
 			FROM middlecategory
-			WHERE major_categoryNo = #{majorCategoryNo}
+			WHERE major_categoryNo = #{majorCategoryNo} order by address2 asc
 	</select>
 	
 	<select id="selectPreferLocationByMiddleAddressNo" parameterType="int" resultType="address">
