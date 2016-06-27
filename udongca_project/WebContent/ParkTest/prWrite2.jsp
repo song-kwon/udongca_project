@@ -43,12 +43,13 @@
 				$("form").on("submit", function(){
 					$("[name=menuTypeArray]").each(function(){
 						if ($("option:selected", this).text() == "종류"){
-							alert("!");
+							alert("종류를 선택하세요(제작 중)");
 						}
 					});
 					$("[name=menuNameArray]").each(function(){
 						if (!($(this).val())){
-							alert("!");
+							alert("메뉴 이름을 입력하세요");
+							return false;
 						}
 					});
 				});
