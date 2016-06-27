@@ -120,10 +120,21 @@ public class PrBoardController {
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
+	@RequestMapping("prModifyForm.udc")
+	public String prModifyForm(int cafeNo, ModelMap map, HttpSession session){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberId().equals(service.selectPRBoardByNo(cafeNo).getMemberId())){
+			return "redirect:/loginPage.udc";
+		}
+		map.put("prBoard", service.selectPRBoardByNo(cafeNo));
+		return "/ParkTest/prModifyForm.jsp";
+	}
+	
 	/**
 	 * 현재 제작 중
 	 * @param prBoard
 	 * @param session
+	 * @return
 	 */
 	@RequestMapping("prModify.udc")
 	public String prModify(PRBoard prBoard, HttpSession session){
@@ -139,6 +150,7 @@ public class PrBoardController {
 	 * 현재 제작 중
 	 * @param cafeNo
 	 * @param session
+	 * @return
 	 */
 	@RequestMapping("prDelete.udc")
 	public String prDelete(int cafeNo, HttpSession session){
@@ -201,43 +213,6 @@ public class PrBoardController {
 		model.put("managerTel", map.get("managerTel"));
 		
 		return "/ParkTest/prWrite2.jsp";
-	}
-	
-	/**
-	 * 현재 제작 중
-	 * @param cafeNo
-	 * @param session
-	 */
-	@RequestMapping("isFavoriteRegistered.udc")
-	public void isFavoriteRegistered(int cafeNo, HttpSession session){
-		/*
-		 * TODO: 현재 즐겨찾기에 등록됐을 경우 유무에 따라 문자열 형식으로 true/false 출력할 예정.
-		 * JSP에서는 ajax + text 형식 사용 예정.
-		 */
-		// return "" + (service.selectPRBoardFromMemberFavoriteRegistedByCafeNo != null);
-		return;
-	}
-	
-	/**
-	 * 현재 제작 중
-	 * @param cafeNo
-	 * @param session
-	 */
-	@RequestMapping("favoriteRegister.udc")
-	public void favoriteRegister(int cafeNo, HttpSession session){
-		/*
-		 * TODO: 중복 등록 시 오류 처리를 해야 할 것.
-		 */
-		return;
-	}
-	
-	/**
-	 * 현재 제작 중
-	 * @param session
-	 */
-	@RequestMapping("favoriteList.udc")
-	public void favoriteList(HttpSession session){
-		return;
 	}
 	
 	/**

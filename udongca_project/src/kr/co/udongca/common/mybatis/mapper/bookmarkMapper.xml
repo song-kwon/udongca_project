@@ -13,7 +13,7 @@
 		DELETE FROM bookmark WHERE memberId = #{memberId} AND cafeNo = #{cafeNo}
 	</delete>
 	
-	<select id="selectBookmarkByMemberId" parameterType="string" resultType="int">
+	<select id="selectBookmarkByMemberId" parameterType="string" resultType="bookmark">
 		SELECT cafeNo FROM bookmark WHERE memberId = #{memberId}
 	</select>
 	

@@ -24,6 +24,9 @@
 					"dataType":"json",
 					"success":function(json){
 						menuTypeList = json;
+					},
+					"error":function(xhr){
+						alert("An error occured while loading getMenuTypeList.udc: " + xhr.status + " " + xhr.statusText);
 					}
 				});
 				
@@ -42,14 +45,19 @@
 					}
 					else{
 						$.ajax({
-							"url":"/udongca_project/member/getMemberBookmark.udc",
+							"url":"/udongca_project/member/isBookmarkAdded.udc",
 							"type":"POST",
-							"data":"memberId=" + "${sessionScope.login.memberId}",
+							"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
 							"dataType":"json",
 							"success":function(json){
-								$("#buttonArea").append("<button onclick='favorite" + ((json) ? "Remove()'>즐겨찾기 해제" : "Add()'>즐겨찾기 추가") + "</button>");
+								isAddedFavorite = json;
+								$("#buttonArea").append("<button onclick='favoriteToggle()'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
+							},
+							"error":function(xhr){
+								alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
 							}
 						});
+						
 						
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
@@ -67,15 +75,26 @@
 			};
 			
 			function prReport(){
+				window.open();
 				// window.open을 이용해 Form을 열고, 거기서 선택하도록 해야 할 것.
 			};
 			
-			function favoriteRemove(){
-				// Controller를 실행시킨 후, 새로고침.
-			};
-			
-			function favoriteAdd(){
-				// Controller를 실행시킨 후, 새로고침.
+			function favoriteToggle(){
+				$.ajax({
+					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
+					"type":"POST",
+					"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
+					"dataType":"json",
+					"success":function(json){
+						alert(((json) ? ("즐겨찾기에" + ((isAddedFavorite) ? "서 삭제" : " 추가" )) : ("오류가 발생") ) + "했습니다");
+						location.reload(true);
+					},
+					"error":function(xhr){
+						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+				
+				
 			};
 			
 			function prevImage(){
