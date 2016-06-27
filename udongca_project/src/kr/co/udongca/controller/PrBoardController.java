@@ -43,7 +43,7 @@ public class PrBoardController {
 		 * TODO: 조회 성공이든 실패든 prRead.jsp로 이동 예정
 		 * 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
 		 */
-		return "/ParkTest/prRead.jsp?cafeNo=" + cafeNo;
+		return "/ParkTest/prRead.jsp";
 	}
 	
 	/**
@@ -67,9 +67,10 @@ public class PrBoardController {
 			MultipartFile[] menuImageArray, HttpServletRequest req,
 			ModelMap model, HttpSession session)
 					throws IllegalStateException, IOException{
-		/*
-		 * TODO: Session의 로그인 정보를 활용해서 비회원이나 권한 없는 회원이 접근하는 경우를 막아야 함.
-		 */
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+			return "redirect:/loginPage.udc";
+		}
 		
 		PRBoard prBoard = new PRBoard();
 		int cafeNo = service.selectNextPRBoardSequence();
@@ -89,10 +90,7 @@ public class PrBoardController {
 		prBoard.setOperationHour((String)map.get("operationHour"));
 		prBoard.setManagerName((String)map.get("managerName"));
 		prBoard.setManagerTel((String)map.get("managerTel"));
-		/*
-		 * TODO: 로그인 시스템과 연동한 뒤에는 Session에서 로그인 정보를 가져오도록 함.
-		 */
-		prBoard.setMemberId("qwerty"); // !
+		prBoard.setMemberId(mem.getMemberId()); // !
 		
 		if (cafeImage.length != 0 && cafeImage != null) {
 			for(int idx = 0 ; idx < cafeImage.length ; idx++){
@@ -128,10 +126,13 @@ public class PrBoardController {
 	 * @param session
 	 */
 	@RequestMapping("prModify.udc")
-	public void prModify(PRBoard prBoard, HttpSession session){
+	public String prModify(PRBoard prBoard, HttpSession session){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberId().equals(prBoard.getMemberId())){
+			return "redirect:/loginPage.udc";
+		}
 		service.updatePRBoard(prBoard);
-		// return "/ParkTest/prRead.jsp";
-		return;
+		return "/prBoard/prView.udc?cafeNo=" + prBoard.getCafeNo();
 	}
 	
 	/**
@@ -140,10 +141,13 @@ public class PrBoardController {
 	 * @param session
 	 */
 	@RequestMapping("prDelete.udc")
-	public void prDelete(int cafeNo, HttpSession session){
+	public String prDelete(int cafeNo, HttpSession session){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberId().equals(service.selectPRBoardByNo(cafeNo).getMemberId())){
+			return "redirect:/loginPage.udc";
+		}
 		service.deletePRBoard(cafeNo);
-		// return "/main.jsp";
-		return;
+		return "/main.jsp";
 	}
 	
 	/**
@@ -168,6 +172,12 @@ public class PrBoardController {
 	@RequestMapping("moveToNewPr2Jsp.udc")
 	public String moveToNewPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
 			HttpSession session, ModelMap model){
+		Member mem = (Member)session.getAttribute("login");
+		System.out.println(mem);
+		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+			return "redirect:/loginPage.udc";
+		}
+		
 		String cafeFeature = "";
 		
 		if (cafeFeature1 != null){
@@ -176,7 +186,7 @@ public class PrBoardController {
 			}
 		}
 		
-		if (map.get("cafeFeature2") != "테마 선택"){
+		if (((String)map.get("cafeFeature2")).equals("테마 선택")){
 			cafeFeature += map.get("cafeFeature2");
 		}
 		
