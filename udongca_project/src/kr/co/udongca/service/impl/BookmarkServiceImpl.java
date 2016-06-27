@@ -48,4 +48,19 @@ public class BookmarkServiceImpl  implements BookmarkService{
 	public int deleteBookmark(int cafeNo, String memberId) {
 		return dao.deleteBookmark(new Bookmark(0, memberId, cafeNo, null));
 	}
+
+	@Override
+	public int insertBookmark(int cafeNo, String memberId) {
+		return dao.insertBookmark(new Bookmark(0, memberId, cafeNo, null));
+	}
+
+	@Override
+	public int countMemberBookmark(String memberId) {
+		return dao.countMemberBookmark(memberId);
+	}
+
+	@Override
+	public List<Bookmark> selectBookmarkByMemberId(String memberId) {
+		return dao.selectBookmarkByMemberId(memberId);
+	}
 }

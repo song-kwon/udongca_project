@@ -26,7 +26,7 @@ import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
 
 @Controller
-@RequestMapping("/member/")
+@RequestMapping({"/member/","/","/master/"})
 public class MemberController {
 
     @Autowired
@@ -57,12 +57,13 @@ public class MemberController {
 	if (master != null && master.getMemberType().equals("master"))
 	    return new ModelAndView("master/master_page.tiles");
 	else
-	    return new ModelAndView("loginPage.udc","error"," 마스터 로그인이 필요합니다.");
+	    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
     }
 
     @RequestMapping("countSameId.udc")
     @ResponseBody
     public String countSameId(String memberId) {
+    	System.out.println(memberId);
 	String number = "" + memberService.countSameId(memberId);
 	return number;
     }
