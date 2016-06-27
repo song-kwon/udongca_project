@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
+//아이디 조건 검사
 $(document).ready(function(){
 	$("#idVerification").on("click",function(){
 		$.ajax({
@@ -12,47 +14,79 @@ $(document).ready(function(){
 						alert("이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.");
 						$("#id").focus();
 					}else{
-						confirm("사용 가능한 아이디입니다. 사용하시겠습니까?");
-						$("#password").focus();
-						$("#idVerify").val(true);
+						var result = confirm("'"+$.trim($("#id").val())+"'"+"는 사용 가능한 아이디입니다. 사용하시겠습니까?");
+						if(result == false){
+							$("#id").focus();
+						}else{
+							$("#id").val($.trim($("#id").val()));
+							$("#password").focus();
+							$("#idVerify").val(true);
+						}
 					}
 				},
-				"beforeSend" : function(){
-					if($("#id").val().length<6){
-						alert("아이디는 6글자 이상 입력해주세요.");
+				"beforeSend" : function chkId(){
+					var id = $("#id").val();
+					var id2 = $.trim($("#id").val());
+					var num = id.search(/[0-9]/g);
+					var eng = id.search(/[a-z]/ig);
+					var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+					
+					//아이디 한글 에러 처리
+					for (i = 0; i < id.length; i++) {
+						   var retCode = id.charCodeAt(i);
+						   var retChar = id.substr(i,1).toUpperCase();
+						   retCode = parseInt(retCode);
+						   
+						  if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ){
+							  alert("아이디는 영문과 숫자만 입력가능합니다.");
+							  return false;
+						  }
+					}
+				
+					//영문, 숫자 이외의 문자 입력시 에러 처리
+					if((num<0 && eng<0) || spe.test(id)==true){
+						  alert("아이디는 영문과 숫자만 입력가능합니다.");
+						  return false;
+					}
+					
+					//공백 입력시 에러 처리
+					if((id.length != id2.length) || id.length<6 || (id.search(/[" "]/g) > 0)){
+						alert("아이디는 공백없이 6글자 이상 입력해주세요.");
 						return false;
 					}
+					return true;
 				}
 		});
 	});
+	
+	$("#id").on("focus",function(){
+		$("#idVerify").val(false);
+	})
 });
 
 //패스워드 조건 검사
-function chkPwd1(str){
-	 var pw = str;
+function chkPwd1(){
+	 var pw = $("#password").val();
 	 var num = pw.search(/[0-9]/g);
 	 var eng = pw.search(/[a-z]/ig);
 	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	 
+	 var pw2 = pw.trim();
+	 
+	 if((pw.length != pw2.length) || (pw.search(/[" "]/g) > 0)){
+		alert("비밀번호는 공백없이 입력해주세요.");
+		return false;
+	 }
+	 
 	 if(pw.length < 10 || pw.length > 20){
 	  alert("비밀번호는 10자리 ~ 20자리 이내로 입력해주세요.");
 	  return false;
 	 }
 
-	 if(pw.search(/₩s/) != -1){
-	  alert("비밀번호는 공백없이 입력해주세요.");
-	  return false;
-	 }
-
 	 if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
-	  alert("비밀번호는 영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+	  alert("비밀번호는 영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
 	  return false;
 	 }
-	 
-	if(!chkPwd1( $.trim($('#password').val()))){
-	   $('#password').val('');
-	   $('#password').focus();
-	   return false;
-	}
 	
 	return true;
 }
@@ -68,23 +102,34 @@ function chkPwd2(){
 	}
 }
 
+//이름 입력 검사
+function chkName(){
+	var name = $("#name").val();
+	var name2 = $.trim(name);
+	if((name.length != name2.length)||(name.search(/[" "]/g) > 0)){
+		  alert("이름은 공백없이 입력해주세요.");
+		  return false;
+	}
+	return true;
+}
+
 //이메일 입력 검사
 function chkEmail(){
 	if($("#emailAddress").val()=="이메일선택"){
 		alert("이메일 주소를 선택해주세요.")
 		return false;
 	}
-	else
-		return true;
+	return true;
 }
 
 function checkSubmit(){
 	if($("#idVerify").val()=="true"){
 		//가입 하기 전, 비밀번호 확인과 이메일 확인
-		var checkPassword1 = chkPwd1($("#password").val());
+		var checkPassword1 = chkPwd1();
 		var checkPassword2 = chkPwd2();
+		var checkName = chkName();
 		var checkEmail = chkEmail();
-		if(checkPassword1==true && checkPassword2==true && checkEmail==true){
+		if(checkPassword1==true && checkPassword2==true && checkName==true && checkEmail==true){
 			return true;
 		}else
 			return false;
@@ -94,11 +139,11 @@ function checkSubmit(){
 	}
 }
 </script>
-<div class="nonav_bodyDiv" style="width:400px;">
+<div class="nonav_bodyDiv" style="width:600px;">
 <div><h2>사업자 회원 가입</h2></div>
-<div><font size="1">**모든 사항은 필수 입력 사항입니다.</font></div>
-<div><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
-<div><font size="1">비밀 번호는 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
+<div style="color:red;"><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
+<div><font size="1">아이디는 공백을 제외하여 영문, 숫자 또는 영문과 숫자를 혼합하여 6글자 이상으로 작성해주십시오.</font></div>
+<div><font size="1">비밀 번호는 공백을 제외하여 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
 <form action="/udongca_project/member/licenseeMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
 <table>
