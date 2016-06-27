@@ -13,6 +13,7 @@
 			var isMemberLicensed = null;
 			var cafeFakeImage = "${requestScope.prBoard.cafeFakeImage}";
 			var cafeFakeImageArray = cafeFakeImage.split(";");
+			var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 			var currentImageNumber = 0;
 			
 			$(document).ready(function(){
@@ -25,6 +26,8 @@
 						menuTypeList = json;
 					}
 				});
+				
+				$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 				
 				if (menuTypeList){
 					for(var i = 0; i < menuTypeList.length; i++){
@@ -44,42 +47,51 @@
 							"data":"memberId=" + "${sessionScope.login.memberId}",
 							"dataType":"json",
 							"success":function(json){
-								isAddedFavorite = (json) ? true : false;
+								$("#buttonArea").append("<button onclick='favorite" + ((json) ? "Remove()'>즐겨찾기 해제" : "Add()'>즐겨찾기 추가") + "</button>");
 							}
 						});
 						
-						$("#buttonArea").append("<button onclick='favorite" + ((isAddedFavorite) ? "Remove()'>즐겨찾기 해제" : "Add()'>즐겨찾기 추가") + "</button>");
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
 				}
 			});
 			
 			function prModify(){
-				
+				window.location.href = "prModifyForm.udc?cafeNo=${requestScope.prBoard.cafeNo}";
 			};
 			
 			function prDelete(){
-				
+				if (window.confirm("정말 삭제하겠습니까?")){
+					window.location.href = "prDelete.udc?cafeNo=${requestScope.prBoard.cafeNo}";
+				}
 			};
 			
 			function prReport(){
-				
+				// window.open을 이용해 Form을 열고, 거기서 선택하도록 해야 할 것.
 			};
 			
 			function favoriteRemove(){
-				
+				// Controller를 실행시킨 후, 새로고침.
 			};
 			
 			function favoriteAdd(){
-				
+				// Controller를 실행시킨 후, 새로고침.
 			};
 			
 			function prevImage(){
-				
+				currentImageNumber--;
+				if (currentImageNumber < 0){
+					currentImageNumber = cafeFakeImageArrayNumber - 1;
+				}
+				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
 			
 			function nextImage(){
-				
+				currentImageNumber++;
+				if (currentImageNumber > cafeFakeImageArrayNumber - 1){
+					currentImageNumber = 0;
+				}
+				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
 		</script>
 	</head>
@@ -106,8 +118,8 @@
 						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 조회하면서 경로를 조회해야 함.
 					-->
 					<div id="imageArea"></div>
-					<button onclick="prevImage()"></button>
-					<button onclick="nextImage()"></button>
+					<button onclick="prevImage()">이전</button>
+					<button onclick="nextImage()">다음</button>
 				</td>
 				<td id="cafeInfo">
 					<table>
