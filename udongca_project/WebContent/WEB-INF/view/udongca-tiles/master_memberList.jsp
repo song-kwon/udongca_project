@@ -36,13 +36,15 @@ td,th{
 		<td>이름</td>
 		<td>이메일</td>
 		<td>페널티</td>
+		<td>로그인허용</td>
 	</tr>
 	<c:forEach items="${requestScope.map.list }" var="list">
 	<tr id="list" onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${list.memberId}&page=${requestScope.page }"' style="cursor:hand;">
-		<td id="id">${list.memberId }</td>
+		<td>${list.memberId }</td>
 		<td>${list.memberName }</td >
 		<td>${list.memberEmail }</td>
 		<td>${list.memberPenalty }</td>
+		<td>${list.loginPossibility }</td>
 	<tr>
 	</c:forEach>
 </table>

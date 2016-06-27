@@ -20,6 +20,7 @@ nav{
 	padding: 15px;
 	min-height:700px;
 	width:250px;
+	overflow:auto;
 	float:left;
 }
 section{

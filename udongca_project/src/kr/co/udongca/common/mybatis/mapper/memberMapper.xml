@@ -49,9 +49,9 @@
 		<include refid="select-basic"/>
 	</select>
 	<select id="select_list_page" parameterType="map" resultType="member">
-		SELECT memberId, memberName, memberPassword, memberEmail
-		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, memberId, memberName, memberPassword, memberEmail
-			     FROM(SELECT memberId, memberName, memberPassword, memberEmail
+		SELECT memberId, memberName, memberPassword, memberEmail, memberPenalty, loginPossibility
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, memberId, memberName, memberPassword, memberEmail,memberPenalty, loginPossibility
+			     FROM(SELECT memberId, memberName, memberPassword, memberEmail,memberPenalty, loginPossibility
 					     FROM member order by memberId asc
 					     )
 				 )
