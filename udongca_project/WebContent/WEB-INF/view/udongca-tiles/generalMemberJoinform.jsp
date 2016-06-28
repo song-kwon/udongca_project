@@ -61,7 +61,7 @@ $(document).ready(function(){
 	
 	$("#id").on("focus",function(){
 		$("#idVerify").val(false);
-	})
+	});
 });
 
 //패스워드 조건 검사
@@ -139,43 +139,64 @@ function checkSubmit(){
 	}
 }
 </script>
+
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:400px;
+	margin:30px;
+}
+
+table, th{
+	text-align:left;
+	width:400px;
+}
+
+.width_size{
+	width:150px;
+}
+
+.width_size2{
+	width:80px;
+}
+
+</style>
+
 <div class="nonav_bodyDiv" style="width:600px;">
-<div><h2>일반 회원 가입</h2></div>
+<div><h1>일반 회원 가입</h1></div>
 <div style="color:red;"><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
 <div><font size="1">아이디는 공백을 제외하여 영문, 숫자 또는 영문과 숫자를 혼합하여 6글자 이상으로 작성해주십시오.</font></div>
 <div><font size="1">비밀 번호는 공백을 제외하여 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
+<br>
 <form action="/udongca_project/member/generalMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
 <table>
 	<tr>
-		<td>   </td>
-	</tr>
-	<tr>
 		<th>아이디</th>
-		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }"></td>
-		<td><input type="button" id="idVerification" value="아이디 확인"></td>
+		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }" class="width_size"></td>
+		<td>&nbsp;<input type="button" id="idVerification" value="아이디 확인"></td>
 		<td><span class="error"><form:errors path="member.memberId"/></span></td>
 	</tr>
 	<tr>
 		<th>비밀번호</th>
-		<td><input type="password" id="password" name="memberPassword" value="${requestScope.member.memberPassword }"></td>
+		<td><input type="password" id="password" name="memberPassword" value="${requestScope.member.memberPassword }" class="width_size"></td>
 		<td> </td>
 		<td><span class="error"><form:errors path="member.memberPassword"/></span></td>
 	</tr>
 	<tr>
 		<th>비밀번호 확인</th>
-		<td><input type="password" id="password2"></td>
+		<td><input type="password" id="password2" class="width_size"></td>
 	</tr>
 	<tr>
 		<th>이름</th>
-		<td><input type="text" id="name" name="memberName" value="${requestScope.member.memberName }"></td>
+		<td><input type="text" id="name" name="memberName" value="${requestScope.member.memberName }" class="width_size"></td>
 		<td> </td>
 		<td><span class="error"><form:errors path="member.memberName"/></span></td>
 	</tr>
 	<tr>
 		<th>이메일</th>
-		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }"></td>
-		<td>@<select id="emailAddress" name="emailAddress">
+		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }" class="width_size"></td>
+		<td style="width:200px;">@<select id="emailAddress" name="emailAddress" style="width:100px;">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
@@ -186,14 +207,10 @@ function checkSubmit(){
 		</td>
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
-	<tr>
-		<td colspan="2">
-			<input type="submit" value="가입하기"/>
-		</td>
-		<td colspan="2">
-			<a href="/udongca_project/main.udc"><input type="button" id="cancel" value="취소"></a>
-		</td>
-	</tr>
 </table>
+	<div align="center" style="width:450px;">
+		<input type="submit" class="width_size2" value="가입하기"/>&nbsp;&nbsp;
+		<a href="/udongca_project/main.udc"><input type="button" id="cancel" class="width_size2" value="취소"></a>
+	</div>
 </form>
 </div>
