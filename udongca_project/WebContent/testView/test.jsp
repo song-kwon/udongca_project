@@ -72,8 +72,11 @@ $(document).ready(function(){
 				"type":"POST",
 				"data":"cafeAddress=" + submitString + "&page=" + 1,
 				"dataType":"json",
+				"error":function(){
+					alert('qwdqwd');	
+				},
 				"success":function(json){
-					location.replace('/udongca_project/testView/test.jsp?json='+json);
+					alert(json.list.length);
 					submitString = "'"+submitString+"'";
 					$("#searchResult").empty();
 					$("#pageNum").empty();
@@ -210,6 +213,7 @@ function themePage(page){
 		"data":"cafeAddress=" + submitString + "&page=" + page,
 		"dataType":"json",
 		"success":function(json){
+			alert()
 			submitString= "'"+submitString+"'";
 			$("#searchResult").empty();
 			$("#pageNum").empty();
@@ -224,7 +228,7 @@ function themePage(page){
 				
 				
 				if(json.pageBean.previousPageGroup){
-					$("#pageNum").append('<a href="#" onclick="themePage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>');
+					$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>');
 				}else{
 					$("#pageNum").append('◀');
 				}
@@ -261,6 +265,5 @@ a{
 <div id="pageNum" style="clear:both;">
 </div>
 
-<a href="/udongca_project/review/reviewDetail.udc?cafeNo=11&reviewNo=1"><button>리뷰보러가기</button></a>
 </body>
 </html>

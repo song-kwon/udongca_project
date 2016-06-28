@@ -58,13 +58,13 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping("locationSearchResult.udc")
-	//@ResponseBody
-	public ModelAndView locationSearchResult(String cafeAddress, int page){
+	@ResponseBody
+	public Map locationSearchResult(String cafeAddress, int page){
 		HashMap map = new HashMap();
 		map.put ("cafeAddress", cafeAddress);
 		map.put ("page", page);
 		map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
-		return new ModelAndView("/testView/test.jsp",service.selectPRBoardListByAddress(map));
+		return service.selectPRBoardListByAddress(map);
 	}
 	
 	/**
