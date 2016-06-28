@@ -33,4 +33,10 @@ public interface SearchDao {
 	 * @return 선택한 테마에 맞는 카페 홍보글 객체 목록
 	 */
 	public List<PRBoard> selectPRBoardListByFeature (Map map);
+	
+	public List<Code> selectThemeCategory();
+	
+	public int countThemeCafe(String cafeFeature);
+	
+	public int countCafeAddress(String cafeAddress);
 }

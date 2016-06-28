@@ -1,5 +1,7 @@
 package kr.co.udongca.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.BookmarkService;
+import kr.co.udongca.vo.Bookmark;
 import kr.co.udongca.vo.Member;
 
 @Controller
@@ -47,6 +50,14 @@ public class BookmarkController {
 	@ResponseBody
 	public boolean deleteBookmark(int cafeNo, HttpSession session){
 		Member login = (Member)session.getAttribute("login");
+		System.out.println("delete1");
+		
+		if (login == null || !(login.getMemberType().equals("generalmember"))){
+			System.out.println("delete2");
+			return false;
+		}
+		
+		System.out.println(cafeNo);
 		
 		int result = service.deleteBookmark(cafeNo, login.getMemberId());
 		
@@ -54,5 +65,46 @@ public class BookmarkController {
 			return true;
 		else
 			return false;
+	}
+	
+	@RequestMapping("insertBookmark.udc")
+	@ResponseBody
+	public boolean insertBookmark(int cafeNo, HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		System.out.println("insert1");
+		
+		if (login == null || !(login.getMemberType().equals("generalmember"))){
+			System.out.println("insert2");
+			return false;
+		}
+		
+		System.out.println(cafeNo);
+		
+		int result = service.insertBookmark(cafeNo, login.getMemberId());
+		
+		if(result == 1)
+			return true;
+		else
+			return false;
+	}
+	
+	@RequestMapping("isBookmarkAdded.udc")
+	@ResponseBody
+	public boolean isBookmarkAdded(int cafeNo, HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		
+		if (login == null || !(login.getMemberType().equals("generalmember"))){
+			return false;
+		}
+		
+		List<Bookmark> bookmarkList = service.selectBookmarkByMemberId(login.getMemberId());
+		
+		for(Bookmark bookmark : bookmarkList){
+			if (bookmark.getCafeNo() == cafeNo){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

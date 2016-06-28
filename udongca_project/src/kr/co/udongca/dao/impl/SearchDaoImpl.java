@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.SearchDao;
 import kr.co.udongca.vo.Address;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.PRBoard;
 
 /**
@@ -35,12 +36,27 @@ public class SearchDaoImpl implements SearchDao {
 	
 	@Override
 	public List<PRBoard> selectPRBoardListByAddress(Map map) {
-		System.out.println("selectPRBoardListByAddress: " + map);
 		return session.selectList(prNamespace + "selectPRBoardListByAddress", map);
 	}
 
 	@Override
 	public List<PRBoard> selectPRBoardListByFeature(Map map) {
 		return session.selectList(prNamespace + "selectPRBoardListByFeature", map);
+	}
+	
+	@Override
+	public List<Code> selectThemeCategory() {
+		return session.selectList("codeMapper.select_code","cafeTheme");
+	}
+	
+	@Override
+	public int countThemeCafe(String cafeFeature) {
+		return session.selectOne(prNamespace+"countThemeCafe",cafeFeature);
+	}
+	
+	@Override
+	public int countCafeAddress(String cafeAddress) {
+		// TODO Auto-generated method stub
+		return session.selectOne(prNamespace+"countCafeAddress",cafeAddress);
 	}
 }

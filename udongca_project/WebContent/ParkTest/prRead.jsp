@@ -11,8 +11,7 @@
 			var menuTypeList = null;
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
-			var cafeFakeImage = "${requestScope.prBoard.cafeFakeImage}";
-			var cafeFakeImageArray = cafeFakeImage.split(";");
+			var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 			var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 			var currentImageNumber = 0;
 			
@@ -24,6 +23,9 @@
 					"dataType":"json",
 					"success":function(json){
 						menuTypeList = json;
+					},
+					"error":function(xhr){
+						alert("An error occured while loading getMenuTypeList.udc: " + xhr.status + " " + xhr.statusText);
 					}
 				});
 				
@@ -42,14 +44,19 @@
 					}
 					else{
 						$.ajax({
-							"url":"/udongca_project/member/getMemberBookmark.udc",
+							"url":"/udongca_project/member/isBookmarkAdded.udc",
 							"type":"POST",
-							"data":"memberId=" + "${sessionScope.login.memberId}",
+							"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
 							"dataType":"json",
 							"success":function(json){
-								$("#buttonArea").append("<button onclick='favorite" + ((json) ? "Remove()'>즐겨찾기 해제" : "Add()'>즐겨찾기 추가") + "</button>");
+								isAddedFavorite = json;
+								$("#buttonArea").append("<button onclick='favoriteToggle()'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
+							},
+							"error":function(xhr){
+								alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
 							}
 						});
+						
 						
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
@@ -67,15 +74,26 @@
 			};
 			
 			function prReport(){
+				window.open();
 				// window.open을 이용해 Form을 열고, 거기서 선택하도록 해야 할 것.
 			};
 			
-			function favoriteRemove(){
-				// Controller를 실행시킨 후, 새로고침.
-			};
-			
-			function favoriteAdd(){
-				// Controller를 실행시킨 후, 새로고침.
+			function favoriteToggle(){
+				$.ajax({
+					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
+					"type":"POST",
+					"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
+					"dataType":"json",
+					"success":function(json){
+						alert(((json) ? ("즐겨찾기에" + ((isAddedFavorite) ? "서 삭제" : " 추가" )) : ("오류가 발생") ) + "했습니다");
+						location.reload(true);
+					},
+					"error":function(xhr){
+						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+				
+				
 			};
 			
 			function prevImage(){
@@ -96,10 +114,9 @@
 		</script>
 	</head>
 	<body>
-		${requestScope.prBoard}<br>
 		<table>
 			<tr>
-				<td id="cafeName" colspan=3>${requestScope.prBoard.cafeName}</td>
+				<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
 			</tr>
 			<tr>
 				<td id="optionList">
@@ -113,9 +130,9 @@
 						<li id="reviewList">리뷰</li>
 					</ul>
 				</td>
-				<td>그림 띄울 곳
+				<td>
 					<!--
-						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 조회하면서 경로를 조회해야 함.
+						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 					-->
 					<div id="imageArea"></div>
 					<button onclick="prevImage()">이전</button>
@@ -125,7 +142,7 @@
 					<table>
 						<tr>
 							<td>카페 소개</td>
-							<td>${requestScope.prBoard.cafeIntro}</td>
+							<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 						</tr>
 						<tr>
 							<td>영업 시간</td>

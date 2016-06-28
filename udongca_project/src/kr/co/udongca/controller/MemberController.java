@@ -26,7 +26,7 @@ import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
 
 @Controller
-@RequestMapping("/member/")
+@RequestMapping({"/member/","/","/master/"})
 public class MemberController {
 
     @Autowired
@@ -55,14 +55,15 @@ public class MemberController {
     public ModelAndView masterPage(HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master"))
-	    return new ModelAndView("/master/master_page.tiles");
+	    return new ModelAndView("master/master_page.tiles");
 	else
-	    return new ModelAndView("loginPage.udc","error"," 마스터 로그인이 필요합니다.");
+	    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
     }
 
     @RequestMapping("countSameId.udc")
     @ResponseBody
     public String countSameId(String memberId) {
+    	System.out.println(memberId);
 	String number = "" + memberService.countSameId(memberId);
 	return number;
     }
@@ -105,16 +106,11 @@ public class MemberController {
 	}
     }
     @RequestMapping("memberUpdate.udc")
-    public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,Model model,HttpSession session,
-	    BindingResult errors) {
+    public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,Model model,HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master")){
-	    if (errors.hasErrors()) {
-		return "redirect:/member/memberInfoMaster.udc?id="+member.getMemberId()+"&page="+page;
-	    } else {
 		int a = memberService.memberUpdateMaster(member);
 		return "redirect:/member/memberListPaging.udc?pnum=" + page +"&success="+a;
-	    }
 	}else{
 	    return "redirect:/main.udc"; 
 	}

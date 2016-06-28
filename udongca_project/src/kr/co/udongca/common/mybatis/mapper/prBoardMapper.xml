@@ -89,7 +89,6 @@
 			cafeTel = #{cafeTel},
 			cafeFeature = #{cafeFeature},
 			cafeAddress = #{cafeAddress},
-			coporateNumber = #{coporateNumber},
 			operationHour = #{operationHour},
 			managerName = #{managerName},
 			managerTel = #{managerTel},
@@ -105,7 +104,7 @@
 	<!-- 지역으로 홍보글 검색 -->
 	<select id="selectPRBoardListByAddress" parameterType="Map" resultType="PRBoard">
 		<include refid="select-basic-PRBoard"/>
-		AND cafeAddress LIKE '${cafeAddress}%'
+		AND cafeAddress LIKE '%${cafeAddress}%'
 	</select>
 	<!-- 테마로 홍보글 검색 -->
 	<select id="selectPRBoardListByFeature" parameterType="Map" resultType="PRBoard">
@@ -125,5 +124,14 @@
 	<!-- 홍보글 번호 Sequence -->
 	<select id="selectNextPRBoardSequence" resultType="_int">
 		SELECT PRboard_cafeNo_seq.nextval FROM dual
+	</select>
+	
+	<select id="countThemeCafe" parameterType="string" resultType="int">
+		select count(cafeNo) from prboard where cafeFeature=#{cafeFeature}
+	</select>
+	
+	<select id="countCafeAddress" parameterType="string" resultType="int">
+		select count(cafeNo) from prboard where cafeAddress like '%${value}%'
+		
 	</select>
 </mapper>
