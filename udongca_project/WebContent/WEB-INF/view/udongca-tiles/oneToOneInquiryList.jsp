@@ -9,32 +9,74 @@ $(document).ready(function() {
 });
 </script>
 
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
+}
+
+thead{
+	text-align:center;
+	width:400px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
+}
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+tr#tr, td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+td#td1:hover{text-decoration:underline; color:red;}
+td#td2:hover{text-decoration:underline; color:red;}
+</style>
+
 <div>
-	<h2>1:1문의</h2>
+	<h1>1:1 문의 내역</h1>
 </div>
 <table>
-	<thead>
+	<thead id="thead">
 		<tr>
 			<td>No</td>
-			<td>작성자</td>
-			<td>문의 유형</td>
+			<td>유형</td>
 			<td>문의 제목</td>
 			<td>문의 내용</td>
+			<td>작성자</td>
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.oneToOneInquiryList}" var="list">
-			<tr>
-				<td>${list.inquiryNo}</td>
-				<td>${list.memberId }</td>
-				<td>${list.inquiryType }</td>
-				<td>${list.inquiryTitle }</td>
-				<td>${list.inquiryContent }</td>
+			<tr id="tr">
+				<td style="width:30px;">${list.inquiryNo}</td>
+				<td style="width:60px;">${list.inquiryType }</td>
+				<td style="width:200px;" id="td1" class="cursor">${list.inquiryTitle }</td>
+				<td style="width:300px;" id="td2" class="cursor">${list.inquiryContent }</td>
+				<td style="width:60px;">${list.memberId }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 
+<div align="center">
 <!-- 이전페이지그룹 -->
 <c:choose>
 	<c:when test="${requestScope.map.pageBean.previousPageGroup }">
@@ -71,3 +113,4 @@ $(document).ready(function() {
 		▶
 	</c:otherwise>
 </c:choose>
+</div>
