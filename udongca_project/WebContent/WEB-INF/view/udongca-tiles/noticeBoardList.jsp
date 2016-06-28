@@ -1,26 +1,55 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$("#tbody")
-								.on(
-										"click",
-										"tr",
-										function() {
-											location
-													.replace("/udongca_project/noticeBoard/noticeBoard.udc?noticeNo="
-															+ $(this).find(
-																	":first")
-																	.text());
-										});
-					});
+	$(document).ready(function() {
+		$("#tbody").on("click","tr",function() {
+			location.replace("/udongca_project/noticeBoard/noticeBoard.udc?noticeNo="+ $(this).find(":first").text());
+	});
+});
 </script>
 
-<div>
-	<h2>공지 사항</h2>
-</div>
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
+}
+
+thead{
+	text-align:center;
+	width:400px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
+}
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+tr#tr, td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+td#td1:hover{text-decoration:underline; color:red;}
+td#td2:hover{text-decoration:underline; color:red;}
+</style>
+
+<div><h1>공지 사항</h1></div>
 <c:if test="${sessionScope.login.memberId=='udongca' }">
 	<div align="right">
 		<a href="/udongca_project/noticeBoard/noticeBoardRegisterform.udc"><input
@@ -28,10 +57,10 @@
 	</div>
 </c:if>
 <table>
-	<thead>
+	<thead id="thead">
 		<tr>
 			<td>No</td>
-			<td>공지 유형</td>
+			<td>유형</td>
 			<td>공지 제목</td>
 			<td>공지 내용</td>
 			<td>작성일자</td>
@@ -39,17 +68,18 @@
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.noticeBoardList }" var="list">
-			<tr>
-				<td>${list.noticeNo }</td>
-				<td>${list.category }</td>
-				<td>${list.noticeTitle }</td>
-				<td>${list.noticeContent }</td>
-				<td>${list.noticeDate }</td>
+			<tr id="tr">
+				<td style="width:30px;">${list.noticeNo }</td>
+				<td style="width:60px;">${list.category }</td>
+				<td style="width:200px;" id="td1" class="cursor">${list.noticeTitle }</td>
+				<td style="width:300px;" id="td2" class="cursor">${list.noticeContent }</td>
+				<td style="width:100px;">${list.noticeDate }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 
+<div align="center">
 <!-- 이전페이지그룹 -->
 <c:choose>
 	<c:when test="${requestScope.map.pageBean.previousPageGroup }">
@@ -86,3 +116,4 @@
 		▶
 	</c:otherwise>
 </c:choose>
+</div>

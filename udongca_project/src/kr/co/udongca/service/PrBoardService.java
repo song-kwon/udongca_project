@@ -80,4 +80,14 @@ public interface PrBoardService {
 	 * @return 메뉴의 다음 Sequence 번호 출력 
 	 */
 	public int selectNextMenuSequence();
+	/**
+	 * 홍보글 작성 시 선택할 수 있는 테마 카페 목록 출력
+	 * @return 테마 카페 목록 출력
+	 */
+	public List<Code> selectThemeList();
+	/**
+	 * 메뉴 작성 시 선택할 수 있는 카테고리 출력
+	 * @return 메뉴 카테고리 목록 출력
+	 */
+	public List<Code> selectMenuList();
 }

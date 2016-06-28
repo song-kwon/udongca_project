@@ -36,24 +36,42 @@ function checkSubmit(){
 	}else if(checkContent==false){
 		alert("내용을 입력해주세요.");
 		return false;
-	}else
-		return true;
+	}else{
+		var result = confirm("등록하시겠습니까?");
+		if(result==true)
+			return true;
+		else
+			return false;
+	}
 }
 </script>
 
-<div><h2>1:1 문의 등록</h2></div>
+<style type="text/css">
+table{
+	margin:30px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.div{
+	border:1px dotted;
+}
+
+.text{
+	font-weight:bold;
+}
+</style>
+
+<div><h1>1:1문의 등록</h1></div>
+<br>
 <form action="/udongca_project/oneToOneInquiry/registerOneToOneInquiry.udc?memberId=${sessionScope.login.memberId }" method="post" onsubmit="return checkSubmit();">
+<div class="div">
 <table>
 	<tr>
-		<td>아이디</td>
+		<td class="text">아이디</td>
 		<td>${sessionScope.login.memberId }</td>
 	</tr>
 	<tr>
-		<td>제목</td>
-		<td><input type="text" id="title" name="inquiryTitle" placeholder="제목 입력"></td>
-	</tr>
-	<tr>
-		<td>문의 유형</td>
+		<td class="text">문의 유형</td>
 		<td>
 			<select id="inquiryType" name="inquiryType">
 				<option>유형 선택</option>
@@ -63,9 +81,15 @@ function checkSubmit(){
 		</td>
 	</tr>
 	<tr>
-		<td>내용</td>
-		<td><textarea rows="30" cols="50" id="content" name="inquiryContent" placeholder="내용을 입력해주세요.."></textarea>
+		<td class="text">제목</td>
+		<td><input type="text" id="title" name="inquiryTitle" placeholder="제목 입력" style="width:660px;"></td>
+	</tr>
+	<tr>
+		<td class="text">내용</td>
+		<td><textarea rows="30" cols="80" id="content" name="inquiryContent" placeholder="내용을 입력해주세요.."></textarea>
 	</tr>
 </table>
-<div><input type="submit" value="등록"> <a href="/udongca_project/main.udc"><input type="button" value="취소"></a></div>
+</div>
+<br>
+<div align="center"><input type="submit" value="등록"> <a href="/udongca_project/main.udc"><input type="button" value="취소"></a></div>
 </form>

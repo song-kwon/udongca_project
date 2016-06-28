@@ -5,7 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.udongca.dao.PrBoardDao;
+import kr.co.udongca.dao.*;
 import kr.co.udongca.service.PrBoardService;
 import kr.co.udongca.vo.*;
 
@@ -18,6 +18,8 @@ import kr.co.udongca.vo.*;
 public class PrBoardServiceImpl implements PrBoardService{
 	@Autowired
 	private PrBoardDao dao;
+	@Autowired
+	private CodeDao codeDao;
 	
 	@Override
 	public int insertPRBoard(PRBoard prBoard) {
@@ -77,5 +79,15 @@ public class PrBoardServiceImpl implements PrBoardService{
 	@Override
 	public int selectNextMenuSequence() {
 		return dao.selectNextMenuSequence();
+	}
+
+	@Override
+	public List<Code> selectThemeList() {
+		return codeDao.selectCode("cafeTheme");
+	}
+
+	@Override
+	public List<Code> selectMenuList() {
+		return codeDao.selectCode("cafeMenu");
 	}
 }

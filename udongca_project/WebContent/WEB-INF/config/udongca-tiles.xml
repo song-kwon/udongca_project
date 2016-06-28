@@ -79,10 +79,6 @@
 	<definition name="noticeBoardRegisterform.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/noticeBoardRegisterform.jsp"/>
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udognca-tiles/noticeBoardRegisterform.jsp" />
 	</definition>
 
 	<definition name="noticeBoardList.tiles" extends="default-nav.tiles">
@@ -102,36 +98,21 @@
 	<definition name="noticeBoardRegisterSuccess.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/noticeBoardRegisterSuccess.jsp"/>
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/cutomerCenter_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/noticeBoardRegisterSuccess.jsp" />
 	</definition>
 
 	<definition name="noticeBoardModifyform.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/noticeBoardModify.jsp"/>
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/noticeBoardModifyForm.jsp" />
 	</definition>
 
 	<definition name="noticeBoardModifySuccess.tiles" extends="default-nav.tiles">
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/noticeBoardModifySuccess.jsp"/>
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/cutomerCenter_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/noticeBoardModifySuccess.jsp" />
 	</definition>
 
-	<definition name="oneToOneInquiryRegisterform.tiles"
-		extends="default-nav.tiles">
-		<put-attribute name="menu"
-			value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/view/udongca-tiles/oneToOneInquiryRegisterform.jsp" />
+	<definition name="oneToOneInquiryRegisterform.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/customerCenter_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/oneToOneInquiryRegisterform.jsp" />
 	</definition>
 
 	<definition name="oneToOneInquiryList.tiles" extends="default-nav.tiles">
