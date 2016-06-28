@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
@@ -29,11 +30,10 @@ public interface MemberService {
 
 	public Member findById(String memberId);
 	
-	public List<Member> memberList();
-	
 	public List<Address> middleList(int majorNo);
 	
-	public Map<String, Object> memberList(int page);
+	public List memberList(int page);
+	
 	public int managePreferLocation(PreferLocation location);
 	
 	public List myPreferLocation(String memberId);
@@ -54,4 +54,5 @@ public interface MemberService {
 	public Map memberInquiryList(int page,String memberId);
 
 	public int loginPossible(Member member);
+	public PagingBean page(int page);
 }

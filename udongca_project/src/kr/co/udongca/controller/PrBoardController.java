@@ -1,7 +1,7 @@
 package kr.co.udongca.controller;
 
 import java.io.*;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.*;
 
@@ -113,7 +113,7 @@ public class PrBoardController {
 		service.insertPRBoard(prBoard);
 		
 		for(int i = 0; i < menuNameArray.length; i++){
-			menuAdd(cafeNo, menuNameArray[i], menuTypeArray[i], menuImageArray[i], req, session);
+			menuAdd(cafeNo, menuTypeArray[i], menuNameArray[i], menuImageArray[i], req, session);
 		}
 		
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
@@ -132,17 +132,90 @@ public class PrBoardController {
 	/**
 	 * 현재 제작 중
 	 * @param prBoard
+	 * @param modifiedCafeFakeImage
+	 * @param modifiedCafeRealImage
+	 * @param addCafeImage
+	 * @param req
 	 * @param session
 	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
 	 */
 	@RequestMapping("prModify.udc")
-	public String prModify(PRBoard prBoard, HttpSession session){
+	public String prModify(@RequestParam Map map, String[] cafeFeature1,
+			String[] modifiedCafeFakeImage, String[] modifiedCafeRealImage,
+			MultipartFile[] addCafeImage, HttpServletRequest req,
+			HttpSession session) throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
-		if (mem == null || !mem.getMemberId().equals(prBoard.getMemberId())){
+		String addRealImagesName="";
+		String addFakeImagesName="";
+		String cafeFeature = "";
+		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
 			return "redirect:/loginPage.udc";
 		}
-		service.updatePRBoard(prBoard);
-		return "/prBoard/prView.udc?cafeNo=" + prBoard.getCafeNo();
+		
+		if (cafeFeature1 != null){
+			for (int i = 0; i < cafeFeature1.length; i++){
+				cafeFeature += cafeFeature1[i] + " ";
+			}
+		}
+		
+		if (!((String)map.get("cafeFeature2")).equals("테마 선택")){
+			cafeFeature += map.get("cafeFeature2");
+		}
+		
+		if (addCafeImage.length != 0 && addCafeImage != null) {
+			for(int idx = 0 ; idx < addCafeImage.length ; idx++){
+				String imageName = addCafeImage[idx].getOriginalFilename();// 업로드된 파일명
+				
+				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+				// 최종 저장소 디렉토리 조회
+				String dir = req.getServletContext().getRealPath("/images");
+				long fake = System.currentTimeMillis();
+				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+	
+				addCafeImage[idx].transferTo(dest);
+				addRealImagesName += imageName+";";
+				addFakeImagesName += fake+imageName+";";
+			}
+		}
+		
+		String[] originalCafeFakeImage = ((String)(map.get("cafeFakeImage"))).split(";");
+		
+		for (int i = 0; i < originalCafeFakeImage.length; i++){
+			int temp = -1;
+			for (int j = 0; j < modifiedCafeFakeImage.length; j++){
+				if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
+					temp = j;
+					break;
+				}
+			}
+			if (temp == -1){
+				String dir = req.getServletContext().getRealPath("/images");
+				File dest = new File(dir, originalCafeFakeImage[i]);
+				dest.delete();
+			}
+		}
+		
+		String resultFakeImage = String.join(";", modifiedCafeFakeImage) + ";" + addFakeImagesName;
+		String resultRealImage = String.join(";", modifiedCafeRealImage) + ";" + addRealImagesName;
+		
+		service.updatePRBoard(
+				new PRBoard(
+					Integer.parseInt(((String)map.get("cafeNo"))),
+					(String)map.get("cafeName"),
+					(String)map.get("cafeIntro"),
+					(String)map.get("cafeTel"),
+					cafeFeature,
+					(String)map.get("cafeAddress"),
+					"",
+					(String)map.get("operationHour"),
+					(String)map.get("managerName"),
+					(String)map.get("managerTel"),
+					resultRealImage,
+					resultFakeImage,
+					(String)map.get("memberId")));
+		return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 	}
 	
 	/**
@@ -196,7 +269,7 @@ public class PrBoardController {
 			}
 		}
 		
-		if (((String)map.get("cafeFeature2")).equals("테마 선택")){
+		if (!((String)map.get("cafeFeature2")).equals("테마 선택")){
 			cafeFeature += map.get("cafeFeature2");
 		}
 		
@@ -225,13 +298,17 @@ public class PrBoardController {
 	}
 	
 	/**
-	 * 현재 제작 중
+	 * 구현 완료
 	 * @param cafeNumber
 	 * @param menuType
 	 */
 	@RequestMapping("menuList.udc")
-	public void menuList(int cafeNumber, String menuType){
-		return;
+	@ResponseBody
+	public List<Menu> menuList(int cafeNumber, String menuType){
+		HashMap map = new HashMap();
+		map.put("cafeNumber", cafeNumber);
+		map.put("menuType", menuType);
+		return service.selectMenuListByCafeNoAndMenuType(map);
 	}
 	
 	/**
@@ -251,10 +328,6 @@ public class PrBoardController {
 			MultipartFile menuImage, HttpServletRequest req,
 			HttpSession session)
 					throws IllegalStateException, IOException{
-		/*
-		 * TODO: Session의 로그인 정보를 활용해서 비회원이나 권한 없는 회원이 접근하는 경우를 막아야 함.
-		 */
-		
 		Menu menu = new Menu();
 		String menuRealImage = null;
 		String menuFakeImage = null;
@@ -314,5 +387,23 @@ public class PrBoardController {
 	public void menuDelete(int menuNO, HttpSession session){
 		//return service.deleteMenu(menuNO);
 		return;
+	}
+	/**
+	 * 구현 완료
+	 * @return
+	 */
+	@RequestMapping("cafeThemeList.udc")
+	@ResponseBody
+	public List<Code> cafeThemeList (){
+		return service.selectThemeList();
+	}
+	/**
+	 * 구현 완료
+	 * @return
+	 */
+	@RequestMapping("cafeMenuList.udc")
+	@ResponseBody
+	public List<Code> cafeMenuList (){
+		return service.selectMenuList();
 	}
 }

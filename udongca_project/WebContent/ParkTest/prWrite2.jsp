@@ -10,26 +10,26 @@
 			
 			$(document).ready(function(){
 				$.ajax({
-					"url":"/udongca_project/search/getMenuTypeList.udc",
+					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
-						menuTypeList = json;	
+						menuTypeList = json;
+						for(var i = 0; i < menuTypeList.length; i++){
+							$("[name='menuTypeArray']:last").append("<option value=" + menuTypeList[i].codeId + ">" + menuTypeList[i].codeName + "</option>");
+						}
+					},
+					"error":function(xhr){
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
 					}
 				});
-				
-				if (menuTypeList){
-					for(var i = 0; i < menuTypeList.length; i++){
-						$("[name='menuType']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
-					}
-				}
 				
 				$("#menuAdd").on("click", function(){
 					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray'><option>종류</option></select> <b>이름:</b> <input type='text' name='menuNameArray'> 사진: <input type='file' name='menuImageArray'><br></div>");
 					if (menuTypeList){
 						for(var i = 0; i < menuTypeList.length; i++){
-							$("[name='menuType']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
+							$("[name='menuTypeArray']:last").append("<option value=" + menuTypeList[i].codeId + ">" + menuTypeList[i].codeName + "</option>");
 						}
 					}
 				});
@@ -41,12 +41,12 @@
 				});
 				
 				$("form").on("submit", function(){
-					$("[name=menuTypeArray]").each(function(){
+					$("[name='menuTypeArray']").each(function(){
 						if ($("option:selected", this).text() == "종류"){
-							alert("종류를 선택하세요(제작 중)");
+							alert("종류를 선택하세요");
 						}
 					});
-					$("[name=menuNameArray]").each(function(){
+					$("[name='menuNameArray']").each(function(){
 						if (!($(this).val())){
 							alert("메뉴 이름을 입력하세요");
 							return false;

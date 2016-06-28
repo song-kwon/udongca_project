@@ -66,13 +66,15 @@ td#td2:hover{text-decoration:underline; color:red;}
 				</tr>
 			</c:forEach>
 			</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="3" align="center"><h3 style="color:red;">${requestScope.error }</h3>
-				</c:otherwise>
+			<c:otherwise>
+				<tr>
+					<td colspan="3" align="center"><h3 style="color:red;">${requestScope.error }</h3></td>
+				</tr>
+			</c:otherwise>
 			</c:choose>
 		</tbody>
 	</table>
+	
 	<!-- 이전페이지그룹 -->
 	<div align="right" style="margin:30px;">
 		<a

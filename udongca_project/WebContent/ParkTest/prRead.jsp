@@ -7,8 +7,8 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
+		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 		<script type="text/javascript">
-			var menuTypeList = null;
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
 			var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
@@ -17,12 +17,15 @@
 			
 			$(document).ready(function(){
 				$.ajax({
-					"url":"/udongca_project/search/getMenuTypeList.udc",
+					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
-						menuTypeList = json;
+						for(var i = 0; i < json.length; i++){
+							$("#menuCategoryList").append("<li><a href='javaScript:void(0)'>" + json[i].codeName + "</a></li>");
+							$("#menuCategoryList li:last a").attr("onclick", "menuListByType('" + json[i].codeId + "')");
+						}
 					},
 					"error":function(xhr){
 						alert("An error occured while loading getMenuTypeList.udc: " + xhr.status + " " + xhr.statusText);
@@ -31,16 +34,9 @@
 				
 				$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 				
-				if (menuTypeList){
-					for(var i = 0; i < menuTypeList.length; i++){
-						$("#menuCategoryList").append("<li>" + menuTypeList[i].codeName + "</li>");
-					}
-				}
-				
 				if ("${sessionScope.login}"){
 					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
-						$("#buttonArea").append("<button onclick='prModify()'>홍보글 수정</button>");
-						$("#buttonArea").append("<button onclick='prDelete()'>홍보글 삭제</button>");
+						$("#buttonArea").append("<button onclick='prModify()'>홍보글 수정</button><button onclick='prDelete()'>홍보글 삭제</button>");
 					}
 					else{
 						$.ajax({
@@ -56,7 +52,6 @@
 								alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
 							}
 						});
-						
 						
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
@@ -75,7 +70,7 @@
 			
 			function prReport(){
 				window.open();
-				// window.open을 이용해 Form을 열고, 거기서 선택하도록 해야 할 것.
+				// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
 			};
 			
 			function favoriteToggle(){
@@ -92,8 +87,6 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-				
-				
 			};
 			
 			function prevImage(){
@@ -111,6 +104,101 @@
 				}
 				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
+			
+			function mapLocation(){
+				$("#content").empty();
+				var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };
+				
+				// 지도를 생성합니다
+				var map = new daum.maps.Map(mapContainer, mapOption); 
+				
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new daum.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addr2coord('${requestScope.prBoard.cafeAddress}', function(status, result) {
+				    // 정상적으로 검색이 완료됐으면
+				     if (status === daum.maps.services.Status.OK) {
+				        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+						
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new daum.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+						
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new daum.maps.InfoWindow({
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">카페 위치</div>'
+				        });
+				        
+				        infowindow.open(map, marker);
+						
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				    } 
+				});
+			}
+			
+			function menuListByType(menuType){
+				$.ajax({
+					"url":"/udongca_project/prBoard/menuList.udc",
+					"type":"POST",
+					"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
+					"dataType":"json",
+					"success":function(json){
+						$("#content").empty();
+						for (var i = 0; i < json.length; i++){
+							$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + json[i].menuNO + ")'>" +  json[i].menuName + "</a><br>");
+						}
+					},
+					"error":function(xhr){
+						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+			}
+			
+			function menuRead(menuNO){
+				/*
+				$.ajax({
+					"url":"/udongca_project/prBoard/menuList.udc",
+					"type":"POST",
+					"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
+					"dataType":"json",
+					"success":function(json){
+						$("#content").empty();
+						for (var i = 0; i < json.length; i++){
+							$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + json[i].menuNO + ")'>" +  json[i].menuName + "</a><br>");
+						}
+					},
+					"error":function(xhr){
+						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+				*/
+			}
+			
+			function reviewList(page){
+				/*
+				$.ajax({
+					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
+					"type":"POST",
+					"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
+					"dataType":"json",
+					"success":function(json){
+						alert(((json) ? ("즐겨찾기에" + ((isAddedFavorite) ? "서 삭제" : " 추가" )) : ("오류가 발생") ) + "했습니다");
+						location.reload(true);
+					},
+					"error":function(xhr){
+						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+				*/
+			}
 		</script>
 	</head>
 	<body>
@@ -121,19 +209,16 @@
 			<tr>
 				<td id="optionList">
 					<ul>
-						<li id="location">지도</li>
+						<li><a href="javascript:void(0)" onclick="mapLocation();return false;">지도</a></li>
 						<li>
 							메뉴
 							<ul id="menuCategoryList">
 							</ul>
 						</li>
-						<li id="reviewList">리뷰</li>
+						<li><a href="javascript:void(0)" onclick="reviewList(1);return false;">리뷰</a></li>
 					</ul>
 				</td>
 				<td>
-					<!--
-						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
-					-->
 					<div id="imageArea"></div>
 					<button onclick="prevImage()">이전</button>
 					<button onclick="nextImage()">다음</button>
@@ -188,11 +273,6 @@
 								<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme6')}">
 									<img src="/udongca_project/udongca-image/question-button.png" height="64" width="64">
 								</c:if>
-								<!--
-									특징에 따라 Image를 출력할 예정 
-									홍보글 객체의 cafeFeature에 있는 문자열들을 공백에 따라 분리함
-									분리된 문자열 배열을 조건문을 포함한 반복문에 포함시켜, 문자열에 대응되는 이미지 파일을 불러옴.
-								 -->
 							</td>
 						</tr>
 						<tr>
@@ -203,7 +283,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td id="content" colspan=3>지도/메뉴 목록/리뷰 목록</td>
+				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>
 	</body>

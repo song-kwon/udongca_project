@@ -8,36 +8,36 @@ public class ReviewReply {
 	private String replyId;
 	private String replyContent;
 	private Date replyDate;
-	private int privparentReply;
+	private int parentReply;
 	private String targetName;
-	private String reviewNO;
+	private int reviewNo;
 	private ReviewBoard reviewBoard;
 	
 	public ReviewReply() {
 	}
 
-	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int privparentReply,
-			String targetName, String reviewNO) {
+	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int parentReply,
+			String targetName, int reviewNo) {
 		super();
 		this.replyNo = replyNo;
 		this.replyId = replyId;
 		this.replyContent = replyContent;
 		this.replyDate = replyDate;
-		this.privparentReply = privparentReply;
+		this.parentReply = parentReply;
 		this.targetName = targetName;
-		this.reviewNO = reviewNO;
+		this.reviewNo = reviewNo;
 	}
 
-	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int privparentReply,
-			String targetName, String reviewNO, ReviewBoard reviewBoard) {
+	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int parentReply,
+			String targetName, int reviewNo, ReviewBoard reviewBoard) {
 		super();
 		this.replyNo = replyNo;
 		this.replyId = replyId;
 		this.replyContent = replyContent;
 		this.replyDate = replyDate;
-		this.privparentReply = privparentReply;
+		this.parentReply = parentReply;
 		this.targetName = targetName;
-		this.reviewNO = reviewNO;
+		this.reviewNo = reviewNo;
 		this.reviewBoard = reviewBoard;
 	}
 
@@ -73,12 +73,12 @@ public class ReviewReply {
 		this.replyDate = replyDate;
 	}
 
-	public int getPrivparentReply() {
-		return privparentReply;
+	public int getParentReply() {
+		return parentReply;
 	}
 
-	public void setPrivparentReply(int privparentReply) {
-		this.privparentReply = privparentReply;
+	public void setParentReply(int parentReply) {
+		this.parentReply = parentReply;
 	}
 
 	public String getTargetName() {
@@ -89,12 +89,12 @@ public class ReviewReply {
 		this.targetName = targetName;
 	}
 
-	public String getReviewNO() {
-		return reviewNO;
+	public int getReviewNo() {
+		return reviewNo;
 	}
 
-	public void setReviewNO(String reviewNO) {
-		this.reviewNO = reviewNO;
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
 
 	public ReviewBoard getReviewBoard() {
@@ -109,13 +109,13 @@ public class ReviewReply {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + privparentReply;
+		result = prime * result + parentReply;
 		result = prime * result + ((replyContent == null) ? 0 : replyContent.hashCode());
 		result = prime * result + ((replyDate == null) ? 0 : replyDate.hashCode());
 		result = prime * result + ((replyId == null) ? 0 : replyId.hashCode());
 		result = prime * result + replyNo;
 		result = prime * result + ((reviewBoard == null) ? 0 : reviewBoard.hashCode());
-		result = prime * result + ((reviewNO == null) ? 0 : reviewNO.hashCode());
+		result = prime * result + reviewNo;
 		result = prime * result + ((targetName == null) ? 0 : targetName.hashCode());
 		return result;
 	}
@@ -129,7 +129,7 @@ public class ReviewReply {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewReply other = (ReviewReply) obj;
-		if (privparentReply != other.privparentReply)
+		if (parentReply != other.parentReply)
 			return false;
 		if (replyContent == null) {
 			if (other.replyContent != null)
@@ -153,10 +153,7 @@ public class ReviewReply {
 				return false;
 		} else if (!reviewBoard.equals(other.reviewBoard))
 			return false;
-		if (reviewNO == null) {
-			if (other.reviewNO != null)
-				return false;
-		} else if (!reviewNO.equals(other.reviewNO))
+		if (reviewNo != other.reviewNo)
 			return false;
 		if (targetName == null) {
 			if (other.targetName != null)
@@ -169,9 +166,11 @@ public class ReviewReply {
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyId=" + replyId + ", replyContent=" + replyContent
-				+ ", replyDate=" + replyDate + ", privparentReply=" + privparentReply + ", targetName=" + targetName
-				+ ", reviewNO=" + reviewNO + ", reviewBoard=" + reviewBoard + "]";
+				+ ", replyDate=" + replyDate + ", parentReply=" + parentReply + ", targetName=" + targetName
+				+ ", reviewNo=" + reviewNo + ", reviewBoard=" + reviewBoard + "]";
 	}
+
+	
 	
 	
 }

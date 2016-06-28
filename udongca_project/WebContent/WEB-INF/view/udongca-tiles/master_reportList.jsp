@@ -1,71 +1,6 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-		$.ajax({
-			"url" : "/udongca_project/master/reportBoardList.udc",
-			"type" : "post",
-			"data" : {reportType : $("#review").val(), page:$("#page").text()},
-			"dataType" : "json",
-			"success" : function(obj) {
-				if(!$("#table").hasChildNodes){
-					$("table").append("<tr><td>NO</td><td>ID</td><td>REASON</td><td>RESULT</td></tr>");
-					
-				}
-				for(var i =0;i<obj.length;i++){
-				$("#table").append("<tr><td>"+obj[i].reportboardNo+"</td><td>"+obj[i].reportMemberId+"</td><td>"+obj[i].reportReason+"</td><td>"+obj[i].reportResult+"</td></tr>");
-				}
-			},
-			"error" : function(aa,bb,cc) {
-				alert(aa,bb,cc);
-			}
-	});
-		$("#review").on("change",function(){
-			$.ajax({
-				"url" : "/udongca_project/master/reportBoardList.udc",
-				"type" : "post",
-				"data" : {reportType : $("#review").val(), page:$("#page").text()},
-				"dataType" : "json",
-				"success" : function(obj) {
-					$("#table").empty();
-					if(!$("#table").hasChildNodes){
-						$("table").append("<tr><td>NO</td><td>ID</td><td>REASON</td><td>RESULT</td></tr>");
-						
-					}
-					for(var i =0;i<obj.length;i++){
-					$("#table").append("<tr><td>"+obj[i].reportboardNo+"</td><td>"+obj[i].reportMemberId+"</td><td>"+obj[i].reportReason+"</td><td>"+obj[i].reportResult+"</td></tr>");
-					}
-				},
-				"error" : function(aa,bb,cc) {
-					alert(aa,bb,cc);
-				}
-		});
-		});
-		$("#page2").on("click",function(){
-			$.ajax({
-				"url" : "/udongca_project/master/reportBoardList.udc",
-				"type" : "post",
-				"data" : {reportType : $("#review").val(), page : $("#page2").text()},
-				"dataType" : "json",
-				"success" : function(obj) {
-					$("#table").empty();
-					if(!$("#table").hasChildNodes){
-						$("table").append("<tr><td>NO</td><td>ID</td><td>REASON</td><td>RESULT</td></tr>");
-						
-					}
-					for(var i =0;i<obj.length;i++){
-					$("#table").append("<tr><td>"+obj[i].reportboardNo+"</td><td>"+obj[i].reportMemberId+"</td><td>"+obj[i].reportReason+"</td><td>"+obj[i].reportResult+"</td></tr>");
-					}
-				},
-				"error" : function(aa,bb,cc) {
-					alert(aa,bb,cc);
-				}
-		});
-		});
-		
-	//$.post("/udongca_project/master/reportBoard.udc");
-}); 
-</script> -->
+
 <script type="text/javascript">
 		
 		$(document).ready(function(){
@@ -85,9 +20,61 @@ $(document).ready(function(){
 			$("#go").on("click",function(){
 				var url = $("#type").val();
 				$("#form").prop("action","/udongca_project/master/reportBoard.udc?reportType="+url);
-			
+			});
+			a($("#page").val(),$("#selectType").val());
+			$("#search").on("click",function(){
+				a(1,$("#selectType").val());
 			});
 		});
+		function a(pnum,reportType){
+			$.ajax({
+				"url":"/udongca_project/master/reportBoardList.udc",
+				"type":"post",
+				"dataType":"json",
+				"data": {pnum:pnum,reportType:reportType},
+				"success":function(obj){
+					 var page=obj['page'];
+					$("#table").empty();
+					if(!$("#table").hasChildNodes){
+						$("table").append("<tr><td>NO</td><td>ID</td><td>REASON</td><td>RESULT</td><td>TYPE</td></tr>");
+					
+					}
+					$.each(obj['list'],function(){
+						$("#table").append("<tr onclick='link("+'"'+this.reportboardNo+'",'+page.page+")'><td>"+this.reportboardNo+"</td><td>"+this.reportMemberId+"</td><td>"+this.reportReason+"</td><td>"+this.reportResult+"</td><td>"+this.reportType+"</td></tr>");
+						
+					});
+					
+					 $("#page").empty();
+					 if(page.previousPageGroup){
+						 $("#page").append("<a onclick=a("+(page.beginPage-1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>◀</a>&nbsp;&nbsp;");
+					 }else{
+						 $("#page").append("◀");
+					 }
+					
+					for(var i = page.beginPage;i<=page.endPage;i++){
+						if(page.page!=i){
+							$("#page").append("<a onclick=a("+i+",'"+$("#selectType").val()+"') style='cursor:pointer;'>"+i+"</a>&nbsp;&nbsp;");
+						}else{
+							$("#page").append("["+i+"]&nbsp;&nbsp;");
+						}
+					} 
+					 if(page.nextPageGroup){
+						 $("#page").append("<a onclick=a("+(page.endPage+1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>▶</a>&nbsp;&nbsp;");
+					 }else{
+						 $("#page").append("▶");
+					 }
+				},
+				"error":function(xhr, status, errorMsg){
+				alert(xhr+status+errorMsg);
+				}
+			});
+			}
+		function link(No,pnum){
+			location.href="/udongca_project/master/reportBoardInfo.udc?reportNo="+No+"&page="+pnum;
+			
+			
+		}
+		
 </script>
 <style type="text/css">
 table{
@@ -135,7 +122,8 @@ tr#tr>td:hover{text-decoration:underline; color:red;}
 <h1 id="head">${requestScope.reportType} 신고리스트</h1> 
 <input type="hidden" id="hidden" value="${requestScope.reportType}">
 <form id="form" method="post">
-<br>신고 유형 별 검색 : <select id="type" >
+<br>신고 유형 별 검색 :
+<select id="selectType" >
 	<option id="a">all</option>
 	<option id="r">review</option>
 	<option id="p">prboard</option>
@@ -161,12 +149,13 @@ tr#tr>td:hover{text-decoration:underline; color:red;}
 		<td style="width:60px;">${list.reportMemberId }</td>
 		<td style="width:300px;" class="cursor">${list.reportReason }</td>
 		<td style="width:60px;">${list.reportResult }</td>
-	<tr>
+	</tr>
 	</c:forEach>
 	</tbody>
 </table>
 
 <div align="center">
+<span id = "page"></span>
 <!-- 이전페이지그룹 -->
 <c:choose>
  	<c:when test="${requestScope.list.pageBean.previousPageGroup }">
@@ -189,7 +178,7 @@ tr#tr>td:hover{text-decoration:underline; color:red;}
 			&nbsp;&nbsp;
 		</c:when>
 		<c:otherwise>
-			<span id = "page">${p }</span>&nbsp;&nbsp;
+			
 		</c:otherwise>
 	</c:choose>
 </c:forEach>	

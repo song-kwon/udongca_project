@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,27 +24,24 @@ public class ReportBoardController {
     @Autowired
     private ReportBoardService reportService;
     
-    @RequestMapping("/reportBoard.udc")
-    public String reportBoard(@RequestParam(required = false) String pnum, @RequestParam String reportType,
+    @RequestMapping("/reportBoardList.udc")
+    @ResponseBody
+    public Map reportBoard(@RequestParam(required = false) String pnum, @RequestParam String reportType,
 	    HttpSession session, Model model) {
 	int page = 1;
 	Member master = (Member) session.getAttribute("login");
+	HashMap map = new HashMap();
 	if (master != null && master.getMemberType().equals("master")) {
 	    try {
 		page = Integer.parseInt(pnum);
 	    } catch (Exception e) {
 	    }
-	    try {
-		Map<String, Object> list = reportService.reportList(page, reportType);
-		model.addAttribute("list", list);
-		model.addAttribute("reportType", reportType);
-		return "master/master_reportList.tilse";
-	    } catch (Exception e) {
-		e.printStackTrace();
-		return "error.jsp";
-	    }
+		map.put("list", reportService.reportList(page, reportType));
+		map.put("page", reportService.page(page, reportType));
+		return map;
 	} else {
-	    return "redirect:/main.udc";
+	    map.put("권한", "권한이 없습니다.");
+	    return map;
 	}
     }
 

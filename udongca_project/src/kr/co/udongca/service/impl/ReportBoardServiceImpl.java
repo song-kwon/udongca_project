@@ -19,7 +19,7 @@ public class ReportBoardServiceImpl implements ReportBoardService {
     @Autowired
     private ReportBoardDao reportBoardDaoImpl;
 
-    public Map<String, Object> reportList(int page, String reportType) {
+   /* public Map<String, Object> reportList(int page, String reportType) {
 	HashMap<String, Object> map = new HashMap<String, Object>();
 	if (reportType.equals("all")) {
 	    List list = reportBoardDaoImpl.selectList(page);
@@ -34,6 +34,22 @@ public class ReportBoardServiceImpl implements ReportBoardService {
 	    map.put("pageBean", pagingBean);
 	    return map;
 	}
+    }*/
+    public List reportList(int page, String reportType){
+	if(reportType.equals("all")){
+	 
+	    return reportBoardDaoImpl.selectList(page);
+	}else{
+	    return reportBoardDaoImpl.selectList(page, reportType);
+	}
+    }
+    public PagingBean page(int page,String reportType){
+	if(reportType.equals("all")){
+	    return new PagingBean(reportBoardDaoImpl.countReport(),page);
+	}else{
+	    return new PagingBean(reportBoardDaoImpl.countReport(reportType), page);
+	}
+	
     }
     public ReportBoard reportInfo(int reportboardNo){
 	return reportBoardDaoImpl.reportInfo(reportboardNo);

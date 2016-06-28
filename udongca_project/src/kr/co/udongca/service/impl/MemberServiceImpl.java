@@ -86,18 +86,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDaoImpl.insertLicenseeMember(member);
 	}
 
-	@Override
-	public List<Member> memberList() {
-		return memberDaoImpl.selectList();
-	}
-
-	public Map<String, Object> memberList(int page) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	
+	public List memberList(int page) {
 		List list = memberDaoImpl.selectList(page);
-		map.put("list", list);
-		PagingBean pagingBean = new PagingBean(memberDaoImpl.countMember(), page);
-		map.put("pageBean", pagingBean);
-		return map;
+		
+		return list;
+	}
+	public PagingBean page(int page){
+	    return new PagingBean(memberDaoImpl.countMember(), page);
 	}
 
 	@Override

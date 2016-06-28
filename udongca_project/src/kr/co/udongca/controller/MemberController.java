@@ -1,10 +1,10 @@
 package kr.co.udongca.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.service.MemberService;
-import kr.co.udongca.validator.GeneralMemberValidator;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PreferLocation;
@@ -106,11 +105,15 @@ public class MemberController {
 	}
     }
     @RequestMapping("memberUpdate.udc")
+    @ResponseBody
     public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,Model model,HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master")){
-		int a = memberService.memberUpdateMaster(member);
-		return "redirect:/member/memberListPaging.udc?pnum=" + page +"&success="+a;
+		if(memberService.memberUpdateMaster(member)==1){
+		    return "true";
+		}else{
+		    return "false";
+		}
 	}else{
 	    return "redirect:/main.udc"; 
 	}
@@ -256,12 +259,7 @@ public class MemberController {
 			return null;
 		}
 	}
-
-	@RequestMapping("memberList.udc")
-	@ResponseBody
-	public List<Member> memberList() {
-		return memberService.memberList();
-	}
+ 
 
 	@RequestMapping("member_drop.udc")
 	public String memberDrop(HttpSession session) {
@@ -284,25 +282,22 @@ public class MemberController {
 		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
 		return memberService.memberIdFind(findMember);
 	}
-	@RequestMapping("memberListPaging.udc")
-	    public String memberListPageing(@RequestParam(required = false) String pnum, Model model,HttpSession session) {
+	@RequestMapping("memberList.udc")
+	@ResponseBody
+	    public Map memberListPageing(@RequestParam(required = false) String pnum, Model model,HttpSession session) {
 		int page = 1;
 		Member master = (Member) session.getAttribute("login");
+		HashMap map = new HashMap();
 		if (master != null && master.getMemberType().equals("master")){
 		try {
 		    page = Integer.parseInt(pnum);
 		} catch (Exception e) {}
-		try {
-		    Map<String, Object> map = memberService.memberList(page);
-		    model.addAttribute("page",page);
-		    model.addAttribute("map",map);
-		    return "master/master_memberList.tiles";
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    return "error.tiles";
-		}
+		map.put("list", memberService.memberList(page));
+		map.put("page", memberService.page(page));
+		    return  map;
 		}else{
-		    return "redirect:/main.udc"; 
+		    map.put("권한","권한이 없습니다.");
+		    return map; 
 		}
 	    }
 	@RequestMapping("memberPassword_find.udc")

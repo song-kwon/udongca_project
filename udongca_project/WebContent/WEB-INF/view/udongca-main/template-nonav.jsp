@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
-<link rel="stylesheet" href="/udongca_project/css/udongca.css">
 <style type="text/css">
 header {
 	background-color: skyblue;

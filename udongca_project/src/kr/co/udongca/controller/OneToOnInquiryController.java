@@ -93,33 +93,35 @@ public class OneToOnInquiryController {
 	return new ModelAndView("oneToOneInquiry.tiles", "map", map);
     }
 
-    @RequestMapping("master/oneToOneList.udc")
-    public ModelAndView reportBoard(@RequestParam(required = false) String pnum,HttpSession session) {
+    @RequestMapping("/oneList.udc")
+    @ResponseBody
+    public Map reportBoard(@RequestParam(required = false) String pnum,HttpSession session) {
 	int page = 1;
 	Member master = (Member) session.getAttribute("login");
+	HashMap map = new HashMap<>();
 	if (master != null && master.getMemberType().equals("master")) {
-
 	    try {
 		page = Integer.parseInt(pnum);
-	    } catch (Exception e) {
-	    }
-	    try {
-		Map<String, Object> list = service.oneToOneList(page);
-		return new ModelAndView("master/master_oneToOneList.tilse", list);
-	    } catch (Exception e) {
-		e.printStackTrace();
-		return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
-	    }
+	    } catch (Exception e) {  }
+	    	map.put("list", service.oneToOneList(page));
+	    	map.put("page", service.page(page));
+		return map;
 	} else {
-	    return new ModelAndView("redirect:/main.udc");
+	    map.put("권한", "권한이 없습니다.");
+	    return map;
 	}
     }
 
     @RequestMapping("master/oneInfo.udc")
-    public String oneInfo(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("page") int page, Model model) {
+    public String oneInfo(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("page") int page, Model model, HttpSession session) {
+	Member master = (Member) session.getAttribute("login");
+	if (master != null && master.getMemberType().equals("master")) {
 	model.addAttribute("inquiryNo", service.selectOneInquiry(inquiryNo));
 	model.addAttribute("page", page);
 	return "master/master_oneToOneInfo.tiles";
+	}else {
+	    return "redirect:/main.udc";
+	}
     }
 
     @RequestMapping("master/requiryReply.udc")
