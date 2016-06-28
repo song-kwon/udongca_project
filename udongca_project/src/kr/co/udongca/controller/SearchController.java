@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.Constants;
-import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.service.SearchService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Code;
-import kr.co.udongca.vo.PRBoard;
 
 /**
  * 홍보글 검색에 관련된 Controller
@@ -59,13 +58,13 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping("locationSearchResult.udc")
-	@ResponseBody
-	public Map locationSearchResult(String cafeAddress, int page){
+	//@ResponseBody
+	public ModelAndView locationSearchResult(String cafeAddress, int page){
 		HashMap map = new HashMap();
 		map.put ("cafeAddress", cafeAddress);
 		map.put ("page", page);
 		map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
-		return service.selectPRBoardListByAddress(map);
+		return new ModelAndView("/testView/test.jsp",service.selectPRBoardListByAddress(map));
 	}
 	
 	/**
@@ -92,4 +91,5 @@ public class SearchController {
 	public List<Code> selectThemeCategory(){
 		return service.selectThemeCategroy();
 	}
+	
 }

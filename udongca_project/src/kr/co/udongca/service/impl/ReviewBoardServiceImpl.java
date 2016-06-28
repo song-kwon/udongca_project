@@ -44,4 +44,17 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		
 		return mav;
 	}
+	
+
+	@Override
+	public Map reviewDetail(int cafeNo, int reviewNo) {
+		Map<String,Integer> map = new HashMap<>();
+		map.put("cafeNo", cafeNo);
+		map.put("reviewNo", reviewNo);
+		
+		Map<String,Object> reviewBoard= new HashMap<>();
+		reviewBoard.put("review",dao.reviewDetail(map));
+		reviewBoard.put("reply", dao.ReviewReplyList(reviewNo));
+		return reviewBoard;
+	}
 }

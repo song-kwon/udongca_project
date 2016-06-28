@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,9 +55,9 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
+
 	$("#searchAddress").on("click", function(){
-		if ($("#address1").val() == "시/도" || $("#address2").val() == "군/구"){
+		 if ($("#address1").val() == "시/도" || $("#address2").val() == "군/구"){
 			alert("올바른 지역을 선택하세요");
 			($("#address1").val() == "시/도") ? $("#address1").focus() : $("#address2").focus();
 			return false;
@@ -72,6 +73,8 @@ $(document).ready(function(){
 				"data":"cafeAddress=" + submitString + "&page=" + 1,
 				"dataType":"json",
 				"success":function(json){
+					location.replace('/udongca_project/testView/test.jsp?json='+json);
+					submitString = "'"+submitString+"'";
 					$("#searchResult").empty();
 					$("#pageNum").empty();
 					if (json == null || json.list.length == 0){
@@ -105,7 +108,7 @@ $(document).ready(function(){
 					}
 				}
 			});
-		}
+		} 
 	});
 	
 	
@@ -200,13 +203,14 @@ function themePage(page){
 	});
 }
 
-/* function addressPage(submitString,page){
+ function addressPage(submitString,page){
 	$.ajax({
 		"url":"/udongca_project/search/locationSearchResult.udc",
 		"type":"POST",
 		"data":"cafeAddress=" + submitString + "&page=" + page,
 		"dataType":"json",
 		"success":function(json){
+			submitString= "'"+submitString+"'";
 			$("#searchResult").empty();
 			$("#pageNum").empty();
 			if (json == null || json.list.length == 0){
@@ -240,7 +244,7 @@ function themePage(page){
 			}
 		}
 	});
-} */
+} 
 </script>
 
 <style type="text/css">
@@ -252,9 +256,11 @@ a{
 <body>
 <div>지역선택&nbsp;<select id="address1"><option value=0>시/도</option></select>&nbsp;<select id="address2"><option value=0>시/도 먼저 선택</option></select>&nbsp;<button id="searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option value=0>테마 선택</option></select>&nbsp;<button id="searchTheme">검색</button></div>
 <div id="searchResult" style="width:800px; background-color: red;">
-</div>
-<div id="pageNum" style="clear:both;">
 
 </div>
+<div id="pageNum" style="clear:both;">
+</div>
+
+<a href="/udongca_project/review/reviewDetail.udc?cafeNo=11&reviewNo=1"><button>리뷰보러가기</button></a>
 </body>
 </html>
