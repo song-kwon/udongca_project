@@ -8,7 +8,6 @@
 		<title>Insert title here</title>
 		<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
 		<script type="text/javascript">
-			var menuTypeList = null;
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
 			var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
@@ -17,12 +16,14 @@
 			
 			$(document).ready(function(){
 				$.ajax({
-					"url":"/udongca_project/search/getMenuTypeList.udc",
+					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
-						menuTypeList = json;
+						for(var i = 0; i < json.length; i++){
+							$("#menuCategoryList").append("<li><a href='/udongca_project/prBoard/menuList.udc?cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + json[i].codeId + "'>" + json[i].codeName + "</a></li>");
+						}
 					},
 					"error":function(xhr){
 						alert("An error occured while loading getMenuTypeList.udc: " + xhr.status + " " + xhr.statusText);
@@ -30,12 +31,6 @@
 				});
 				
 				$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
-				
-				if (menuTypeList){
-					for(var i = 0; i < menuTypeList.length; i++){
-						$("#menuCategoryList").append("<li>" + menuTypeList[i].codeName + "</li>");
-					}
-				}
 				
 				if ("${sessionScope.login}"){
 					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
@@ -57,7 +52,6 @@
 							}
 						});
 						
-						
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
 				}
@@ -75,7 +69,7 @@
 			
 			function prReport(){
 				window.open();
-				// window.open을 이용해 Form을 열고, 거기서 선택하도록 해야 할 것.
+				// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
 			};
 			
 			function favoriteToggle(){
@@ -92,8 +86,6 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-				
-				
 			};
 			
 			function prevImage(){
@@ -121,13 +113,13 @@
 			<tr>
 				<td id="optionList">
 					<ul>
-						<li id="location">지도</li>
+						<li><a href="">지도</a></li>
 						<li>
 							메뉴
 							<ul id="menuCategoryList">
 							</ul>
 						</li>
-						<li id="reviewList">리뷰</li>
+						<li><a href="">리뷰</a></li>
 					</ul>
 				</td>
 				<td>
