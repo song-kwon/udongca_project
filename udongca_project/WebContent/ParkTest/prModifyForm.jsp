@@ -49,6 +49,10 @@
 					execDaumPostcode();
 				});
 				
+				$("#cafeAddress").on("focusin", function(){
+					execDaumPostcode();
+				});
+				
 				$("#searchAddress").on("click", function(){
 					execDaumPostcode();
 				});

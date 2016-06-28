@@ -45,7 +45,7 @@ $(document).ready(function(){
 		<div>
 			<c:choose>
 				<c:when test="${sessionScope.login.memberId=='udongca' }">
-					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc">1:1문의내역</a>
+					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc">1:1문의관리</a>
 				</c:when>
 				<c:when test="${!empty sessionScope.login.memberId }">
 					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryRegisterform.udc">1:1문의하기</a>

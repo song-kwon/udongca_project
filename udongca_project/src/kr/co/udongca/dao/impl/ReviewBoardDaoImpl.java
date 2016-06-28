@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.dao.ReviewBoardDao;
 import kr.co.udongca.vo.ReviewBoard;
+import kr.co.udongca.vo.ReviewReply;
 
 @Repository
 public class ReviewBoardDaoImpl implements ReviewBoardDao{
@@ -27,5 +28,15 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	@Override
 	public List<ReviewBoard> myReviewListPaging(Map map) {
 		return session.selectList("reviewBoardMapper.myReviewListPaging",map);
+	}
+	
+	@Override
+	public ReviewBoard reviewDetail(Map<String, Integer> map) {
+		return session.selectOne("reviewBoardMapper.reviewDetail",map);
+	}
+	
+	@Override
+	public List<ReviewReply> ReviewReplyList(int reviewNo) {
+		return session.selectList("reviewBoardMapper.reviewReplyList",reviewNo);
 	}
 }

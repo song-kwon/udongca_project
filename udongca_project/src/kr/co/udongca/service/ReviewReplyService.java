@@ -1,5 +1,7 @@
 package kr.co.udongca.service;
 
-public interface ReviewReplyService {
+import kr.co.udongca.vo.ReviewReply;
 
+public interface ReviewReplyService {
+	public int addReply(ReviewReply reply);
 }

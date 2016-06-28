@@ -98,10 +98,10 @@ td#td2:hover{text-decoration:underline; color:red;}
 		<c:when test="${p != requestScope.map.pageBean.page }">
 			<a
 				href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${p }">
-				${p } </a>
+				${p } </a>&nbsp;&nbsp;
 		</c:when>
 		<c:otherwise>
-			[${p }]
+			[${p }]&nbsp;&nbsp;
 		</c:otherwise>
 	</c:choose>
 </c:forEach>
