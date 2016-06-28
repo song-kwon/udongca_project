@@ -37,16 +37,38 @@ function checkSubmit(){
 	}else if(checkContent==false){
 		alert("내용을 입력해주세요.");
 		return false;
-	}else
-		return true;
+	}else{
+		var result = confirm("등록하시겠습니까?");
+		if(result==true)
+			return true;
+		else
+			return false;
+	}
 }
 </script>
 
-<div><h2>공지 사항 등록</h2></div>
+<style type="text/css">
+table{
+	margin:30px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.div{
+	border:1px dotted;
+}
+
+.text{
+	font-weight:bold;
+}
+</style>
+
+<div><h1>공지 사항 등록</h1></div>
+<br>
 <form action="/udongca_project/noticeBoard/registerNoticeBoard.udc" method="post" onsubmit="return checkSubmit();">
+<div class="div">
 <table>
 	<tr>
-		<td>말머리</td>
+		<td class="text">말머리</td>
 		<td>
 			<select id="category" name="category">
 					<option>말머리선택</option>
@@ -59,13 +81,15 @@ function checkSubmit(){
 		</td>
 	</tr>
 	<tr>
-		<td>제목</td>
-		<td><input type="text" name="noticeTitle" id="title" placeholder="제목 입력"></td>
+		<td class="text">제목</td>
+		<td><input type="text" name="noticeTitle" id="title" placeholder="제목 입력" style="width:660px;"></td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td class="text">내용</td>
 		<td><textarea name="noticeContent" id="content" rows="30" cols="80" placeholder="내용을 입력해주세요.."></textarea></td>
 	</tr>
 </table>
+</div>
+<br>
 <div align="center"><input type="submit" value="등록"> <a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc"><input type="button" id="cancel" value="취소"></a></div>
 </form>

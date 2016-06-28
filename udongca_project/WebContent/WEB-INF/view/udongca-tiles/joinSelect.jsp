@@ -12,15 +12,28 @@ $(document).ready(function(){
 	});
 });
 </script>
-<div class="nonav_bodyDiv" style="width:350px;">
-<div><h2>우동카 회원가입</h2></div>
+
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:600px;
+	text-align:center;
+	margin:30px;
+}
+</style>
+
+<div class="nonav_bodyDiv" style="width:600px;">
+<div><h1>우동카 회원가입</h1></div>
 <table>
-	<tr align="center">
+	<tr>
 		<td><h2>일반 회원 가입</h2><br><input type="radio" name="memberType" value="generalMember"></td>
+		<td></td>
 		<td><h2>사업자 회원 가입</h2><br><input type="radio" name="memberType" value="licenseeMember"></td>
 	</tr>
-	<tr align="center">
-		<td id="a" colspan="2"><input type="button" value="회원가입하기"></td>
-	</tr>
 </table>
+
+<div id="a" align="center">
+	<input type="button" value="회원가입하기">
+</div>
+
 </div>
