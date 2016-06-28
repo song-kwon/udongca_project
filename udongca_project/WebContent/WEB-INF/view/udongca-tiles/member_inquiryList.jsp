@@ -35,7 +35,7 @@ a {
 				<tr>
 					<td>${list.inquiryNo }</td>
 					<td>[${list.inquiryType}]${list.inquiryTitle }</td>
-					<td>${list.inquiryReply == '' ? '처리중':'처리됨'}</td>
+					<td>${empty list.inquiryReply? '처리중':'처리됨'}</td>
 				<tr>
 			</c:forEach>
 			</c:when>

@@ -14,7 +14,7 @@ import kr.co.udongca.service.ReviewBoardService;
 import kr.co.udongca.vo.Member;
 
 @Controller
-@RequestMapping({"/member/"})
+@RequestMapping({"/member/","/review/"})
 public class ReviewBoardController {
 
 	@Autowired
@@ -39,4 +39,13 @@ public class ReviewBoardController {
 			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
 		}
 	}
+	
+	@RequestMapping("reviewDetail.udc")
+	public ModelAndView reviewDetail(int cafeNo,int reviewNo){
+		
+		Map map = service.reviewDetail(cafeNo, reviewNo);
+		System.out.println(map);
+		return new ModelAndView("/testView/testReply.jsp",map);
+	}
+	
 }

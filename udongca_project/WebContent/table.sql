@@ -2,13 +2,7 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 
-		SELECT ceil(rownum) no, memberId, cafeNo , cafeName
-		FROM (SELECT CEIL(rownum/#{itemPerPage}) page, ceil(rownum) no, memberId,cafeNo,cafeName
-			FROM(SELECT ceil(rownum) no, b.memberId, b.cafeNo, p.cafeName
-				FROM bookmark b , prboard p where b.memberId =  #{memberId} and p.cafeNo = b.cafeNo order by no asc
-					)
-				) 
-		WHERE page =  1
+
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
@@ -253,6 +247,18 @@ constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
+
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야4',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,0,'',11);
+
+
 
 create table bookmark(
 memberId	varchar2(50) not null,

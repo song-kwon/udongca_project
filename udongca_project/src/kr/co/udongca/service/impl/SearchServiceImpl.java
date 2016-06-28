@@ -36,7 +36,6 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public Map selectPRBoardListByAddress(Map map) {
 		int total = dao.countCafeAddress(map.get("cafeAddress").toString());
-		System.out.println(total);
 		int page = (int)map.get("page");
 		PagingBean pagingBean = new PagingBean(total,page);
 		map.put("pageBean", pagingBean);

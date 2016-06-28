@@ -10,11 +10,11 @@
 				 for(var i = 0; i<obj.length;i++){
 					 for(var j = 0 ;j<obj[i].length;j++){
 						if(i==0){ 
-						$("#table1").append("<tr><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
+						$("#table1").append("<tr onclick='one("+obj[i][j].inquiryNo+")'><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
 						}else if(i==1){
-							$("#table2").append("<tr><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+							$("#table2").append("<tr onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}else{
-							$("#table3").append("<tr><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+							$("#table3").append("<tr onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}
 					 }
 				 } 
@@ -23,8 +23,14 @@
 			alert(xhr+status+errorMsg);
 			}
 		});
+		
 	});
-	
+	function one(no){
+		location.href="/udongca_project/oneToOneInquiry/master/oneInfo.udc?page=1&inquiryNo="+no;
+	}
+	function review(no){
+		location.href="/udongca_project/master/reportBoardInfo.udc?page=1&reportNo="+no;
+	}
 </script>
 <style type="text/css">
 table, td, th{

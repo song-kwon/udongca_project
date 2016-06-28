@@ -1,14 +1,19 @@
 package kr.co.udongca.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.vo.ReportBoard;
 
 public interface ReportBoardService {
     
-    public Map<String, Object> reportList(int page, String reportType);
+    //public Map<String, Object> reportList(int page, String reportType);
+    public List reportList(int page, String reportType);
+    
+    public PagingBean page(int page,String reportType);
     
     public ReportBoard reportInfo(int reportboardNo);
     

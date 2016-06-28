@@ -19,5 +19,16 @@
 		WHERE page = #{page}
 	</select>
 	
+	<select id="reviewDetail" parameterType="map" resultType="reviewBoard">
+		select <include refid="review-column"/>
+		from review_board
+		where reviewNo = #{reviewNo} and cafeNo=#{cafeNo}
+	</select>
+	
+	<select id="reviewReplyList" parameterType="int" resultType="reviewReply">
+		select <include refid="reviewReplyMapper.reviewReply-column"/>
+		from review_reply
+		where reviewNo=#{reviewNo}
+	</select>
 	
 </mapper>

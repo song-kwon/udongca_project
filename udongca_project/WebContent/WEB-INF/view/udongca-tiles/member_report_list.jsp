@@ -36,7 +36,7 @@ a {
 						<tr onclick="memberReportDetail(${list.reportboardNo})">
 							<td>${list.reportboardNo }</td>
 							<td>[${list.reportType}]${list.reportReason }</td>
-							<td>${list.reportResult == '' ? '처리중':'처리됨'}</td>
+							<td>${list.reportResult eq null ? '처리중':'처리됨'}</td>
 						<tr>
 					</c:forEach>
 				</tbody>
