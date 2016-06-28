@@ -113,7 +113,7 @@ public class PrBoardController {
 		service.insertPRBoard(prBoard);
 		
 		for(int i = 0; i < menuNameArray.length; i++){
-			menuAdd(cafeNo, menuNameArray[i], menuTypeArray[i], menuImageArray[i], req, session);
+			menuAdd(cafeNo, menuTypeArray[i], menuNameArray[i], menuImageArray[i], req, session);
 		}
 		
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
@@ -298,13 +298,17 @@ public class PrBoardController {
 	}
 	
 	/**
-	 * 현재 제작 중
+	 * 구현 완료
 	 * @param cafeNumber
-	 * @param menuId
+	 * @param menuType
 	 */
 	@RequestMapping("menuList.udc")
-	public void menuList(int cafeNumber, String menuId){
-		return;
+	@ResponseBody
+	public List<Menu> menuList(int cafeNumber, String menuType){
+		HashMap map = new HashMap();
+		map.put("cafeNumber", cafeNumber);
+		map.put("menuType", menuType);
+		return service.selectMenuListByCafeNoAndMenuType(map);
 	}
 	
 	/**
