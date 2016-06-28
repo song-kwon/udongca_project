@@ -90,49 +90,83 @@ $(document).ready(function(){
 		});
 </script>
 <style type="text/css">
-table, td, th{
-	border: 1px solid gray;
-}
 table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
 }
-td,th{
-	padding: 5px;
+
+thead{
+	text-align:center;
+	width:400px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+tr#tr, td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+tr#tr>td:hover{text-decoration:underline; color:red;}
 </style>
+
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
-<h3 id="head">${requestScope.reportType}신고리스트</h3> 
+<h1 id="head">${requestScope.reportType} 신고리스트</h1> 
 <input type="hidden" id="hidden" value="${requestScope.reportType}">
 <form id="form" method="post">
-<select id="type" >
+<br>신고 유형 별 검색 : <select id="type" >
 	<option id="a">all</option>
 	<option id="r">review</option>
 	<option id="p">prboard</option>
 </select>
-<input id="go" type="submit" value="검색">
+&nbsp;<input id="go" type="submit" value="검색">
 </form>
-<table id = "table" border="1">
+<table>
+	<thead>
 	<tr>
-	<td>NO</td>
-	<td>ID</td>
-	<td>REASON</td>
-	<td>RESULT</td>
-	<td>TYPE</td>
+	<td>No</td>
+	<td>유형</td>
+	<td>신고자</td>
+	<td>신고사유</td>
+	<td>처리결과</td>
 	</tr>
+	</thead>
+	
+	<tbody>
 	<c:forEach items="${requestScope.list.list }" var="list">
-	<tr onclick='location.href="/udongca_project/master/reportBoardInfo.udc?reportNo=${list.reportboardNo}&page=${requestScope.list.pageBean.page }"'>
-		<td>${list.reportboardNo}</td>
-		<td>${list.reportMemberId }</td>
-		<td>${list.reportReason }</td>
-		<td>${list.reportResult }</td>
-		<td>${list.reportType }</td>
+	<tr id="tr" onclick='location.href="/udongca_project/master/reportBoardInfo.udc?reportNo=${list.reportboardNo}&page=${requestScope.list.pageBean.page }"'>
+		<td style="width:30px;">${list.reportboardNo}</td>
+		<td style="width:60px;">${list.reportType }</td>
+		<td style="width:60px;">${list.reportMemberId }</td>
+		<td style="width:300px;" class="cursor">${list.reportReason }</td>
+		<td style="width:60px;">${list.reportResult }</td>
 	<tr>
 	</c:forEach>
-
+	</tbody>
 </table>
+
+<div align="center">
 <!-- 이전페이지그룹 -->
 <c:choose>
  	<c:when test="${requestScope.list.pageBean.previousPageGroup }">
@@ -170,5 +204,6 @@ td,th{
 		▶
 	</c:otherwise>
 </c:choose>
+</div>
 </c:if>
 </div>

@@ -117,7 +117,6 @@ public class OneToOnInquiryController {
 
     @RequestMapping("master/oneInfo.udc")
     public String oneInfo(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("page") int page, Model model) {
-	System.out.println(service.selectOneInquiry(inquiryNo));
 	model.addAttribute("inquiryNo", service.selectOneInquiry(inquiryNo));
 	model.addAttribute("page", page);
 	return "master/master_oneToOneInfo.tiles";

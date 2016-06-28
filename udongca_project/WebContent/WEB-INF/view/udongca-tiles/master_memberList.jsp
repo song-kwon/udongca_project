@@ -14,40 +14,74 @@ $(document).ready(function(){
 
 </script> 
 <style type="text/css">
-table, td, th{
-	border: 1px solid gray;
-}
 table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
 }
-td,th{
-	padding: 5px;
+
+thead{
+	text-align:center;
+	width:400px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+.td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+td#td1:hover{text-decoration:underline; color:red;}
+td#td2:hover{text-decoration:underline; color:red;}
 </style>
-<div id="page">
+
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="success" value="${param.success}">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<h3>회원리스트</h3> 
-<table id = "table" border="1" >
-	<tr>
-		<td>아이디</td>
-		<td>이름</td>
-		<td>이메일</td>
-		<td>페널티</td>
-		<td>로그인허용</td>
-	</tr>
-	<c:forEach items="${requestScope.map.list }" var="list">
-	<tr id="list" onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${list.memberId}&page=${requestScope.page }"' style="cursor:hand;">
-		<td>${list.memberId }</td>
-		<td>${list.memberName }</td >
-		<td>${list.memberEmail }</td>
-		<td>${list.memberPenalty }</td>
-		<td>${list.loginPossibility }</td>
-	<tr>
-	</c:forEach>
+<div><h1>회원리스트</h1></div> 
+<table>
+	<thead>
+		<tr>
+			<td>아이디</td>
+			<td>이름</td>
+			<td>이메일</td>
+			<td>벌점</td>
+			<td>로그인허용</td>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${requestScope.map.list }" var="list">
+			<tr id="list" class="td" onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${list.memberId}&page=${requestScope.page }"'>
+				<td style="width:60px;" id="td1">${list.memberId }</td>
+				<td style="width:60px;" id="td2">${list.memberName }</td>
+				<td style="width:100px;">${list.memberEmail }</td>
+				<td style="width:30px;">${list.memberPenalty }</td>
+				<td style="width:30px;">${list.loginPossibility }</td>
+			</tr>
+		</c:forEach>
+	</tbody>
 </table>
+
+<div align="center">
 <!-- 이전페이지그룹 -->
 <c:choose>
  	<c:when test="${requestScope.map.pageBean.previousPageGroup }">
@@ -85,5 +119,5 @@ td,th{
 		▶
 	</c:otherwise>
 </c:choose>
-</c:if>
 </div>
+</c:if>

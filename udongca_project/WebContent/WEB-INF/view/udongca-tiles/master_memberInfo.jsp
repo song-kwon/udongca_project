@@ -48,35 +48,60 @@ function checkPenalty(){
 	if(value<3 && form.loginPossibility.value=="impossible"){
 		form.loginPossibility.value="possible";
 	}
+	
+	var result = confirm("수정하시겠습니까?");
+	if(result==true)
+		return true;
+	else
+		return false;
 }
 
 </script> 
-<style>
-.fa{
-  font-size:30px;
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:400px;
+	margin:30px;
 }
+
+table, th{
+	text-align:left;
+	width:400px;
+}
+
+.width_size{
+	width:150px;
+}
+
+.width_size2{
+	width:80px;
+}
+
+.fa{ font-size:30px; } 
+
 </style>
+
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<h3>회원정보관리</h3>${requestScope.succeess }
+<div><h1>회원정보관리</h1></div>${requestScope.succeess }
 <form name="submit" onsubmit="return checkPenalty()" action="/udongca_project/member/memberUpdate.udc?page=${requestScope.page }" method="post">
 	<input type="hidden" name="memberPenalty" value="${requestScope.memberInfo.memberPenalty }">
 	<table>
 		<tr>
-			<td>아이디</td>
+			<th>아이디</th>
 	 		<td><input type="text" name = "memberId" readonly="readonly" value="${requestScope.memberInfo.memberId }"></td>
 		</tr>
 		<tr>
-			<td>이름</td>
+			<th>이름</th>
 			<td><input type="text" name="memberName" readonly="readonly" value="${requestScope.memberInfo.memberName }"></td>
 		</tr>
 		<tr>	
-			<td>이메일</td>
+			<th>이메일</th>
 			<td><input type="text" name="memberEmail" readonly="readonly" value="${requestScope.memberInfo.memberEmail }"></td>
 		</tr>
 		<tr>
-			<td>벌점</td>
+			<th>벌점</th>
 			<td>
 			<i class="fa fa-thumbs-o-down" ></i>
 			<i class="fa fa-thumbs-o-down" ></i>
@@ -84,7 +109,7 @@ function checkPenalty(){
 			</td>
 		</tr>
 		<tr>
-			<td>로그인 가능여부</td>
+			<th>로그인 가능 여부</th>
 			<td>
 				<select name="loginPossibility">
 					<c:forEach items="${requestScope.code }" var="p">
@@ -99,12 +124,10 @@ function checkPenalty(){
 					</c:forEach>
 				</select>
 			</td>
-			<tr>
-				<td rowspan="1">
-				<input type="submit" value="수정">
-				<button id="cancel" formaction="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.page }">취소</button>
-				</td>
-			</tr>
 	</table>
+	<div align="center" style="width:450px;">
+		<input type="submit" class="width_size2" value="수정"/>&nbsp;&nbsp;
+		<button id="cancel" class="width_size2" formaction="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.page }">취소</button>
+	</div>
 </form>
 </c:if>

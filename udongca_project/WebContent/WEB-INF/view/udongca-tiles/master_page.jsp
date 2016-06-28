@@ -33,36 +33,48 @@ table, td, th{
 table{
 	border-collapse: collapse;
 	width: 700px;
+	text-align:center;
+}
+thead{
+	font-weight:bold;
 }
 td,th{
 	padding: 5px;
 }
 </style>
-<h3>1:1문의</h3>
+<h2>1:1문의</h2>
 <table id = "table1" border="1">
+	<thead>
 	<tr>
-		<td>NO</td>
-		<td>제목</td>
-		<td>문의유형</td>
-		<td>id</td>
+		<td style="width:30px;">No</td>
+		<td style="width:200px;">제목</td>
+		<td style="width:60px;">문의유형</td>
+		<td style="width:60px;">작성자</td>
 	</tr>
+	</thead>
 </table>
-<h3>리뷰신고</h3>
+<br><br>
+<h2>리뷰 신고</h2>
 <table id = "table2" border="1">
+	<thead>
 	<tr>
-	<td>NO</td>
-	<td>ID</td>
-	<td>REASON</td>
-	<td>RESULT</td>
+		<td style="width:30px;">No</td>
+		<td style="width:60px;">신고자</td>
+		<td style="width:300px;">신고사유</td>
+		<td style="width:60px;">처리결과</td>
 	</tr>
+	</thead>
 </table>
-<h3>홍보글신고</h3>
+<br><br>
+<h2>홍보글 신고</h2>
 <table id = "table3" border="1">
+	<thead>
 	<tr>
-	<td>NO</td>
-	<td>ID</td>
-	<td>REASON</td>
-	<td>RESULT</td>
+		<td style="width:30px;">No</td>
+		<td style="width:60px;">신고자</td>
+		<td style="width:300px;">신고사유</td>
+		<td style="width:60px;">처리결과</td>
 	</tr>
+	</thead>
 </table>
 

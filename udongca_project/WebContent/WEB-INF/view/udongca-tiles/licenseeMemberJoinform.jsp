@@ -142,13 +142,13 @@ function checkSubmit(){
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:400px;
+	width:450px;
 	margin:30px;
 }
 
 table, th{
 	text-align:left;
-	width:400px;
+	width:450px;
 }
 
 .width_size{
@@ -195,7 +195,7 @@ table, th{
 	<tr>
 		<th>이메일</th>
 		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }" class="width_size"></td>
-		<td style="width:200px;">@<select id="emailAddress" name="emailAddress" style="width:100px;">
+		<td style="width:200px;">@&nbsp;<select id="emailAddress" name="emailAddress" style="width:100px;">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
