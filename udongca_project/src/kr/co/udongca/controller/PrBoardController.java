@@ -303,8 +303,14 @@ public class PrBoardController {
 	 * @param menuId
 	 */
 	@RequestMapping("menuList.udc")
-	public void menuList(int cafeNumber, String menuId){
-		return;
+	@ResponseBody
+	public List menuList(@RequestParam("cafeNumber") int cafeNumber, @RequestParam("menuType") String menuType){
+	    HashMap map = new HashMap<>();
+	    map.put("cafeNumber", cafeNumber);
+	    map.put("menuType", menuType);
+	    List list = service.selectMenuListByCafeNoAndMenuType(map);
+	    System.out.println(list);
+		return list;
 	}
 	
 	/**
@@ -332,8 +338,8 @@ public class PrBoardController {
 		/*
 		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
 		 */
-		menu.setMenuNO(menuNo);
-		menu.setCafeNumber(cafeNumber);
+		menu.setMenuNo(menuNo);
+		menu.setCafeNo(cafeNumber);
 		menu.setMenuType(menuType);
 		menu.setMenuName(menuName);
 		

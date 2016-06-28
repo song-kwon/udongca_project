@@ -6,7 +6,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<script type="text/javascript">
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
@@ -15,6 +17,7 @@
 			var currentImageNumber = 0;
 			
 			$(document).ready(function(){
+				
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
@@ -55,6 +58,10 @@
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
 				}
+				
+			    
+
+
 			});
 			
 			function prModify(){
@@ -72,7 +79,7 @@
 				// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
 			};
 			
-			function favoriteToggle(){
+			/* function favoriteToggle(){
 				$.ajax({
 					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
 					"type":"POST",
@@ -86,7 +93,7 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-			};
+			}; */
 			
 			function prevImage(){
 				currentImageNumber--;
@@ -103,6 +110,57 @@
 				}
 				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
+			function drink(no,menuType){
+				$("#imageArea").empty();
+				$("#cafeInfo").empty();
+				$.ajax({
+					"url":"/udongca_project/prBoard/menuList.udc",
+					"type":"POST",
+					"data":{cafeNumber:no,menuType:menuType},
+					"dataType":"json",
+					"success":function(obj){
+							$("#cafeInfo").append(
+									"<div id='myCarousel' class='carousel slide'>"+
+									"<ol class='carousel-indicators'>"+
+								    "<li data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>"+
+								    "<li data-target='#myCarousel' data-slide-to='1' class='item2'></li>"+
+								    "<li data-target='#myCarousel' data-slide-to='2' class='item3'></li>"+
+								    "<li data-target='#myCarousel' data-slide-to='3' class='item4'></li>"+
+								  "</ol>"+
+								 " <div class='carousel-inner' role='listbox'></div>"); 
+							for(var i =0;i<obj.length;i++){
+								if(i==0){
+								$(".carousel-inner").append("<div class='item active'>"+
+									      "<img src='"+obj[i].menuRealImage+"' alt='americano' height='500' width='500'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+								}else{
+									$(".carousel-inner").append("<div class='item'>"+
+										    "<img src='"+obj[i].menuRealImage+"' alt='americano' height='500' width='500'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+								}
+							}
+								  
+							 // Activate Carousel
+						    $("#myCarousel").carousel();
+						    // Enable Carousel Indicators
+						    $(".item1").on("click",function(){
+						        $("#myCarousel").carousel(0);
+						    });
+						    $(".item2").click(function(){
+						        $("#myCarousel").carousel(1);
+						    });
+						    $(".item3").click(function(){
+						        $("#myCarousel").carousel(2);
+						    });
+						    $(".item4").click(function(){
+						        $("#myCarousel").carousel(3);
+						    });
+					},
+					"error":function(xhr){
+						//alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
+					}
+					
+				});
+				
+			}
 		</script>
 	</head>
 	<body>
@@ -117,6 +175,9 @@
 						<li>
 							메뉴
 							<ul id="menuCategoryList">
+							<li onclick="drink(${requestScope.prBoard.cafeNo },'drink')">음료</li>
+							<li>디저트</li>
+							<li>베이커리</li>
 							</ul>
 						</li>
 						<li><a href="">리뷰</a></li>
@@ -126,6 +187,7 @@
 					<!--
 						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 					-->
+				
 					<div id="imageArea"></div>
 					<button onclick="prevImage()">이전</button>
 					<button onclick="nextImage()">다음</button>
@@ -193,6 +255,7 @@
 							</td>
 					</table>
 				</td>
+			
 			</tr>
 			<tr>
 				<td id="content" colspan=3>지도/메뉴 목록/리뷰 목록</td>
