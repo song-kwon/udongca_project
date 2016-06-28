@@ -61,13 +61,19 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	public OneToOneInquiry selectOneInquiry(int inquiryNo){
 		return dao.selectOneInquiry(inquiryNo);
 	}
-	public Map<String, Object> oneToOneList(int page){
+	/*public Map<String, Object> oneToOneList(int page){
 	    HashMap<String, Object> map = new HashMap<String,Object>();
 	    List list = dao.selectList(page);
 	    map.put("list", list);
 	    PagingBean pagingBean = new PagingBean(dao.countList(), page);
 	    map.put("pageBean", pagingBean);
 	    return map;
+	}*/
+	public List oneToOneList(int page){
+	    return dao.selectList(page);
+	}
+	public PagingBean page(int page){
+	    return new PagingBean(dao.countList(), page);
 	}
 	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry){
 	    return dao.updateInquiryReply(oneToOneInquiry);

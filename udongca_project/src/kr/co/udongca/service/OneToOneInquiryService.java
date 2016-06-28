@@ -3,6 +3,7 @@ package kr.co.udongca.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 public interface OneToOneInquiryService {
@@ -13,7 +14,7 @@ public interface OneToOneInquiryService {
 
 	public OneToOneInquiry selectOneToOneInquiry(int inquiryNo);
 
-	public Map<String, Object> oneToOneList(int page);
+	//public Map<String, Object> oneToOneList(int page);
 	
 	public OneToOneInquiry selectOneInquiry(int inquiryNo);
 	
@@ -24,5 +25,9 @@ public interface OneToOneInquiryService {
 	public int registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId);
 
 	public int updateReplyOneToOneInquiry(OneToOneInquiry afterInquiry);
+	
+	public List oneToOneList(int page);
+	
+	public PagingBean page(int page);
 
 }
