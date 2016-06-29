@@ -87,15 +87,15 @@ $(document).ready(function(){
 } 
 </script>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
-<h3>신고처리</h3>
+<h1>신고처리</h1>
 	<table border="1">
 		<tr>
 			<td>
-				NO:<input type="text" id="reportboardNo" readonly="readonly" value="${requestScope.reportInfo.reportboardNo }">
+				No:<input type="text" id="reportboardNo" readonly="readonly" value="${requestScope.reportInfo.reportboardNo }">
 				
-				신고당한 id : <input type="text" id="reportMemberId" readonly="readonly" value="${requestScope.reportInfo.reportMemberId }">
+				신고 당한 id : <input type="text" id="reportMemberId" readonly="readonly" value="${requestScope.reportInfo.reportMemberId }">
 			
-				신고 이유  :<input type="text" id="reportReason" readonly="readonly" value="${requestScope.reportInfo.reportReason }">  
+				신고 사유  :<input type="text" id="reportReason" readonly="readonly" value="${requestScope.reportInfo.reportReason }">  
 			</td>
 		</tr>	
 		<tr>
@@ -104,7 +104,7 @@ $(document).ready(function(){
 			
 				신고 게시판 글번호 : <input type="text" id="reportNO" readonly="readonly" value="${requestScope.reportInfo.reportNO }">  
 			
-				신고한 사람 :  <input type="text" id="memberId" readonly="readonly" value="${requestScope.reportInfo.memberId }">   
+				신고자 :  <input type="text" id="memberId" readonly="readonly" value="${requestScope.reportInfo.memberId }">   
 			</td>
 		</tr>
 		<tr>

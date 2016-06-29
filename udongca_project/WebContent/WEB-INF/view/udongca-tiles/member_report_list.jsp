@@ -8,6 +8,7 @@ table{
 	width:800px;
 	margin:30px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 thead{
@@ -34,7 +35,6 @@ tr#tr, td{
 
 .cursor{
 	cursor:pointer;
-	table-layout:fixed;
 }
 
 td#td1:hover{text-decoration:underline; color:red;}
@@ -50,16 +50,17 @@ td#td2:hover{text-decoration:underline; color:red;}
 				<thead>
 					<tr>
 						<td>No</td>
-						<td>신고사유</td>
+						<td>신고내역</td>
 						<td>처리결과</td>
+						<col width="30px;"><col width="300px;"><col width="60px;">
 					</tr>
 				</thead>
 				<tbody class="tbody" id="reportList">
 					<c:forEach items="${requestScope.reportList.list }" var="list">
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
-							<td style="width:30px;" class="cursor">${list.reportboardNo }</td>
-							<td style="width:300px;" class="cursor">[${list.reportType}]${list.reportReason }</td>
-							<td style="width:60px;" class="cursor">${list.reportResult == '' ? '처리중':'처리됨'}</td>
+							<td class="cursor">${list.reportboardNo }</td>
+							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
+							<td class="cursor">${list.reportResult == '' ? '처리중':'처리됨'}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -8,6 +8,7 @@ table{
 	width:800px;
 	margin:30px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 thead{
@@ -34,7 +35,7 @@ tr#tr, td{
 
 .cursor{
 	cursor:pointer;
-	table-layout:fixed;
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 
 td#td1:hover{text-decoration:underline; color:red;}
@@ -51,6 +52,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 						<td id="no">No</td>
 						<td id="title">리뷰 제목</td>
 						<td id="content">리뷰 내용</td>
+						<col width="30px"><col width="200px"><col width="300px">
 					</tr>
 				</thead>
 
@@ -58,9 +60,9 @@ td#td2:hover{text-decoration:underline; color:red;}
 					<c:forEach items="${requestScope.reviewList.list }"
 						var="reviewList">
 						<tr id="tr">
-							<td style="width:30px;">${reviewList.reviewNo }</td>
-							<td style="width:200px;" id="td1" class="cursor">${reviewList.reviewTitle }</td>
-							<td style="width:300px;" id="td2" class="cursor">${reviewList.reviewContent }</td>
+							<td>${reviewList.reviewNo }</td>
+							<td id="td1" class="cursor">${reviewList.reviewTitle }</td>
+							<td id="td2" class="cursor">${reviewList.reviewContent }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -42,7 +42,6 @@ $(document).ready(function(){
 		}
 	} 
 	 
-<<<<<<< HEAD
 	 var form=document.submit
 	 form.memberPenalty.value=value;
 	if(value>=3 && form.loginPossibility.value=="possible"){
@@ -59,8 +58,6 @@ $(document).ready(function(){
 		return true;
 	else
 		return false;
-=======
-	
 } */
 function cancel(pnum){
 	location.href="/udongca_project/member/memberListPaging.udc?pnum="+pnum;
@@ -98,6 +95,13 @@ function submit(){
 			}else{
 				alert("등록실패");
 			}
+		},
+		"beforeSend" : function(){
+			var result = confirm("수정하시겠습니까?");
+			if(result==true)
+				return true;
+			else
+				return false;
 		},
 		"error" : function(aa,bb,cc) {
 			alert(aa,bb,cc);

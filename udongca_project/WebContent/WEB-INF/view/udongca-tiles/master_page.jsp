@@ -61,7 +61,7 @@ td,th{
 </table>
 <br><br>
 <h2>리뷰 신고</h2>
-<table id = "table2" border="1">
+<table id = "table2" border="1" style="table-layout:fixed;">
 	<thead>
 	<tr>
 		<td style="width:30px;">No</td>

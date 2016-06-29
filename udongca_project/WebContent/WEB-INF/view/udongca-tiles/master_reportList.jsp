@@ -132,13 +132,13 @@ tr#tr>td:hover{text-decoration:underline; color:red;}
 </form>
 <table>
 	<thead>
-	<tr>
-	<td>No</td>
-	<td>유형</td>
-	<td>신고자</td>
-	<td>신고사유</td>
-	<td>처리결과</td>
-	</tr>
+		<tr>
+			<td>No</td>
+			<td>유형</td>
+			<td>신고자</td>
+			<td>신고사유</td>
+			<td>처리결과</td>
+		</tr>
 	</thead>
 	
 	<tbody>
