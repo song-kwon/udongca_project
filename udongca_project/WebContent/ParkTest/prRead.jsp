@@ -10,6 +10,26 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
+		<style type="text/css">
+		.carousel-inner > .item > img {
+		      top: 0;
+		      left: 0;
+		      width: 600px;
+		      height: 400px;
+		 } 
+		 .carousel-indicators{
+		 	bottom:-70px;
+		 }
+		 .carousel-indicators .active{
+		 	width:60px;
+		 	height:60px;
+		 }
+		.carousel-indicators > img{
+			width:50px;
+			height:50px;
+		}
+		
+		</style>
 		<script type="text/javascript">
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
@@ -111,31 +131,31 @@
 				}
 				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
-			function drink(no,menuType){
-				$("#imageArea").empty();
-				$("#cafeInfo").empty();
+			function menuImage(no,menuType){
+			
+			$("#content").empty();
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
 					"data":{cafeNumber:no,menuType:menuType},
 					"dataType":"json",
 					"success":function(obj){
-							$("#cafeInfo").append(
+							$("#content").append(
 									"<div id='myCarousel' class='carousel slide'>"+
-									"<ol class='carousel-indicators'>"+
-								    "<li data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>"+
-								    "<li data-target='#myCarousel' data-slide-to='1' class='item2'></li>"+
-								    "<li data-target='#myCarousel' data-slide-to='2' class='item3'></li>"+
-								    "<li data-target='#myCarousel' data-slide-to='3' class='item4'></li>"+
-								  "</ol>"+
-								 " <div class='carousel-inner' role='listbox'></div>"); 
+									"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
+							
+								   
+								    
 							for(var i =0;i<obj.length;i++){
+								
 								if(i==0){
 								$(".carousel-inner").append("<div class='item active'>"+
-									      "<img src='"+obj[i].menuRealImage+"' alt='americano' height='500' width='500'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+									      "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+								$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 								}else{
 									$(".carousel-inner").append("<div class='item'>"+
-										    "<img src='"+obj[i].menuRealImage+"' alt='americano' height='500' width='500'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+										    "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+									$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
 								}
 							}
 								  
@@ -271,9 +291,9 @@
 						<li>
 							메뉴
 							<ul id="menuCategoryList">
-							<li onclick="drink(${requestScope.prBoard.cafeNo },'drink')">음료</li>
-							<li>디저트</li>
-							<li>베이커리</li>
+							<li onclick="menuImage(${requestScope.prBoard.cafeNo },'drink')">음료</li>
+							<li onclick="menuImage(${requestScope.prBoard.cafeNo},'dessert')">디저트</li>
+							<li onclick="menuImage(${requestScope.prBoard.cafeNo},'bakery')">베이커리</li>
 							</ul>
 						</li>
 						<li><a href="javascript:void(0)" onclick="reviewList(1);return false;">리뷰</a></li>
@@ -349,6 +369,7 @@
 			
 			</tr>
 			<tr>
+			<td></td>
 				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>
