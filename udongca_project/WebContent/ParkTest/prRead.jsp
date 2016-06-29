@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
@@ -46,7 +46,6 @@
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
-						
 						for(var i = 0; i < json.length; i++){
 							var a= "'"+json[i].codeName+"'" ;
 							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+a+')">' + json[i].codeName + '</a></li>');
@@ -131,7 +130,7 @@
 			};
 			
 			function menuImage(no,menuType){
-			$("#content").empty();
+				$("#content").empty();
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -174,6 +173,7 @@
 						alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
+			}
 			
 			function mapLocation(){
 				$("#content").empty();
@@ -356,15 +356,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan=2 id="buttonArea">
-								
-							</td>
+							<td colspan=2 id="buttonArea"></td>
+						</tr>
 					</table>
 				</td>
-			
 			</tr>
 			<tr>
-			<td></td>
 				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>
