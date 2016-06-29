@@ -103,11 +103,9 @@ td{
 }
 </style>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
-<h1>신고처리</h1>
+<h1 style="margin:30px">신고처리</h1>
 	<table border="1">
 		<tr>
-			<td>
-				No:<input type="text" id="reportboardNo" readonly="readonly" value="${requestScope.reportInfo.reportboardNo }">
 			<td class="text">
 				NO:<input type="text" style="border: 0px;" id="reportboardNo" readonly="readonly" value="${requestScope.reportInfo.reportboardNo }">
 				신고당한 id : <input type="text" style="border: 0px;" id="reportMemberId" readonly="readonly" value="${requestScope.reportInfo.reportMemberId }">

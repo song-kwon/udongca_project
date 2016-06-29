@@ -78,7 +78,7 @@ table{
 	border-top:2px solid;
 	border-bottom:2px solid;
 	width:800px;
-	margin:30px;
+	margin-left:30px;
 	text-align:center;
 }
 
@@ -114,7 +114,7 @@ tr#td2:hover{text-decoration:underline; color:red;}
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
-<div style="margin:30px">
+<div style="margin-left:30px">
 <h3>신고리스트</h3> 
 <select id="selectType" >
 	<option id="a">all</option>
@@ -136,54 +136,8 @@ tr#td2:hover{text-decoration:underline; color:red;}
 	</thead>
 	<tbody id = "table">
 	</tbody>
-	<%-- <c:forEach items="${requestScope.list.list }" var="list">
-	<tr onclick='location.href="/udongca_project/master/reportBoardInfo.udc?reportNo=${list.reportboardNo}&page=${requestScope.list.pageBean.page }"'>
-		<td>${list.reportboardNo}</td>
-		<td>${list.reportMemberId }</td>
-		<td>${list.reportReason }</td>
-		<td>${list.reportResult }</td>
-		<td>${list.reportType }</td>
-	<tr>
-	</c:forEach> --%>
 
 </table>
 <div align="center" id = "page"></div>
-<!-- 이전페이지그룹 -->
-<%-- <c:choose>
- 	<c:when test="${requestScope.list.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${requestScope.list.pageBean.beginPage-1 }">
- 			◀
- 		</a>	
- 	</c:when>
- 	<c:otherwise>
-		◀ 	
- 	</c:otherwise>
- </c:choose>
-<!-- 숫자 -->
-<c:forEach begin="${requestScope.list.pageBean.beginPage }" end="${requestScope.list.pageBean.endPage }"
-			   var="p">
-	<c:choose>
-		<c:when test="${p != requestScope.list.pageBean.page }">
-				<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${p }">
-				${p }
-			</a>
-			&nbsp;&nbsp;
-		</c:when>
-		<c:otherwise>
-			
-		</c:otherwise>
-	</c:choose>
-</c:forEach>	
-<!-- 다음페이지그룹 -->
-<c:choose>
-	<c:when test="${requestScope.list.pageBean.nextPageGroup }">
-		<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${requestScope.list.pageBean.endPage+1 }">
-			▶			
-		</a>
-	</c:when>
-	<c:otherwise>
-		▶
-	</c:otherwise>
-</c:choose> --%>
 </c:if>
 </div>

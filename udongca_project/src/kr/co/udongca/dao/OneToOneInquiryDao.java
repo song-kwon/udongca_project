@@ -28,6 +28,8 @@ public interface OneToOneInquiryDao {
 	
 	public int countList();
 	
+	public int countList2();
+	
 	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry);
 	
 	public OneToOneInquiry selectOneInquiry(int inquiryNo);
