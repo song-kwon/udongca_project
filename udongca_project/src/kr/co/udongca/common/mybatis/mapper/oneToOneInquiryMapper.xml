@@ -39,10 +39,13 @@
 	SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
-					     FROM onetoone_inquiry order by inquiryNo desc
+					     FROM onetoone_inquiry WHERE inquiryReply is null order by inquiryNo desc
 					     )
 				 )
 		WHERE page = #{page}
+	</select>
+	<select id="count_oneToone_list_null" parameterType="string" resultType="_int">
+	SELECT count(inquiryNo) FROM onetoone_inquiry WHERE inquiryReply is null
 	</select>
 	<select id="count_oneToone_list" parameterType="string" resultType="_int">
 	SELECT count(inquiryNo) FROM onetoone_inquiry 

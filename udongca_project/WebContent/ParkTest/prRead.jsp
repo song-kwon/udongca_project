@@ -45,9 +45,10 @@
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
+						
 						for(var i = 0; i < json.length; i++){
-							$("#menuCategoryList").append("<li><a href='javaScript:void(0)'>" + json[i].codeName + "</a></li>");
-							$("#menuCategoryList li:last a").attr("onclick", "menuListByType('" + json[i].codeId + "')");
+							var a= "'"+json[i].codeName+"'" ;
+							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+a+')">' + json[i].codeName + '</a></li>');
 						}
 					},
 					"error":function(xhr){
@@ -143,9 +144,6 @@
 							$("#content").append(
 									"<div id='myCarousel' class='carousel slide'>"+
 									"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
-							
-								   
-								    
 							for(var i =0;i<obj.length;i++){
 								
 								if(i==0){
@@ -221,7 +219,7 @@
 				});
 			}
 			
-			function menuListByType(menuType){
+		/* 	function menuListByType(menuType){
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -258,7 +256,7 @@
 				});
 				
 			}
-			
+			 */
 			function reviewList(page){
 				
 				$.ajax({
@@ -280,6 +278,7 @@
 			</script>
 	</head>
 	<body>
+	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo }">
 		<table>
 			<tr>
 				<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
@@ -291,9 +290,6 @@
 						<li>
 							메뉴
 							<ul id="menuCategoryList">
-							<li onclick="menuImage(${requestScope.prBoard.cafeNo },'drink')">음료</li>
-							<li onclick="menuImage(${requestScope.prBoard.cafeNo},'dessert')">디저트</li>
-							<li onclick="menuImage(${requestScope.prBoard.cafeNo},'bakery')">베이커리</li>
 							</ul>
 						</li>
 						<li><a href="javascript:void(0)" onclick="reviewList(1);return false;">리뷰</a></li>

@@ -57,7 +57,13 @@ insert into code values('loginIP', 'loginIP', 'login');
 
 
 
-
+SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/100) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry WHERE inquiryReply is null order by inquiryNo desc
+					     )
+				 )
+		WHERE page = 1
 
 
 create table notice_board(
