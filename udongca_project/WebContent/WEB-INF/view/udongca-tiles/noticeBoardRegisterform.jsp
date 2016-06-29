@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script  type="text/javascript">
+$(document).ready(function(){
+	$("#title").on("keyup keypress", function(){
+		if($(this).val().length>50){
+			$(this).val($(this).val().substr(0,50));
+			return false;
+		}
+	});
+});
+
 function chkTitle(){
 	if(!$("#title").val()){
 		return false;
@@ -82,7 +91,7 @@ table{
 	</tr>
 	<tr>
 		<td class="text">제목</td>
-		<td><input type="text" name="noticeTitle" id="title" placeholder="제목 입력" style="width:660px;"></td>
+		<td><input type="text" name="noticeTitle" id="title" placeholder="제목은 최대 50자까지 입력 가능합니다.." style="width:660px;"></td>
 	</tr>
 	<tr>
 		<td class="text">내용</td>

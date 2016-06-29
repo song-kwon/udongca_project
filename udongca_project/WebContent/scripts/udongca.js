@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	$('#dddd').on('click',function(){
+		alert(3);
+	});
+	
 	$("#address1").on("change", function(){
 		var es = this;
 		$("#address2").empty().append("<option>군/구</option>");
@@ -167,7 +171,7 @@ $(document).ready(function(){
 				if(txt == 'true')
 					location.replace('/udongca_project/member/member_modify_form.udc');
 				else
-					alert(txt);
+					alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
 		});
 	});
@@ -181,11 +185,18 @@ $(document).ready(function(){
 			'data':{'name':$('#name').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'success'){
-					alert("수정 성공. 메인페이지로.");
+					alert("수정되었습니다. 메인페이지로 이동합니다.");
 					location.replace('/udongca_project/main.udc');
 				}
 				else
 					alert(txt);
+			},
+			'beforeSend':function(){
+				var result = confirm("수정하시겠습니까?");
+				if(result==true)
+					return true;
+				else
+					return false;
 			}
 		});
 	});
@@ -221,7 +232,7 @@ $(document).ready(function(){
 			
 		});
 	
-		
+	/*	
 	//tr 선택시 random 색상 칠하기
 	$('.tbody tr').hover(function(){
 		$(this).css({'background-color':randColor()})
@@ -229,7 +240,7 @@ $(document).ready(function(){
 	function(){
 		$(this).css({'background-color':'inherit'})
 	});
-	
+	*/
 
 	//북마크 취소
 	$('tbody tr td').on('click','.deleteBookmark',function(){
@@ -244,7 +255,7 @@ $(document).ready(function(){
 					location.reload();
 				}
 				else{
-					alert('다시 시도해주세요.');
+					alert('다시 시도해주십시오.');
 					location.reload();
 				}
 			}
@@ -273,6 +284,7 @@ $(window).resize(function(){
     	$('#wrap').css({position:'absloute'}).css({
     	'margin-left': ($(window).width() - $('#wrap').outerWidth())/2
     	})
+    
     }
 });
 

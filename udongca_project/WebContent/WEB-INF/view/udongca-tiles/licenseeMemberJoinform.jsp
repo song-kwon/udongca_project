@@ -3,6 +3,25 @@
 <script type="text/javascript">
 //아이디 조건 검사
 $(document).ready(function(){
+	$("#id").on("keyup keypress", function(){
+		if($(this).val().length>50){
+			$(this).val($(this).val().substr(0,50));
+			return false;
+		}
+	});
+	$("#name").on("keyup keypress", function(){
+		if($(this).val().length>50){
+			$(this).val($(this).val().substr(0,50));
+			return false;
+		}
+	});
+	$("#email").on("keyup keypress", function(){
+		if($(this).val().length>50){
+			$(this).val($(this).val().substr(0,50));
+			return false;
+		}
+	});
+	
 	$("#idVerification").on("click",function(){
 		$.ajax({
 				"url":"/udongca_project/member/countSameId.udc",
@@ -39,6 +58,7 @@ $(document).ready(function(){
 						   
 						  if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ){
 							  alert("아이디는 영문과 숫자만 입력가능합니다.");
+							  $("#id").focus();
 							  return false;
 						  }
 					}
@@ -46,12 +66,14 @@ $(document).ready(function(){
 					//영문, 숫자 이외의 문자 입력시 에러 처리
 					if((num<0 && eng<0) || spe.test(id)==true){
 						  alert("아이디는 영문과 숫자만 입력가능합니다.");
+						  $("#id").focus();
 						  return false;
 					}
 					
 					//공백 입력시 에러 처리
 					if((id.length != id2.length) || id.length<6 || (id.search(/[" "]/g) > 0)){
 						alert("아이디는 공백없이 6글자 이상 입력해주세요.");
+						$("#id").focus();
 						return false;
 					}
 					return true;
@@ -75,16 +97,25 @@ function chkPwd1(){
 	 
 	 if((pw.length != pw2.length) || (pw.search(/[" "]/g) > 0)){
 		alert("비밀번호는 공백없이 입력해주세요.");
+		$("#password").val('');
+		$("#password2").val('');
+		$("#password").focus();
 		return false;
 	 }
 	 
 	 if(pw.length < 10 || pw.length > 20){
 	  alert("비밀번호는 10자리 ~ 20자리 이내로 입력해주세요.");
+	  $("#password").val('');
+	  $("#password2").val('');
+	  $("#password").focus();
 	  return false;
 	 }
 
 	 if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
 	  alert("비밀번호는 영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+	  $("#password").val('');
+	  $("#password2").val('');
+	  $("#password").focus();
 	  return false;
 	 }
 	
@@ -106,8 +137,12 @@ function chkPwd2(){
 function chkName(){
 	var name = $("#name").val();
 	var name2 = $.trim(name);
-	if((name.length != name2.length)||(name.search(/[" "]/g) > 0)){
+	if(name==''){
+		alert("이름은 필수입력사항입니다.");
+		return false;
+	}else if((name.length != name2.length)||(name.search(/[" "]/g) > 0)){
 		  alert("이름은 공백없이 입력해주세요.");
+		  $("#name").focus();
 		  return false;
 	}
 	return true;
@@ -115,7 +150,10 @@ function chkName(){
 
 //이메일 입력 검사
 function chkEmail(){
-	if($("#emailAddress").val()=="이메일선택"){
+	if($("#email").val()==''){
+		alert("이메일은 필수입력사항입니다.");
+		return false;
+	}else if($("#emailAddress").val()=="이메일선택"){
 		alert("이메일 주소를 선택해주세요.")
 		return false;
 	}
@@ -142,13 +180,13 @@ function checkSubmit(){
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:400px;
+	width:450px;
 	margin:30px;
 }
 
 table, th{
 	text-align:left;
-	width:400px;
+	width:450px;
 }
 
 .width_size{
@@ -195,7 +233,7 @@ table, th{
 	<tr>
 		<th>이메일</th>
 		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }" class="width_size"></td>
-		<td style="width:200px;">@<select id="emailAddress" name="emailAddress" style="width:100px;">
+		<td style="width:200px;">@&nbsp;<select id="emailAddress" name="emailAddress" style="width:100px;">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>

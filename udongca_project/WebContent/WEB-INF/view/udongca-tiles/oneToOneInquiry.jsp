@@ -61,6 +61,7 @@ $(document).ready(function(){
 	<c:if test="${sessionScope.login.memberId == requestScope.map.oneToOneInquiry.memberId}">
 		<a href="/udongca_project/oneToOneInquiry/modifyOneToOneInquiryform.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}"><input type="button" id="modifyBtn" value="문의수정"></a>
 		<input type="button" id="deleteBtn" value="문의삭제">
+		<a href="/udongca_project/member/memberInquiryListPaging.udc"><input type="button" value="내 문의 내역"></a>
 	</c:if>
 	<c:if test="${sessionScope.login.memberId == 'udongca' }">
 		<a href="/udongca_project/oneToOneInquiry/modifyOneToOneInquiryReplyform.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo }"><input type="button" value="답변등록"></a>

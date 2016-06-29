@@ -1,57 +1,73 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
-table, td, th {
-	border: 1px solid gray;
-}
-
-table {
+table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
+	table-layout:fixed;
 }
 
-td, th {
-	padding: 5px;
+thead{
+	text-align:center;
+	width:400px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
 
-a {
-	text-decoration: none;
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
 }
 
-#no {
-	width: 100px;
+tr#tr, td{
+	border-top:1px dotted;
+	border-top-color:black;
 }
 
-#title {
-	width: 150px;
+.cursor{
+	cursor:pointer;
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 
-#content {
-	width: 200px;
-}
+td#td1:hover{text-decoration:underline; color:red;}
+td#td2:hover{text-decoration:underline; color:red;}
 </style>
+
 <div>
-	<h2>나의 리뷰 리스트</h2>
+	<h1>나의 리뷰 리스트</h1>
 	<c:choose>
 		<c:when test="${empty requestScope.error }">
-			<table border="1">
+			<table>
 				<thead>
 					<tr>
-						<td id="no">번호
-						<td id="title">제목
-						<td id="content">내용
+						<td id="no">No</td>
+						<td id="title">리뷰 제목</td>
+						<td id="content">리뷰 내용</td>
+						<col width="30px"><col width="200px"><col width="300px">
+					</tr>
 				</thead>
 
 				<tbody id="myRevieList" class="tbody">
 					<c:forEach items="${requestScope.reviewList.list }"
 						var="reviewList">
-						<tr>
-							<td>${reviewList.reviewNo }
-							<td>${reviewList.reviewTitle }
-							<td>${reviewList.reviewContent }
+						<tr id="tr">
+							<td>${reviewList.reviewNo }</td>
+							<td id="td1" class="cursor">${reviewList.reviewTitle }</td>
+							<td id="td2" class="cursor">${reviewList.reviewContent }</td>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			
 			<div align="center">
 				<!-- 이전페이지그룹 -->
 				<c:choose>
@@ -72,10 +88,10 @@ a {
 						<c:when test="${p != requestScope.reviewList.pageBean.page }">
 							<a
 								href="/udongca_project/member/memberReviewListPaging.udc?pnum=${p }">
-								${p } </a>
+								${p } </a>&nbsp;&nbsp;
 						</c:when>
 						<c:otherwise>
-			[${p }]
+			[${p }]&nbsp;&nbsp;
 		</c:otherwise>
 					</c:choose>
 				</c:forEach>

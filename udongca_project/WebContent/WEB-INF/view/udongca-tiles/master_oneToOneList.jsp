@@ -1,18 +1,43 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
-table, td, th {
-	border: 1px solid gray;
-}
-
-table {
+table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
+	text-align:center;
 }
 
-td, th {
-	padding: 5px;
+thead{
+	text-align:center;
+	width:800px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+tr#td2:hover{text-decoration:underline; color:red;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -31,12 +56,9 @@ td, th {
 			"success":function(obj){
 				 var page=obj['page'];
 				$("#table").empty();
-				if(!$("#table").hasChildNodes){
-					$("table").append("<tr><td>NO</td><td>제목</td><td>문의유형</td><td>id</td></tr>");
 				
-				}
 				$.each(obj['list'],function(){
-					$("#table").append("<tr onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
+					$("#table").append("<tr class='cursor' id='td2' onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
 					
 				});
 				
@@ -75,17 +97,21 @@ td, th {
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="pnum" value="${param.pnum }">
 <c:if test="${sessionScope.login.memberType != master}">
-	<h3>1:1문의관리</h3>
-	<table id="table" border="1">
+	<div style="margin:30px"><h3>1:1문의관리</h3></div>
+	<table>
+		<thead>
 		<tr>
-			<td>NO</td>
-			<td>제목</td>
-			<td>문의유형</td>
-			<td>id</td>
+			<td style="width:100px;">NO</td>
+			<td style="width:300px;">제목</td>
+			<td style="width:300px;">문의유형</td>
+			<td style="width:100px;">id</td>
 		</tr>
+		</thead>
+		<tbody id="table">
 		
+		</tbody>
 	</table>
-	<span id="page"></span>
+	<div align="center" id="page"></div>
 	<!-- 이전페이지그룹 -->
 	<%-- <c:choose>
 		<c:when test="${requestScope.pageBean.previousPageGroup }">
@@ -125,3 +151,4 @@ td, th {
 	</c:choose> --%>
 </c:if>
 </div>
+

@@ -1,7 +1,31 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
-
+	
+SELECT
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeFakeImage cafeFakeImage
+		FROM (
+			SELECT
+				CEIL(rownum/2) page,
+				cafeNo,
+				cafeName,
+				cafeFeature,
+				cafeAddress,
+				cafeFakeImage
+			FROM (
+				SELECT
+					cafeNo,
+					cafeName,
+					cafeFeature,
+					cafeAddress,
+					cafeFakeImage
+				FROM PRboard
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page=1
 
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
@@ -55,7 +79,13 @@ insert into code values('loginIP', 'loginIP', 'login');
 
 
 
-
+SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/100) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry WHERE inquiryReply is null order by inquiryNo desc
+					     )
+				 )
+		WHERE page = 1
 
 
 create table notice_board(
@@ -211,7 +241,10 @@ insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','r
 insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
 
 
-
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');	
 create table menu(
 menuNo	NUMBER	primary key,
 cafeNo	NUMBER	NOT NULL,
@@ -240,6 +273,7 @@ replyNo	NUMBER	primary key,
 replyId	varchar2(50)	NOT NULL,
 replyContent	CLOB	NOT NULL,
 replyDate	DATE	NOT NULL,
+replyGroup NUMBER not null,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
 reviewNO	NUMBER	NOT NULL,
@@ -248,15 +282,15 @@ foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
 
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야4',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,1,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,2,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,3,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','리플이야4',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,3,0,'udonca',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,3,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,2,0,'udongca',11);
 
 
 

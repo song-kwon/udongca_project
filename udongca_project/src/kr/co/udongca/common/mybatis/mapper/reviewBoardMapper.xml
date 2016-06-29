@@ -29,6 +29,12 @@
 		select <include refid="reviewReplyMapper.reviewReply-column"/>
 		from review_reply
 		where reviewNo=#{reviewNo}
+		order by replyGroup asc ,replyNo asc
 	</select>
 	
+	<select id="reviewGourpCount" parameterType="int" resultType="int">
+		select count(replyNo)
+		from review_reply
+		where reviewNo=#{reviewNo} and parentReply=0
+	</select>
 </mapper>

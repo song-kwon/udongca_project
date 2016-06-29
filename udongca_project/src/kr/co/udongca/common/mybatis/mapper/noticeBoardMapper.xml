@@ -33,7 +33,7 @@
 		SELECT noticeNo, noticeTitle, noticeContent, noticeDate
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, noticeNo, noticeTitle, noticeContent, noticeDate
 			     FROM(SELECT noticeNo, noticeTitle, noticeContent, noticeDate
-					     FROM notice_board order by noticeNo asc
+					     FROM notice_board order by noticeNo desc
 					     )
 				 )
 		WHERE page = #{page}

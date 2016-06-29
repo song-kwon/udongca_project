@@ -6,8 +6,30 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
+		<style type="text/css">
+		.carousel-inner > .item > img {
+		      top: 0;
+		      left: 0;
+		      width: 600px;
+		      height: 400px;
+		 } 
+		 .carousel-indicators{
+		 	bottom:-70px;
+		 }
+		 .carousel-indicators .active{
+		 	width:60px;
+		 	height:60px;
+		 }
+		.carousel-indicators > img{
+			width:50px;
+			height:50px;
+		}
+		
+		</style>
 		<script type="text/javascript">
 			var isAddedFavorite = null;
 			var isMemberLicensed = null;
@@ -24,9 +46,10 @@
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
+						
 						for(var i = 0; i < json.length; i++){
-							$("#menuCategoryList").append("<li><a href='javaScript:void(0)'>" + json[i].codeName + "</a></li>");
-							$("#menuCategoryList li:last a").attr("onclick", "menuListByType('" + json[i].codeId + "')");
+							var a= "'"+json[i].codeName+"'" ;
+							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+a+')">' + json[i].codeName + '</a></li>');
 						}
 					},
 					"error":function(xhr){
@@ -89,7 +112,7 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-			};
+			}; 
 			
 			function prevImage(){
 				currentImageNumber--;
@@ -106,6 +129,51 @@
 				}
 				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
+			
+			function menuImage(no,menuType){
+			$("#content").empty();
+				$.ajax({
+					"url":"/udongca_project/prBoard/menuList.udc",
+					"type":"POST",
+					"data":{cafeNumber:no,menuType:menuType},
+					"dataType":"json",
+					"success":function(obj){
+							$("#content").append(
+									"<div id='myCarousel' class='carousel slide'>"+
+									"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
+							for(var i =0;i<obj.length;i++){
+								
+								if(i==0){
+								$(".carousel-inner").append("<div class='item active'>"+
+									      "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+								$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
+								}else{
+									$(".carousel-inner").append("<div class='item'>"+
+										    "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+									$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
+								}
+							}
+								  
+							 // Activate Carousel
+						    $("#myCarousel").carousel({interval:500});
+						    // Enable Carousel Indicators
+						    $(".item1").on("click",function(){
+						        $("#myCarousel").carousel(0);
+						    });
+						    $(".item2").click(function(){
+						        $("#myCarousel").carousel(1);
+						    });
+						    $(".item3").click(function(){
+						        $("#myCarousel").carousel(2);
+						    });
+						    $(".item4").click(function(){
+						        $("#myCarousel").carousel(3);
+						    });
+					},
+					"error":function(xhr){
+						alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
 			
 			function mapLocation(){
 				$("#content").empty();
@@ -172,7 +240,6 @@
 							if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
 								$("#content").append("<button onclick='menuModifyForm()'>수정</button>");
 							}
-							
 						},
 						"error":function(xhr){
 							alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
@@ -181,20 +248,20 @@
 				}
 			}
 			
-			function menuRead(menuNO, menuType){
+			function menuRead(menuType){
 				$.ajax({
-					"url":"/udongca_project/prBoard/menuRead.udc",
+					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
-					"data":"menuNo=" + menuNO,
+					"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
 					"dataType":"json",
 					"success":function(json){
 						$("#content").empty();
-						$("#content").append("<table><tr><td><b>" + json.menuName + "</b></td></tr>");
-						$("#content").append("<tr><td><img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'></td></tr>");
-						$("#content").append("<tr><td><button onclick='menuListByType(" + menuType + ")'>뒤로 가기</button></td></tr></table>")
+						for (var i = 0; i < json.length; i++){
+							$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + json[i].menuNO + ")'>" +  json[i].menuName + "</a><br>");
+						}
 					},
 					"error":function(xhr){
-						alert("An error occured in menuRead(): " + xhr.status + " " + xhr.statusText);
+						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
 			}
@@ -206,25 +273,11 @@
 			function reviewList(page){
 				$("#content").empty();
 				$("#content").attr("style", "");
-				/*
-				$.ajax({
-					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
-					"type":"POST",
-					"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
-					"dataType":"json",
-					"success":function(json){
-						alert(((json) ? ("즐겨찾기에" + ((isAddedFavorite) ? "서 삭제" : " 추가" )) : ("오류가 발생") ) + "했습니다");
-						location.reload(true);
-					},
-					"error":function(xhr){
-						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
-					}
-				});
-				*/
 			}
-		</script>
+			</script>
 	</head>
 	<body>
+	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo }">
 		<table>
 			<tr>
 				<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
@@ -242,6 +295,10 @@
 					</ul>
 				</td>
 				<td>
+					<!--
+						홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
+					-->
+				
 					<div id="imageArea"></div>
 					<button onclick="prevImage()">이전</button>
 					<button onclick="nextImage()">다음</button>
@@ -304,8 +361,10 @@
 							</td>
 					</table>
 				</td>
+			
 			</tr>
 			<tr>
+			<td></td>
 				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>

@@ -1,11 +1,48 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:250px;
+	margin:30px;
+}
+
+table, th{
+	text-align:left;
+	width:250px;
+}
+
+.width_size{
+	width:150px;
+}
+
+.width_size2{
+	width:80px;
+}
+
+</style>
 
 <div class="nav_bodyDiv">
-<div><h2>회원 정보 수정</h2></div>
-아이디:<input type="text" readonly="readonly" style="border: thin;" value="${sessionScope.login.memberId }" id="id"><br>
-이름:<input type="text"  value="${sessionScope.login.memberName }" id="name"><br>
-비밀번호:<input type="password" value="${sessionScope.login.memberPassword }" id="password"><br>
-Email:<input type="text" readonly="readonly" style="border: thin;" value="${sessionScope.login.memberEmail }" id="email"><br>
-<input type="button" value="수정하기" id="memberModifyBtn">
+<div><h1>회원 정보 수정</h1></div>
+<table>
+	<tr>
+		<th>아이디</th>
+		<td><input type="text" readonly="readonly" style="border: thin;" value="${sessionScope.login.memberId }" id="id" class="width_size"></td>
+	</tr>
+	<tr>
+		<th>비밀번호</th>
+		<td><input type="password" value="${sessionScope.login.memberPassword }" id="password" class="width_size"></td>
+	</tr>
+	<tr>
+		<th>이름</th>
+		<td><input type="text"  value="${sessionScope.login.memberName }" id="name" class="width_size"></td>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<td><input type="text" readonly="readonly" style="border: thin;" value="${sessionScope.login.memberEmail }" id="email" class="width_size"></td>
+	</tr>
+</table>
+<div align="center" style="width:300px;">
+	<input type="button" value="수정하기" id="memberModifyBtn">
+</div>
 </div>

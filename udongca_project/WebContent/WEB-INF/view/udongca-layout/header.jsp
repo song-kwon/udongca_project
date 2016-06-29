@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="header_div">
+
 <script type="text/javascript">
 $(document).ready(function(){
 	//major category
@@ -29,6 +29,7 @@ $(document).ready(function(){
 	});
 });
 </script>
+<div id="header_div">
 <c:choose>
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
@@ -49,4 +50,5 @@ $(document).ready(function(){
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
 <div>지역선택&nbsp;<select id="address1"><option value=0>시/도</option></select>&nbsp;<select id="address2"><option value=0>시/도 먼저 선택</option></select>&nbsp;<button id="searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option value=0>테마 선택</option></select>&nbsp;<button id="searchTheme">검색</button></div>
+<c:if test="${sessionScope.login.memberType eq 'licenseemember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 </div>

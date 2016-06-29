@@ -17,6 +17,7 @@ table{
 	width:800px;
 	margin:30px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 thead{
@@ -43,7 +44,7 @@ tr#tr, td{
 
 .cursor{
 	cursor:pointer;
-	table-layout:fixed;
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 
 td#td1:hover{text-decoration:underline; color:red;}
@@ -61,16 +62,17 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<td>문의 제목</td>
 			<td>문의 내용</td>
 			<td>작성자</td>
+			<col width="30px"><col width="60px"><col width="200px"><col width="300px"><col width="60px">
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.oneToOneInquiryList}" var="list">
 			<tr id="tr">
-				<td style="width:30px;">${list.inquiryNo}</td>
-				<td style="width:60px;">${list.inquiryType }</td>
-				<td style="width:200px;" id="td1" class="cursor">${list.inquiryTitle }</td>
-				<td style="width:300px;" id="td2" class="cursor">${list.inquiryContent }</td>
-				<td style="width:60px;">${list.memberId }</td>
+				<td>${list.inquiryNo}</td>
+				<td>${list.inquiryType }</td>
+				<td id="td1" class="cursor">${list.inquiryTitle }</td>
+				<td id="td2" class="cursor">${list.inquiryContent }</td>
+				<td>${list.memberId }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -95,10 +97,10 @@ td#td2:hover{text-decoration:underline; color:red;}
 		<c:when test="${p != requestScope.map.pageBean.page }">
 			<a
 				href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc?pnum=${p }">
-				${p } </a>
+				${p } </a>&nbsp;&nbsp;
 		</c:when>
 		<c:otherwise>
-			[${p }]
+			[${p }]&nbsp;&nbsp;
 		</c:otherwise>
 	</c:choose>
 </c:forEach>

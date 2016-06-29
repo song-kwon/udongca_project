@@ -321,7 +321,6 @@ public class PrBoardController {
 	public Menu menuRead(int menuNo){
 		return service.selectMenuByMenuNo(menuNo);
 	}
-	
 	/**
 	 * 구현 완료
 	 * @param cafeNumber
@@ -347,8 +346,8 @@ public class PrBoardController {
 		/*
 		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
 		 */
-		menu.setMenuNO(menuNo);
-		menu.setCafeNumber(cafeNumber);
+		menu.setMenuNo(menuNo);
+		menu.setCafeNo(cafeNumber);
 		menu.setMenuType(menuType);
 		menu.setMenuName(menuName);
 		
@@ -425,11 +424,11 @@ public class PrBoardController {
 		
 		for (int i = 0; i < originalMenuList.size(); i++){
 			boolean deleteFlag = true;
-			
+						
 			for (int j = 0; j < menuNOArray.length; j++){
-				if (originalMenuList.get(i).getMenuNO() == menuNOArray[j]){
+				if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
 					Menu updateMenu = new Menu();
-					updateMenu.setMenuNO(originalMenuList.get(i).getMenuNO());
+					updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
 					updateMenu.setMenuType(menuTypeArray[j]);
 					updateMenu.setMenuName(menuNameArray[j]);
 					if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
@@ -460,16 +459,16 @@ public class PrBoardController {
 				String dir = req.getServletContext().getRealPath("/images");
 				File dest = new File(dir, originalMenuList.get(i).getMenuFakeImage());
 				dest.delete();
-				service.deleteMenu(originalMenuList.get(i).getMenuNO());
+				service.deleteMenu(originalMenuList.get(i).getMenuNo());
 			}
 		}
 		
 		for (int i = 0; i < menuNOArray.length; i++){
 			if (menuNOArray[i] == 0){
 				Menu newMenu = new Menu();
-				
-				newMenu.setMenuNO(service.selectNextMenuSequence());
-				newMenu.setCafeNumber(cafeNo);
+								
+				newMenu.setMenuNo(service.selectNextMenuSequence());
+				newMenu.setCafeNo(cafeNo);
 				newMenu.setMenuType(menuTypeArray[i]);
 				newMenu.setMenuName(menuNameArray[i]);
 				

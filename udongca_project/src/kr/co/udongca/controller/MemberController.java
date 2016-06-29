@@ -62,7 +62,6 @@ public class MemberController {
     @RequestMapping("countSameId.udc")
     @ResponseBody
     public String countSameId(String memberId) {
-    	System.out.println(memberId);
 	String number = "" + memberService.countSameId(memberId);
 	return number;
     }
@@ -237,7 +236,6 @@ public class MemberController {
 	@RequestMapping("modify_preferLocation.udc")
 	@ResponseBody
 	public String modifyPreferLocation(int[] location, HttpSession session) {
-		System.out.println(location[0]+" "+location[1]+" "+location[2]);
 		Member login = (Member) session.getAttribute("login");
 		PreferLocation pl = new PreferLocation(0, location[0], location[1], location[2], login.getMemberId());
 		if (login != null && !login.getMemberType().equals("master")) {

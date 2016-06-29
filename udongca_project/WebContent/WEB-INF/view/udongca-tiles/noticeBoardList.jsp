@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 		$("#tbody").on("click","tr",function() {
 			location.replace("/udongca_project/noticeBoard/noticeBoard.udc?noticeNo="+ $(this).find(":first").text());
 	});
@@ -16,6 +16,7 @@ table{
 	width:800px;
 	margin:30px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 thead{
@@ -42,7 +43,7 @@ tr#tr, td{
 
 .cursor{
 	cursor:pointer;
-	table-layout:fixed;
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis; 
 }
 
 td#td1:hover{text-decoration:underline; color:red;}
@@ -64,16 +65,17 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<td>공지 제목</td>
 			<td>공지 내용</td>
 			<td>작성일자</td>
+			<col width="30px"><col width="60px"><col width="200px"><col width="300px"><col width="100px">
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.noticeBoardList }" var="list">
 			<tr id="tr">
-				<td style="width:30px;">${list.noticeNo }</td>
-				<td style="width:60px;">${list.category }</td>
-				<td style="width:200px;" id="td1" class="cursor">${list.noticeTitle }</td>
-				<td style="width:300px;" id="td2" class="cursor">${list.noticeContent }</td>
-				<td style="width:100px;">${list.noticeDate }</td>
+				<td>${list.noticeNo }</td>
+				<td>${list.category }</td>
+				<td id="td1" class="cursor">${list.noticeTitle }</td>
+				<td id="td2" class="cursor">${list.noticeContent }</td>
+				<td>${list.noticeDate }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -98,10 +100,10 @@ td#td2:hover{text-decoration:underline; color:red;}
 		<c:when test="${p != requestScope.map.pageBean.page }">
 			<a
 				href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${p }">
-				${p } </a>
+				${p } </a>&nbsp;&nbsp;
 		</c:when>
 		<c:otherwise>
-			[${p }]
+			[${p }]&nbsp;&nbsp;
 		</c:otherwise>
 	</c:choose>
 </c:forEach>

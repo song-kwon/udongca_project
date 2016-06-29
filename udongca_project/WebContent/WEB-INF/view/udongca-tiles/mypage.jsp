@@ -1,10 +1,35 @@
 <%@ page contentType="text/html;charset=utf-8" %>
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:400px;
+	margin:30px;
+}
+
+table, th{
+	text-align:left;
+	width:250px;
+}
+
+</style>
+
 <div class="nav_bodyDiv">
-<div><h2>내 정보</h2></div>
-<div style="margin-left: 10px;">
-	아이디:${sessionScope.login.memberId }<p>
-	이름:${sessionScope.login.memberName }<p>
-	이메일:${sessionScope.login.memberEmail }<p>
-	<a href="/udongca_project/member/member_modify_form.udc"><button>정보수정</button></a>
-</div>
+<div><h1>내 정보</h1></div>
+<table>
+	<tr>
+		<th>아이디</th>
+		<td>${sessionScope.login.memberId }</td>
+	</tr>
+	<tr>
+		<th>이름</th>
+		<td>${sessionScope.login.memberName }</td>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<td>${sessionScope.login.memberEmail }</td>
+	</tr>
+</table>
+	<div align="center" width:300px;">
+		<a href="/udongca_project/member/member_modify_form.udc"><button>정보수정</button></a>
+	</div>
 </div>

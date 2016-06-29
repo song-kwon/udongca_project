@@ -35,12 +35,8 @@
 				"success":function(obj){
 					 var page=obj['page'];
 					$("#table").empty();
-					if(!$("#table").hasChildNodes){
-						$("table").append("<tr><td>NO</td><td>ID</td><td>REASON</td><td>RESULT</td><td>TYPE</td></tr>");
-					
-					}
 					$.each(obj['list'],function(){
-						$("#table").append("<tr onclick='link("+'"'+this.reportboardNo+'",'+page.page+")'><td>"+this.reportboardNo+"</td><td>"+this.reportMemberId+"</td><td>"+this.reportReason+"</td><td>"+this.reportResult+"</td><td>"+this.reportType+"</td></tr>");
+						$("#table").append("<tr class='cursor' id='td2' onclick='link("+'"'+this.reportboardNo+'",'+page.page+")'><td>"+this.reportboardNo+"</td><td>"+this.reportMemberId+"</td><td>"+this.reportReason+"</td><td>"+this.reportResult+"</td><td>"+this.reportType+"</td></tr>");
 						
 					});
 					
@@ -77,83 +73,71 @@
 		
 </script>
 <style type="text/css">
-table, td, th{
-	border: 1px solid gray;
-}
 table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin-left:30px;
+	text-align:center;
 }
-td,th{
-	padding: 5px;
+
+thead{
+	text-align:center;
+	width:800px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
+}
+
+td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+tr#td2:hover{text-decoration:underline; color:red;}
 </style>
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
-<h3 id="head">${requestScope.reportType}신고리스트</h3> 
+<div style="margin-left:30px">
+<h3>신고리스트</h3> 
 <select id="selectType" >
 	<option id="a">all</option>
 	<option id="r">review</option>
 	<option id="p">prboard</option>
-</select>
-<button type="button" id = "search" >검색</button>
-<table id = "table" border="1">
-	<tr>
-	<td>NO</td>
-	<td>ID</td>
-	<td>REASON</td>
-	<td>RESULT</td>
-	<td>TYPE</td>
-	</tr>
-	<%-- <c:forEach items="${requestScope.list.list }" var="list">
-	<tr onclick='location.href="/udongca_project/master/reportBoardInfo.udc?reportNo=${list.reportboardNo}&page=${requestScope.list.pageBean.page }"'>
-		<td>${list.reportboardNo}</td>
-		<td>${list.reportMemberId }</td>
-		<td>${list.reportReason }</td>
-		<td>${list.reportResult }</td>
-		<td>${list.reportType }</td>
-	<tr>
-	</c:forEach> --%>
+	</select>
+	<button type="button" id = "search">검색</button>
+	
+</div>
+<table>
+	<thead>
+		<tr>
+		<td style="width:100px;">No</td>
+		<td style="width:100px;">신고자</td>
+		<td style="width:250px;">신고사유</td>
+		<td style="width:250px;">처리결과</td>
+		<td style="width:100px;">유형</td>
+		</tr>
+	</thead>
+	<tbody id = "table">
+	</tbody>
 
 </table>
-<span id = "page"></span>
-<!-- 이전페이지그룹 -->
-<%-- <c:choose>
- 	<c:when test="${requestScope.list.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${requestScope.list.pageBean.beginPage-1 }">
- 			◀
- 		</a>	
- 	</c:when>
- 	<c:otherwise>
-		◀ 	
- 	</c:otherwise>
- </c:choose>
-<!-- 숫자 -->
-<c:forEach begin="${requestScope.list.pageBean.beginPage }" end="${requestScope.list.pageBean.endPage }"
-			   var="p">
-	<c:choose>
-		<c:when test="${p != requestScope.list.pageBean.page }">
-				<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${p }">
-				${p }
-			</a>
-			&nbsp;&nbsp;
-		</c:when>
-		<c:otherwise>
-			
-		</c:otherwise>
-	</c:choose>
-</c:forEach>	
-<!-- 다음페이지그룹 -->
-<c:choose>
-	<c:when test="${requestScope.list.pageBean.nextPageGroup }">
-		<a href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportType}&pnum=${requestScope.list.pageBean.endPage+1 }">
-			▶			
-		</a>
-	</c:when>
-	<c:otherwise>
-		▶
-	</c:otherwise>
-</c:choose> --%>
+<div align="center" id = "page"></div>
 </c:if>
 </div>

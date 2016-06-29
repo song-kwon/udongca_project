@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript" src="../scripts/udongca.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	//major category
@@ -161,6 +162,13 @@ $(document).ready(function(){
 		});
 	});
 	
+	$('#dddd').on('click',function(){
+		alert(1);
+	});
+	$('#dddd').on('click',function(){
+		alert(2);
+	});
+	
  	 //var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
 	 //alert(isID.test(/*비교할 대상*/)); 
 });
@@ -258,12 +266,13 @@ a{
 </style>
 </head>
 <body>
+<a href="/udongca_project/review/reviewDetail.udc?cafeNo=1&reviewno=11"><button>리플 테스트</button></a>
 <div>지역선택&nbsp;<select id="address1"><option value=0>시/도</option></select>&nbsp;<select id="address2"><option value=0>시/도 먼저 선택</option></select>&nbsp;<button id="searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option value=0>테마 선택</option></select>&nbsp;<button id="searchTheme">검색</button></div>
 <div id="searchResult" style="width:800px; background-color: red;">
 
 </div>
 <div id="pageNum" style="clear:both;">
 </div>
-
+<button id="dddd">dddd</button>
 </body>
 </html>
