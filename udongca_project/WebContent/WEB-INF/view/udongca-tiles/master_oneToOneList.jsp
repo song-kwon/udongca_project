@@ -12,7 +12,7 @@ table{
 
 thead{
 	text-align:center;
-	width:400px;
+	width:800px;
 	height:40px;
 	margin:20px;
 	font-size:13pt;
@@ -27,7 +27,7 @@ table, tbody{
 	font-size:12pt;
 }
 
-tr#tr, td{
+td{
 	border-top:1px dotted;
 	border-top-color:black;
 }
@@ -37,10 +37,8 @@ tr#tr, td{
 	table-layout:fixed;
 }
 
-td#td1:hover{text-decoration:underline; color:red;}
-td#td2:hover{text-decoration:underline; color:red;}
+tr#td2:hover{text-decoration:underline; color:red;}
 </style>
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		if ($("#memberCheck").val() != "master") {
@@ -58,12 +56,9 @@ td#td2:hover{text-decoration:underline; color:red;}
 			"success":function(obj){
 				 var page=obj['page'];
 				$("#table").empty();
-				if(!$("#table").hasChildNodes){
-					$("table").append("<tr><td>NO</td><td>제목</td><td>문의유형</td><td>id</td></tr>");
 				
-				}
 				$.each(obj['list'],function(){
-					$("#table").append("<tr onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
+					$("#table").append("<tr class='cursor' id='td2' onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
 					
 				});
 				
@@ -102,35 +97,23 @@ td#td2:hover{text-decoration:underline; color:red;}
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="pnum" value="${param.pnum }">
 <c:if test="${sessionScope.login.memberType != master}">
-	<div><h1>1:1문의관리</h1></div>
+	<div style="margin:30px"><h3>1:1문의관리</h3></div>
 	<table>
-		<thead id="thead">
-			<tr>
-				<td>No</td>
-				<td>유형</td>
-				<td>문의 제목</td>
-				<td>문의 내용</td>
-				<td>작성자</td>
-			</tr>
+		<thead>
+		<tr>
+			<td style="width:100px;">NO</td>
+			<td style="width:300px;">제목</td>
+			<td style="width:300px;">문의유형</td>
+			<td style="width:100px;">id</td>
+		</tr>
 		</thead>
-		<tbody id="tbody">
-			<c:forEach items="${requestScope.list }" var="list">
-				<tr id="tr"
-					onclick='location.href="/udongca_project/oneToOneInquiry/master/oneInfo.udc?page=${requestScope.pageBean.page}&inquiryNo=${list.inquiryNo }"'>
-					<td style="width:30px;">${list.inquiryNo }</td>
-					<td style="width:60px;">${list.inquiryType }</td>
-					<td style="width:200px;" id="td1" class="cursor">${list.inquiryTitle }</td>
-					<td style="width:300px;" id="td2" class="cursor">${list.inquiryContent }</td>
-					<td style="width:60px;">${list.memberId }</td>
-				</tr>
-			</c:forEach>
+		<tbody id="table">
+		
 		</tbody>
 	</table>
-
-<div align="center">
-	<span id="page"></span>
+	<div align="center" id="page"></div>
 	<!-- 이전페이지그룹 -->
-	<c:choose>
+	<%-- <c:choose>
 		<c:when test="${requestScope.pageBean.previousPageGroup }">
 			<a
 				href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?pnum=${requestScope.pageBean.beginPage-1 }">
@@ -164,8 +147,8 @@ td#td2:hover{text-decoration:underline; color:red;}
 		</c:when>
 		<c:otherwise>
 		▶
-		</c:otherwise>
-	</c:choose>
-</div>
+	</c:otherwise>
+	</c:choose> --%>
 </c:if>
 </div>
+

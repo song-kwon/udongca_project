@@ -304,13 +304,13 @@ public class PrBoardController {
 	 */
 	@RequestMapping("menuList.udc")
 	@ResponseBody
-	public List<Menu> menuList(int cafeNumber, String menuType){
-		HashMap map = new HashMap();
-		map.put("cafeNumber", cafeNumber);
-		map.put("menuType", menuType);
-		return service.selectMenuListByCafeNoAndMenuType(map);
+	public List menuList(@RequestParam("cafeNumber") int cafeNumber, @RequestParam("menuType") String menuType){
+	    HashMap map = new HashMap<>();
+	    map.put("cafeNumber", cafeNumber);
+	    map.put("menuType", menuType);
+	    List list = service.selectMenuListByCafeNoAndMenuType(map);
+		return list;
 	}
-	
 	/**
 	 * 구현 완료
 	 * @param cafeNumber
@@ -336,8 +336,8 @@ public class PrBoardController {
 		/*
 		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
 		 */
-		menu.setMenuNO(menuNo);
-		menu.setCafeNumber(cafeNumber);
+		menu.setMenuNo(menuNo);
+		menu.setCafeNo(cafeNumber);
 		menu.setMenuType(menuType);
 		menu.setMenuName(menuName);
 		

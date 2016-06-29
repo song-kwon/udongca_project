@@ -20,12 +20,8 @@ function a(pnum){
 		"success":function(obj){
 			 var page=obj['page'];
 			$("#table").empty();
-			if(!$("#table").hasChildNodes){
-				$("table").append("<tr><td>아이디</td><td>이름</td><td>이메일</td><td>페널티</td><td>로그인허용</td></tr>");
-			
-			}
 			$.each(obj['list'],function(){
-				$("#table").append("<tr onclick='link("+'"'+this.memberId+'",'+page.page+")'><td>"+this.memberId+"</td><td>"+this.memberName+"</td><td>"+this.memberEmail+"</td><td>"+this.memberPenalty+"</td><td>"+this.loginPossibility+"</td></tr>");
+				$("#table").append("<tr class='cursor' id='td2' onclick='link("+'"'+this.memberId+'",'+page.page+")'><td>"+this.memberId+"</td><td >"+this.memberName+"</td><td>"+this.memberEmail+"</td><td>"+this.memberPenalty+"</td><td>"+this.loginPossibility+"</td></tr>");
 				
 			});
 			
@@ -72,7 +68,7 @@ table{
 
 thead{
 	text-align:center;
-	width:400px;
+	width:800px;
 	height:40px;
 	margin:20px;
 	font-size:13pt;
@@ -87,7 +83,7 @@ table, tbody{
 	font-size:12pt;
 }
 
-.td{
+td{
 	border-top:1px dotted;
 	border-top-color:black;
 }
@@ -97,78 +93,31 @@ table, tbody{
 	table-layout:fixed;
 }
 
-td#td1:hover{text-decoration:underline; color:red;}
-td#td2:hover{text-decoration:underline; color:red;}
+tr#td2:hover{text-decoration:underline; color:red;}
 </style>
+
 
 <div id="p">
 <input type="hidden" id="pnum" value="${param.pnum }">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="success" value="${param.success}">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<div><h1>회원리스트</h1></div> 
-<table>
-	<thead>
-		<tr>
-			<td>아이디</td>
-			<td>이름</td>
-			<td>이메일</td>
-			<td>벌점</td>
-			<td>로그인허용</td>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${requestScope.map.list }" var="list">
-			<tr id="list" class="td" onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${list.memberId}&page=${requestScope.page }"'>
-				<td style="width:60px;" id="td1">${list.memberId }</td>
-				<td style="width:60px;" id="td2">${list.memberName }</td>
-				<td style="width:100px;">${list.memberEmail }</td>
-				<td style="width:30px;">${list.memberPenalty }</td>
-				<td style="width:30px;">${list.loginPossibility }</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+<h3 style="margin:30px;">회원리스트</h3> 
+<table >
+<thead>
+	<tr>
+		<td>아이디</td>
+		<td>이름</td>
+		<td>이메일</td>
+		<td>페널티</td>
+		<td>로그인허용</td>
+	</tr>
+</thead>
+<tbody id = "table" >
 
-<div align="center">
-<!-- 이전페이지그룹 -->
-<c:choose>
- 	<c:when test="${requestScope.map.pageBean.previousPageGroup }">
- 		<a href="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.map.pageBean.beginPage-1 }">
- 			◀
- 		</a>	
- 	</c:when>
- 	<c:otherwise>
-		◀ 	
- 	</c:otherwise>
- </c:choose>
-<!-- 숫자 -->
-<c:forEach begin="${requestScope.map.pageBean.beginPage }" end="${requestScope.map.pageBean.endPage }"
-			   var="p">
-	<c:choose>
-		<c:when test="${p != requestScope.map.pageBean.page }">
-			<a href="/udongca_project/member/memberListPaging.udc?pnum=${p }">
-				${p }
-			</a>
-			&nbsp;&nbsp;
-		</c:when>
-		<c:otherwise>
-			[${p }]&nbsp;&nbsp;
-		</c:otherwise>
-	</c:choose>
-</c:forEach>	
-<!-- 다음페이지그룹 -->
-<c:choose>
-	<c:when test="${requestScope.map.pageBean.nextPageGroup }">
-		<a href="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.map.pageBean.endPage+1 }">
-			▶			
-		</a>
-	</c:when>
-	<c:otherwise>
-		▶
-	</c:otherwise>
-</c:choose>
-			<span id="page"></span>
-</div>
+</tbody>
+</table>
+			<div id="page" align="center"></div>
 </c:if>
 </div>
+

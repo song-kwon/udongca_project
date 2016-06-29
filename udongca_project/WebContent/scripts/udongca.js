@@ -280,6 +280,7 @@ $(window).resize(function(){
     	$('#wrap').css({position:'absloute'}).css({
     	'margin-left': ($(window).width() - $('#wrap').outerWidth())/2
     	})
+    
     }
 });
 

@@ -211,7 +211,10 @@ insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','r
 insert into REPORT_BOARD values(report_board_reportboardNo_seq.nextval,'cust','reason','content','result','cancelre','prboard',1,'scott');
 
 
-
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');
+insert into menu values(menu_menuNo_seq.nextval,1,'drink','아메리카노','/udongca_project/udongca-image/book-stack.png','fake');	
 create table menu(
 menuNo	NUMBER	primary key,
 cafeNo	NUMBER	NOT NULL,

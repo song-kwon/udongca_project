@@ -1,7 +1,6 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="https://use.fontawesome.com/d86bc62528.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -42,6 +41,7 @@ $(document).ready(function(){
 		}
 	} 
 	 
+<<<<<<< HEAD
 	 var form=document.submit
 	 form.memberPenalty.value=value;
 	if(value>=3 && form.loginPossibility.value=="possible"){
@@ -58,6 +58,9 @@ $(document).ready(function(){
 		return true;
 	else
 		return false;
+=======
+	
+>>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 } */
 function cancel(pnum){
 	location.href="/udongca_project/member/memberListPaging.udc?pnum="+pnum;
@@ -109,16 +112,19 @@ function submit(){
 	});
 }
 </script> 
+
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:400px;
+	width:450px;
 	margin:30px;
 }
-
+.fa{
+  font-size:30px;
+}
 table, th{
 	text-align:left;
-	width:400px;
+	width:450px;
 }
 
 .width_size{
@@ -129,31 +135,27 @@ table, th{
 	width:80px;
 }
 
-.fa{ font-size:30px; } 
-
 </style>
-
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<div><h1>회원정보관리</h1></div>${requestScope.succeess }
-<form name="submit" onsubmit="return checkPenalty()" action="/udongca_project/member/memberUpdate.udc?page=${requestScope.page }" method="post">
+<h3 style="margin:30px">회원정보관리</h3>
 	<input type="hidden" id="memberPenalty" value="${requestScope.memberInfo.memberPenalty }">
 	<input type="hidden" id="page" value="${param.page }">
 	<table>
 		<tr>
-			<th>아이디</th>
-	 		<td><input type="text" name = "memberId" readonly="readonly" value="${requestScope.memberInfo.memberId }"></td>
+			<td>아이디</td>
+	 		<td><input type="text" id = "memberId" readonly="readonly" value="${requestScope.memberInfo.memberId }"></td>
 		</tr>
 		<tr>
-			<th>이름</th>
-			<td><input type="text" name="memberName" readonly="readonly" value="${requestScope.memberInfo.memberName }"></td>
+			<td>이름</td>
+			<td><input type="text" id="memberName" readonly="readonly" value="${requestScope.memberInfo.memberName }"></td>
 		</tr>
 		<tr>	
-			<th>이메일</th>
-			<td><input type="text" name="memberEmail" readonly="readonly" value="${requestScope.memberInfo.memberEmail }"></td>
+			<td>이메일</td>
+			<td><input type="text" id="memberEmail" readonly="readonly" value="${requestScope.memberInfo.memberEmail }"></td>
 		</tr>
 		<tr>
-			<th>벌점</th>
+			<td>벌점</td>
 			<td>
 			<i class="fa fa-thumbs-o-down" ></i>
 			<i class="fa fa-thumbs-o-down" ></i>
@@ -161,7 +163,7 @@ table, th{
 			</td>
 		</tr>
 		<tr>
-			<th>로그인 가능 여부</th>
+			<td>로그인 가능여부</td>
 			<td>
 				<select id="loginPossibility">
 					<c:forEach items="${requestScope.code }" var="p">
@@ -176,16 +178,10 @@ table, th{
 					</c:forEach>
 				</select>
 			</td>
-			<tr>
-				<td rowspan="1">
-				<button type="button" onclick="submit()">수정</button>
-				<button type="button" onclick="cancel(${param.page})">뒤로가기</button>
-				</td>
-			</tr>
+			
 	</table>
-	<div align="center" style="width:450px;">
-		<input type="submit" class="width_size2" value="수정"/>&nbsp;&nbsp;
-		<button id="cancel" class="width_size2" formaction="/udongca_project/member/memberListPaging.udc?pnum=${requestScope.page }">취소</button>
-	</div>
-</form>
+			<div align="center">
+			<button type="button" onclick="submit()">수정</button>
+			<button type="button" onclick="cancel(${param.page})">뒤로가기</button>
+			</div>
 </c:if>

@@ -36,9 +36,7 @@
 	</delete>
 	<!-- 해당 카페의 카테고리에 따른 메뉴 목록 출력 -->
 	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
-		SELECT
-			menuNo menuNO,
-			menuName menuName
+		SELECT menuNo, cafeNo, menuType, menuName, menuRealImage, menuFakeImage
 		FROM menu
 		WHERE cafeNo = #{cafeNumber}
 		AND menuType = #{menuType}

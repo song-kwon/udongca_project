@@ -10,11 +10,11 @@
 				 for(var i = 0; i<obj.length;i++){
 					 for(var j = 0 ;j<obj[i].length;j++){
 						if(i==0){ 
-						$("#table1").append("<tr onclick='one("+obj[i][j].inquiryNo+")'><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
+						$("#table1").append("<tr id='tr1' class='cursor' onclick='one("+obj[i][j].inquiryNo+")'><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
 						}else if(i==1){
-							$("#table2").append("<tr onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+							$("#table2").append("<tr id='tr1' class='cursor' onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}else{
-							$("#table3").append("<tr onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+							$("#table3").append("<tr id='tr1' class='cursor' onclick='review("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}
 					 }
 				 } 
@@ -33,31 +33,59 @@
 	}
 </script>
 <style type="text/css">
-table, td, th{
-	border: 1px solid gray;
-}
 table{
 	border-collapse: collapse;
-	width: 700px;
+	border-top:2px solid;
+	border-bottom:2px solid;
+	width:800px;
+	margin:30px;
 	text-align:center;
 }
+
 thead{
+	text-align:center;
+	width:800px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
 	font-weight:bold;
+	cursor:default;
+	border-bottom:1.5px solid;
 }
-td,th{
-	padding: 5px;
+
+
+table, tbody{
+	height:30px;
+	font-size:12pt;
 }
+
+#tr1, .td{
+	border-top:1px dotted;
+	border-top-color:black;
+}
+
+.cursor{
+	cursor:pointer;
+	table-layout:fixed;
+}
+
+tr#tr1:hover{text-decoration:underline; color:red;}
 </style>
+
+
 <h2>1:1문의</h2>
-<table id = "table1" border="1">
+<table >
 	<thead>
-	<tr>
-		<td style="width:30px;">No</td>
-		<td style="width:200px;">제목</td>
-		<td style="width:60px;">문의유형</td>
-		<td style="width:60px;">작성자</td>
+	<tr id="tr">
+		<td style="width:100px;">No</td>
+		<td style="width:300px;">제목</td>
+		<td style="width:300px;">문의유형</td>
+		<td style="width:100px;">작성자</td>
 	</tr>
 	</thead>
+	<tbody id = "table1" >
+	
+	</tbody>
 </table>
 <br><br>
 <h2>리뷰 신고</h2>
@@ -69,18 +97,23 @@ td,th{
 		<td style="width:300px;">신고사유</td>
 		<td style="width:60px;">처리결과</td>
 	</tr>
-	</thead>
+</thead>
+<tbody id = "table2">
+
+</tbody>
 </table>
-<br><br>
-<h2>홍보글 신고</h2>
-<table id = "table3" border="1">
-	<thead>
-	<tr>
-		<td style="width:30px;">No</td>
-		<td style="width:60px;">신고자</td>
-		<td style="width:300px;">신고사유</td>
-		<td style="width:60px;">처리결과</td>
+<h2>홍보글신고</h2>
+<table style="table-layout:fixed;">
+<thead>
+	<tr id="tr">
+	<td style="width:50px;">No</td>
+	<td style="width:50px;">신고자</td>
+	<td style="width:300px;">신고사유</td>
+	<td style="width:300px;">처리결과</td>
 	</tr>
-	</thead>
+</thead>
+<tbody id="table3">
+</tbody>
 </table>
+
 
