@@ -17,8 +17,25 @@ public class ReviewReplyDaoImpl implements ReviewReplyDao{
 	}
 	
 	@Override
+	public int replySequenceNo() {
+	
+		return session.selectOne("reviewReplyMapper.replySequenceNo");
+	}
+	
+	@Override
 	public int addReply(ReviewReply reply) {
 		return session.insert("reviewReplyMapper.addReply",reply);
+	}
+	
+	@Override
+	public int addReReply(ReviewReply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("reviewReplyMapper.addReReply",reply);
+	}
+	
+	@Override
+	public ReviewReply selectReplyByReplyNo(int replyNo) {
+		return session.selectOne("reviewReplyMapper.selectReplyByReplyNo",replyNo);
 	}
 	
 }

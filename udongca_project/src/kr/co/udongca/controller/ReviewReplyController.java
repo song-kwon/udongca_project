@@ -16,15 +16,26 @@ import kr.co.udongca.vo.ReviewReply;
 @RequestMapping("/review/")
 public class ReviewReplyController {
 	@Autowired
-	private ReviewReplyServiceImpl service;
+	private ReviewReplyService service;
 	
 	@RequestMapping("addReply.udc")
 	@ResponseBody
-	public int  addReply(ReviewReply reply,HttpSession session){
-		System.out.println(reply);
+	public ReviewReply  addReply(ReviewReply reply,HttpSession session){
 		if(session.getAttribute("login") != null)
 			return service.addReply(reply);
-		else return 0;
+		else return null;
+	}
+	
+	@RequestMapping("addReReply.udc")
+	@ResponseBody
+	public ReviewReply addReReply(ReviewReply reply,HttpSession session){
+		if(session.getAttribute("login") != null){
+			ReviewReply reReply = service.addReReply(reply);
+			 if( reReply != null);{
+				 return reReply;
+			 }
+		}
+		else return null;
 	}
 	
 }
