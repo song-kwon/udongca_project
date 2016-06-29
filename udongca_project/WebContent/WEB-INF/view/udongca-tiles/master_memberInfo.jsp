@@ -1,7 +1,6 @@
 <%@ page contentType = "text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="https://use.fontawesome.com/d86bc62528.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -87,14 +86,33 @@ function submit(){
 	});
 }
 </script> 
-<style>
+
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:450px;
+	margin:30px;
+}
 .fa{
   font-size:30px;
 }
+table, th{
+	text-align:left;
+	width:450px;
+}
+
+.width_size{
+	width:150px;
+}
+
+.width_size2{
+	width:80px;
+}
+
 </style>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<h3>회원정보관리</h3>${requestScope.succeess }
+<h3 style="margin:30px">회원정보관리</h3>
 	<input type="hidden" id="memberPenalty" value="${requestScope.memberInfo.memberPenalty }">
 	<input type="hidden" id="page" value="${param.page }">
 	<table>
@@ -134,11 +152,10 @@ function submit(){
 					</c:forEach>
 				</select>
 			</td>
-			<tr>
-				<td rowspan="1">
-				<button type="button" onclick="submit()">수정</button>
-				<button type="button" onclick="cancel(${param.page})">뒤로가기</button>
-				</td>
-			</tr>
+			
 	</table>
+			<div align="center">
+			<button type="button" onclick="submit()">수정</button>
+			<button type="button" onclick="cancel(${param.page})">뒤로가기</button>
+			</div>
 </c:if>

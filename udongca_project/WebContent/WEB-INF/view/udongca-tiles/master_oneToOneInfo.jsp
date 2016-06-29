@@ -32,32 +32,46 @@ function requiryReply(){
 	
 }
 </script>
+<style type="text/css">
+table{
+border-top:1px solid;
+border-collapse: collapse;
+	margin:30px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.text{
+	font-weight:bold;
+}
+td{
+	border-top: 1px dotted;
+}
+</style>
 <div class="container">
-<h3>1:1문의</h3>
+<h3 style="margin:30px">1:1문의</h3>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
-<table>
+<table border="1">
 <tr>
 	<td>
-		<input type="text" readonly="readonly" id="no" value="${requestScope.inquiryNo.inquiryNo }">
-		<input type="text" readonly="readonly" id="title" value="${requestScope.inquiryNo.inquiryTitle }">
-		<input type="text" readonly="readonly" id="id" value="${requestScope.inquiryNo.memberId }">
+		NO : <input type="text"  style="border: 0px;" readonly="readonly" id="no" value="${requestScope.inquiryNo.inquiryNo }">
+		Title : <input type="text" style="border: 0px;" readonly="readonly" id="title" value="${requestScope.inquiryNo.inquiryTitle }">
+		memberId : <input type="text" style="border: 0px;" readonly="readonly" id="id" value="${requestScope.inquiryNo.memberId }">
 	</td>
 </tr>
 <tr>
 	<td>
-		<textarea rows="10" cols="100" id="content" readonly="readonly">${requestScope.inquiryNo.inquiryContent }</textarea>
+		<textarea rows="10" style="border: 0px;" cols="100" id="content" readonly="readonly">${requestScope.inquiryNo.inquiryContent }</textarea>
 	</td>
 </tr>
 	<tr>
 		<td colspan="1">
-	<textarea rows="10" cols="100" id="reply">${requestScope.inquiryNo.inquiryReply }</textarea>
-	</td>
-	</tr>
-	<tr>
-	<td>
-		<button onclick="requiryReply()">답변등록</button>
-	<button onclick='location.href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.page }"'>뒤로가기</button>
+	<textarea rows="10" style="border: 0px;" cols="100" id="reply" placeholder="답변을 입력하세요">${requestScope.inquiryNo.inquiryReply }</textarea>
 	</td>
 	</tr>
 	</table>
+	<div align="center">
+		<button onclick="requiryReply()">답변등록</button>
+	<button onclick='location.href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?page=${requestScope.page }"'>뒤로가기</button>
+	</div>
 </div>

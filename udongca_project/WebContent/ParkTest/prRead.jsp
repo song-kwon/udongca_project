@@ -80,7 +80,7 @@
 				// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
 			};
 			
-			/* function favoriteToggle(){
+			function favoriteToggle(){
 				$.ajax({
 					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
 					"type":"POST",
@@ -94,7 +94,7 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-			}; */
+			}; 
 			
 			function prevImage(){
 				currentImageNumber--;
@@ -140,7 +140,7 @@
 							}
 								  
 							 // Activate Carousel
-						    $("#myCarousel").carousel();
+						    $("#myCarousel").carousel({interval:500});
 						    // Enable Carousel Indicators
 						    $(".item1").on("click",function(){
 						        $("#myCarousel").carousel(0);
@@ -156,7 +156,7 @@
 						    });
 					},
 					"error":function(xhr){
-						//alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
+						alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
 					}
 					
 				});
@@ -220,7 +220,7 @@
 			}
 			
 			function menuRead(menuNO){
-				/*
+				
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -236,11 +236,11 @@
 						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-				*/
+				
 			}
 			
 			function reviewList(page){
-				/*
+				
 				$.ajax({
 					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
 					"type":"POST",
@@ -254,9 +254,10 @@
 						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
-				*/
+				
 			}
-		</script>
+			}
+			</script>
 	</head>
 	<body>
 		<table>
