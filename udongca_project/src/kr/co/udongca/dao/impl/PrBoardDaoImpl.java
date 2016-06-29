@@ -68,8 +68,12 @@ public class PrBoardDaoImpl implements PrBoardDao{
 
 	@Override
 	public List<Menu> selectMenuListByCafeNoAndMenuType(Map map) {
-		System.out.println(session.selectList(menuNamespace + "selectMenuListByCafeNoAndMenuType", map));
 		return session.selectList(menuNamespace + "selectMenuListByCafeNoAndMenuType", map);
+	}
+	
+	@Override
+	public List<Menu> selectMenuListByCafeNo (int cafeNumber){
+		return session.selectList(menuNamespace + "selectMenuListByCafeNo", cafeNumber);
 	}
 
 	@Override

@@ -44,6 +44,7 @@
 					$("[name='menuTypeArray']").each(function(){
 						if ($("option:selected", this).text() == "종류"){
 							alert("종류를 선택하세요");
+							return false;
 						}
 					});
 					$("[name='menuNameArray']").each(function(){

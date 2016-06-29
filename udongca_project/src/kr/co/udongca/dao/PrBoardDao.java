@@ -70,6 +70,12 @@ public interface PrBoardDao {
 	 */
 	public List<Menu> selectMenuListByCafeNoAndMenuType (Map map);
 	/**
+	 * 해당 카페의 메뉴 리스트 출력
+	 * @param cafeNumber 해당 카페 번호
+	 * @return 해당 카페 번호에 맞는 메뉴 리스트 출력
+	 */
+	public List<Menu> selectMenuListByCafeNo (int cafeNumber);
+	/**
 	 * 해당 메뉴 번호에 맞는 메뉴 객체 출력
 	 * @param menuNo 선택하고자 하는 메뉴 번호
 	 * @return 해당 메뉴 번호에 맞는 메뉴 객체 출력
