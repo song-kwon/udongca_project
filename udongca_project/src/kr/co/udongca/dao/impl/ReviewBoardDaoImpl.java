@@ -39,4 +39,9 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public List<ReviewReply> ReviewReplyList(int reviewNo) {
 		return session.selectList("reviewBoardMapper.reviewReplyList",reviewNo);
 	}
+	
+	@Override
+	public int reviewGourpCount(int reviewNo) {
+		return session.selectOne("reviewBoardMapper.reviewGourpCount",reviewNo);
+	}
 }

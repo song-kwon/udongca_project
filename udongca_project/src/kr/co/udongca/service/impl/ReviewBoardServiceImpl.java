@@ -53,6 +53,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		map.put("reviewNo", reviewNo);
 		
 		Map<String,Object> reviewBoard= new HashMap<>();
+		reviewBoard.put("countGroup", dao.reviewGourpCount(reviewNo));
 		reviewBoard.put("review",dao.reviewDetail(map));
 		reviewBoard.put("reply", dao.ReviewReplyList(reviewNo));
 		return reviewBoard;

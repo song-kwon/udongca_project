@@ -8,24 +8,65 @@
 <script type="text/javascript" src="../scripts/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	
+	var countGroup = '${requestScope.countGroup}';
 	$('#addReply').on('click',function(){
+		++countGroup;
 		$.ajax({
 			'url':'/udongca_project/review/addReply.udc',
 			'type':'post',
-			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'reviewNo':'${param.reviewNo}'},
-			'dataType':'text',
-			'success':function(txt){
-				if(txt==0){
+			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'replyGroup':countGroup,'reviewNo':'${param.reviewNo}'},
+			'dataType':'json',
+			'error':function(){alert('에러');alert(countGroup);},
+			'success':function(json){
+				if(json==null){
 					alert('등록 실패. 다시 시도하세요.');
 					return false;
 				}
 				else{
-					$('#replyBoard').append('<div class="reply"><div>${sessionScope.login.memberId}</div><div class="replyContent">'+$('#replyContent').val()+'</div></div>');
+					$('#replyBoard').append('<tbody class="reply" class="'+json.replyNo+'"><tr id="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="replyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">'+$('#replyContent').val()+'</textarea></td></tr></tbody>');
 					$('#replyContent').val("");
 				}
 			}
 		});
 	});
+	
+	$('#replyBoard').on('click','.reReplyInputBtn',function(){
+		$("#reReplyInput").remove();
+		alert($(this).parent().parent().parent().prop('id'));
+		$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='replyContent' placeholder='댓글 입력'><button class='addReReply'>등록</button></div>");
+	});
+	
+	$('#replyBoard').on('click','.addReReply',function(){
+		var reReply = $(this).parent().parent();
+		alert(reReply.prop('id'))//parentReply
+		alert(reReply.children(':first').prop('class'))//group
+		alert(reReply.children(':first').find(':first').prop('id'))//targetName
+		$.ajax({
+			'url':'/udongca_project/review/addReReply.udc',
+			'type':'post',
+			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'reviewNo':'${param.reviewNo}','parentReply':reReply.prop('id'),'targetName':reReply.children(':first').find(':first').prop('id'),'replyGroup':reReply.children(':first').prop('class')},
+			'dataType':'json',
+			'error':function(){
+				alert('error');
+			},
+			'success':function(json){
+				if(json==null){
+					alert('등록 실패. 다시 시도하세요.');
+					return false;
+				}
+				else{
+					$('.'+json.replyGroup).last().parent().append('<tbody class="reReply" id="'+json.replyNo+'"><tr class="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="reReplyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">['+json.targetName+']'+$('#replyContent').val()+'</textarea></td></tr></tbody>');
+					//reReply.append('<tbody class="reply" id="'+json.replyNo+'"><tr class="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="replyContent">['+json.targetName+']'+$('#replyContent').val()+'</td></tr></tbody>');
+					$('#replyContent').val("");
+					$("#reReplyInput").remove();
+				}
+			}
+		}); 
+	});
+	
+	
 });
 </script>
 <style type="text/css">
@@ -40,7 +81,6 @@ $(document).ready(function(){
 .reReply{
 	text-indent: 50px;
 }
-
 
 </style>
 </head>
@@ -63,25 +103,32 @@ $(document).ready(function(){
 </tbody>
 </table>
 ---댓글---
-<div id="replyBoard">
-<c:forEach items="${requestScope.reply }" var="reply">
-	<c:if test="${reply.parentReply eq 0 }">
-			<div class="reply">
-			<div>${reply.replyId }&nbsp;<button>답글</button></div>
-			<div class="replyContent">${reply.replyContent }</div>
-			</div>
-	</c:if>
+<table id="replyBoard">
+<c:forEach begin="1" end="${requestScope.countGroup }" varStatus="group">
+
+	<c:forEach items="${requestScope.reply }" var="reply">
+		<c:if test="${reply.replyGroup eq group.index  and reply.parentReply == 0}">
+			<tbody class="reply" id="${reply.replyNo }">
+				<tr class='${group.index }'>
+					<td id="${reply.replyId }">${reply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button>
+				<tr>
+					<td class="replyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">${reply.replyContent }</textarea>
+			</tbody>
+		</c:if>
+	</c:forEach>
 	
 	<c:forEach items="${requestScope.reply }" var="reReply">
-		<c:if test="${reReply.parentReply eq reply.replyNo }">
-			<div class="reReply">
-			<div>${reReply.replyId }&nbsp;<button>답글</button></div>
-			<div class="reReplyContent">[${reReply.targetName}]${reReply.replyContent }</div>
-			</div>
+		<c:if test="${reReply.replyGroup eq group.index and reReply.parentReply !=0 }">
+			<tbody class="reReply" id="${reReply.replyNo }">
+				<tr  class='${group.index }' >
+					<td id="${reReply.replyId }">${reReply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button>
+				<tr>
+					<td class="reReplyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">[${reReply.targetName}]${reReply.replyContent }</textarea>
+			</tbody>
 		</c:if>
 	</c:forEach>
 </c:forEach>
-</div>
+</table>
 	<input type="text" id="replyContent" placeholder="댓글 입력">
 	<button id="addReply">등록</button>
 </body>

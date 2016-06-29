@@ -2,11 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewReplyMapper">
 	<sql id="reviewReply-column">
-		replyNo,replyId,replyContent,replyDate,parentReply,targetName,reviewNo
+		replyNo,replyId,replyContent,replyDate,replyGroup,parentReply,targetName,reviewNo
 	</sql>
 	
+	<select id="replySequenceNo" resultType="int">
+		select review_reply_replyNo_seq.nextval from dual
+	</select>
+	
+	<select id="selectReplyByReplyNo" parameterType="int" resultType="reviewReply">
+		select <include refid="reviewReply-column"/>
+		from review_reply
+		where replyNo = #{replyNo}
+	</select>
+	
 	<insert id="addReply" parameterType="reviewReply">
-		insert into review_reply (replyNo,replyId,replyContent,replyDate,reviewNo,parentReply) 
-		values(review_reply_replyNo_seq.nextval,#{replyId},#{replyContent},sysdate,#{reviewNo},0)
+		insert into review_reply (replyNo,replyId,replyContent,replyDate,replyGroup,parentReply,reviewNo) 
+		values(#{replyNo},#{replyId},#{replyContent},sysdate,#{replyGroup},#{parentReply},#{reviewNo})
 	</insert>
+	
+	<insert id="addReReply" parameterType="reviewReply">
+		insert into review_reply (replyNo,replyId,replyContent,replyDate,replyGroup,parentReply,targetName,reviewNo) 
+		values(#{replyNo},#{replyId},#{replyContent},sysdate,#{replyGroup},#{parentReply},#{targetName},#{reviewNo})
+	</insert>
+	
 </mapper>

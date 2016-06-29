@@ -15,4 +15,6 @@ public interface ReviewBoardDao {
 	public ReviewBoard reviewDetail(Map<String, Integer>	map);
 	
 	public List<ReviewReply> ReviewReplyList(int reviewNo);
+	
+	public int reviewGourpCount(int reviewNo);
 }

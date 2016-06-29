@@ -1,7 +1,9 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
-
+	
+		select *
+		from (select * from review_reply where reviewNo=11 order by replygroup desc)
 
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
@@ -243,6 +245,7 @@ replyNo	NUMBER	primary key,
 replyId	varchar2(50)	NOT NULL,
 replyContent	CLOB	NOT NULL,
 replyDate	DATE	NOT NULL,
+replyGroup NUMBER not null,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
 reviewNO	NUMBER	NOT NULL,
@@ -251,15 +254,15 @@ foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
 
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야4',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,1,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,2,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,3,0,'',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','리플이야4',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,1,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,3,0,'udonca',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,3,0,'scott',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,2,0,'udongca',11);
 
 
 

@@ -8,6 +8,7 @@ public class ReviewReply {
 	private String replyId;
 	private String replyContent;
 	private Date replyDate;
+	private int replyGroup;
 	private int parentReply;
 	private String targetName;
 	private int reviewNo;
@@ -16,25 +17,14 @@ public class ReviewReply {
 	public ReviewReply() {
 	}
 
-	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int parentReply,
-			String targetName, int reviewNo) {
+	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int replyGroup,
+			int parentReply, String targetName, int reviewNo, ReviewBoard reviewBoard) {
 		super();
 		this.replyNo = replyNo;
 		this.replyId = replyId;
 		this.replyContent = replyContent;
 		this.replyDate = replyDate;
-		this.parentReply = parentReply;
-		this.targetName = targetName;
-		this.reviewNo = reviewNo;
-	}
-
-	public ReviewReply(int replyNo, String replyId, String replyContent, Date replyDate, int parentReply,
-			String targetName, int reviewNo, ReviewBoard reviewBoard) {
-		super();
-		this.replyNo = replyNo;
-		this.replyId = replyId;
-		this.replyContent = replyContent;
-		this.replyDate = replyDate;
+		this.replyGroup = replyGroup;
 		this.parentReply = parentReply;
 		this.targetName = targetName;
 		this.reviewNo = reviewNo;
@@ -71,6 +61,14 @@ public class ReviewReply {
 
 	public void setReplyDate(Date replyDate) {
 		this.replyDate = replyDate;
+	}
+
+	public int getReplyGroup() {
+		return replyGroup;
+	}
+
+	public void setReplyGroup(int replyGroup) {
+		this.replyGroup = replyGroup;
 	}
 
 	public int getParentReply() {
@@ -112,6 +110,7 @@ public class ReviewReply {
 		result = prime * result + parentReply;
 		result = prime * result + ((replyContent == null) ? 0 : replyContent.hashCode());
 		result = prime * result + ((replyDate == null) ? 0 : replyDate.hashCode());
+		result = prime * result + replyGroup;
 		result = prime * result + ((replyId == null) ? 0 : replyId.hashCode());
 		result = prime * result + replyNo;
 		result = prime * result + ((reviewBoard == null) ? 0 : reviewBoard.hashCode());
@@ -141,6 +140,8 @@ public class ReviewReply {
 				return false;
 		} else if (!replyDate.equals(other.replyDate))
 			return false;
+		if (replyGroup != other.replyGroup)
+			return false;
 		if (replyId == null) {
 			if (other.replyId != null)
 				return false;
@@ -166,11 +167,11 @@ public class ReviewReply {
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyId=" + replyId + ", replyContent=" + replyContent
-				+ ", replyDate=" + replyDate + ", parentReply=" + parentReply + ", targetName=" + targetName
-				+ ", reviewNo=" + reviewNo + ", reviewBoard=" + reviewBoard + "]";
+				+ ", replyDate=" + replyDate + ", replyGroup=" + replyGroup + ", parentReply=" + parentReply
+				+ ", targetName=" + targetName + ", reviewNo=" + reviewNo + ", reviewBoard=" + reviewBoard + "]";
 	}
 
-	
+
 	
 	
 }
