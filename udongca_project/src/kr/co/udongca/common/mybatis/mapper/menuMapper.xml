@@ -12,7 +12,7 @@
 			menuFakeImage
 		)
 		VALUES(
-			#{menuNO},
+			#{menuNo},
 			#{cafeNumber},
 			#{menuType},
 			#{menuName},
@@ -32,7 +32,7 @@
 	<!-- 메뉴 삭제 -->
 	<delete id="deleteMenu" parameterType="_int">
 		DELETE FROM menu
-		WHERE menuNo = #{menuNO}
+		WHERE menuNo = #{menuNo}
 	</delete>
 	<!-- 해당 카페의 카테고리에 따른 메뉴 목록 출력 -->
 	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
@@ -44,7 +44,7 @@
 	<!-- 해당 카페의 메뉴 목록 출력 -->
 	<select id="selectMenuListByCafeNo" parameterType="int" resultType="menu">
 		SELECT
-			menuNo menuNO,
+			menuNo menuNo,
 			menuType menuType,
 			menuName menuName,
 			menuRealImage menuRealImage,
@@ -55,12 +55,12 @@
 	<!-- 메뉴 선택 시 업로드된 이미지 출력 -->
 	<select id="selectMenuByMenuNo" parameterType="_int" resultType="menu">
 		SELECT
-			menuNo menuNO,
+			menuNo menuNo,
 			menuName menuName,
 			menuRealImage menuRealImage,
 			menuFakeImage menuFakeImage
 		FROM menu
-		WHERE menuNo = #{menuNO}
+		WHERE menuNo = #{menuNo}
 	</select>
 	<!-- 메뉴 Sequence -->
 	<select id="selectNextMenuSequence" resultType="_int">
