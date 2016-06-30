@@ -42,7 +42,7 @@ public class PrBoardController {
 		/*
 		 * TODO: 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
 		 */
-		return "/ParkTest/prRead.jsp";
+		return "prBoard_view.tiles";
 	}
 	
 	/**
@@ -283,7 +283,7 @@ public class PrBoardController {
 		model.put("managerName", map.get("managerName"));
 		model.put("managerTel", map.get("managerTel"));
 		
-		return "/ParkTest/prWrite2.jsp";
+		return "prBoard_write_form2.tiles";
 	}
 	
 	/**

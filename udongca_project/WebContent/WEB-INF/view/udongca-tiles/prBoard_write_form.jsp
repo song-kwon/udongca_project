@@ -130,7 +130,7 @@ function isValidCoporateNumb(){
 	}
 }
 </script>
-<div class="nonav_bodyDiv" style="width:420px;height:470px;">
+<div class="nonav_bodyDiv" style="width:440px;height:470px;">
 굵은 글씨 항목은 필수 입력 사항을 나타냅니다.
 <br>
 <form action="/udongca_project/prBoard/moveToNewPr2Jsp.udc"

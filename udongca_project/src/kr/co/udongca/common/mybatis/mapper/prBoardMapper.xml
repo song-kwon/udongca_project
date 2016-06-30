@@ -48,6 +48,21 @@
 			memberId memberId
 		FROM PRboard
 	</sql>
+	
+	<sql id="prboard-column">
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeIntro cafeIntro,
+			cafeTel cafeTel,
+			cafeFeature cafeFeature,
+			cafeAddress cafeAddress,
+			operationHour operationHour,
+			managerName managerName,
+			managerTel managerTel,
+			cafeRealImage cafeRealImage,
+			cafeFakeImage cafeFakeImage,
+			memberId memberId
+	</sql>
 	<!-- 홍보글 추가 -->
 	<insert id="insertPRBoard" parameterType="PRBoard">
 		INSERT INTO PRboard (

@@ -1,9 +1,5 @@
 $(document).ready(function(){
 	
-	$('#dddd').on('click',function(){
-		alert(3);
-	});
-	
 	$("#address1").on("change", function(){
 		var es = this;
 		$("#address2").empty().append("<option>군/구</option>");
@@ -28,6 +24,7 @@ $(document).ready(function(){
 	});
 
 	$("#searchAddress").on("click", function(){
+		$("#theme").val(0);
 		if ($("#address1").val() == "시/도" || $("#address2").val() == "군/구"){
 			alert("올바른 지역을 선택하세요");
 			($("#address1").val() == "시/도") ? $("#address1").focus() : $("#address2").focus();
@@ -52,29 +49,29 @@ $(document).ready(function(){
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</div>");
+							$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
 						
 						if(json.pageBean.previousPageGroup){
-							$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>');
+							$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>&nbsp;&nbsp;');
 						}else{
-							$("#pageNum").append('◀');
+							$("#pageNum").append('◀&nbsp;&nbsp;');
 						}
 						
 						for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 							if(idx == json.pageBean.page)
-								$("#pageNum").append('['+idx+']');
+								$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
 							else
-								$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a>');
+								$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a>&nbsp;&nbsp;');
 						}
-					}
-					
-					if(json.pageBean.nextPageGroup){
-						$("#pageNum").append('<a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a>');
-					}else{
-						$("#pageNum").append('▶');
+						
+						if(json.pageBean.nextPageGroup){
+							$("#pageNum").append('<a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a>');
+						}else{
+							$("#pageNum").append('▶');
+						}
 					}
 				}
 			});
@@ -83,6 +80,8 @@ $(document).ready(function(){
 	
 	
 	$("#searchTheme").on("click", function(){
+		$("#address1").val(0)
+		$("#address2").empty().append('<option value=0>시/도 먼저 선택</option>');
 		$("#searchResult").empty();
 		
 		$.ajax({
@@ -98,7 +97,7 @@ $(document).ready(function(){
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</div>");
+						$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
 						//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 					}
 					
@@ -115,12 +114,11 @@ $(document).ready(function(){
 						else
 							$("#pageNum").append('<a href="#" onclick="themePage('+idx+')"> '+idx+' </a>');
 					}
-				}
-				
-				if(json.pageBean.nextPageGroup){
-					$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
-				}else{
-					$("#pageNum").append('▶');
+					if(json.pageBean.nextPageGroup){
+						$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
+					}else{
+						$("#pageNum").append('▶');
+					}
 				}
 				
  			}
@@ -427,3 +425,87 @@ function sessionCheck(memberId){
 		}
 	}
 }
+
+function themePage(page){
+	$.ajax({
+		"url":"/udongca_project/search/themeSearchResult.udc",
+		"type":"POST",
+		"data":"cafeFeature=" + $("#theme").val() + "&page=" + page,
+		"dataType":"json",
+		"success":function(json){
+			$("#searchResult").empty();
+			$("#pageNum").empty();
+			if (json == null || json.list.length == 0){
+				$("#searchResult").append("검색 결과 없음");
+			}
+			else{
+				for(var i = 0; i < json.list.length; i++){
+					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
+				}
+				
+				if(json.pageBean.previousPageGroup){
+					$("#pageNum").append('<a href="#" onclick="themePage('+ (json.pageBean.beginPage-1) +')">◀</a>');
+				}else{
+					$("#pageNum").append('◀');
+				}
+				
+				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
+					if(idx == json.pageBean.page)
+						$("#pageNum").append('['+idx+']');
+					else
+						$("#pageNum").append('<a href="#" onclick="themePage('+idx+')"> '+idx+' </a>');
+				}
+			}
+			if(json.pageBean.nextPageGroup){
+				$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
+			}else{
+				$("#pageNum").append('▶');
+			}
+		}
+	
+	});
+}
+
+ function addressPage(submitString,page){
+	$.ajax({
+		"url":"/udongca_project/search/locationSearchResult.udc",
+		"type":"POST",
+		"data":"cafeAddress=" + submitString + "&page=" + page,
+		"dataType":"json",
+		"success":function(json){
+			submitString= "'"+submitString+"'";
+			$("#searchResult").empty();
+			$("#pageNum").empty();
+			if (json == null || json.list.length == 0){
+				$("#searchResult").append("검색 결과 없음");
+			}
+			else{
+				for(var i = 0; i < json.list.length; i++){
+					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
+				}
+				
+				
+				if(json.pageBean.previousPageGroup){
+					$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>&nbsp;&nbsp;');
+				}else{
+					$("#pageNum").append('◀&nbsp;&nbsp;');
+				}
+				
+				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
+					if(idx == json.pageBean.page)
+						$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
+					else
+						$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a>&nbsp;&nbsp;');
+				}
+			}
+			
+			if(json.pageBean.nextPageGroup){
+				$("#pageNum").append('<a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a>');
+			}else{
+				$("#pageNum").append('▶');
+			}
+		}
+	});
+} 

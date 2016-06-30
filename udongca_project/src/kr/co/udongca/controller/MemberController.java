@@ -324,4 +324,21 @@ public class MemberController {
 			return new ModelAndView("error.tiles", "error_message", e.getMessage());
 		}
 	}
+	
+	@RequestMapping("member_prBoard_list.udc")
+	public ModelAndView memberPRBoardList(@RequestParam(required = false) String pnum,HttpSession session){
+		Member login = (Member)session.getAttribute("login");
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			Map<String, Object> map = memberService.memberPRBoardList(page, login.getMemberId());
+			return new ModelAndView("member/member_prBoard_list.tiles", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("error.tiles", "error_message", e.getMessage());
+		}
+	}
 }

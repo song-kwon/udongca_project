@@ -162,15 +162,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#dddd').on('click',function(){
-		alert(1);
-	});
-	$('#dddd').on('click',function(){
-		alert(2);
-	});
-	
- 	 //var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
-	 //alert(isID.test(/*비교할 대상*/)); 
 });
 
 function themePage(page){

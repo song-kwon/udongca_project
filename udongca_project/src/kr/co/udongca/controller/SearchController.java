@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -92,4 +93,19 @@ public class SearchController {
 		return service.selectThemeCategroy();
 	}
 	
+	@RequestMapping("address_search_result.udc")
+	public String mainAddressSearchResult(String address1,String address2,ModelMap map){
+		String cafeAddress = address1+" "+address2;
+		if(cafeAddress.equals("세종특별자치시 세종시")) cafeAddress="세종특별자치시";
+		
+		map.put("result", locationSearchResult(cafeAddress, 1));
+		
+		return "search/search_result.tiles";
+	}
+	
+	@RequestMapping("theme_search_result.udc")
+	public String mainThemeSearchResult(String cafeFeature,ModelMap map){
+		map.put("result", themeSearchResult(cafeFeature, 1));
+		return "search/search_result.tiles";
+	}
 }

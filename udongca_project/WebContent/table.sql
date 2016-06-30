@@ -2,31 +2,6 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 	
-SELECT
-			cafeNo cafeNo,
-			cafeName cafeName,
-			cafeFakeImage cafeFakeImage
-		FROM (
-			SELECT
-				CEIL(rownum/2) page,
-				cafeNo,
-				cafeName,
-				cafeFeature,
-				cafeAddress,
-				cafeFakeImage
-			FROM (
-				SELECT
-					cafeNo,
-					cafeName,
-					cafeFeature,
-					cafeAddress,
-					cafeFakeImage
-				FROM PRboard
-				ORDER BY cafeNo DESC
-				)
-			)
-		WHERE page=1
-
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
