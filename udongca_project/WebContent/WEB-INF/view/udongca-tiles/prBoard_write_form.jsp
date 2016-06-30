@@ -4,6 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#cafeAddress").on("click", function(){
+		alert("!");
 		execDaumPostcode();
 	});
 	
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		execDaumPostcode();
 	});
 	
-	$("#searchAddress").on("click", function(){
+	$("#searchAddressButton").on("click", function(){
 		execDaumPostcode();
 	});
 	
@@ -172,7 +173,7 @@ function isValidCoporateNumb(){
 		<tr>
 			<td><b>카페주소</b></td>
 			<td><input type="text" name="cafeAddress" id="cafeAddress">
-				<input type="button" value="주소검색" id="searchAddress"></td>
+				<input type="button" value="주소검색" id="searchAddressButton"></td>
 			<td id="cafeAddressTd"></td>
 		</tr>
 		<tr>
