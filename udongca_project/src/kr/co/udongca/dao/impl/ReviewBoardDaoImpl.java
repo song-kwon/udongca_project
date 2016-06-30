@@ -54,4 +54,9 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public List<ReviewBoard> cafeReviewListPaging(Map map) {
 		return session.selectList("reviewBoardMapper.cafeReviewListPaging",map);
 	}
+
+	@Override
+	public ReviewBoard selectReview(int reviewNo) {
+		return session.selectOne("reviewBoardMapper.selectReview", reviewNo);
+	}
 }

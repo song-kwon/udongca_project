@@ -35,7 +35,6 @@
 			var currentMenuType = null;
 			
 			$(document).ready(function(){
-				mapLocation();
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
@@ -44,7 +43,7 @@
 					"success":function(json){
 						for(var i = 0; i < json.length; i++){
 							var a= "'"+json[i].codeName+"'" ;
-							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+a+')">' + json[i].codeName + '</a></li>');
+							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+ a +')">' + json[i].codeName + '</a></li>');
 						}
 					},
 					"error":function(xhr){
@@ -127,6 +126,7 @@
 			
 			function menuImage(no,menuType){
 				$("#content").empty();
+				$("#content").attr("style", "");
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -139,16 +139,17 @@
 							for(var i =0;i<obj.length;i++){
 								
 								if(i==0){
+									alert(obj[i].menuFakeImage);
 								$(".carousel-inner").append("<div class='item active'>"+
-									      "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
-								$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
+									      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+								$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 								}else{
+									alert(obj[i].menuFakeImage);
 									$(".carousel-inner").append("<div class='item'>"+
-										    "<img src='"+obj[i].menuRealImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
-									$(".carousel-indicators").append("<img src='"+obj[i].menuRealImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
+										    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+									$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
 								}
 							}
-								  
 							 // Activate Carousel
 						    $("#myCarousel").carousel({interval:500});
 						    // Enable Carousel Indicators
@@ -212,58 +213,6 @@
 				});
 			}
 			
-			function menuListByType(menuType){
-				$("#content").empty();
-				$("#content").attr("style", "");
-				if (currentMenuType == menuType){
-					for (var i = 0; i < currentMenuList.length; i++){
-						$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + currentMenuList[i].menuNO + "," + menuType + ")'>" +  currentMenuList[i].menuName + "</a>");
-					}
-					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
-						$("#content").append("<button onclick='menuModifyForm(" + menuType + ")'>수정</button>");
-					}
-				}
-				else{
-					currentMenuType = menuType;
-					$.ajax({
-						"url":"/udongca_project/prBoard/menuList.udc",
-						"type":"POST",
-						"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
-						"dataType":"json",
-						"success":function(json){
-							currentMenuList = json;
-							for (var i = 0; i < currentMenuList.length; i++){
-								$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + currentMenuList[i].menuNO + "," + menuType + ")'>" +  currentMenuList[i].menuName + "</a><br>");
-							}
-							if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
-								$("#content").append("<button onclick='menuModifyForm()'>수정</button>");
-							}
-						},
-						"error":function(xhr){
-							alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
-						}
-					});
-				}
-			}
-			
-			function menuRead(menuType){
-				$.ajax({
-					"url":"/udongca_project/prBoard/menuList.udc",
-					"type":"POST",
-					"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
-					"dataType":"json",
-					"success":function(json){
-						$("#content").empty();
-						for (var i = 0; i < json.length; i++){
-							$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + json[i].menuNO + ")'>" +  json[i].menuName + "</a><br>");
-						}
-					},
-					"error":function(xhr){
-						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
-					}
-				});
-			}
-			
 			function menuModifyForm(){
 				window.location.href = "menuModifyForm.udc?cafeNo=${requestScope.prBoard.cafeNo}";
 			}
@@ -278,7 +227,6 @@
 					"data":"cafeNo=${requestScope.prBoard.cafeNo}&pnum=" + page,
 					"dataType":"json",
 					"success":function(json){
-						
 						html += "<table>";
 						for (var i = 0; i < json.list.length; i++){
 							html += "<tr>";
@@ -288,42 +236,36 @@
 							html += "</tr>";
 						}
 						html += "</table><br>";
-						
-						alert(json.pageBean.previousPageGroup);
-						alert(json.pageBean.beginPage);
-						alert(json.pageBean.endPage);
-						alert(json.pageBean.nextPageGroup);
-						
-						if (!json.pageBean.previousPageGroup){
-							html += "◀";
-						}
-						else{
-							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>";
-						}
+						html += ((!json.pageBean.previousPageGroup) ? "◀" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>");
 						
 						for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
-							if (i == page){
-								html += "<b>" + i + "</b>";
-							}
-							else{
-								html += "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>";
-							}
+							html += ((i == page) ? "<b>" + i + "</b>" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>");
 						}
 						
-						if (!json.pageBean.nextPageGroup){
-							html += "▶";
-						}
-						else{
-							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a>";
-						}
-						
-						alert(html);
-						
+						html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a>");
+												
 						$("#content").append(html);
 					},
 					
 					"error":function(xhr){
 						alert("An error occured in reviewList(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+			}
+			
+			function reviewRead(reviewNo){
+				$("#content").empty();
+				$.ajax({
+					"url":"/udongca_project/review/reviewRead.udc",
+					"type":"POST",
+					"data":"reviewNo=" + reviewNo,
+					"dataType":"json",
+					"success":function(json){
+						alert(json);
+					},
+					
+					"error":function(xhr){
+						alert("An error occured in reviewRead(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
 			}

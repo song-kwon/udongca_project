@@ -21,4 +21,6 @@ public interface ReviewBoardDao {
 	public int countCafeReview(int cafeNo);
 	
 	public List<ReviewBoard> cafeReviewListPaging(Map map);
+	
+	public ReviewBoard selectReview(int reviewNo);
 }

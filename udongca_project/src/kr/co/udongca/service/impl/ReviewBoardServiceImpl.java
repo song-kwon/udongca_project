@@ -75,4 +75,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		map.put("pageBean", pagingBean);
 		return map;
 	}
+
+	@Override
+	public ReviewBoard selectReview(int reviewNo) {
+		return dao.selectReview(reviewNo);
+	}
 }

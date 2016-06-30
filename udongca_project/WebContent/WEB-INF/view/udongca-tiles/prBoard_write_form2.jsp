@@ -13,7 +13,7 @@
 					"success":function(json){
 						menuTypeList = json;
 						for(var i = 0; i < menuTypeList.length; i++){
-							$("[name='menuTypeArray']:last").append("<option value=" + menuTypeList[i].codeId + ">" + menuTypeList[i].codeName + "</option>");
+							$("[name='menuTypeArray']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
 						}
 					},
 					"error":function(xhr){
@@ -25,7 +25,7 @@
 					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray'><option>종류</option></select> <b>이름:</b> <input type='text' name='menuNameArray'> 사진: <input type='file' name='menuImageArray'><br></div>");
 					if (menuTypeList){
 						for(var i = 0; i < menuTypeList.length; i++){
-							$("[name='menuTypeArray']:last").append("<option value=" + menuTypeList[i].codeId + ">" + menuTypeList[i].codeName + "</option>");
+							$("[name='menuTypeArray']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
 						}
 					}
 				});

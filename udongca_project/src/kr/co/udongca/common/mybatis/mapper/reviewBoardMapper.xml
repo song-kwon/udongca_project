@@ -50,4 +50,10 @@
 				 )
 		WHERE page = #{page}
 	</select>
+	
+	<select id="selectReview" parameterType="int" resultType="reviewBoard">
+		select <include refid="review-column"/>
+		from review_board
+		where reviewNo = #{reviewNo}
+	</select>
 </mapper>

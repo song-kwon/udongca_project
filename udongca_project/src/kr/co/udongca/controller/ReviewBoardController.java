@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.ReviewBoardService;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.ReviewBoard;
 
 @Controller
 @RequestMapping({"/member/","/review/"})
@@ -64,5 +65,11 @@ public class ReviewBoardController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@RequestMapping("reviewRead.udc")
+	@ResponseBody
+	public ReviewBoard reviewRead(int reviewNo){
+		return service.selectReview(reviewNo);
 	}
 }
