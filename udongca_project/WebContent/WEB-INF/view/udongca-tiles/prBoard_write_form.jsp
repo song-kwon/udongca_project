@@ -4,7 +4,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#cafeAddress").on("click", function(){
-		alert("!");
 		execDaumPostcode();
 	});
 	
@@ -65,8 +64,8 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#theme").on("change", function(){
-		if ($("#theme").prop("checked")){
+	$("#themeCheck").on("change", function(){
+		if ($("#themeCheck").prop("checked")){
 			$.ajax({
 				"url":"/udongca_project/prBoard/cafeThemeList.udc",
 				"type":"POST",
@@ -152,12 +151,12 @@ function isValidCoporateNumb(){
 			<td>특징</td>
 			<td><input type="checkbox" name="cafeFeature1" value="wifi">와이파이
 				<input type="checkbox" name="cafeFeature1" value="socket">콘센트
-				<input type="checkbox" name="cafeFeature1" value="park">주차 <input
-				type="checkbox" name="cafeFeature1" value="smoking">흡연실<br>
-				<input type="checkbox" id="theme">테마 <select
-				name="cafeFeature2" id="cafeFeature2">
+				<input type="checkbox" name="cafeFeature1" value="park">주차
+				<input type="checkbox" name="cafeFeature1" value="smoking">흡연실<br>
+				<input type="checkbox" id="themeCheck">테마 
+				<select name="cafeFeature2" id="cafeFeature2">
 					<option>테마 선택</option>
-			</select></td>
+				</select></td>
 			<td></td>
 		</tr>
 		<tr>
