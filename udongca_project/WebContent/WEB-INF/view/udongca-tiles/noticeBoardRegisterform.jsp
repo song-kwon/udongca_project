@@ -2,15 +2,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script  type="text/javascript">
-$(document).ready(function(){
-	$("#title").on("keyup keypress", function(){
-		if($(this).val().length>50){
-			$(this).val($(this).val().substr(0,50));
-			return false;
-		}
+		$(document).ready(function(){
+			/* 	
+			$.ajax({
+					"url" : "/udongca_project/noticeBoard/selectByCodeType.udc?codeType=notice_type",
+					"type" : "get",
+					"dataType" : "json",
+					"success" : function(codeList){
+						$("#abcd").append("<select id='category' name='category'><option>말머리선택</option>");
+						for(var i=0;i<codeList.length;i++){
+							$("#category").append("<option>"+codeList[i].codeName+"</option></select>");
+						}
+					},
+					"error":function(xhr, status, errorMsg){
+						alert(xhr+status+errorMsg);
+					}
+				});
+			 */
+			$("#title").on("keyup keypress", function(){
+				if($(this).val().length>50){
+					$(this).val($(this).val().substr(0,50));
+					return false;
+				}
+			});
+		
+				
 	});
-});
-
 function chkTitle(){
 	if(!$("#title").val()){
 		return false;
@@ -70,7 +87,6 @@ table{
 	font-weight:bold;
 }
 </style>
-
 <div><h1>공지 사항 등록</h1></div>
 <br>
 <form action="/udongca_project/noticeBoard/registerNoticeBoard.udc" method="post" onsubmit="return checkSubmit();">
@@ -78,13 +94,11 @@ table{
 <table>
 	<tr>
 		<td class="text">말머리</td>
-		<td>
+		<td id="abcd">
 			<select id="category" name="category">
-					<option>말머리선택</option>
-					<option>말머리</option>
-					<option>말머리2</option>
-					<c:forEach items="${requestScope.code.codeType }" var="code">
-					<!-- <option ${code == param.category?'selected="selected"':'' }>${code.codeName }</option> -->
+				<option>말머리선택</option>
+				<c:forEach items="${requestScope.codeList }" var="code">
+					<option>${code.codeName}</option>
 				</c:forEach>
 			</select>
 		</td>

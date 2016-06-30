@@ -42,6 +42,8 @@ tr#tr, td{
 }
 
 .cursor{
+	text-align:left;
+	margin:50px;
 	cursor:pointer;
 	overflow:hidden;white-space:nowrap;text-overflow:ellipsis; 
 }
@@ -53,7 +55,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 <div><h1>공지 사항</h1></div>
 <c:if test="${sessionScope.login.memberId=='udongca' }">
 	<div align="right">
-		<a href="/udongca_project/noticeBoard/noticeBoardRegisterform.udc"><input
+		<a href="/udongca_project/noticeBoard/registerNoticeBoardform.udc?codeType=notice_type"><input
 			type="button" value="공지사항 등록"></a>
 	</div>
 </c:if>
@@ -61,19 +63,17 @@ td#td2:hover{text-decoration:underline; color:red;}
 	<thead id="thead">
 		<tr>
 			<td>No</td>
-			<td>유형</td>
 			<td>공지 제목</td>
 			<td>공지 내용</td>
 			<td>작성일자</td>
-			<col width="30px"><col width="60px"><col width="200px"><col width="300px"><col width="100px">
+			<col width="30px"><col width="300px"><col width="300px"><col width="100px">
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.noticeBoardList }" var="list">
 			<tr id="tr">
 				<td>${list.noticeNo }</td>
-				<td>${list.category }</td>
-				<td id="td1" class="cursor">${list.noticeTitle }</td>
+				<td id="td1" class="cursor"><span style="text-align:left; width:100px; text-weight:bold; color:red;">[${list.category }]</span>&nbsp;${list.noticeTitle }</td>
 				<td id="td2" class="cursor">${list.noticeContent }</td>
 				<td>${list.noticeDate }</td>
 			</tr>

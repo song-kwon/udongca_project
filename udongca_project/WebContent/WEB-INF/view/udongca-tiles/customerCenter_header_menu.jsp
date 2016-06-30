@@ -48,7 +48,7 @@ $(document).ready(function(){
 					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc">1:1문의관리</a>
 				</c:when>
 				<c:when test="${!empty sessionScope.login.memberId }">
-					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryRegisterform.udc">1:1문의하기</a>
+					<a href="/udongca_project/oneToOneInquiry/registerOneToOneInquiryform.udc?codeType=inquiry_type">1:1문의하기</a>
 				</c:when>
 				<c:otherwise>
 					<a href="/udongca_project/loginPage.udc">1:1문의</a>

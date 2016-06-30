@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.OneToOneInquiryDao;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 @Repository
@@ -91,4 +92,9 @@ public class OneToOneInquiryDaoImpl implements OneToOneInquiryDao {
     public int updateInquiryReply(OneToOneInquiry oneToOneInquiry) {
 	return session.update("inquiryMapper.update_inquiry_reply", oneToOneInquiry);
     }
+    
+    @Override
+	public List<Code> selectByCodeType(String codeType){
+		return session.selectList("codeMapper.select_code",codeType);
+	}
 }

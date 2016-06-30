@@ -115,7 +115,7 @@ function submit(){
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:450px;
+	width:300px;
 	margin:30px;
 }
 .fa{
@@ -123,7 +123,8 @@ table{
 }
 table, th{
 	text-align:left;
-	width:450px;
+	text-weight:bold;
+	width:300px;
 }
 
 .width_size{
@@ -137,24 +138,24 @@ table, th{
 </style>
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<h3 style="margin:30px">회원정보관리</h3>
+<h1 style="margin:30px">회원정보관리</h1>
 	<input type="hidden" id="memberPenalty" value="${requestScope.memberInfo.memberPenalty }">
 	<input type="hidden" id="page" value="${param.page }">
 	<table>
 		<tr>
-			<td>아이디</td>
+			<th>아이디</th>
 	 		<td><input type="text" id = "memberId" readonly="readonly" value="${requestScope.memberInfo.memberId }"></td>
 		</tr>
 		<tr>
-			<td>이름</td>
+			<th>이름</th>
 			<td><input type="text" id="memberName" readonly="readonly" value="${requestScope.memberInfo.memberName }"></td>
 		</tr>
 		<tr>	
-			<td>이메일</td>
+			<th>이메일</th>
 			<td><input type="text" id="memberEmail" readonly="readonly" value="${requestScope.memberInfo.memberEmail }"></td>
 		</tr>
 		<tr>
-			<td>벌점</td>
+			<th>벌점</th>
 			<td>
 			<i class="fa fa-thumbs-o-down" ></i>
 			<i class="fa fa-thumbs-o-down" ></i>
@@ -162,7 +163,7 @@ table, th{
 			</td>
 		</tr>
 		<tr>
-			<td>로그인 가능여부</td>
+			<th>로그인 가능여부</th>
 			<td>
 				<select id="loginPossibility">
 					<c:forEach items="${requestScope.code }" var="p">

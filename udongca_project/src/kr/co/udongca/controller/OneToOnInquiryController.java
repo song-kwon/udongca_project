@@ -1,6 +1,7 @@
 package kr.co.udongca.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.OneToOneInquiryService;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.OneToOneInquiry;
 
@@ -41,23 +43,41 @@ public class OneToOnInquiryController {
 	    return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
 	}
     }
+    
+    @RequestMapping("registerOneToOneInquiryform.udc")
+    public ModelAndView registerOneToOneInquiryform(String codeType){
+    	List<Code> codeList = service.selectByCodeType(codeType);
+    	return new ModelAndView("oneToOneInquiryRegisterform.tiles","codeList",codeList);
+    }
 
     @RequestMapping("registerOneToOneInquiry.udc")
     public String registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId) {
 	service.registerOneToOneInquiry(oneToOneInquiry, memberId);
 	return "redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc";
     }
+    
+    @RequestMapping("deleteOneToOneInquiryMember.udc")
+    public String deleteOneToOneInquiryMember(int inquiryNo){
+    	service.deleteOneToOneInquiry(inquiryNo);
+    	return "redirect:/member/memberInquiryListPaging.udc";
+    }
 
-    @RequestMapping("deleteOneToOneInquiry.udc")
-    public String deleteOneToOneInquiry(int inquiryNo) {
+    @RequestMapping("deleteOneToOneInquiryMaster.udc")
+    public String deleteOneToOneInquiryMaster(int inquiryNo) {
 	service.deleteOneToOneInquiry(inquiryNo);
 	return "redirect:/oneToOneInquiry/oneToOneInquiryListPaging.udc";
     }
 
     @RequestMapping("modifyOneToOneInquiryform.udc")
-    public ModelAndView oneToOneInquiryModifyForm(int inquiryNo) {
+    public ModelAndView oneToOneInquiryModifyForm(int inquiryNo, String codeType) {
 	OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
-	return new ModelAndView("oneToOneInquiryModifyform.tiles", "oneToOneInquiry", oneToOneInquiry);
+	List<Code> codeList = service.selectByCodeType(codeType);
+	
+	HashMap map = new HashMap();
+	map.put("oneToOneInquiry", oneToOneInquiry);
+	map.put("codeList", codeList);
+	
+	return new ModelAndView("oneToOneInquiryModifyform.tiles", "map", map);
     }
 
     @RequestMapping("modifyOneToOneInquiry.udc")

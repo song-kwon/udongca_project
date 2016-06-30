@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="noticeMapper">
 	<sql id="select-basic-noticeBoard">
-		SELECT noticeNo, noticeTitle, noticeContent, noticeDate FROM notice_board
+		SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate FROM notice_board
 	</sql>
 	
 	<select id="select-no-noticeBoard" resultType="_int">
@@ -30,9 +30,9 @@
 	</select>
 	
 	<select id="selectList_noticeBoard_page" parameterType="map" resultType="noticeBoard">
-		SELECT noticeNo, noticeTitle, noticeContent, noticeDate
-		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, noticeNo, noticeTitle, noticeContent, noticeDate
-			     FROM(SELECT noticeNo, noticeTitle, noticeContent, noticeDate
+		SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, noticeNo, noticeTitle, noticeContent, category, noticeDate
+			     FROM(SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate
 					     FROM notice_board order by noticeNo desc
 					     )
 				 )

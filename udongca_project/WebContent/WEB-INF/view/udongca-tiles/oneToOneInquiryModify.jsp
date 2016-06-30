@@ -72,7 +72,7 @@ table{
 
 <div><h1>1:1문의 수정</h1></div>
 <br>
-<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?inquiryNo=${requestScope.oneToOneInquiry.inquiryNo}" method="post" onsubmit="return checkSubmit();">
+<form action="/udongca_project/oneToOneInquiry/modifyOneToOneInquiry.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}" method="post" onsubmit="return checkSubmit();">
 <div class="div">
 <table>
 	<tr>
@@ -84,21 +84,22 @@ table{
 		<td>
 			<select id="inquiryType" name="inquiryType">
 				<option>유형 선택</option>
-				<option>유형1</option>
-				<option>유형2</option>
+				<c:forEach items="${requestScope.map.codeList }" var="code">
+					<option ${code.codeName == requestScope.map.oneToOneInquiry.inquiryType?'selected="selected"':'' }>${code.codeName }</option>
+				</c:forEach>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td class="text">제목</td>
-		<td><input type="text" id="title" name="inquiryTitle" placeholder="제목 입력" value="${requestScope.oneToOneInquiry.inquiryTitle }" style="width:660px;"></td>
+		<td><input type="text" id="title" name="inquiryTitle" placeholder="제목 입력" value="${requestScope.map.oneToOneInquiry.inquiryTitle }" style="width:660px;"></td>
 	</tr>
 	<tr>
 		<td class="text">내용</td>
-		<td><textarea id="content" name="inquiryContent" rows="30" cols="80" placeholder="내용을 입력해주세요..">${requestScope.oneToOneInquiry.inquiryContent }</textarea>
+		<td><textarea id="content" name="inquiryContent" rows="30" cols="80" placeholder="내용을 입력해주세요..">${requestScope.map.oneToOneInquiry.inquiryContent }</textarea>
 	</tr>
 </table>
 </div>
 <br>
-<div align="center"><input type="submit" value="수정"> <a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc"><input type="button" value="취소"></a></div>
+<div align="center"><input type="submit" value="수정"> <a href="/udongca_project/member/memberInquiryListPaging.udc"><input type="button" value="취소"></a></div>
 </form>

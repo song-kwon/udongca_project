@@ -40,8 +40,6 @@ SELECT
 			)
 		WHERE page = 1 
 --  create table --
-insert into code values('possible','로그인허용','login_possibility');
-insert into code values('impossible','로그인불가','login_possibility')
 delete from code where codeType='login_possibility'
 create table code(
 codeId	varchar2(30)	primary key,
@@ -49,32 +47,33 @@ codeName	varchar2(50)	NOT NULL,
 codeType	varchar2(50)	NOT NULL
 );
 
-insert into code values('notice1', '홍보글', 'noticeType');
-insert into code values('notice2', '리뷰', 'noticeType');
-insert into code values('notice3', '신고', 'noticeType');
-insert into code values('notice4', '댓글', 'noticeType');
-insert into code values('notice5', '사업자회원', 'noticeType');
-insert into code values('notice6', '일반회원', 'noticeType');
-insert into code values('inquiry1', '홍보글', 'inquiryType');
-insert into code values('inquiry2', '리뷰', 'inquiryType');
-insert into code values('inquiry3', '신고', 'inquiryType');
-insert into code values('inquiry4', '댓글', 'inquiryType');
-insert into code values('inquiry5', '사업자회원', 'inquiryType');
-insert into code values('inquiry6', '일반회원', 'inquiryType');
-insert into code values('cafeTheme1', '디저트', 'cafeTheme');
-insert into code values('cafeTheme2', '북', 'cafeTheme');
-insert into code values('cafeTheme3', '강아지', 'cafeTheme');
-insert into code values('cafeTheme4', '고양이', 'cafeTheme');
-insert into code values('cafeTheme5', '키즈', 'cafeTheme');
-insert into code values('cafeTheme6', '기타', 'cafeTheme');
-insert into code values('cafeMenu1', 'Coffee', 'cafeMenu');
-insert into code values('cafeMenu2', 'Beverage', 'cafeMenu');
-insert into code values('cafeMenu3', 'Frappuccino', 'cafeMenu');
-insert into code values('cafeMenu4', 'Dessert', 'cafeMenu');
-insert into code values('cafeMenu5', 'Bakery', 'cafeMenu');
-insert into code values('cafeMenu6', 'etc.', 'cafeMenu');
-insert into code values('loginP', 'loginP', 'login');
-insert into code values('loginIP', 'loginIP', 'login');
+insert into code values('notice1', '홍보글', 'notice_type');
+insert into code values('notice2', '리뷰', 'notice_type');
+insert into code values('notice3', '신고', 'notice_type');
+insert into code values('notice4', '댓글', 'notice_type');
+insert into code values('notice5', '사업자회원', 'notice_type');
+insert into code values('notice6', '일반회원', 'notice_type');
+insert into code values('inquiry1', '홍보글', 'inquiry_type');
+insert into code values('inquiry2', '리뷰', 'inquiry_type');
+insert into code values('inquiry3', '신고', 'inquiry_type');
+insert into code values('inquiry4', '댓글', 'inquiry_type');
+insert into code values('inquiry5', '사업자회원', 'inquiry_type');
+insert into code values('inquiry6', '일반회원', 'inquiry_type');
+insert into code values('cafeTheme1', '디저트', 'cafe_theme');
+insert into code values('cafeTheme2', '북', 'cafe_theme');
+insert into code values('cafeTheme3', '강아지', 'cafe_theme');
+insert into code values('cafeTheme4', '고양이', 'cafe_theme');
+insert into code values('cafeTheme5', '키즈', 'cafe_theme');
+insert into code values('cafeTheme6', '기타', 'cafe_theme');
+insert into code values('cafeMenu1', 'Coffee', 'cafe_menu');
+insert into code values('cafeMenu2', 'Beverage', 'cafe_menu');
+insert into code values('cafeMenu3', 'Frappuccino', 'cafe_menu');
+insert into code values('cafeMenu4', 'Dessert', 'cafe_menu');
+insert into code values('cafeMenu5', 'Bakery', 'cafe_menu');
+insert into code values('cafeMenu6', 'etc.', 'cafe_menu');
+insert into code values('possible','로그인허용','login_possibility');
+insert into code values('impossible','로그인불가','login_possibility');
+
 
 
 

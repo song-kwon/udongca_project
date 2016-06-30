@@ -3,7 +3,7 @@
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:700px;
+	width:750px;
 	margin:30px;
 	text-align:left;
 }
@@ -19,24 +19,24 @@ $(document).ready(function(){
 	$("#deleteBtn").on("click",function(){
 		var result = confirm("해당 게시물을 삭제하시겠습니까?");
 		if(result==true){
-			location.replace("/udongca_project/oneToOneInquiry/deleteOneToOneInquiry.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}");
+			location.replace("/udongca_project/oneToOneInquiry/deleteOneToOneInquiryMember.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}");
 		}
 	});
 	$("#deleteBtn2").on("click",function(){
 		var result = confirm("해당 게시물을 삭제하시겠습니까?");		
 		if(result==true){
-			location.replace("/udongca_project/oneToOneInquiry/deleteOneToOneInquiry.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}");
+			location.replace("/udongca_project/oneToOneInquiry/deleteOneToOneInquiryMaster.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}");
 		}
 	});
 });
 </script>
 
-<div><h2>1:1문의</h2></div>
+<div><h1>1:1문의</h1></div>
 <table border="1">
 	<tr id="tr">
-		<td style="width:40px; border-right:1px dotted; font-weight:bold;">[${requestScope.map.oneToOneInquiry.inquiryType }]</td>
+		<td style="width:80px; border-right:1px dotted; font-weight:bold;">[${requestScope.map.oneToOneInquiry.inquiryType }]</td>
 		<td style="width:200px; border-right:1px dotted; font-weight:bold;">${requestScope.map.oneToOneInquiry.inquiryTitle }</td>
-		<td style="width:60px;">작성자 : ${requestScope.map.oneToOneInquiry.memberId }</td>
+		<td style="width:150px;">작성자 : ${requestScope.map.oneToOneInquiry.memberId }</td>
 	</tr>
 	<tr>
 		<td colspan="3" style="width:500px; height:250px;">${requestScope.map.oneToOneInquiry.inquiryContent }</td>
@@ -59,7 +59,7 @@ $(document).ready(function(){
 </table>
 <div align="center">
 	<c:if test="${sessionScope.login.memberId == requestScope.map.oneToOneInquiry.memberId}">
-		<a href="/udongca_project/oneToOneInquiry/modifyOneToOneInquiryform.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}"><input type="button" id="modifyBtn" value="문의수정"></a>
+		<a href="/udongca_project/oneToOneInquiry/modifyOneToOneInquiryform.udc?inquiryNo=${requestScope.map.oneToOneInquiry.inquiryNo}&codeType=inquiry_type"><input type="button" id="modifyBtn" value="문의수정"></a>
 		<input type="button" id="deleteBtn" value="문의삭제">
 		<a href="/udongca_project/member/memberInquiryListPaging.udc"><input type="button" value="내 문의 내역"></a>
 	</c:if>

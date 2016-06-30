@@ -2,6 +2,7 @@ package kr.co.udongca.dao;
 
 import java.util.List;
 
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.NoticeBoard;
 
 public interface NoticeBoardDao {
@@ -12,4 +13,5 @@ public interface NoticeBoardDao {
 	public List<NoticeBoard> selectListNoticeBoard(int page);
 	public int updateNoticeBoard(NoticeBoard noticeBoard);
 	public int countNoticeBoard();
+	public List<Code> selectByCodeType(String codeType);
 }

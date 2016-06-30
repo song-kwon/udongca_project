@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.dao.NoticeBoardDao;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.NoticeBoard;
 
 @Repository
@@ -20,6 +21,12 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	    this.session = session;
 	
 	}
+	
+	@Override
+	public List<Code> selectByCodeType(String codeType){
+		return session.selectList("codeMapper.select_code",codeType);
+	}
+	
 	@Override
 	public int selectNoNoticeBoard(){
 		return session.selectOne("noticeMapper.select-no-noticeBoard");
