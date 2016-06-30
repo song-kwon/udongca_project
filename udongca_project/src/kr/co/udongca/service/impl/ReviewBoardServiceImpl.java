@@ -12,6 +12,7 @@ import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.ReviewBoardDao;
 import kr.co.udongca.service.ReviewBoardService;
+import kr.co.udongca.vo.ReviewBoard;
 
 @Service
 public class ReviewBoardServiceImpl implements ReviewBoardService{
@@ -57,5 +58,21 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		reviewBoard.put("review",dao.reviewDetail(map));
 		reviewBoard.put("reply", dao.ReviewReplyList(reviewNo));
 		return reviewBoard;
+	}
+
+	@Override
+	public Map cafeReviewListPaging(int page, int cafeNo) {
+		Map map = new HashMap();
+		map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+		map.put("page", page);
+		map.put("cafeNo", cafeNo);
+		
+		List list = dao.cafeReviewListPaging(map);
+		
+		PagingBean pagingBean = new PagingBean(dao.countCafeReview(cafeNo), page);
+		
+		map.put("list", list);
+		map.put("pageBean", pagingBean);
+		return map;
 	}
 }

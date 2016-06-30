@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.ReviewBoardService;
@@ -47,4 +49,20 @@ public class ReviewBoardController {
 		return new ModelAndView("/testView/testReply.jsp",map);
 	}
 	
+	@RequestMapping("cafeReviewListPaging.udc")
+	@ResponseBody
+	public Map cafeReviewListPageing(@RequestParam(required = false) String pnum, 
+			int cafeNo, HttpSession session) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pnum);
+		} catch (Exception e) {
+		}
+		try {
+			return service.cafeReviewListPaging(page, cafeNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

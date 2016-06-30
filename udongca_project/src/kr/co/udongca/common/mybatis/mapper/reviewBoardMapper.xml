@@ -37,4 +37,17 @@
 		from review_reply
 		where reviewNo=#{reviewNo} and parentReply=0
 	</select>
+	
+	<select id="countCafeReview" parameterType="int" resultType="int">
+		select count(reviewNo) from review_board where cafeNo=#{cafeNo}
+	</select>
+	
+	<select id="cafeReviewListPaging" parameterType="map" resultType="reviewBoard">
+		SELECT <include refid="review-column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="review-column"/>
+			     FROM(SELECT <include refid="review-column"/> FROM review_board where cafeNo = #{cafeNo} order by reviewNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
 </mapper>

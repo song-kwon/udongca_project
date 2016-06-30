@@ -44,4 +44,14 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public int reviewGourpCount(int reviewNo) {
 		return session.selectOne("reviewBoardMapper.reviewGourpCount",reviewNo);
 	}
+
+	@Override
+	public int countCafeReview(int cafeNo) {
+		return session.selectOne("reviewBoardMapper.countCafeReview", cafeNo);
+	}
+
+	@Override
+	public List<ReviewBoard> cafeReviewListPaging(Map map) {
+		return session.selectList("reviewBoardMapper.cafeReviewListPaging",map);
+	}
 }

@@ -7,9 +7,9 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 		<style type="text/css">
 		.carousel-inner > .item > img {
 		      top: 0;
@@ -38,6 +38,7 @@
 			var currentImageNumber = 0;
 			var currentMenuList = null;
 			var currentMenuType = null;
+			var cafeAddress = "${requestScope.prBoard.cafeAddress}";
 			
 			$(document).ready(function(){
 				$.ajax({
@@ -176,7 +177,9 @@
 			}
 			
 			function mapLocation(){
+				alert("!");
 				$("#content").empty();
+				$("#content").attr("style", "width:350px;height:350px;");
 				var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 			    mapOption = {
 			        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -190,7 +193,7 @@
 				var geocoder = new daum.maps.services.Geocoder();
 				
 				// 주소로 좌표를 검색합니다
-				geocoder.addr2coord('${requestScope.prBoard.cafeAddress}', function(status, result) {
+				geocoder.addr2coord(cafeAddress, function(status, result) {
 				    // 정상적으로 검색이 완료됐으면
 				     if (status === daum.maps.services.Status.OK) {
 				        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
@@ -249,6 +252,7 @@
 			}
 			
 			function menuRead(menuType){
+				/*
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -264,6 +268,7 @@
 						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
 					}
 				});
+				*/
 			}
 			
 			function menuModifyForm(){
@@ -271,10 +276,64 @@
 			}
 			
 			function reviewList(page){
+				alert("!");
+				var html = "";
 				$("#content").empty();
 				$("#content").attr("style", "");
+				$.ajax({
+					"url":"/udongca_project/review/cafeReviewListPaging.udc",
+					"type":"POST",
+					"data":"cafeNo=${requestScope.prBoard.cafeNo}&pnum=" + page,
+					"dataType":"json",
+					"success":function(json){
+						
+						html += "<table>";
+						for (var i = 0; i < json.list.length; i++){
+							html += "<tr>";
+							html += "<td>" + json.list[i].reviewNo + "</td>";
+							html += "<td><a href='javascript:void(0)' onclick='reviewRead(" + json.list[i].reviewNo + ")'>" + json.list[i].reviewTitle + "</a></td>";
+							html += "<td>" + json.list[i].reviewDate + "</td>";
+							html += "</tr>";
+						}
+						html += "</table><br>";
+						
+						alert(json.pageBean.previousPageGroup);
+						alert(json.pageBean.beginPage);
+						alert(json.pageBean.endPage);
+						alert(json.pageBean.nextPageGroup);
+						
+						if (json.pageBean.previousPageGroup){
+							html += "◀";
+						}
+						else{
+							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + "'>◀</a>";
+						}
+						
+						for (var i = json.pageBean.beginPage; i < json.pageBean.endPage + 1; i++){
+							if (i == page){
+								html += "<b>" + i + "</b>";
+							}
+							else{
+								"<a href='javascript:void(0)' onclick='reviewList(" + i + "'>" + i + "</a>";
+							}
+						}
+						
+						if (json.pageBean.nextPageGroup){
+							html += "▶";
+						}
+						else{
+							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + "'>▶</a>";
+						}
+						
+						$("#content").append(html);
+					},
+					
+					"error":function(xhr){
+						alert("An error occured in reviewList(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
 			}
-			</script>
+		</script>
 	</head>
 	<body>
 	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo }">

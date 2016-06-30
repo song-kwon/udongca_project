@@ -173,6 +173,8 @@
 			
 			function mapLocation(){
 				$("#content").empty();
+				$("#content").attr("style", "width:350px;height:350px;");
+				
 				var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 			    mapOption = {
 			        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -267,8 +269,77 @@
 			}
 			
 			function reviewList(page){
+				var html = "";
 				$("#content").empty();
 				$("#content").attr("style", "");
+				$.ajax({
+					"url":"/udongca_project/review/cafeReviewListPaging.udc",
+					"type":"POST",
+					"data":"cafeNo=${requestScope.prBoard.cafeNo}&pnum=" + page,
+					"dataType":"json",
+					"success":function(json){
+						
+						html += "<table>";
+						for (var i = 0; i < json.list.length; i++){
+							html += "<tr>";
+							html += "<td>" + json.list[i].reviewNo + "</td>";
+							html += "<td><a href='javascript:void(0)' onclick='reviewRead(" + json.list[i].reviewNo + ")'>" + json.list[i].reviewTitle + "</a></td>";
+							html += "<td>" + json.list[i].reviewDate + "</td>";
+							html += "</tr>";
+						}
+						html += "</table><br>";
+						
+						alert(json.pageBean.previousPageGroup);
+						alert(json.pageBean.beginPage);
+						alert(json.pageBean.endPage);
+						alert(json.pageBean.nextPageGroup);
+						
+						if (!json.pageBean.previousPageGroup){
+							html += "◀";
+						}
+						else{
+							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>";
+						}
+						
+						for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
+							if (i == page){
+								html += "<b>" + i + "</b>";
+							}
+							else{
+								html += "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>";
+							}
+						}
+						
+						if (!json.pageBean.nextPageGroup){
+							html += "▶";
+						}
+						else{
+							html += "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a>";
+						}
+						
+						alert(html);
+						
+						$("#content").append(html);
+					},
+					
+					"error":function(xhr){
+						alert("An error occured in reviewList(): " + xhr.status + " " + xhr.statusText);
+					}
+				});
+			}
+			
+			function reviewWrite(){
+				window.location.href = "reviewWrite.udc?cafeNo=" + $("#cafeNo").val();
+			}
+			
+			function reviewModifyForm(reviewNo){
+				window.location.href = "reviewModifyForm.udc?reviewNo=" + reviewNo;
+			}
+			
+			function reviewDelete(reviewNo){
+				if (window.confirm("정말 삭제하겠습니까?")){
+					window.location.href = "reviewDelete.udc?reviewNo=" + reviewNo;
+				}
 			}
 			</script>
 	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo }">
