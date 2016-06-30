@@ -8,21 +8,34 @@
 				alert("권한이 없습니다.");
 				location.href="/udongca_project/main.udc";
 			}
-			if($("#a").val()==$("#hidden").val()){
-				$("#a").prop("selected","selected");
-			}
-			if($("#r").val()==$("#hidden").val()){
-				$("#r").prop("selected","selected");
-			}
-			if($("#p").val()==$("#hidden").val()){
-				$("#p").prop("selected","selected");
-			}
-			$("#go").on("click",function(){
-				var url = $("#type").val();
-				$("#form").prop("action","/udongca_project/master/reportBoard.udc?reportType="+url);
+			$.ajax({
+				"url":"/udongca_project/master/reportSelect.udc",
+				"type":"GET",
+				"dataType":"json",
+				"success":function(list){
+					$.each(list,function(){
+						var id= this.codeId;
+						$("#selectType").append("<option id="+id+">"+id+"</option>");
+						
+					});
+					a($("#page").val(),$("#selectType").val());
+				}
 			});
-			a($("#page").val(),$("#selectType").val());
+			
+		/* 
+			if($("#all").val()==$("#hidden").val()){
+				$("#all").prop("selected","selected");
+			}
+			if($("#review").val()==$("#hidden").val()){
+				$("#review").prop("selected","selected");
+			}
+			if($("#prboard").val()==$("#hidden").val()){
+				$("#prboard").prop("selected","selected");
+			}  */
+			
+			
 			$("#search").on("click",function(){
+				
 				a(1,$("#selectType").val());
 			});
 		});
@@ -33,6 +46,7 @@
 				"dataType":"json",
 				"data": {pnum:pnum,reportType:reportType},
 				"success":function(obj){
+					
 					 var page=obj['page'];
 					$("#table").empty();
 					$.each(obj['list'],function(){
@@ -61,7 +75,7 @@
 					 }
 				},
 				"error":function(xhr, status, errorMsg){
-				alert(xhr+status+errorMsg);
+				alert("오류발생");
 				}
 			});
 			}
@@ -114,13 +128,10 @@ tr#td2:hover{text-decoration:underline; color:red;}
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
-<div style="margin-left:30px">
+<div style="margin-left:30px; margin-top:30px">
 <h3>신고리스트</h3> 
 <select id="selectType" >
-	<option id="a">all</option>
-	<option id="r">review</option>
-	<option id="p">prboard</option>
-	</select>
+</select>
 	<button type="button" id = "search">검색</button>
 	
 </div>
@@ -138,6 +149,6 @@ tr#td2:hover{text-decoration:underline; color:red;}
 	</tbody>
 
 </table>
-<div align="center" id = "page"></div>
+<div align="center" id = "page" style="margin-top:30px"></div>
 </c:if>
 </div>

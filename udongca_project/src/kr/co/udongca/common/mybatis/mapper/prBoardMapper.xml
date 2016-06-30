@@ -103,59 +103,13 @@
 	</delete>
 	<!-- 지역으로 홍보글 검색 -->
 	<select id="selectPRBoardListByAddress" parameterType="Map" resultType="PRBoard">
-		SELECT
-			cafeNo cafeNo,
-			cafeName cafeName,
-			cafeFakeImage cafeFakeImage
-		FROM (
-			SELECT
-				CEIL(rownum/#{itemsPerPage}) page,
-				cafeNo,
-				cafeName,
-				cafeFeature,
-				cafeAddress,
-				cafeFakeImage
-			FROM (
-				SELECT
-					cafeNo,
-					cafeName,
-					cafeFeature,
-					cafeAddress,
-					cafeFakeImage
-				FROM PRboard
-				WHERE cafeAddress LIKE '%${cafeAddress}%'
-				ORDER BY cafeNo DESC
-				)
-			)
-		WHERE page = #{page} 
+		<include refid="select-basic-PRBoard"/>
+		AND cafeAddress LIKE '%${cafeAddress}%'
 	</select>
 	<!-- 테마로 홍보글 검색 -->
 	<select id="selectPRBoardListByFeature" parameterType="Map" resultType="PRBoard">
-		SELECT
-			cafeNo cafeNo,
-			cafeName cafeName,
-			cafeFakeImage cafeFakeImage
-		FROM (
-			SELECT
-				CEIL(rownum/#{itemsPerPage}) page,
-				cafeNo,
-				cafeName,
-				cafeFeature,
-				cafeAddress,
-				cafeFakeImage
-			FROM (
-				SELECT
-					cafeNo,
-					cafeName,
-					cafeFeature,
-					cafeAddress,
-					cafeFakeImage
-				FROM PRboard
-				WHERE cafeFeature LIKE '%${cafeFeature}%'
-				ORDER BY cafeNo DESC
-				)
-			)
-		WHERE page = #{page} 
+		<include refid="select-basic-PRBoard"/>
+		AND cafeFeature LIKE '%${cafeFeature}%'
 	</select>
 	<!-- 홍보글 전체 정보 검색 -->
 	<select id="selectPRBoardByNo" parameterType="_int" resultType="PRBoard">
