@@ -35,29 +35,35 @@
 		WHERE menuNo = #{menuNO}
 	</delete>
 	<!-- 해당 카페의 카테고리에 따른 메뉴 목록 출력 -->
-	<!-- <select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
+	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
 		SELECT menuNo, cafeNo, menuType, menuName, menuRealImage, menuFakeImage
 		FROM menu
 		WHERE cafeNo = #{cafeNumber}
 		AND menuType = #{menuType}
-	</select> -->
+	</select>
+	<!-- 해당 카페의 메뉴 목록 출력 -->
+	<select id="selectMenuListByCafeNo" parameterType="int" resultType="menu">
+		SELECT
+			menuNo menuNO,
+			menuType menuType,
+			menuName menuName,
+			menuRealImage menuRealImage,
+			menuFakeImage menuFakeImage
+		FROM menu
+		WHERE cafeNo = #{cafeNumber}
+	</select>
 	<!-- 메뉴 선택 시 업로드된 이미지 출력 -->
 	<select id="selectMenuByMenuNo" parameterType="_int" resultType="menu">
 		SELECT
-			menuRealImage,
-			menuFakeImage
+			menuNo menuNO,
+			menuName menuName,
+			menuRealImage menuRealImage,
+			menuFakeImage menuFakeImage
 		FROM menu
 		WHERE menuNo = #{menuNO}
 	</select>
 	<!-- 메뉴 Sequence -->
 	<select id="selectNextMenuSequence" resultType="_int">
 		SELECT menu_menuNo_seq.nextval FROM dual
-	</select>
-	<!-- 메뉴선택시 메뉴 정보뽑기 -->
-	<select id="selectMenuListByCafeNoAndMenuType" parameterType="Map" resultType="menu">
-		SELECT menuNo, cafeNo, menuType, menuName, menuRealImage, menuFakeImage
-		FROM menu
-		WHERE cafeNo = #{cafeNumber}
-		AND menuType = #{menuType}
 	</select>
 </mapper>

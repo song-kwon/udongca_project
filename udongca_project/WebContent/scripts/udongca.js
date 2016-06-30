@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	$('#dddd').on('click',function(){
+		alert(3);
+	});
+	
 	$("#address1").on("change", function(){
 		var es = this;
 		$("#address2").empty().append("<option>군/구</option>");

@@ -287,29 +287,39 @@ public class PrBoardController {
 	}
 	
 	/**
-	 * 현재 제작 중
-	 */
-	@RequestMapping("mapLocation.udc")
-	public void mapLocation(){
-		/*
-		 * TODO: 매개 변수를 무엇으로? 주소만 따로 JSP에서 받을 예정.
-		 */
-		return;
-	}
-	
-	/**
 	 * 구현 완료
 	 * @param cafeNumber
 	 * @param menuType
 	 */
 	@RequestMapping("menuList.udc")
 	@ResponseBody
-	public List menuList(@RequestParam("cafeNumber") int cafeNumber, @RequestParam("menuType") String menuType){
-	    HashMap map = new HashMap<>();
-	    map.put("cafeNumber", cafeNumber);
-	    map.put("menuType", menuType);
-	    List list = service.selectMenuListByCafeNoAndMenuType(map);
-		return list;
+	public List<Menu> menuList(int cafeNumber, String menuType){
+		HashMap map = new HashMap();
+		map.put("cafeNumber", cafeNumber);
+		map.put("menuType", menuType);
+		return service.selectMenuListByCafeNoAndMenuType(map);
+	}
+	
+	/**
+	 * 구현 완료
+	 * @param cafeNumber
+	 * @return
+	 */
+	@RequestMapping("menuListAll.udc")
+	@ResponseBody
+	public List<Menu> menuListAll(int cafeNumber){
+		return service.selectMenuListByCafeNo(cafeNumber);
+	}
+	
+	/**
+	 * 구현 완료
+	 * @param menuNo
+	 * @return
+	 */
+	@RequestMapping("menuRead.udc")
+	@ResponseBody
+	public Menu menuRead(int menuNo){
+		return service.selectMenuByMenuNo(menuNo);
 	}
 	/**
 	 * 구현 완료
@@ -372,22 +382,122 @@ public class PrBoardController {
 	 * @param menu
 	 * @param session
 	 */
-	@RequestMapping("menuModify.udc")
-	public void menuModify(Menu menu, HttpSession session){
-		//return service.updateMenu(menu);
-		return;
+	@RequestMapping("menuModifyForm.udc")
+	public String menuModifyForm(int cafeNo, HttpSession session, ModelMap map){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+			return "redirect:/loginPage.udc";
+		}
+		map.put("cafeNo", cafeNo);
+		return "/ParkTest/menuModifyForm.jsp";
 	}
 	
 	/**
-	 * 현재 제작 중
-	 * @param menuNO
+	 * 구현 완료
+	 * @param cafeNo
+	 * @param menuNOArray
+	 * @param menuTypeArray
+	 * @param menuNameArray
+	 * @param menuImageArray
+	 * @param req
 	 * @param session
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
 	 */
-	@RequestMapping("menuDelete.udc")
-	public void menuDelete(int menuNO, HttpSession session){
-		//return service.deleteMenu(menuNO);
-		return;
+	@RequestMapping("menuModify.udc")
+	@Transactional
+	public String menuModify(int cafeNo, int[] menuNOArray,
+			String[] menuTypeArray, String[] menuNameArray,
+			MultipartFile[] menuImageArray, HttpServletRequest req,
+			HttpSession session) throws IllegalStateException, IOException{
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+			//return "redirect:/loginPage.udc";
+		}
+		
+		/*
+		 * TODO: 전달된 Parameter menuTypeArray, menuNameArray는 비어 있으면 안 되므로 검증 필요.
+		 */
+		
+		List<Menu> originalMenuList = service.selectMenuListByCafeNo(cafeNo);
+		
+		for (int i = 0; i < originalMenuList.size(); i++){
+			boolean deleteFlag = true;
+						
+			for (int j = 0; j < menuNOArray.length; j++){
+				if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
+					Menu updateMenu = new Menu();
+					updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
+					updateMenu.setMenuType(menuTypeArray[j]);
+					updateMenu.setMenuName(menuNameArray[j]);
+					if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
+						updateMenu.setMenuRealImage(originalMenuList.get(i).getMenuRealImage());
+						updateMenu.setMenuFakeImage(originalMenuList.get(i).getMenuFakeImage());
+					}
+					else{
+						String imageName = menuImageArray[j].getOriginalFilename();// 업로드된 파일명
+						
+						// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+						// 최종 저장소 디렉토리 조회
+						String dir = req.getServletContext().getRealPath("/images");
+						long fake = System.currentTimeMillis();
+						File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+						
+						menuImageArray[j].transferTo(dest);
+						
+						updateMenu.setMenuRealImage(imageName);;
+						updateMenu.setMenuFakeImage(fake+imageName);
+					}
+					service.updateMenu(updateMenu);
+					deleteFlag = false;
+					break;
+				}
+			}
+			
+			if (deleteFlag){
+				String dir = req.getServletContext().getRealPath("/images");
+				File dest = new File(dir, originalMenuList.get(i).getMenuFakeImage());
+				dest.delete();
+				service.deleteMenu(originalMenuList.get(i).getMenuNo());
+			}
+		}
+		
+		for (int i = 0; i < menuNOArray.length; i++){
+			if (menuNOArray[i] == 0){
+				Menu newMenu = new Menu();
+								
+				newMenu.setMenuNo(service.selectNextMenuSequence());
+				newMenu.setCafeNo(cafeNo);
+				newMenu.setMenuType(menuTypeArray[i]);
+				newMenu.setMenuName(menuNameArray[i]);
+				
+				if (menuImageArray[i] != null && !menuImageArray[i].isEmpty()){
+					String imageName = menuImageArray[i].getOriginalFilename();// 업로드된 파일명
+					
+					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+					// 최종 저장소 디렉토리 조회
+					String dir = req.getServletContext().getRealPath("/images");
+					long fake = System.currentTimeMillis();
+					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+					
+					menuImageArray[i].transferTo(dest);
+					
+					newMenu.setMenuRealImage(imageName);;
+					newMenu.setMenuFakeImage(fake+imageName);
+				}
+				else{
+					newMenu.setMenuFakeImage("");
+					newMenu.setMenuRealImage("");
+				}
+				
+				service.insertMenu(newMenu);
+			}
+		}
+		
+		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
+	
 	/**
 	 * 구현 완료
 	 * @return
@@ -397,6 +507,7 @@ public class PrBoardController {
 	public List<Code> cafeThemeList (){
 		return service.selectThemeList();
 	}
+	
 	/**
 	 * 구현 완료
 	 * @return

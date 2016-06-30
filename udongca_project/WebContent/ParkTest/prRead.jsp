@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
@@ -36,23 +36,23 @@
 			var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 			var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 			var currentImageNumber = 0;
+			var currentMenuList = null;
+			var currentMenuType = null;
 			
 			$(document).ready(function(){
-				
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
 					"data":"",
 					"dataType":"json",
 					"success":function(json){
-						
 						for(var i = 0; i < json.length; i++){
 							var a= "'"+json[i].codeName+"'" ;
 							$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+a+')">' + json[i].codeName + '</a></li>');
 						}
 					},
 					"error":function(xhr){
-						alert("An error occured while loading getMenuTypeList.udc: " + xhr.status + " " + xhr.statusText);
+						alert("An error occured while loading cafeMenuList.udc: " + xhr.status + " " + xhr.statusText);
 					}
 				});
 				
@@ -80,10 +80,6 @@
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
 				}
-				
-			    
-
-
 			});
 			
 			function prModify(){
@@ -132,9 +128,9 @@
 				}
 				$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 			};
-			function menuImage(no,menuType){
 			
-			$("#content").empty();
+			function menuImage(no,menuType){
+				$("#content").empty();
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -176,9 +172,8 @@
 					"error":function(xhr){
 						alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
 					}
-					
 				});
-				
+			}
 			
 			function mapLocation(){
 				$("#content").empty();
@@ -219,7 +214,41 @@
 				});
 			}
 			
-		/* 	function menuListByType(menuType){
+			function menuListByType(menuType){
+				$("#content").empty();
+				$("#content").attr("style", "");
+				if (currentMenuType == menuType){
+					for (var i = 0; i < currentMenuList.length; i++){
+						$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + currentMenuList[i].menuNO + "," + menuType + ")'>" +  currentMenuList[i].menuName + "</a>");
+					}
+					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
+						$("#content").append("<button onclick='menuModifyForm(" + menuType + ")'>수정</button>");
+					}
+				}
+				else{
+					currentMenuType = menuType;
+					$.ajax({
+						"url":"/udongca_project/prBoard/menuList.udc",
+						"type":"POST",
+						"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
+						"dataType":"json",
+						"success":function(json){
+							currentMenuList = json;
+							for (var i = 0; i < currentMenuList.length; i++){
+								$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + currentMenuList[i].menuNO + "," + menuType + ")'>" +  currentMenuList[i].menuName + "</a><br>");
+							}
+							if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
+								$("#content").append("<button onclick='menuModifyForm()'>수정</button>");
+							}
+						},
+						"error":function(xhr){
+							alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
+						}
+					});
+				}
+			}
+			
+			function menuRead(menuType){
 				$.ajax({
 					"url":"/udongca_project/prBoard/menuList.udc",
 					"type":"POST",
@@ -237,43 +266,13 @@
 				});
 			}
 			
-			function menuRead(menuNO){
-				
-				$.ajax({
-					"url":"/udongca_project/prBoard/menuList.udc",
-					"type":"POST",
-					"data":"cafeNumber=${requestScope.prBoard.cafeNo}&menuType=" + menuType,
-					"dataType":"json",
-					"success":function(json){
-						$("#content").empty();
-						for (var i = 0; i < json.length; i++){
-							$("#content").append("<a href='javascript:void(0)' onclick='menuRead(" + json[i].menuNO + ")'>" +  json[i].menuName + "</a><br>");
-						}
-					},
-					"error":function(xhr){
-						alert("An error occured in menuListByType(): " + xhr.status + " " + xhr.statusText);
-					}
-				});
-				
+			function menuModifyForm(){
+				window.location.href = "menuModifyForm.udc?cafeNo=${requestScope.prBoard.cafeNo}";
 			}
-			 */
+			
 			function reviewList(page){
-				
-				$.ajax({
-					"url":"/udongca_project/member/" + ((isAddedFavorite) ? "delete" : "insert" ) + "Bookmark.udc",
-					"type":"POST",
-					"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
-					"dataType":"json",
-					"success":function(json){
-						alert(((json) ? ("즐겨찾기에" + ((isAddedFavorite) ? "서 삭제" : " 추가" )) : ("오류가 발생") ) + "했습니다");
-						location.reload(true);
-					},
-					"error":function(xhr){
-						alert("An error occured in favoriteToggle(): " + xhr.status + " " + xhr.statusText);
-					}
-				});
-				
-			}
+				$("#content").empty();
+				$("#content").attr("style", "");
 			}
 			</script>
 	</head>
@@ -357,15 +356,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan=2 id="buttonArea">
-								
-							</td>
+							<td colspan=2 id="buttonArea"></td>
+						</tr>
 					</table>
 				</td>
-			
 			</tr>
 			<tr>
-			<td></td>
 				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>
