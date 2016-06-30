@@ -6,9 +6,6 @@ $(document).ready(function(){
 		alert("권한이 없습니다.");
 		location.href="/udongca_project/main.udc";
 	}
-	if($("#success").val()==1){
-		alert("수정성공");
-	}
 	a($("#pnum").val());
 });
 function a(pnum){
@@ -22,7 +19,6 @@ function a(pnum){
 			$("#table").empty();
 			$.each(obj['list'],function(){
 				$("#table").append("<tr class='cursor' id='td2' onclick='link("+'"'+this.memberId+'",'+page.page+")'><td>"+this.memberId+"</td><td >"+this.memberName+"</td><td>"+this.memberEmail+"</td><td>"+this.memberPenalty+"</td><td>"+this.loginPossibility+"</td></tr>");
-				
 			});
 			
 			 $("#page").empty();
@@ -100,7 +96,6 @@ tr#td2:hover{text-decoration:underline; color:red;}
 <div id="p">
 <input type="hidden" id="pnum" value="${param.pnum }">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
-<input type="hidden" id="success" value="${param.success}">
 <c:if test="${sessionScope.login.memberType == 'master'}">
 <h3 style="margin:30px;">회원리스트</h3> 
 <table >

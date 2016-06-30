@@ -23,4 +23,6 @@ public interface ReportBoardService {
     public ModelAndView memberReportList(int page, String memberId);
    
     public ReportBoard memberReportDetail(int reportboardNo);
+    
+    public List getCode(String code);
 }

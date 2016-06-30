@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
+import kr.co.udongca.dao.CodeDao;
 import kr.co.udongca.dao.ReportBoardDao;
 import kr.co.udongca.service.ReportBoardService;
 import kr.co.udongca.vo.ReportBoard;
@@ -18,6 +19,8 @@ import kr.co.udongca.vo.ReportBoard;
 public class ReportBoardServiceImpl implements ReportBoardService {
     @Autowired
     private ReportBoardDao reportBoardDaoImpl;
+    @Autowired
+    private CodeDao codeDao;
 
    /* public Map<String, Object> reportList(int page, String reportType) {
 	HashMap<String, Object> map = new HashMap<String, Object>();
@@ -35,6 +38,9 @@ public class ReportBoardServiceImpl implements ReportBoardService {
 	    return map;
 	}
     }*/
+    public List getCode(String code){
+	return codeDao.selectCode(code);
+    }
     public List reportList(int page, String reportType){
 	if(reportType.equals("all")){
 	 
