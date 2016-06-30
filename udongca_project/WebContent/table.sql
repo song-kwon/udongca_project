@@ -18,6 +18,30 @@ create sequence menu_menuNo_seq nocache;
 create sequence review_reply_replyNo_seq nocache;
 create sequence preferLocationNo_seq nocache;
 
+SELECT
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeFakeImage cafeFakeImage
+		FROM (
+			SELECT
+				CEIL(rownum/3) page,
+				cafeNo,
+				cafeName,
+				cafeFeature,
+				cafeAddress,
+				cafeFakeImage
+			FROM (
+				SELECT
+					cafeNo,
+					cafeName,
+					cafeFeature,
+					cafeAddress,
+					cafeFakeImage
+				FROM PRboard WHere cafeAddress LIKE '%서울시 강남구%'
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page = 1 
 --  create table --
 insert into code values('possible','로그인허용','login_possibility');
 insert into code values('impossible','로그인불가','login_possibility')
