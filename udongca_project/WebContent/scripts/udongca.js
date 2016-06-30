@@ -440,7 +440,7 @@ function themePage(page){
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
 					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 				}
 				
@@ -482,7 +482,7 @@ function themePage(page){
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
 					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 				}
 				

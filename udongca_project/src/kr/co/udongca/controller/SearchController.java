@@ -99,13 +99,15 @@ public class SearchController {
 		if(cafeAddress.equals("세종특별자치시 세종시")) cafeAddress="세종특별자치시";
 		
 		map.put("result", locationSearchResult(cafeAddress, 1));
-		
+		map.put("searchType", "address");
 		return "search/search_result.tiles";
 	}
 	
 	@RequestMapping("theme_search_result.udc")
 	public String mainThemeSearchResult(String cafeFeature,ModelMap map){
 		map.put("result", themeSearchResult(cafeFeature, 1));
+		map.put("searchType", "theme");
+		System.out.println(themeSearchResult(cafeFeature, 1));
 		return "search/search_result.tiles";
 	}
 }

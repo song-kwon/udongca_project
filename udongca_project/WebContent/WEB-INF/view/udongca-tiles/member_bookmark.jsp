@@ -23,7 +23,7 @@ table {
 								<td id="${list.cafeNo }"
 									style="width: 75px; text-align: center;"><button
 										class="deleteBookmark">즐찾 취소</button></td>
-								<td>${list.cafeName }</td>
+								<td><a href="/udongca_project/prBoard/prView.udc?cafeNo=${list.cafeNo }">${list.cafeName }</a></td>
 							<tr>
 						</c:forEach>
 					</tbody>

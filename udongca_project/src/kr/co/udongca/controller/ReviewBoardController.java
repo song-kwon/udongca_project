@@ -44,7 +44,6 @@ public class ReviewBoardController {
 	public ModelAndView reviewDetail(int cafeNo,int reviewNo){
 		
 		Map map = service.reviewDetail(cafeNo, reviewNo);
-		System.out.println(map.get("reply"));
 		return new ModelAndView("/testView/testReply.jsp",map);
 	}
 	

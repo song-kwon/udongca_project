@@ -34,7 +34,6 @@ public class BookmarkController {
 			int page = 1;
 			try {
 				page = Integer.parseInt(no);
-				System.out.println(no);
 			} catch (Exception e) {
 			}
 			try {
@@ -50,14 +49,11 @@ public class BookmarkController {
 	@ResponseBody
 	public boolean deleteBookmark(int cafeNo, HttpSession session){
 		Member login = (Member)session.getAttribute("login");
-		System.out.println("delete1");
 		
-		if (login == null || !(login.getMemberType().equals("generalmember"))){
-			System.out.println("delete2");
+		if (login == null || !(login.getMemberType().equals("generalMember"))){
 			return false;
 		}
 		
-		System.out.println(cafeNo);
 		
 		int result = service.deleteBookmark(cafeNo, login.getMemberId());
 		
@@ -71,14 +67,11 @@ public class BookmarkController {
 	@ResponseBody
 	public boolean insertBookmark(int cafeNo, HttpSession session){
 		Member login = (Member)session.getAttribute("login");
-		System.out.println("insert1");
 		
-		if (login == null || !(login.getMemberType().equals("generalmember"))){
-			System.out.println("insert2");
+		if (login == null || !(login.getMemberType().equals("generalMember"))){
 			return false;
 		}
 		
-		System.out.println(cafeNo);
 		
 		int result = service.insertBookmark(cafeNo, login.getMemberId());
 		
@@ -93,7 +86,7 @@ public class BookmarkController {
 	public boolean isBookmarkAdded(int cafeNo, HttpSession session){
 		Member login = (Member)session.getAttribute("login");
 		
-		if (login == null || !(login.getMemberType().equals("generalmember"))){
+		if (login == null || !(login.getMemberType().equals("generalMember"))){
 			return false;
 		}
 		

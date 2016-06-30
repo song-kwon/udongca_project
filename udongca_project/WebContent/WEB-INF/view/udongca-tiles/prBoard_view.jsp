@@ -55,7 +55,7 @@
 				$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 				
 				if ("${sessionScope.login}"){
-					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseemember"){
+					if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
 						$("#buttonArea").append("<button onclick='prModify()'>홍보글 수정</button><button onclick='prDelete()'>홍보글 삭제</button>");
 					}
 					else{
