@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberService {
@@ -18,7 +19,6 @@ public interface MemberService {
 	public Member login(String id, String password);
 
 	public int memberModify(String name, String password, HttpSession session);
-	
 
 	public List<Address> majorList();
 
@@ -29,30 +29,34 @@ public interface MemberService {
 	public int countSameId(String memberId);
 
 	public Member findById(String memberId);
-	
+
 	public List<Address> middleList(int majorNo);
-	
+
 	public List memberList(int page);
-	
+
 	public int managePreferLocation(PreferLocation location);
-	
+
 	public List myPreferLocation(String memberId);
-	
+
 	public ModelAndView myPreferLocationPage(String memberId);
-	
+
 	public int memberDrop(String memberId);
-	
+
 	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException;
-	
+
 	public Member memberIdMaster(String memberId);
-	
+
 	public List loginPossibility(String code);
-	
+
 	public int memberUpdateMaster(Member member);
+
 	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException;
 
-	public Map memberInquiryList(int page,String memberId);
+	public Map memberInquiryList(int page, String memberId);
 
 	public int loginPossible(Member member);
+
 	public PagingBean page(int page);
+
+	public Map memberPRBoardList(int page, String memberId);
 }

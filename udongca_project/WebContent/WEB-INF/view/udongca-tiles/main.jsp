@@ -6,4 +6,3 @@
 <div style="float:left; width:400px; height:300px; margin-top:5px; background-color: maroon;">3번</div>
 <div style=" float:left; width:400px; height:300px; margin-top:5px; margin-left:5px; background-color: silver;">4번</div>
 </div>
-

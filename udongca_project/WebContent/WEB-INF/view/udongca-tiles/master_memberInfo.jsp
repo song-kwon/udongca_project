@@ -11,7 +11,6 @@ $(document).ready(function(){
 	for(var i =0; i<$("#memberPenalty").val();i++){
 		$(".fa")[i].className = "fa fa-thumbs-down";
 	}
-	
 	$('.fa').on('click',function(){
 		 var $this = $(this); 
 		 if($this.hasClass("fa-thumbs-down")){
@@ -30,8 +29,8 @@ $(document).ready(function(){
 		});
 	/* $("#cancel").on("click",function(){
 		location.href="/udongca_project/member/memberListPaging.udc?pnum=";
-	}); */
-	
+	});
+	 */
 });
 /* function checkPenalty(){
 	var value=0;

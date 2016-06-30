@@ -59,4 +59,20 @@ public class SearchDaoImpl implements SearchDao {
 		// TODO Auto-generated method stub
 		return session.selectOne(prNamespace+"countCafeAddress",cafeAddress);
 	}
+	
+	@Override
+	public List<Address> selectMajor() {
+		return session.selectList("addressMapper.selectAllMajorAddress");
+	}
+
+	@Override
+	public List<Address> selectMiddle(int majorNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("addressMapper.selectMiddleAddressByMajorCategoryNo", majorNo);
+	}
+	
+	@Override
+	public int selectMajorCategoryNoByAddress(String majorAddress) {
+		return session.selectOne("addressMapper.selectMajorCategoryNoByAddress",majorAddress);
+	}
 }

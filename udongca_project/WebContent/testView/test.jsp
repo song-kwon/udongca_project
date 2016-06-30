@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript" src="../scripts/udongca.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	//major category
@@ -161,8 +162,6 @@ $(document).ready(function(){
 		});
 	});
 	
- 	 //var isID = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
-	 //alert(isID.test(/*비교할 대상*/)); 
 });
 
 function themePage(page){
@@ -265,6 +264,6 @@ a{
 </div>
 <div id="pageNum" style="clear:both;">
 </div>
-
+<button id="dddd">dddd</button>
 </body>
 </html>

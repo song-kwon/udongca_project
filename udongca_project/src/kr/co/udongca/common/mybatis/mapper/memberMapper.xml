@@ -89,4 +89,26 @@
 		<include refid="select-basic"/>
 		where memberId=#{memberId} and memberName=#{memberName} and memberEmail=#{memberEmail}
 	</select>
+	
+	<select id="member_prBoard_list" parameterType="map" resultType="prboard">
+		SELECT
+			<include refid="prBoardMapper.prboard-column"/>
+		FROM (
+			SELECT
+				CEIL(rownum/#{itemsPerPage}) page,
+				<include refid="prBoardMapper.prboard-column"/>
+			FROM (
+				SELECT
+					<include refid="prBoardMapper.prboard-column"/>
+				FROM PRboard
+				where memberId=#{memberId}
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page = #{page} 
+	</select>
+	
+	<select id="countMemberPRBoard" parameterType="string" resultType="int">
+		select count(cafeNo) from prboard where memberId=#{memberId}
+	</select>
 </mapper>

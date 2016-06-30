@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -40,6 +35,7 @@
 			var currentMenuType = null;
 			
 			$(document).ready(function(){
+				mapLocation();
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
@@ -275,8 +271,6 @@
 				$("#content").attr("style", "");
 			}
 			</script>
-	</head>
-	<body>
 	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo }">
 		<table>
 			<tr>
@@ -365,5 +359,3 @@
 				<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 			</tr>
 		</table>
-	</body>
-</html>

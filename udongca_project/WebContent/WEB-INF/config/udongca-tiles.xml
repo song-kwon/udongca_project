@@ -161,4 +161,9 @@
 			value="/WEB-INF/view/udongca-tiles/oneToOneInquiry.jsp" />
 	</definition>
 	
+	<definition name="search/*.tiles" extends="default-nonav.tiles">
+		<put-attribute name="header" value="/WEB-INF/view/udongca-layout/search_header.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/search_result.jsp"/>
+	</definition>
+	
 </tiles-definitions>

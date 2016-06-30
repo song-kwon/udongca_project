@@ -70,6 +70,11 @@ public class PrBoardServiceImpl implements PrBoardService{
 	public List<Menu> selectMenuListByCafeNoAndMenuType(Map map) {
 		return dao.selectMenuListByCafeNoAndMenuType(map);
 	}
+	
+	@Override
+	public List<Menu> selectMenuListByCafeNo (int cafeNumber){
+		return dao.selectMenuListByCafeNo(cafeNumber);
+	}
 
 	@Override
 	public Menu selectMenuByMenuNo(int menuNo) {

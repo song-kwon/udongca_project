@@ -46,7 +46,6 @@ thead{
 	text-align:center;
 	width:800px;
 	height:40px;
-	margin:20px;
 	font-size:13pt;
 	font-weight:bold;
 	cursor:default;
@@ -68,7 +67,9 @@ table, tbody{
 	cursor:pointer;
 	table-layout:fixed;
 }
-
+h2{
+	margin-left:30px;
+}
 tr#tr1:hover{text-decoration:underline; color:red;}
 </style>
 
@@ -87,11 +88,10 @@ tr#tr1:hover{text-decoration:underline; color:red;}
 	
 	</tbody>
 </table>
-<br><br>
 <h2>리뷰 신고</h2>
-<table id = "table2" border="1" style="table-layout:fixed;">
+<table style="table-layout:fixed;">
 	<thead>
-	<tr>
+	<tr id="tr">
 		<td style="width:30px;">No</td>
 		<td style="width:60px;">신고자</td>
 		<td style="width:300px;">신고사유</td>

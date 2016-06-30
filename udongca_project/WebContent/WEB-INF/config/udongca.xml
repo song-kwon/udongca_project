@@ -39,6 +39,8 @@
 	<mvc:view-controller path="/member/memberListPaging.udc" view-name="master/master_memberList.tiles"/>
 	<mvc:view-controller path="/master/reportBoard.udc" view-name="master/master_reportList.tiles"/>
 	<mvc:view-controller path="/oneToOneInquiry/master/oneToOneList.udc" view-name="master/master_oneToOneList.tiles"/>
+	<mvc:view-controller path="/prBoard_write_form.udc" view-name="prBoard_write_form.tiles"/>
+	<mvc:view-controller path="/prBoard/prBoard_write_form2.udc" view-name="prBoard_write_form2.tiles"/>
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 

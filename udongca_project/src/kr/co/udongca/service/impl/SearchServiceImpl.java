@@ -37,7 +37,11 @@ public class SearchServiceImpl implements SearchService{
 	public Map selectPRBoardListByAddress(Map map) {
 		int total = dao.countCafeAddress(map.get("cafeAddress").toString());
 		int page = (int)map.get("page");
+		String majorAddress= (map.get("cafeAddress").toString()).split(" ")[0];
+		int majorNo=dao.selectMajorCategoryNoByAddress(majorAddress);
 		PagingBean pagingBean = new PagingBean(total,page);
+		map.put("majorCategory",dao.selectMajor());
+		map.put("middleCategory",dao.selectMiddle(majorNo));
 		map.put("pageBean", pagingBean);
 		map.put("list",dao.selectPRBoardListByAddress(map));
 		return map;
@@ -57,4 +61,6 @@ public class SearchServiceImpl implements SearchService{
 	public List<Code> selectThemeCategroy() {
 		return dao.selectThemeCategory();
 	}
+	
+	
 }

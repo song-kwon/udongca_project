@@ -22,6 +22,7 @@ import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.PreferLocation;
 
 @Service
@@ -212,6 +213,22 @@ public class MemberServiceImpl implements MemberService {
 			map.put("page", page);
 			map.put("memberId", memberId);
 			List list = memberDaoImpl.memberInquriyList(map);
+			PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
+			map.put("list", list);
+			map.put("pageBean", pagingBean);
+			return map;
+	}
+	
+	@Override
+	public Map memberPRBoardList(int page, String memberId) {
+		HashMap map = new HashMap();
+		if (memberDaoImpl.countMemberPRBoard(memberId) == 0) {
+			map.put("error", "작성한 홍보글이 없습니다..");
+		}
+			map.put("itemsPerPage", Constants.ITEMS_PER_PAGE);
+			map.put("page", page);
+			map.put("memberId", memberId);
+			List list = memberDaoImpl.memberPRBoardList(map);
 			PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
 			map.put("list", list);
 			map.put("pageBean", pagingBean);

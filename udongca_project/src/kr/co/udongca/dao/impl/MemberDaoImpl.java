@@ -13,6 +13,7 @@ import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.OneToOneInquiry;
+import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.PreferLocation;
 
 @Repository
@@ -147,5 +148,15 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<OneToOneInquiry> memberInquriyList(Map map) {
 		return session.selectList("inquiryMapper.select_member_inquiry_list_page",map);
+	}
+	
+	@Override
+	public List<PRBoard> memberPRBoardList(Map map) {
+		return session.selectList("memberMapper.member_prBoard_list",map);
+	}
+	
+	@Override
+	public int countMemberPRBoard(String memberId) {
+		return session.selectOne("memberMapper.countMemberPRBoard",memberId);
 	}
 }

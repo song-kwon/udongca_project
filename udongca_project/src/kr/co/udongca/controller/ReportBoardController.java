@@ -1,6 +1,7 @@
 package kr.co.udongca.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class ReportBoardController {
     @RequestMapping("/reportBoardList.udc")
     @ResponseBody
     public Map reportBoard(@RequestParam(required = false) String pnum, @RequestParam String reportType,
-	    HttpSession session, Model model) {
+	    HttpSession session) {
 	int page = 1;
 	Member master = (Member) session.getAttribute("login");
 	HashMap map = new HashMap();
@@ -44,7 +45,12 @@ public class ReportBoardController {
 	    return map;
 	}
     }
-
+    @RequestMapping("/reportSelect.udc")
+    @ResponseBody
+    public List reportSelect(){
+	return reportService.getCode("reportBoard");
+	
+    }
   
 
     @RequestMapping("/reportBoardInfo.udc")

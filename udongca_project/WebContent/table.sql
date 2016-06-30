@@ -2,9 +2,6 @@
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
 	
-		select *
-		from (select * from review_reply where reviewNo=11 order by replygroup desc)
-
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
@@ -18,6 +15,30 @@ create sequence menu_menuNo_seq nocache;
 create sequence review_reply_replyNo_seq nocache;
 create sequence preferLocationNo_seq nocache;
 
+SELECT
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeFakeImage cafeFakeImage
+		FROM (
+			SELECT
+				CEIL(rownum/3) page,
+				cafeNo,
+				cafeName,
+				cafeFeature,
+				cafeAddress,
+				cafeFakeImage
+			FROM (
+				SELECT
+					cafeNo,
+					cafeName,
+					cafeFeature,
+					cafeAddress,
+					cafeFakeImage
+				FROM PRboard WHere cafeAddress LIKE '%서울시 강남구%'
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page = 1 
 --  create table --
 delete from code where codeType='login_possibility'
 create table code(
@@ -56,7 +77,13 @@ insert into code values('impossible','로그인불가','login_possibility');
 
 
 
-
+SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/100) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry WHERE inquiryReply is null order by inquiryNo desc
+					     )
+				 )
+		WHERE page = 1
 
 
 create table notice_board(

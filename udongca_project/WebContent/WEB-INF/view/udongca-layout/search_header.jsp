@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	//major category
-	$.ajax({
+/* 	$.ajax({
 		"url":"/udongca_project/search/selectAllMajorAddress.udc",
 		"type":"GET",
 		"data":"",
@@ -13,8 +13,9 @@ $(document).ready(function(){
 			for(var i = 0; i < json.length; i++){
 				$("#address1").append("<option value=" + json[i].majorCategoryNo + ">" + json[i].addressName + "</option>");
 			}
+			
 		}
-	});
+	}); */
 	
 	//theme category
 	$.ajax({
@@ -24,25 +25,12 @@ $(document).ready(function(){
 		"success":function(json){
 			for(var i = 0; i < json.length; i++){
 				$("#theme").append("<option value=" + json[i].codeId + ">" + json[i].codeName + "</option>");
+			
+				if('${param.cafeFeature}'.length != 0){
+					$("#theme").val('${param.cafeFeature}')
+				}
 			}
 		}
-	});
-	
-	$('#main_searchAddress').on('click',function(){
-		if ($("#address1").val() == "시/도" || $("#address2").val() == "군/구"){
-			alert("올바른 지역을 선택하세요");
-			return false;
-		}
-		location.href='/udongca_project/search/address_search_result.udc?address1='+$("#address1 option:selected").text()+'&address2='+$("#address2 option:selected").text();
-	});
-	
-	$('#main_searchTheme').on('click',function(){
-		if($('#theme').val() == '테마 선택'){
-			alert('테마를 선택하고 검색버튼을 눌러주세요.')
-			return false;
-		}
-		
-		location.href='/udongca_project/search/theme_search_result.udc?cafeFeature='+$("#theme option:selected").val();
 	});
 });
 </script>
@@ -66,6 +54,27 @@ $(document).ready(function(){
 
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
-<div>지역선택&nbsp;<select id="address1"><option >시/도</option></select>&nbsp;<select id="address2"><option >시/도 먼저 선택</option></select>&nbsp;<button id="main_searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option >테마 선택</option></select>&nbsp;<button id="main_searchTheme">검색</button></div>
+<div>지역선택&nbsp;
+<select id="address1">
+<option value=0>시/도</option>
+	<c:forEach items="${requestScope.result.majorCategory}" var="majorList" varStatus="status">
+		<option value="${majorList.majorCategoryNo }"
+			${param.address1 == majorList.addressName ? 'selected':'' }>${majorList.addressName }</option>
+	</c:forEach>
+</select>&nbsp;
+<select id="address2">
+<option value=0>시/도 먼저 선택</option>
+	<c:forEach items="${requestScope.result.middleCategory}" var="middleList" varStatus="status">
+		<option value="${middleList.middleCategoryNo }"
+			${param.address2 == middleList.addressName ? 'selected':'' }>${middleList.addressName }</option>
+	</c:forEach>
+</select>&nbsp;
+<button id="searchAddress">검색</button>&nbsp;&nbsp;
+테마검색&nbsp;
+<select id="theme">
+<option value=0>테마 선택</option>
+</select>&nbsp;
+<button id="searchTheme">검색</button>
+</div>
 <c:if test="${sessionScope.login.memberType eq 'licenseemember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 </div>

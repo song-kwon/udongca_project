@@ -79,7 +79,7 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	    return dao.selectList(page);
 	}
 	public PagingBean page(int page){
-	    return new PagingBean(dao.countList(), page);
+	    return new PagingBean(dao.countList2(), page);
 	}
 	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry){
 	    return dao.updateInquiryReply(oneToOneInquiry);

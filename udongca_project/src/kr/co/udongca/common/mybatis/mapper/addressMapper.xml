@@ -24,4 +24,12 @@
 			FROM middlecategory
 			WHERE middle_categoryNo = #{middleCategoryNo}
 	</select>
+	
+		<select id="selectMajorCategoryNoByAddress" parameterType="string" resultType="int">
+			SELECT
+			major_categoryNo majorCategoryNo
+			FROM majorcategory
+			WHERE address1 = #{majorAddress}
+	</select>
+	
 </mapper>
