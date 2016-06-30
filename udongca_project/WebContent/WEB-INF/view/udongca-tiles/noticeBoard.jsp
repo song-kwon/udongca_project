@@ -28,9 +28,9 @@ $(document).ready(function(){
 <div><h2>공지 사항</h2></div>
 <table border="1">
 	<tr id="tr">
-		<td style="width:40px; border-right:1px dotted; font-weight:bold;">[${requestScope.noticeBoard.category }]</td>
+		<td style="width:60px; border-right:1px dotted; font-weight:bold;">[${requestScope.noticeBoard.category }]</td>
 		<td style="width:200px; border-right:1px dotted; font-weight:bold;">${requestScope.noticeBoard.noticeTitle }</td>
-		<td style="width:60px;">${requestScope.noticeBoard.noticeDate }</td>
+		<td style="width:30px;">${requestScope.noticeBoard.noticeDate }</td>
 	</tr>
 	<tr>
 		<td colspan="3" style="width:500px; height:300px;">${requestScope.noticeBoard.noticeContent }</td>
@@ -38,7 +38,7 @@ $(document).ready(function(){
 </table>
 <div align="center">
 	<c:if test="${sessionScope.login.memberId=='udongca' }">
-		<a href="/udongca_project/noticeBoard/modifyNoticeBoardform.udc?noticeNo=${requestScope.noticeBoard.noticeNo}"><input type="button" value="공지수정"></a>
+		<a href="/udongca_project/noticeBoard/modifyNoticeBoardform.udc?noticeNo=${requestScope.noticeBoard.noticeNo}&codeType=notice_type"><input type="button" value="공지수정"></a>
 		<input type="button" id="deleteBtn" value="공지삭제">
 	</c:if>
 	<a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc"><input type="button" value="공지목록"></a>

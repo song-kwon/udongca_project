@@ -10,12 +10,18 @@ import org.springframework.stereotype.Service;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.OneToOneInquiryDao;
 import kr.co.udongca.service.OneToOneInquiryService;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 @Service
 public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	@Autowired
 	private OneToOneInquiryDao dao;
+	
+	@Override
+	public List<Code> selectByCodeType(String codeType){
+		return dao.selectByCodeType(codeType);
+	}
 	
 	@Override
 	public int registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId){

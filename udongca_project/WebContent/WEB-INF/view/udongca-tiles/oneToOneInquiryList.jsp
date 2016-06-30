@@ -43,6 +43,8 @@ tr#tr, td{
 }
 
 .cursor{
+	text-align:left;
+	margin:30px;
 	cursor:pointer;
 	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
@@ -58,19 +60,17 @@ td#td2:hover{text-decoration:underline; color:red;}
 	<thead id="thead">
 		<tr>
 			<td>No</td>
-			<td>유형</td>
 			<td>문의 제목</td>
 			<td>문의 내용</td>
 			<td>작성자</td>
-			<col width="30px"><col width="60px"><col width="200px"><col width="300px"><col width="60px">
+			<col width="50px"><col width="200px"><col width="300px"><col width="60px">
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<c:forEach items="${requestScope.map.oneToOneInquiryList}" var="list">
 			<tr id="tr">
 				<td>${list.inquiryNo}</td>
-				<td>${list.inquiryType }</td>
-				<td id="td1" class="cursor">${list.inquiryTitle }</td>
+				<td id="td1" class="cursor"><span style="text-align:left; width:100px; text-weight:bold; color:red;">[${list.inquiryType }]</span>&nbsp;${list.inquiryTitle }</td>
 				<td id="td2" class="cursor">${list.inquiryContent }</td>
 				<td>${list.memberId }</td>
 			</tr>

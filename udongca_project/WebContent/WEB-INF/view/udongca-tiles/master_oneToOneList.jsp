@@ -97,14 +97,14 @@ tr#td2:hover{text-decoration:underline; color:red;}
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="pnum" value="${param.pnum }">
 <c:if test="${sessionScope.login.memberType != master}">
-	<div style="margin:30px"><h3>1:1문의관리</h3></div>
+	<div style="margin:30px"><h1>1:1문의관리</h1></div>
 	<table>
 		<thead>
 		<tr>
-			<td style="width:100px;">NO</td>
+			<td style="width:100px;">No</td>
 			<td style="width:300px;">제목</td>
 			<td style="width:300px;">문의유형</td>
-			<td style="width:100px;">id</td>
+			<td style="width:100px;">작성자</td>
 		</tr>
 		</thead>
 		<tbody id="table">

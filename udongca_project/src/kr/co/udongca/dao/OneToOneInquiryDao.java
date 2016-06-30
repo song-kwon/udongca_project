@@ -2,6 +2,7 @@ package kr.co.udongca.dao;
 
 import java.util.List;
 
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 public interface OneToOneInquiryDao {
@@ -31,4 +32,6 @@ public interface OneToOneInquiryDao {
 	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry);
 	
 	public OneToOneInquiry selectOneInquiry(int inquiryNo);
+
+	public List<Code> selectByCodeType(String codeType);
 }

@@ -84,8 +84,9 @@ table{
 		<td>
 			<select id="inquiryType" name="inquiryType">
 				<option>유형 선택</option>
-				<option>유형1</option>
-				<option>유형2</option>
+				<c:forEach items="${requestScope.codeList }" var="code">
+					<option>${code.codeName }</option>
+				</c:forEach>
 			</select>
 		</td>
 	</tr>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.NoticeBoardDao;
 import kr.co.udongca.service.NoticeBoardService;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.NoticeBoard;
 
 @Service
@@ -22,7 +23,13 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	public int registerNoticeBoard(NoticeBoard noticeBoard){
 		int noticeNo = dao.selectNoNoticeBoard();
 		noticeBoard.setNoticeNo(noticeNo);
+		
 		return dao.insertNoticeBoard(noticeBoard);
+	}
+	
+	@Override
+	public List<Code> selectByCodeType(String codeType){
+		return dao.selectByCodeType(codeType);
 	}
 	
 	@Override

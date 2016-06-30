@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.NoticeBoardService;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.NoticeBoard;
 
 @Controller
@@ -36,10 +38,23 @@ public class NoticeBoardController {
 		}
 	}
 	
+	@RequestMapping("registerNoticeBoardform.udc")
+	public ModelAndView registerNoticeBoardform(String codeType){
+		List<Code> codeList = service.selectByCodeType(codeType);
+		return new ModelAndView("noticeBoardRegisterform.tiles","codeList",codeList);
+	}
+	
 	@RequestMapping("registerNoticeBoard.udc")
 	public String registerNoticeBoard(NoticeBoard noticeBoard){
 		service.registerNoticeBoard(noticeBoard);
 		return "redirect:/noticeBoard/noticeBoardRegisterSuccess.udc";
+	}
+	
+	@RequestMapping("/selectByCodeType.udc")
+	@ResponseBody
+	public List<Code> selectByCodeType(String codeType){
+		List<Code> codeList = service.selectByCodeType(codeType);
+		return codeList;
 	}
 	
 	@RequestMapping("deleteNoticeBoard.udc")
@@ -49,9 +64,15 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping("modifyNoticeBoardform.udc")
-	public ModelAndView modifyNoticeBoardForm(int noticeNo){
+	public ModelAndView modifyNoticeBoardForm(int noticeNo, String codeType){
 		NoticeBoard noticeBoard = service.selectNoticeBoard(noticeNo);
-		return new ModelAndView("noticeBoardModifyform.tiles","noticeBoard",noticeBoard);
+		List<Code> codeList = service.selectByCodeType(codeType);
+		
+		HashMap map = new HashMap();
+		map.put("noticeBoard", noticeBoard);
+		map.put("codeList", codeList);
+		
+		return new ModelAndView("noticeBoardModifyform.tiles","map",map);
 	}
 	
 	@RequestMapping("modifyNoticeBoard.udc")

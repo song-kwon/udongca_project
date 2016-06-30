@@ -64,6 +64,7 @@ table{
 	width:800px;
 	margin:30px;
 	text-align:center;
+	table-layout:fixed;
 }
 
 thead{
@@ -90,7 +91,7 @@ td{
 
 .cursor{
 	cursor:pointer;
-	table-layout:fixed;
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 
 tr#td2:hover{text-decoration:underline; color:red;}
@@ -102,7 +103,7 @@ tr#td2:hover{text-decoration:underline; color:red;}
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <input type="hidden" id="success" value="${param.success}">
 <c:if test="${sessionScope.login.memberType == 'master'}">
-<h3 style="margin:30px;">회원리스트</h3> 
+<h1 style="margin:30px;">회원리스트</h1> 
 <table >
 <thead>
 	<tr>
@@ -111,6 +112,7 @@ tr#td2:hover{text-decoration:underline; color:red;}
 		<td>이메일</td>
 		<td>페널티</td>
 		<td>로그인허용</td>
+		<col width="60px"><col width="60px"><col width="100px"><col width="60px"><col width="60px">
 	</tr>
 </thead>
 <tbody id = "table" >

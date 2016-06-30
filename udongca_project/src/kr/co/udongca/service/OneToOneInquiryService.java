@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.udongca.common.util.PagingBean;
+import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.OneToOneInquiry;
 
 public interface OneToOneInquiryService {
@@ -29,5 +30,7 @@ public interface OneToOneInquiryService {
 	public List oneToOneList(int page);
 	
 	public PagingBean page(int page);
+
+	public List<Code> selectByCodeType(String codeType);
 
 }
