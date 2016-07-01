@@ -80,4 +80,19 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	public ReviewBoard selectReview(int reviewNo) {
 		return dao.selectReview(reviewNo);
 	}
+	
+	@Override
+	public int insertReview(ReviewBoard review) {
+		return dao.insertReview(review);
+	}
+
+	@Override
+	public int updateReview(ReviewBoard review) {
+		return dao.updateReview(review);
+	}
+
+	@Override
+	public int deleteReview(int reviewNo) {
+		return dao.deleteReview(reviewNo);
+	}
 }

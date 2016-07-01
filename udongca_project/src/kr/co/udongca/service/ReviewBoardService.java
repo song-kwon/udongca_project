@@ -16,4 +16,10 @@ public interface ReviewBoardService {
 	public Map cafeReviewListPaging(int page,int cafeNo);
 	
 	public ReviewBoard selectReview(int reviewNo);
+	
+	public int insertReview(ReviewBoard review);
+	
+	public int updateReview(ReviewBoard review);
+	
+	public int deleteReview(int reviewNo);
 }

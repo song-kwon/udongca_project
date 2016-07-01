@@ -72,4 +72,48 @@ public class ReviewBoardController {
 	public ReviewBoard reviewRead(int reviewNo){
 		return service.selectReview(reviewNo);
 	}
+	
+	@RequestMapping("reviewDelete.udc")
+	public String reviewDelete(int reviewNo, String writerId,
+			int cafeNo, HttpSession session){
+		System.out.println(writerId);
+		Member mem = (Member)session.getAttribute("login");
+		System.out.println(mem.getMemberId());
+		if (mem == null || !mem.getMemberId().equals(writerId)){
+			return "redirect:/loginPage.udc";
+		}
+		service.deleteReview(reviewNo);
+		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+	}
+	
+	@RequestMapping("reviewModifyForm.udc")
+	public String reviewModifyForm(int reviewNo, String writerId,
+			ModelMap map, HttpSession session){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberId().equals(writerId)){
+			return "redirect:/loginPage.udc";
+		}
+		map.put("review", service.selectReview(reviewNo));
+		return "/ParkTest/reviewModifyForm.jsp";
+	}
+	
+	@RequestMapping("reviewModify.udc")
+	public String reviewModify(){
+		return null;
+	}
+	
+	@RequestMapping("reviewWriteForm.udc")
+	public String reviewModifyForm(int cafeNo, ModelMap map, HttpSession session){
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberType().equals("generalMember")){
+			return "redirect:/loginPage.udc";
+		}
+		map.put("cafeNo", cafeNo);
+		return "/ParkTest/reviewWrite.jsp";
+	}
+	
+	@RequestMapping("reviewWrite.udc")
+	public String reviewWrite(){
+		return null;
+	}
 }

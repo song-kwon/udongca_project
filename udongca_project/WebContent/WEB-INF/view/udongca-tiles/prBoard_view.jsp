@@ -139,12 +139,10 @@
 							for(var i =0;i<obj.length;i++){
 								
 								if(i==0){
-									alert(obj[i].menuFakeImage);
 								$(".carousel-inner").append("<div class='item active'>"+
 									      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 								$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 								}else{
-									alert(obj[i].menuFakeImage);
 									$(".carousel-inner").append("<div class='item'>"+
 										    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 									$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
@@ -263,6 +261,7 @@
 					"data":"reviewNo=" + reviewNo,
 					"dataType":"json",
 					"success":function(json){
+						var writerId = "'" + json.memberId + "'";
 						reviewImageArray = json.reviewFakeImage.split(";");
 						html += "<table><tr><td id='reviewTitle'></td>";
 						html += "<td>" + json.memberId + "</td>";
@@ -275,8 +274,8 @@
 						html += "<tr><td id='reviewContent' colspan=3>";
 						html += "</td></tr>";
 						html += "</table>";
-						html += "<button onclick='reviewModifyForm(" + reviewNo + ")'>수정</button>";
-						html += "<button onclick='reviewDelete(" + reviewNo + ")'>삭제</button>";
+						html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
+						html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
 						
 						$("#content").append(html);
 						$("#reviewTitle").text(json.reviewTitle);
@@ -293,16 +292,16 @@
 			}
 			
 			function reviewWrite(){
-				window.location.href = "reviewWrite.udc?cafeNo=" + $("#cafeNo").val();
+				window.location.href = "/udongca_project/review/reviewWriteForm.udc?cafeNo=" + $("#cafeNo").val();
 			}
 			
-			function reviewModifyForm(reviewNo){
-				window.location.href = "reviewModifyForm.udc?reviewNo=" + reviewNo;
+			function reviewModifyForm(reviewNo, writerId){
+				window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId;
 			}
 			
-			function reviewDelete(reviewNo){
+			function reviewDelete(reviewNo, writerId){
 				if (window.confirm("정말 삭제하겠습니까?")){
-					window.location.href = "reviewDelete.udc?reviewNo=" + reviewNo;
+					window.location.href = "/udongca_project/review/reviewDelete.udc?reviewNo=" + reviewNo + "&writerId=" + writerId + "&cafeNo=" + $("#cafeNo").val();
 				}
 			}
 			</script>
