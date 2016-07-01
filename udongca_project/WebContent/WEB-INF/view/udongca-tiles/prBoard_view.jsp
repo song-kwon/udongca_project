@@ -133,6 +133,9 @@
 					"data":{cafeNumber:no,menuType:menuType},
 					"dataType":"json",
 					"success":function(obj){
+						alert(obj);
+						if(obj != ""){
+							alert("!");
 							$("#content").append(
 									"<div id='myCarousel' class='carousel slide'>"+
 									"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
@@ -163,6 +166,15 @@
 						    $(".item4").click(function(){
 						        $("#myCarousel").carousel(3);
 						    });
+						}
+						else{
+							alert(".");
+							$("#content").append("해당 카테고리의 메뉴가 존재하지 않습니다<br>");
+						}
+						
+						if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
+							$("#content").append("<button onclick='menuModifyForm()'>메뉴 수정</button>");
+						}
 					},
 					"error":function(xhr){
 						alert("An error occured in drink(): " + xhr.status + " " + xhr.statusText);
@@ -247,7 +259,7 @@
 							html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a><br>");
 						}
 						
-						if ("${sessionScope.login.memberType eq generalMember}"){
+						if ("${sessionScope.login.memberType}" == "generalMember"){
 							html += "<button onclick=reviewWrite()>리뷰 작성</button>";
 						}
 						

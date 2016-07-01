@@ -82,9 +82,7 @@ public class ReviewBoardController {
 	@RequestMapping("reviewDelete.udc")
 	public String reviewDelete(int reviewNo, String writerId,
 			int cafeNo, HttpSession session){
-		System.out.println(writerId);
 		Member mem = (Member)session.getAttribute("login");
-		System.out.println(mem.getMemberId());
 		if (mem == null || !mem.getMemberId().equals(writerId)){
 			return "redirect:/loginPage.udc";
 		}
@@ -104,8 +102,74 @@ public class ReviewBoardController {
 	}
 	
 	@RequestMapping("reviewModify.udc")
-	public String reviewModify(){
-		return null;
+	public String reviewModify(@RequestParam Map map, MultipartFile[] addReviewImage,
+			String[] modifiedReviewFakeImage, String[] modifiedReviewRealImage,
+			HttpServletRequest req, HttpSession session)
+					throws IllegalStateException, IOException{
+		Member mem = (Member)session.getAttribute("login");
+		if (mem == null || !mem.getMemberId().equals(map.get("writerId"))){
+			return "redirect:/loginPage.udc";
+		}
+		
+		String addRealImagesName="";
+		String addFakeImagesName="";
+		
+		if (addReviewImage != null && addReviewImage.length != 0 && !addReviewImage[0].isEmpty()) {
+			for(int idx = 0 ; idx < addReviewImage.length ; idx++){
+				String imageName = addReviewImage[idx].getOriginalFilename();// 업로드된 파일명
+				
+				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+				// 최종 저장소 디렉토리 조회
+				String dir = req.getServletContext().getRealPath("/images");
+				long fake = System.currentTimeMillis();
+				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+	
+				addReviewImage[idx].transferTo(dest);
+				addRealImagesName += imageName+";";
+				addFakeImagesName += fake+imageName+";";
+			}
+		}
+		
+		String[] originalReviewFakeImage = ((String)(map.get("reviewFakeImage"))).split(";");
+		
+		for (int i = 0; i < originalReviewFakeImage.length; i++){
+			int temp = -1;
+			if (modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && modifiedReviewFakeImage[0].equals("")){
+				for (int j = 0; j < modifiedReviewFakeImage.length; j++){
+					if (originalReviewFakeImage[i].equals(modifiedReviewFakeImage[j])){
+						temp = j;
+						break;
+					}
+				}
+			}
+			if (temp == -1){
+				String dir = req.getServletContext().getRealPath("/images");
+				File dest = new File(dir, originalReviewFakeImage[i]);
+				dest.delete();
+			}
+		}
+		
+		String resultFakeImage = ((modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && modifiedReviewFakeImage[0].equals("")) ? String.join(";", modifiedReviewFakeImage) : "") + ";" + addFakeImagesName;
+		String resultRealImage = ((modifiedReviewRealImage != null && modifiedReviewRealImage.length != 0 && modifiedReviewRealImage[0].equals("")) ? String.join(";", modifiedReviewRealImage) : "") + ";" + addRealImagesName;
+		
+		if (resultRealImage.equals(";")){
+			resultRealImage = "defaultReview.png;";
+			resultFakeImage = "defaultReview.png;";
+		}
+		
+		service.updateReview(new ReviewBoard(
+				Integer.parseInt(((String)map.get("reviewNo"))),
+				(String)map.get("reviewTitle"),
+				null,
+				(String)map.get("reviewContent"),
+				(String)map.get("reviewGrade"),
+				null,
+				resultRealImage,
+				resultFakeImage,
+				0
+		));
+		
+		return "/prBoard/prView.udc?cafeNo=" + (String)(map.get("cafeNo"));
 	}
 	
 	@RequestMapping("reviewWriteForm.udc")
@@ -132,8 +196,6 @@ public class ReviewBoardController {
 		String reviewRealImagesName="";
 		String reviewFakeImagesName="";
 		
-		System.out.println(map.get("cafeNo"));
-		
 		review.setReviewNo(service.selectNextReviewBoardSequence());
 		review.setReviewTitle((String)(map.get("reviewTitle")));
 		review.setReviewDate(new Date(System.currentTimeMillis()));
@@ -142,7 +204,7 @@ public class ReviewBoardController {
 		review.setMemberId(mem.getMemberId());
 		review.setCafeNo(Integer.parseInt((String)(map.get("cafeNo"))));
 		
-		if (reviewImage.length != 0 && reviewImage != null) {
+		if (reviewImage != null && reviewImage.length != 0 && !reviewImage[0].isEmpty()) {
 			for(int idx = 0 ; idx < reviewImage.length ; idx++){
 				String imageName = reviewImage[idx].getOriginalFilename();// 업로드된 파일명
 				
@@ -158,8 +220,8 @@ public class ReviewBoardController {
 			}
 		}
 		
-		review.setReviewRealImage(reviewRealImagesName);
-		review.setReviewFakeImage(reviewFakeImagesName);
+		review.setReviewRealImage((reviewRealImagesName.equals("")) ? "defaultReview.png;" : reviewRealImagesName);
+		review.setReviewFakeImage((reviewFakeImagesName.equals("")) ? "defaultReview.png;" : reviewFakeImagesName);
 		
 		service.insertReview(review);
 		
