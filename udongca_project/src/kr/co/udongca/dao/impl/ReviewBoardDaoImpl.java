@@ -74,4 +74,9 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public int deleteReview(int reviewNo) {
 		return session.delete("reviewBoardMapper.deleteReview", reviewNo);
 	}
+
+	@Override
+	public int selectNextReviewBoardSequence() {
+		return session.selectOne("reviewBoardMapper.selectNextReviewBoardSequence");
+	}
 }

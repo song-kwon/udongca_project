@@ -29,4 +29,6 @@ public interface ReviewBoardDao {
 	public int updateReview(ReviewBoard review);
 	
 	public int deleteReview(int reviewNo);
+	
+	public int selectNextReviewBoardSequence();
 }
