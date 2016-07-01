@@ -67,7 +67,7 @@ public class PrBoardController {
 			ModelMap model, HttpSession session)
 					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
-		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			return "redirect:/loginPage.udc";
 		}
 		
@@ -257,7 +257,7 @@ public class PrBoardController {
 	public String moveToNewPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
 			HttpSession session, ModelMap model){
 		Member mem = (Member)session.getAttribute("login");
-		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			return "redirect:/loginPage.udc";
 		}
 		
@@ -295,7 +295,7 @@ public class PrBoardController {
 	@ResponseBody
 	public List<Menu> menuList(int cafeNumber, String menuType){
 		HashMap map = new HashMap();
-		map.put("cafeNumber", cafeNumber);
+		map.put("cafeNo", cafeNumber);
 		map.put("menuType", menuType);
 		return service.selectMenuListByCafeNoAndMenuType(map);
 	}
@@ -385,7 +385,7 @@ public class PrBoardController {
 	@RequestMapping("menuModifyForm.udc")
 	public String menuModifyForm(int cafeNo, HttpSession session, ModelMap map){
 		Member mem = (Member)session.getAttribute("login");
-		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			return "redirect:/loginPage.udc";
 		}
 		map.put("cafeNo", cafeNo);
@@ -412,7 +412,7 @@ public class PrBoardController {
 			MultipartFile[] menuImageArray, HttpServletRequest req,
 			HttpSession session) throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
-		if (mem == null || !mem.getMemberType().equals("licenseemember")){
+		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			//return "redirect:/loginPage.udc";
 		}
 		

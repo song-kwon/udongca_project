@@ -17,7 +17,7 @@ div#dropBtn:hover{color:purple;}
 <div>
 <input type="hidden" value="${sessionScope.login.memberId }" id="loginId">
 <c:choose>
-	<c:when test="${sessionScope.login.memberType == 'licenseemember' }">
+	<c:when test="${sessionScope.login.memberType == 'licenseeMember' }">
 		<a href="/udongca_project/member/member_prBoard_list.udc">내 홍보글</a><br>
 		<a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a><br>
 		<a href="/udongca_project/member/memberInquiryListPaging.udc">1:1문의</a><br>

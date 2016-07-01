@@ -229,7 +229,7 @@ public class MemberServiceImpl implements MemberService {
 			map.put("page", page);
 			map.put("memberId", memberId);
 			List list = memberDaoImpl.memberPRBoardList(map);
-			PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberInquiryList(memberId), page);
+			PagingBean pagingBean = new PagingBean(memberDaoImpl.countMemberPRBoard(memberId), page);
 			map.put("list", list);
 			map.put("pageBean", pagingBean);
 			return map;

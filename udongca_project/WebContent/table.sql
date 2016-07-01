@@ -120,14 +120,14 @@ memberType	varchar2(50)	NOT NULL
 );
 
 insert into member values('udongca','udongca','master','master@udongca.com','0','possible','master');
-insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalmember');
-insert into member values('test1','test1','test1','a@a.com','0','possible','licenseemember');
-insert into member values('test2','test2','test2','b@b.com','0','possible','generalmember');
-insert into member values('test3','test3','test3','c@c.com','0','possible','generalmember');
-insert into member values('test4','test4','test4','d@d.com','0','possible','generalmember');
-insert into member values('test5','test5','test5','e@d.com','0','possible','licenseemember');
-insert into member values('test6','test6','test6','f@d.com','0','possible','licenseemember');
-insert into member values('test7','test7','test7','g@d.com','0','possible','licenseemember');
+insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalMember');
+insert into member values('test1','test1','test1','a@a.com','0','possible','licenseeMember');
+insert into member values('test2','test2','test2','b@b.com','0','possible','generalMember');
+insert into member values('test3','test3','test3','c@c.com','0','possible','generalMember');
+insert into member values('test4','test4','test4','d@d.com','0','possible','generalMember');
+insert into member values('test5','test5','test5','e@d.com','0','possible','licenseeMember');
+insert into member values('test6','test6','test6','f@d.com','0','possible','licenseeMember');
+insert into member values('test7','test7','test7','g@d.com','0','possible','licenseeMember');
 
 
 

@@ -37,4 +37,53 @@
 		from review_reply
 		where reviewNo=#{reviewNo} and parentReply=0
 	</select>
+	
+	<select id="countCafeReview" parameterType="int" resultType="int">
+		select count(reviewNo) from review_board where cafeNo=#{cafeNo}
+	</select>
+	
+	<select id="cafeReviewListPaging" parameterType="map" resultType="reviewBoard">
+		SELECT <include refid="review-column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="review-column"/>
+			     FROM(SELECT <include refid="review-column"/> FROM review_board where cafeNo = #{cafeNo} order by reviewNo asc
+					     )
+				 )
+		WHERE page = #{page}
+	</select>
+	
+	<select id="selectReview" parameterType="int" resultType="reviewBoard">
+		select <include refid="review-column"/>
+		from review_board
+		where reviewNo = #{reviewNo}
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewBoard">
+		INSERT INTO review_board(<include refid="review-column"/>)
+		VALUES(
+			#{reviewNo},
+			#{reviewTitle},
+			#{reviewDate},
+			#{reviewContent},
+			#{reviewGrade},
+			#{reviewRealImage},
+			#{reviewFakeImage},
+			#{memberId},
+			#{cafeNo}
+		)
+	</insert>
+	
+	<update id="updateReview" parameterType="reviewBoard">
+		UPDATE review_board SET
+			reviewTitle = #{reviewTitle},
+			reviewContent = #{reviewContent},
+			reviewGrade = #{reviewGrade},
+			reviewRealImage = #{reviewRealImage},
+			reviewFakeImage = #{reviewFakeImage}
+		WHERE reviewNo = #{reviewNo}
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review_board
+		WHERE reviewNo = #{reviewNo}
+	</delete>
 </mapper>

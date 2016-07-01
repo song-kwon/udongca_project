@@ -40,7 +40,6 @@ tr#tr, td{
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
 </style>
-
 <input type="hidden" value="${requestScope.error }" id="error">
 <div id="page" style="width: 700px;">
 	<h1>나의 홍보글</h1>
@@ -55,7 +54,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 				</thead>
 				<tbody class="tbody" id="prBoardtList">
 					<c:forEach items="${requestScope.list }" var="list">
-						<tr id="tr">
+						<tr id="tr" onclick="location.href='/udongca_project/prBoard/prView.udc?cafeNo=${list.cafeNo}'">
 							<td class="cursor">${list.cafeNo }</td>
 							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">${list.cafeName }</td>
 						</tr>
