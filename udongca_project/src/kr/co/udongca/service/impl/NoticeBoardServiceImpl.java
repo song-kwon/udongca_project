@@ -56,4 +56,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	    map.put("pageBean", pagingBean);
 	    return map;
 	}
+	
+	@Override
+	public List<NoticeBoard> selectNoticeBoardTopTen() {
+		return dao.selectNoticeBoardTopTen();
+	}
 }

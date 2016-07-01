@@ -20,7 +20,6 @@
 	<context:component-scan base-package="kr.co.udongca.controller,kr.co.udongca.service.impl,kr.co.udongca.dao.impl"/>
 	  
 	<!-- 단순 링크 --> 
-	<mvc:view-controller path="/main.udc" view-name="main.tiles" />
 	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" />
 	<mvc:view-controller path="/generalMemberJoinform.udc" view-name="generalMemberJoinform.tiles"/>
 	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="licenseeMemberJoinform.tiles"/>
@@ -63,7 +62,7 @@
 	<bean name="txmanager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 	 	p:dataSource-ref="dataSource"/>
 	 <tx:annotation-driven transaction-manager="txmanager"/>
-
+	
 	<!-- Tiles 설정 -->
 	<bean name="tilesConfig"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

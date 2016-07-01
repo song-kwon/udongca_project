@@ -1,7 +1,27 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
-	
+
+--리뷰, 공지 최근 10건
+select * from (select * from review_BOARD order by reviewdate desc) where ceil(rownum) <= 10 
+select * from (select * from notice_BOARD order by noticedate desc) where ceil(rownum) <= 10
+
+--추천 순 카페 9건
+select * from REVIEW_BOARD where 
+
+--내 즐찾 카페 번호 & 이미지
+SELECT b.cafeNo , p.cafeFakeImage FROM bookmark b, prboard p WHERE b.memberId = 'scott' and b.cafeNo=p.cafeNo
+
+--내 선호지역 카페
+select * from preferlocation where memberId='scott'
+
+select middle.*,major.* ,p.*
+from  MAJORCATEGORY major, MIDDLECATEGORY middle, (select * from PREFERLOCATION where memberId='scott') p
+where middle.major_categoryNo = major.major_categoryNO 
+and p.address1=middle.middle_categoryNo
+
+--notioce top 10
+SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate FROM notice_board    WHERE ceil(rownum)   <  11 order by noticedate
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'

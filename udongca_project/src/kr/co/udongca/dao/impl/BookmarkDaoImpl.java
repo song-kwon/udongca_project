@@ -43,4 +43,9 @@ public class BookmarkDaoImpl implements BookmarkDao {
 	public List<Bookmark> selectBookmarkByMemberId(String memberId) {
 		return session.selectList("bookmarkMapper.selectBookmarkByMemberId", memberId);
 	}
+	
+	@Override
+	public List<Bookmark> selectBookmarkAndPRBoardByMemberId(String memberId) {
+		return session.selectList("bookmarkMapper.selectBookmarkAndPRBoardByMemberId",memberId);
+	}
 }
