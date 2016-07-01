@@ -4,18 +4,20 @@ public class Bookmark {
 
 	private int no;
 	private String memberId;
-	private int cafeNo;
 	private String cafeName;
+	private int cafeNo;
+	private PRBoard prBoard;
 	
 	public Bookmark() {
 	}
 
-	public Bookmark(int no, String memberId, int cafeNo, String cafeName) {
+	public Bookmark(int no, String memberId, String cafeName, int cafeNo, PRBoard prBoard) {
 		super();
 		this.no = no;
 		this.memberId = memberId;
-		this.cafeNo = cafeNo;
 		this.cafeName = cafeName;
+		this.cafeNo = cafeNo;
+		this.prBoard = prBoard;
 	}
 
 	public int getNo() {
@@ -34,6 +36,14 @@ public class Bookmark {
 		this.memberId = memberId;
 	}
 
+	public String getCafeName() {
+		return cafeName;
+	}
+
+	public void setCafeName(String cafeName) {
+		this.cafeName = cafeName;
+	}
+
 	public int getCafeNo() {
 		return cafeNo;
 	}
@@ -42,12 +52,12 @@ public class Bookmark {
 		this.cafeNo = cafeNo;
 	}
 
-	public String getCafeName() {
-		return cafeName;
+	public PRBoard getPrBoard() {
+		return prBoard;
 	}
 
-	public void setCafeName(String cafeName) {
-		this.cafeName = cafeName;
+	public void setPrBoard(PRBoard prBoard) {
+		this.prBoard = prBoard;
 	}
 
 	@Override
@@ -58,6 +68,7 @@ public class Bookmark {
 		result = prime * result + cafeNo;
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + no;
+		result = prime * result + ((prBoard == null) ? 0 : prBoard.hashCode());
 		return result;
 	}
 
@@ -84,12 +95,18 @@ public class Bookmark {
 			return false;
 		if (no != other.no)
 			return false;
+		if (prBoard == null) {
+			if (other.prBoard != null)
+				return false;
+		} else if (!prBoard.equals(other.prBoard))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Bookmark [no=" + no + ", memberId=" + memberId + ", cafeNo=" + cafeNo + ", cafeName=" + cafeName + "]";
+		return "Bookmark [no=" + no + ", memberId=" + memberId + ", cafeName=" + cafeName + ", cafeNo=" + cafeNo
+				+ ", prBoard=" + prBoard + "]";
 	}
 
 	

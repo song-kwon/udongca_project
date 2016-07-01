@@ -14,4 +14,5 @@ public interface BookmarkService {
 	public int insertBookmark(int cafeNo,String memberId);
 	public int countMemberBookmark(String memberId);
 	public List<Bookmark> selectBookmarkByMemberId(String memberId);
+	public List<Bookmark> selectBookmarkAndPRBoardByMemberId(String memberId);
 }

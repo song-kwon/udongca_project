@@ -59,4 +59,6 @@ public interface MemberService {
 	public PagingBean page(int page);
 
 	public Map memberPRBoardList(int page, String memberId);
+	
+	public List selectMemberPreferLocationAddress(String memberId);
 }

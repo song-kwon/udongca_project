@@ -262,29 +262,29 @@ $(document).ready(function(){
 	
 	
 	
-	$(window).resize();
+	//$(window).resize();
 	
 });
 
 
-$(window).resize(function(){
+/*$(window).resize(function(){
     $('.nonav_bodyDiv').css({position:'absloute'}).css({
         'margin-left': ($('.nonav_section').width() - $('.nonav_bodyDiv').outerWidth())/2,
         'margin-top': ($('.nonav_section').height() - $('.nonav_bodyDiv').outerHeight())/2
     });
     
-/*    $('.nav_bodyDiv').css({position:'absolute'}).css({
+    $('.nav_bodyDiv').css({position:'absolute'}).css({
     	'margin-left': $('.nav').width()+(($(window).width()/2) - $('.nav_bodyDiv').width())/2,
         'margin-top':($('.nav_section').height() - $('.nav_bodyDiv').height())/2
     });
-*/  
+  
     if($(window).width()>$('#wrap').outerWidth()){
     	$('#wrap').css({position:'absloute'}).css({
     	'margin-left': ($(window).width() - $('#wrap').outerWidth())/2
     	})
     
     }
-});
+});*/
 
 function getMiddleCategory(){
 	var category = this;

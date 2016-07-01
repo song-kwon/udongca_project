@@ -43,4 +43,8 @@
 		SELECT count(noticeNo) from notice_board
 	</select>
 	
+		<select id="select_noticeBoard_top_ten" resultType="noticeBoard">
+		<include refid="select-basic-noticeBoard"/> WHERE ceil(rownum) <![CDATA[ < ]]>11 order by noticedate desc
+	</select>
+	
 </mapper>

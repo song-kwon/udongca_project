@@ -5,6 +5,15 @@
 		ceil(rownum) no,memberId,cafeNo
 	</sql>
 	
+	<resultMap type="PRBoard" id="prBoard-fakeimage">
+		<result column="cafeFakeImage" property="cafeFakeImage"/>
+	</resultMap>
+	
+	<resultMap type="bookmark" id="bookmark-member-main">
+		<result column="cafeNo" property="cafeNo"/>
+		<association property="prBoard" javaType="PRBoard" resultMap="prBoard-fakeimage" />
+	</resultMap>
+	
 	<insert id="insertBookmark" parameterType="bookmark">
 		INSERT INTO bookmark (memberId, cafeNo) VALUES (#{memberId}, #{cafeNo})
 	</insert>
@@ -33,4 +42,7 @@
 		WHERE page =  #{page}
 	</select>
 	
+	<select id="selectBookmarkAndPRBoardByMemberId" parameterType="string" resultMap="bookmark-member-main">
+		SELECT b.cafeNo , p.cafeFakeImage FROM bookmark b, prboard p WHERE b.memberId = #{memberId} and b.cafeNo=p.cafeNo and ceil(rownum) <![CDATA[ < ]]> 10
+	</select>
 </mapper>

@@ -85,4 +85,9 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	public int selectNextMenuSequence() {
 		return session.selectOne(menuNamespace + "selectNextMenuSequence");
 	}
+	
+	@Override
+	public List<PRBoard> selectMainPRBoardByAddress(String cafeAddress) {
+		return session.selectList(prBoardNamespace+"selectMainPRBoardByAddress",cafeAddress);
+	}
 }

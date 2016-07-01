@@ -64,4 +64,9 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao{
 	public int countNoticeBoard(){
 	    return session.selectOne("noticeMapper.count_noticeBoard");
 	}
+	
+	@Override
+	public List<NoticeBoard> selectNoticeBoardTopTen() {
+		return session.selectList("noticeMapper.select_noticeBoard_top_ten");
+	}
 }

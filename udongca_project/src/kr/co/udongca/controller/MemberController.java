@@ -11,14 +11,17 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.SendEmailConfig;
+import kr.co.udongca.service.BookmarkService;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -80,7 +83,9 @@ public class MemberController {
 			return new ModelAndView("login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else {
 			session.setAttribute("login", login);
-			return new ModelAndView("main.tiles");
+			
+			//메인 화면 뿌려줄 카페 , 공지, 리뷰 리스트 받아오기
+			return new ModelAndView("/main.udc");
 		}
 	}
 
@@ -341,4 +346,5 @@ public class MemberController {
 			return new ModelAndView("error.tiles", "error_message", e.getMessage());
 		}
 	}
+
 }
