@@ -139,12 +139,10 @@
 							for(var i =0;i<obj.length;i++){
 								
 								if(i==0){
-									alert(obj[i].menuFakeImage);
 								$(".carousel-inner").append("<div class='item active'>"+
 									      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 								$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 								}else{
-									alert(obj[i].menuFakeImage);
 									$(".carousel-inner").append("<div class='item'>"+
 										    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 									$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
@@ -227,23 +225,32 @@
 					"data":"cafeNo=${requestScope.prBoard.cafeNo}&pnum=" + page,
 					"dataType":"json",
 					"success":function(json){
-						html += "<table>";
-						for (var i = 0; i < json.list.length; i++){
-							html += "<tr>";
-							html += "<td>" + json.list[i].reviewNo + "</td>";
-							html += "<td><a href='javascript:void(0)' onclick='reviewRead(" + json.list[i].reviewNo + ")'>" + json.list[i].reviewTitle + "</a></td>";
-							html += "<td>" + json.list[i].reviewDate + "</td>";
-							html += "</tr>";
+						if (!json.list.length){
+							html += "리뷰가 존재하지 않습니다<br>"
 						}
-						html += "</table><br>";
-						html += ((!json.pageBean.previousPageGroup) ? "◀" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>");
-						
-						for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
-							html += ((i == page) ? "<b>" + i + "</b>" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>");
+						else{
+							html += "<table>";
+							for (var i = 0; i < json.list.length; i++){
+								html += "<tr>";
+								html += "<td>" + json.list[i].reviewNo + "</td>";
+								html += "<td><a href='javascript:void(0)' onclick='reviewRead(" + json.list[i].reviewNo + ")'>" + json.list[i].reviewTitle + "</a></td>";
+								html += "<td>" + json.list[i].reviewDate + "</td>";
+								html += "</tr>";
+							}
+							html += "</table><br>";
+							html += ((!json.pageBean.previousPageGroup) ? "◀" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>");
+							
+							for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
+								html += ((i == page) ? "<b>" + i + "</b>" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>");
+							}
+							
+							html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a><br>");
 						}
 						
-						html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a>");
-												
+						if ("${sessionScope.login.memberType eq generalMember}"){
+							html += "<button onclick=reviewWrite()>리뷰 작성</button>";
+						}
+						
 						$("#content").append(html);
 					},
 					
@@ -263,6 +270,7 @@
 					"data":"reviewNo=" + reviewNo,
 					"dataType":"json",
 					"success":function(json){
+						var writerId = "'" + json.memberId + "'";
 						reviewImageArray = json.reviewFakeImage.split(";");
 						html += "<table><tr><td id='reviewTitle'></td>";
 						html += "<td>" + json.memberId + "</td>";
@@ -275,15 +283,16 @@
 						html += "<tr><td id='reviewContent' colspan=3>";
 						html += "</td></tr>";
 						html += "</table>";
-						html += "<button onclick='reviewModifyForm(" + reviewNo + ")'>수정</button>";
-						html += "<button onclick='reviewDelete(" + reviewNo + ")'>삭제</button>";
+						html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
+						html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
 						
 						$("#content").append(html);
 						$("#reviewTitle").text(json.reviewTitle);
-						for (var i = 0; i < reviewImageArray.length; i++){
-							$("#reviewContent").append("<img src='/udongca_project/image/" + reviewImageArray[i] + "' height='300' width='300'><br>");
+						for (var i = 0; i < reviewImageArray.length - 1; i++){
+							$("#reviewContent").append("<img src='/udongca_project/images/" + reviewImageArray[i] + "' height='300' width='300'><br>");
 						}
-						$("#reviewContent").append(document.createTextNode(json.reviewContent));
+						$("#reviewContent").append("<pre id='reviewContentText'></pre>");
+						$("#reviewContentText").append(document.createTextNode(json.reviewContent));
 					},
 					
 					"error":function(xhr){
@@ -293,16 +302,16 @@
 			}
 			
 			function reviewWrite(){
-				window.location.href = "reviewWrite.udc?cafeNo=" + $("#cafeNo").val();
+				window.location.href = "/udongca_project/review/reviewWriteForm.udc?cafeNo=" + $("#cafeNo").val();
 			}
 			
-			function reviewModifyForm(reviewNo){
-				window.location.href = "reviewModifyForm.udc?reviewNo=" + reviewNo;
+			function reviewModifyForm(reviewNo, writerId){
+				window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId;
 			}
 			
-			function reviewDelete(reviewNo){
+			function reviewDelete(reviewNo, writerId){
 				if (window.confirm("정말 삭제하겠습니까?")){
-					window.location.href = "reviewDelete.udc?reviewNo=" + reviewNo;
+					window.location.href = "/udongca_project/review/reviewDelete.udc?reviewNo=" + reviewNo + "&writerId=" + writerId + "&cafeNo=" + $("#cafeNo").val();
 				}
 			}
 			</script>

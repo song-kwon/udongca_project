@@ -59,4 +59,24 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public ReviewBoard selectReview(int reviewNo) {
 		return session.selectOne("reviewBoardMapper.selectReview", reviewNo);
 	}
+
+	@Override
+	public int insertReview(ReviewBoard review) {
+		return session.insert("reviewBoardMapper.insertReview", review);
+	}
+
+	@Override
+	public int updateReview(ReviewBoard review) {
+		return session.update("reviewBoardMapper.updateReview", review);
+	}
+
+	@Override
+	public int deleteReview(int reviewNo) {
+		return session.delete("reviewBoardMapper.deleteReview", reviewNo);
+	}
+
+	@Override
+	public int selectNextReviewBoardSequence() {
+		return session.selectOne("reviewBoardMapper.selectNextReviewBoardSequence");
+	}
 }

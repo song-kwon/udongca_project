@@ -23,4 +23,12 @@ public interface ReviewBoardDao {
 	public List<ReviewBoard> cafeReviewListPaging(Map map);
 	
 	public ReviewBoard selectReview(int reviewNo);
+	
+	public int insertReview(ReviewBoard review);
+	
+	public int updateReview(ReviewBoard review);
+	
+	public int deleteReview(int reviewNo);
+	
+	public int selectNextReviewBoardSequence();
 }
