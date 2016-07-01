@@ -254,6 +254,8 @@
 			}
 			
 			function reviewRead(reviewNo){
+				var html = "";
+				var reviewImageArray = null;
 				$("#content").empty();
 				$.ajax({
 					"url":"/udongca_project/review/reviewRead.udc",
@@ -261,7 +263,27 @@
 					"data":"reviewNo=" + reviewNo,
 					"dataType":"json",
 					"success":function(json){
-						alert(json);
+						reviewImageArray = json.reviewFakeImage.split(";");
+						html += "<table><tr><td id='reviewTitle'></td>";
+						html += "<td>" + json.memberId + "</td>";
+						html += "<td>" + json.reviewDate + "</td></tr>";
+						html += "<tr><td colspan=3>";
+						for (var i = 0; i < 5; i++){
+							html += "<img src='/udongca_project/udongca-image/star" + ((i < json.reviewGrade) ? "1" : "0" ) + ".png' height='32' width='32'>";
+						}
+						html += "</td></tr>";
+						html += "<tr><td id='reviewContent' colspan=3>";
+						html += "</td></tr>";
+						html += "</table>";
+						html += "<button onclick='reviewModifyForm(" + reviewNo + ")'>수정</button>";
+						html += "<button onclick='reviewDelete(" + reviewNo + ")'>삭제</button>";
+						
+						$("#content").append(html);
+						$("#reviewTitle").text(json.reviewTitle);
+						for (var i = 0; i < reviewImageArray.length; i++){
+							$("#reviewContent").append("<img src='/udongca_project/image/" + reviewImageArray[i] + "' height='300' width='300'><br>");
+						}
+						$("#reviewContent").append(document.createTextNode(json.reviewContent));
 					},
 					
 					"error":function(xhr){
