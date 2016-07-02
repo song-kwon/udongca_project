@@ -79,4 +79,9 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public int selectNextReviewBoardSequence() {
 		return session.selectOne("reviewBoardMapper.selectNextReviewBoardSequence");
 	}
+	
+	@Override
+	public List<ReviewBoard> selectMainReviewList() {
+		return session.selectList("reviewBoardMapper.selectMainReviewList");
+	}
 }

@@ -85,7 +85,7 @@ public class MemberController {
 			session.setAttribute("login", login);
 			
 			//메인 화면 뿌려줄 카페 , 공지, 리뷰 리스트 받아오기
-			return new ModelAndView("/main.udc");
+			return new ModelAndView("redirect:/main.udc");
 		}
 	}
 

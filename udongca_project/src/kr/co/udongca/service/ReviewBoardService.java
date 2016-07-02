@@ -24,4 +24,6 @@ public interface ReviewBoardService {
 	public int deleteReview(int reviewNo);
 	
 	public int selectNextReviewBoardSequence();
+	
+	public List<ReviewBoard> selectMainReviewList();
 }

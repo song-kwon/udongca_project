@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -250,11 +251,16 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		
-		for (int i = 1; i <= address.size(); i++) {
-			String cafeAddress=address.get("address"+i).toString();
-			List<PRBoard> result=prBoardDao.selectMainPRBoardByAddress(cafeAddress);
-			if(!result.isEmpty())
-				prBoard.add(result);
+		Set key = address.keySet();
+		for (Object object : key) {
+			if(address.get(object) != null){
+				String cafeAddress=null;
+				cafeAddress=address.get(object).toString();
+				List<PRBoard> result=prBoardDao.selectMainPRBoardByAddress(cafeAddress);
+				
+				if(!result.isEmpty())
+					prBoard.add(result);
+			}
 		}
 		return prBoard;
 	}

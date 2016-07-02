@@ -100,4 +100,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	public int selectNextReviewBoardSequence() {
 		return dao.selectNextReviewBoardSequence();
 	}
+	
+	@Override
+	public List<ReviewBoard> selectMainReviewList() {
+		return dao.selectMainReviewList();
+	}
 }

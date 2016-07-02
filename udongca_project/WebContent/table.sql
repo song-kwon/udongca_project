@@ -20,8 +20,13 @@ from  MAJORCATEGORY major, MIDDLECATEGORY middle, (select * from PREFERLOCATION 
 where middle.major_categoryNo = major.major_categoryNO 
 and p.address1=middle.middle_categoryNo
 
---notioce top 10
+--notioce new top 10
 SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate FROM notice_board    WHERE ceil(rownum)   <  11 order by noticedate
+
+--review new top 10
+	select * 
+		from review_board
+		where ceil(rownum) < 11 order by reviewDate desc;
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
