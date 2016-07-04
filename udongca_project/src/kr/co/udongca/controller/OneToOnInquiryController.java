@@ -190,22 +190,25 @@ public class OneToOnInquiryController {
 	    return map;
 	}
     }
-
     @RequestMapping("master/oneInfo.udc")
-    public String oneInfo(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("page") int page, Model model, HttpSession session) {
+    @ResponseBody
+    public Map oneInfo(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("page") int page, Model model, HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
+	HashMap map = new HashMap();
 	if (master != null && master.getMemberType().equals("master")) {
-	model.addAttribute("inquiryNo", service.selectOneInquiry(inquiryNo));
-	model.addAttribute("page", page);
-	return "master/master_oneToOneInfo.tiles";
+	    map.put("inquiry", service.selectOneInquiry(inquiryNo));
+	    map.put("page", page);
+	return map;
 	}else {
-	    return "redirect:/main.udc";
+	    map.put("권한", "권한이 없습니다.");
+	    return map;
 	}
     }
 
     @RequestMapping("master/requiryReply.udc")
     @ResponseBody
     public int requiryReply(@ModelAttribute("requiry") OneToOneInquiry oneToOneInquiry) {
+	System.out.println(oneToOneInquiry);
 	return service.updateInquiryReply(oneToOneInquiry);
     }
 

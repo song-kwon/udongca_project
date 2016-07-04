@@ -33,10 +33,11 @@
 	}
 </script>
 <style type="text/css">
-table{
+nav{
+	line-height: 40px;
+}
+.table{
 	border-collapse: collapse;
-	border-top:2px solid;
-	border-bottom:2px solid;
 	width:800px;
 	margin:30px;
 	text-align:center;
@@ -48,20 +49,16 @@ thead{
 	height:40px;
 	font-size:13pt;
 	font-weight:bold;
+	border-bottom:2px solid;
 	cursor:default;
-	border-bottom:1.5px solid;
+	 
 }
-
 
 table, tbody{
 	height:30px;
-	font-size:12pt;
 }
 
-#tr1, .td{
-	border-top:1px dotted;
-	border-top-color:black;
-}
+
 
 .cursor{
 	cursor:pointer;
@@ -70,26 +67,30 @@ table, tbody{
 h2{
 	margin-left:30px;
 }
-tr#tr1:hover{text-decoration:underline; color:red;}
+.nav>li>a{
+    padding-left: 20px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+}
 </style>
 
-
-<h2>1:1문의</h2>
-<table >
-	<thead>
-	<tr id="tr">
-		<td style="width:100px;">No</td>
+<!-- <table class="table table-hover">
+	<thead >
+	<tr>
+		<td style="width:30px;">No</td>
 		<td style="width:300px;">제목</td>
 		<td style="width:300px;">문의유형</td>
-		<td style="width:100px;">작성자</td>
+		<td style="width:80px;">작성자</td>
 	</tr>
 	</thead>
 	<tbody id = "table1" >
 	
 	</tbody>
 </table>
-<h2>리뷰 신고</h2>
-<table style="table-layout:fixed;">
+
+<h3>리뷰 신고</h3>
+<table class="table table-hover">
 	<thead>
 	<tr id="tr">
 		<td style="width:30px;">No</td>
@@ -101,9 +102,9 @@ tr#tr1:hover{text-decoration:underline; color:red;}
 <tbody id = "table2">
 
 </tbody>
-</table>
-<h2>홍보글신고</h2>
-<table style="table-layout:fixed;">
+</table> -->
+<!-- <h2>홍보글신고</h2>
+<table style="table-layout:fixed;" class="table table-hover">
 <thead>
 	<tr id="tr">
 	<td style="width:50px;">No</td>
@@ -114,6 +115,79 @@ tr#tr1:hover{text-decoration:underline; color:red;}
 </thead>
 <tbody id="table3">
 </tbody>
-</table>
-
+</table> -->
+<div class="panel-group" id="accordion" style="width:915px">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+       1:1문의</a>
+      </h4>
+    </div>
+		<div id="collapse1" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<td style="width: 50px;">No</td>
+							<td style="width: 200px;">제목</td>
+							<td style="width: 300px;">문의유형</td>
+							<td style="width: 100px;">작성자</td>
+						</tr>
+					</thead>
+					<tbody id="table1">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        리뷰 신고</a>
+      </h4>
+    </div>
+		<div id="collapse2" class="panel-collapse collapse">
+			<div class="panel-body" align="center">
+				<table class="table table-hover">
+					<thead>
+						<tr id="tr">
+							<td style="width: 100px;">No</td>
+							<td style="width: 100px;">신고자</td>
+							<td style="width: 300px;">신고사유</td>
+							<td style="width: 100px;">처리결과</td>
+						</tr>
+					</thead>
+					<tbody id="table2">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        	홍보글신고</a>
+      </h4>
+    </div>
+		<div id="collapse3" class="panel-collapse collapse">
+			<div class="panel-body">
+				<table style="table-layout: fixed;" class="table table-hover">
+					<thead>
+						<tr id="tr">
+							<td style="width: 100px;">No</td>
+							<td style="width: 100px;">신고자</td>
+							<td style="width: 300px;">신고사유</td>
+							<td style="width: 100px;">처리결과</td>
+						</tr>
+					</thead>
+					<tbody id="table3">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 

@@ -17,6 +17,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
 <style type="text/css">
 header{
 	background-color:darkgoldenrod;
@@ -57,7 +58,10 @@ a{
 }
 </style>
 </head>
+
 <body>
+<!-- 부트스트랩 컨테이너 -->
+<div class="container">
 <div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
@@ -74,6 +78,7 @@ a{
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>
+</div>
 </div>
 </body>
 </html>

@@ -101,10 +101,9 @@ insert into code values('cafeMenu5', 'Bakery', 'cafe_menu');
 insert into code values('cafeMenu6', 'etc.', 'cafe_menu');
 insert into code values('possible','로그인허용','login_possibility');
 insert into code values('impossible','로그인불가','login_possibility');
-
-
-
-
+insert into code values('all','all','reportBoard');
+insert into code values('review','review','reportBoard');
+insert into code values('prboard','prboard','reportBoard');
 SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 		FROM(SELECT CEIL(rownum/100) page, inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
 			     FROM(SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
@@ -231,12 +230,12 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1',1,'scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2',1,'scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3',1,'test1',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4',1,'TEST4','TEST4',1,'scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5',1,'TEST1','TEST5',1,'test3',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1',1,'scott',2);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2',1,'scott',3);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3',1,'test1',4);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4',1,'TEST4','TEST4',1,'scott',5);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5',1,'TEST1','TEST5',1,'test3',6);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6',1,'scott',7);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7',1,'TEST3','TEST7',1,'scott',1);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8',1,'TEST4','TEST8',1,'test2',1);
 
@@ -286,7 +285,7 @@ constraint menu_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-
+delete from PRboard where cafeNo=2
 create table preferLocation(
 preferLocationNo	NUMBER	primary key,
 address1	number default 0,
@@ -306,7 +305,7 @@ replyDate	DATE	NOT NULL,
 replyGroup NUMBER not null,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
-reviewNO	NUMBER	NOT NULL,
+reviewNO	NUMBER,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
@@ -326,7 +325,7 @@ insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플
 
 create table bookmark(
 memberId	varchar2(50) not null,
-cafeNo	NUMBER not null,
+cafeNo	NUMBER,
 constraint bookmark_fk_memberId
 foreign key (memberId)
 references member(memberId) on delete set null,
