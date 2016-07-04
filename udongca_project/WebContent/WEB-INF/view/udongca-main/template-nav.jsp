@@ -51,6 +51,9 @@ a{
 #wrap{
 	width:1280px;
 }
+textarea{
+	outline: none;
+}
 </style>
 </head>
 <body>
