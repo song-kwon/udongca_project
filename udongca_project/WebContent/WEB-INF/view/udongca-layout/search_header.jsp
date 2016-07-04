@@ -34,6 +34,20 @@ $(document).ready(function(){
 	});
 });
 </script>
+<style type="text/css">
+.div{
+	padding:10px;
+	padding-left:15px;
+	padding-right:15px;
+	text-align:center;
+	background-color:wheat;
+	font-size:15px;
+	font-weight:bold;
+	color:saddlebrown;
+	width:auto;
+}
+
+</style>
 <div id="header_div">
 <c:choose>
 	<c:when test="${sessionScope.login != null}">

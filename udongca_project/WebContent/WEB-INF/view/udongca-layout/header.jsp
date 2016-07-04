@@ -38,7 +38,7 @@ $(document).ready(function(){
 	
 	$('#main_searchTheme').on('click',function(){
 		if($('#theme').val() == '테마 선택'){
-			alert('테마를 선택하고 검색버튼을 눌러주세요.')
+			alert('테마를 선택해주세요.')
 			return false;
 		}
 		
@@ -46,6 +46,21 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+<style type="text/css">
+.div{
+	padding:10px;
+	padding-left:15px;
+	padding-right:15px;
+	text-align:center;
+	background-color:wheat;
+	font-size:15px;
+	font-weight:bold;
+	color:saddlebrown;
+	width:auto;
+}
+</style>
+
 <div id="header_div">
 <c:choose>
 	<c:when test="${sessionScope.login != null}">

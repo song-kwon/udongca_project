@@ -17,21 +17,36 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("button").prop({"class":"btn btn-default"});
+	$("input[type='text']").prop({"class":"form-control"});
+	$("textarea").prop({"class":"form-control"});
+});
+</script>
+
 <style type="text/css">
 header{
-	background-color:skyblue;
+	background-color:darkgoldenrod;
 	min-height:150px;
 	text-align:center;
 	padding: 5px;
 }
+header, a{
+	color:lightsteelblue;
+}
 nav{
-	line-height: 50px;
-	background-color:lightgray;
+	line-height: 70px;
+	background-color:burlywood;
 	padding: 15px;
 	min-height:700px;
-	width:250px;
+	width:180px;
 	overflow:auto;
 	float:left;
+	text-align:center;
+	font-size:20px;
+	color:black;
+	color-link:saddlebrown;
 }
 section{
 	padding: 15px;
@@ -39,13 +54,14 @@ section{
 	float:left;
 }
 footer{
-	background-color:skyblue;
+	background-color:darkgoldenrod;
 	padding-top:20px;
 	text-align:center;
-	height:50px;
+	height:90px;
 	clear:both;
 }
 a{
+	color:sienna;
 	text-decoration: none;
 }
 #wrap{
@@ -54,6 +70,7 @@ a{
 textarea{
 	outline: none;
 }
+a:hover{color:saddlebrown;}
 </style>
 </head>
 <body>
