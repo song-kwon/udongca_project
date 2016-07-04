@@ -32,12 +32,14 @@ td,th{
 div{
 	width: 360px;
 }
+textarea{
+	outline: none;
+}
 </style>
 </head>
 <body>
 <div>
 	<table>
-
 		<tr>
 			<td>제목
 			<td>[${requestScope.report.reportType }]${requestScope.report.reportContent }
