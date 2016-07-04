@@ -29,10 +29,9 @@ $(document).ready(function(){
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	padding: 5px;
 	min-width: 1024px;
 	width: auto;
-	min-height: 150px;
+	min-height: 190px;
 }
 
 nav {
@@ -50,6 +49,7 @@ nav {
 
 section {
 	padding: 15px;
+	margin-top:30px;
 	width: 100%;
 	min-height: 768px;
 	float: left;

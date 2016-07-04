@@ -64,7 +64,7 @@ table{
 
 .text{
 	font-weight:bold;
-	width:60px;
+	width:100px;
 	height:40px;
 }
 </style>

@@ -28,11 +28,13 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
+table{
+	color:black;
+}
 header{
 	background-color:darkgoldenrod;
-	min-height:150px;
+	min-height:190px;
 	text-align:center;
-	padding: 5px;
 }
 header, a{
 	color:lightsteelblue;
@@ -52,6 +54,7 @@ nav{
 }
 section{
 	padding: 15px;
+	margin-top:30px;
 	min-height:700px;
 	float:left;
 }
@@ -68,6 +71,7 @@ a{
 }
 #wrap{
 	width:1280px;
+	margin:0 auto;
 }
 textarea{
 	outline: none;

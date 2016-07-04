@@ -67,8 +67,9 @@ table{
 }
 
 .text{
+	color:black;
 	font-weight:bold;
-	width:80px;
+	width:100px;
 	height:40px;
 }
 </style>
