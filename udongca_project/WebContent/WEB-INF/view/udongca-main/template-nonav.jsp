@@ -17,9 +17,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("button").prop({"class":"btn btn-default"});
-});
-$(document).ready(function(){
+	$("button,input[type='button'],input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 });

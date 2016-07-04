@@ -257,7 +257,7 @@ a{
 </style>
 </head>
 <body>
-<a href="/udongca_project/review/reviewDetail.udc?cafeNo=1&reviewno=11"><button>리플 테스트</button></a>
+<a href="/udongca_project/review/reviewDetail.udc?cafeNo=1&reviewNo=1"><button>리플 테스트</button></a>
 <div>지역선택&nbsp;<select id="address1"><option value=0>시/도</option></select>&nbsp;<select id="address2"><option value=0>시/도 먼저 선택</option></select>&nbsp;<button id="searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option value=0>테마 선택</option></select>&nbsp;<button id="searchTheme">검색</button></div>
 <div id="searchResult" style="width:800px; background-color: red;">
 

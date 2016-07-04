@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="nonav_bodyDiv" style="width:630px;">
+<div class="nonav_bodyDiv" style="width:630px;">
 <div id="searchResult" style="width:630px;">
 <c:choose>
 			<c:when test="${empty requestScope.result.error }">

@@ -59,6 +59,7 @@ $(document).ready(function(){
 	color:saddlebrown;
 	width:auto;
 }
+
 </style>
 
 <div id="header_div">
@@ -81,7 +82,7 @@ $(document).ready(function(){
 
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
-<div class="form-inline">
+<div class="form-inline" >
 <div class="form-group">지역선택&nbsp;<select id="address1" class="form-control"><option >시/도</option></select>&nbsp;<select id="address2" class="form-control"><option >시/도 먼저 선택</option></select>&nbsp;<button class="btn btn-default" id="main_searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme" class="form-control"><option >테마 선택</option></select>&nbsp;<button class="btn btn-default" id="main_searchTheme">검색</button></div>
 </div>
 <c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
