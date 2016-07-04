@@ -247,9 +247,13 @@ public class MemberServiceImpl implements MemberService {
 		if(map != null){
 			for (int i = 1 ; i <=map.size(); i++) {
 				if(map.get("address"+i) != null){
-				Map result =  memberDaoImpl.selectMemberPreferLocationAddress(i);
-					if(result != null)
-						address.put("address"+i, result.get("ADDRESS1")+" "+result.get("ADDRESS2"));
+					Map searchMap = new HashMap<>();
+					searchMap.put("memberId", memberId);
+					searchMap.put("addressNumber", i);
+					
+					Map result =  memberDaoImpl.selectMemberPreferLocationAddress(searchMap);
+						if(result != null)
+							address.put("address"+i, result.get("ADDRESS1")+" "+result.get("ADDRESS2"));
 				}
 			}
 			

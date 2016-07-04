@@ -88,4 +88,8 @@ public interface PrBoardDao {
 	public int selectNextMenuSequence();
 	
 	public List<PRBoard> selectMainPRBoardByAddress(String cafeAddress);
+	
+	public List<PRBoard> selectMainPRBoardByRating();
+	
+	public List<PRBoard> selectMainPRBoardByRegistrationDate();
 }

@@ -161,7 +161,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public Map selectMemberPreferLocationAddress(int number) {
-		return session.selectOne("preferLocationMapper.selectMemberPreferLocationAddress", number);
+	public Map selectMemberPreferLocationAddress(Map map) {
+		return session.selectOne("preferLocationMapper.selectMemberPreferLocationAddress", map);
 	}
 }

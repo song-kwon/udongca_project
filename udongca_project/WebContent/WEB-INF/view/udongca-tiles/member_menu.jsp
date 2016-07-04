@@ -21,7 +21,7 @@ div#dropBtn:hover{color:purple;}
 		<a href="/udongca_project/member/member_prBoard_list.udc">내 홍보글</a><br>
 		<a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a><br>
 		<a href="/udongca_project/member/memberInquiryListPaging.udc">1:1문의</a><br>
-		<a href="/udongca_project/member/member_modify_form.udc">정보수정</a><br>
+		<a href="/udongca_project/member/member_verify.udc">정보수정</a><br>
 		<div id="dropBtn" style="cursor:pointer;">회원탈퇴</div><br>
 	</c:when>
 	<c:otherwise>

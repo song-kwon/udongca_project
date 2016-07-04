@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
+<script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -12,8 +15,6 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
-<script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
 <style type="text/css">
 header {
 	background-color: skyblue;
@@ -52,6 +53,11 @@ a{
 }
 #wrap{
 	width:1280px;
+	margin: 0 auto;
+}
+.nonav_bodyDiv{
+	width:1280px;
+	margin:0 auto;
 }
 </style>
 </head>

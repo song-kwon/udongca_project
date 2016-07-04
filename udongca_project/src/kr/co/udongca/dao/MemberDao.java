@@ -67,5 +67,5 @@ public interface MemberDao {
 	
 	public int countMemberPRBoard(String memberId);
 	
-	public Map selectMemberPreferLocationAddress(int number);
+	public Map selectMemberPreferLocationAddress(Map map);
 }

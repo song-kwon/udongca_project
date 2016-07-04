@@ -78,6 +78,7 @@
 			managerTel,
 			cafeRealImage,
 			cafeFakeImage,
+			RegistrationDate,
 			memberId
 		)
 		VALUES (
@@ -93,6 +94,7 @@
 			#{managerTel},
 			#{cafeRealImage},
 			#{cafeFakeImage},
+			sysdate,
 			#{memberId}
 		)
 	</insert>
@@ -204,5 +206,27 @@
 		FROM PRboard
 		where cafeAddress LIKE '%${value}%' and ceil(rownum) <![CDATA[ < ]]> 4
 		ORDER BY cafeNo DESC
+	</select>
+	
+	<select id="selectMainPRBoardByRating" resultType="prboard">
+		SELECT
+				cafeNo cafeNo,
+				cafeName cafeName,
+				cafeFakeImage cafeFakeImage,
+				cafeAddress cafeAddress
+		FROM PRboard
+		where ceil(rownum) <![CDATA[ < ]]> 10
+		ORDER BY cafeRating DESC
+	</select>
+	
+	<select id="selectMainPRBoardByRegistrationDate" resultType="prboard">
+		SELECT
+				cafeNo cafeNo,
+				cafeName cafeName,
+				cafeFakeImage cafeFakeImage,
+				cafeAddress cafeAddress
+		FROM PRboard
+		where ceil(rownum) <![CDATA[ < ]]> 10
+		ORDER BY RegistrationDate DESC
 	</select>
 </mapper>

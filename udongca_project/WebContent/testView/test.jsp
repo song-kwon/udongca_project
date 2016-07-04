@@ -265,5 +265,7 @@ a{
 <div id="pageNum" style="clear:both;">
 </div>
 <button id="dddd">dddd</button>
+
+<input type="text" onkeyup="alert(this.value)">
 </body>
 </html>

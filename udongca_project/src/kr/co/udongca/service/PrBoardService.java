@@ -96,4 +96,8 @@ public interface PrBoardService {
 	 * @return 메뉴 카테고리 목록 출력
 	 */
 	public List<Code> selectMenuList();
+	
+	public List<PRBoard> selectMainPRBoardByRating();
+	
+	public List<PRBoard> selectMainPRBoardByRegistrationDate();
 }

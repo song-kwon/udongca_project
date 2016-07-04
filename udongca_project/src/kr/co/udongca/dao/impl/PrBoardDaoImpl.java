@@ -90,4 +90,14 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	public List<PRBoard> selectMainPRBoardByAddress(String cafeAddress) {
 		return session.selectList(prBoardNamespace+"selectMainPRBoardByAddress",cafeAddress);
 	}
+	
+	@Override
+	public List<PRBoard> selectMainPRBoardByRating() {
+		return session.selectList(prBoardNamespace+"selectMainPRBoardByRating");
+	}
+	
+	@Override
+	public List<PRBoard> selectMainPRBoardByRegistrationDate() {
+		return session.selectList(prBoardNamespace+"selectMainPRBoardByRegistrationDate");
+	}
 }
