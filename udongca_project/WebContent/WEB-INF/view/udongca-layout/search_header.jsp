@@ -46,8 +46,8 @@ $(document).ready(function(){
 	color:saddlebrown;
 	width:auto;
 }
-</style>
 
+</style>
 <div id="header_div">
 <c:choose>
 	<c:when test="${sessionScope.login != null}">
@@ -83,12 +83,13 @@ $(document).ready(function(){
 			${param.address2 == middleList.addressName ? 'selected':'' }>${middleList.addressName }</option>
 	</c:forEach>
 </select>&nbsp;
-<button id="searchAddress">검색</button>&nbsp;&nbsp;
+<button id="searchAddress" class="btn btn-danger">검색</button>&nbsp;&nbsp;
 테마검색&nbsp;&nbsp;
 <select id="theme">
 <option value=0>테마 선택</option>
 </select>&nbsp;
-<button id="searchTheme">검색</button>
+<button id="searchTheme" class="btn btn-default">검색</button>
 </div>
 <c:if test="${sessionScope.login.memberType eq 'licenseemember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
+</div>
 </div>

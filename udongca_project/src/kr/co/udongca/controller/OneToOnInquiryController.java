@@ -159,13 +159,13 @@ public class OneToOnInquiryController {
     	Member login = (Member)session.getAttribute("login");
     	OneToOneInquiry inquiry = service.selectOneToOneInquiry(inquiryNo);
     	
-    	if(login!=null && ( login.getMemberType().equals(inquiry.getMemberId()) || login.getMemberType().equals("master")) ){
+    	if(login!=null && ( login.getMemberId().equals(inquiry.getMemberId()) || login.getMemberType().equals("master")) ){
     		HashMap map = new HashMap();
     		map.put("oneToOneInquiry", inquiry);
     		map.put("memberId", memberId);
 
     		return new ModelAndView("oneToOneInquiry.tiles", "map", map);
-    	}else if( login!=null && (! login.getMemberType().equals(inquiry.getMemberId())) && (!login.getMemberType().equals("master")) ){
+    	}else if( login!=null && (! login.getMemberId().equals(inquiry.getMemberId())) && (!login.getMemberType().equals("master")) ){
     		return new ModelAndView("error.tiles","error","자신이 작성한 문의글만 조회 가능합니다.");
     	}else{
     		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");

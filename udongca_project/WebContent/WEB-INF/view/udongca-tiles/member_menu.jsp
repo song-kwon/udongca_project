@@ -11,7 +11,14 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
-div#dropBtn:hover{color:purple;}
+div#dropBtn{
+	color:sienna;
+}
+div#dropBtn:hover{color:saddlebrown; text-decoration:underline;}
+a{
+	color:sienna;
+}
+
 </style>
 
 <div>

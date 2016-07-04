@@ -78,6 +78,7 @@ table{
 	margin:30px;
 	margin-top:20px;
 	margin-bottom:20px;
+	text-align:left;
 }
 .div{
 	border:1px dotted;
@@ -85,6 +86,8 @@ table{
 
 .text{
 	font-weight:bold;
+	width:60px;
+	height:40px;
 }
 </style>
 <div><h1>공지 사항 등록</h1></div>

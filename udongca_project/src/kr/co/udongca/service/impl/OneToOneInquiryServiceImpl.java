@@ -50,8 +50,6 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	
 	@Override
 	public int updateReplyOneToOneInquiry(OneToOneInquiry afterInquiry){
-		afterInquiry.setInquiryTitle(TextUtil.textToHtml(afterInquiry.getInquiryTitle()));
-		afterInquiry.setInquiryContent(TextUtil.textToHtml(afterInquiry.getInquiryContent()));
 		afterInquiry.setInquiryReply(TextUtil.textToHtml(afterInquiry.getInquiryReply()));
 		
 		return dao.updateReplyOneToOneInquiry(afterInquiry);
