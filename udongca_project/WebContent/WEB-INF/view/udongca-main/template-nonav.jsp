@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
 <style type="text/css">
 header {
-	background-color: skyblue;
+	background-color: darkgoldenrod;
 	text-align: center;
 	padding: 5px;
 	min-width: 1024px;
@@ -18,12 +18,16 @@ header {
 }
 
 nav {
-	line-height: 50px;
-	background-color: lightgray;
+	line-height: 70px;
+	background-color: burlywood;
 	padding: 15px;
 	min-height: 700px;
-	width: 250px;
+	width: 180px;
 	float: left;
+	font-size:20px;
+	text-align:center;
+	color:black;
+	color-link:saddlebrown;
 }
 
 section {
@@ -34,7 +38,7 @@ section {
 }
 
 footer {
-	background-color: skyblue;
+	background-color: darkgoldenrod;
 	padding-top: 20px;
 	text-align: center;
 	height: 50px;

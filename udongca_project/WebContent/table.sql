@@ -88,7 +88,7 @@ SELECT inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, membe
 
 create table notice_board(
 noticeNo	NUMBER	primary key,
-noticeTitle	varchar2(50)	NOT NULL,
+noticeTitle	varchar2(150)	NOT NULL,
 noticeContent	CLOB	NOT NULL,
 category varchar2(50) NOT NULL,
 noticeDate	DATE	NOT NULL
@@ -133,7 +133,7 @@ insert into member values('test7','test7','test7','g@d.com','0','possible','lice
 
 create table onetoone_inquiry(
 inquiryNo	NUMBER	primary key,
-inquiryTitle	varchar2(50)	NOT NULL,
+inquiryTitle	varchar2(150)	NOT NULL,
 inquiryType	varchar2(50)	NOT NULL,
 inquiryContent	CLOB	NOT NULL,
 inquiryReply	CLOB,	

@@ -38,7 +38,7 @@ $(document).ready(function(){
 	
 	$('#main_searchTheme').on('click',function(){
 		if($('#theme').val() == '테마 선택'){
-			alert('테마를 선택하고 검색버튼을 눌러주세요.')
+			alert('테마를 선택해주세요.')
 			return false;
 		}
 		
@@ -46,6 +46,21 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+<style type="text/css">
+.div{
+	padding:10px;
+	padding-left:15px;
+	padding-right:15px;
+	text-align:center;
+	background-color:wheat;
+	font-size:15px;
+	font-weight:bold;
+	color:saddlebrown;
+	width:auto;
+}
+</style>
+
 <div id="header_div">
 <c:choose>
 	<c:when test="${sessionScope.login != null}">
@@ -66,6 +81,14 @@ $(document).ready(function(){
 
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
-<div>지역선택&nbsp;<select id="address1"><option >시/도</option></select>&nbsp;<select id="address2"><option >시/도 먼저 선택</option></select>&nbsp;<button id="main_searchAddress">검색</button>&nbsp;&nbsp;테마검색&nbsp;<select id="theme"><option >테마 선택</option></select>&nbsp;<button id="main_searchTheme">검색</button></div>
-<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
+<div>
+	<div class="div">
+		지역선택&nbsp;&nbsp;<select id="address1"><option >시/도</option></select>&nbsp;<select id="address2"><option >시/도 먼저 선택</option></select>&nbsp;<button id="main_searchAddress">검색</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		테마검색&nbsp;&nbsp;<select id="theme"><option >테마 선택</option></select>&nbsp;<button id="main_searchTheme">검색</button>
+	</div>
+</div><br>
+	<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }">
+		<div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div>
+	</c:if>
 </div>

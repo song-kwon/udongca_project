@@ -28,89 +28,148 @@ public class OneToOnInquiryController {
     private OneToOneInquiryService service;
 
     @RequestMapping("oneToOneInquiryListPaging.udc")
-    public ModelAndView selectListNoticeBoard(@RequestParam(required = false) String pnum) {
-	int page = 1;
-	try {
-	    page = Integer.parseInt(pnum);
-	} catch (Exception e) {
-	}
+    public ModelAndView selectListOneToOneInquiry(@RequestParam(required = false) String pnum, HttpSession session) {
+    	Member master = (Member)session.getAttribute("login");
+    	
+    	if(master!=null && master.getMemberType().equals("master")){
+    		int page = 1;
+        	try {
+        		page = Integer.parseInt(pnum);
+        		} catch (Exception e) {
+        	}
 
-	try {
-	    Map<String, Object> map = service.selectListOneToOneInquiry(page);
-	    return new ModelAndView("oneToOneInquiryList.tiles", "map", map);
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
-	}
+        	try {
+        		Map<String, Object> map = service.selectListOneToOneInquiry(page);
+        		return new ModelAndView("oneToOneInquiryList.tiles", "map", map);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        		return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+        	}
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
+    	}
+    	
+    	
     }
     
     @RequestMapping("registerOneToOneInquiryform.udc")
-    public ModelAndView registerOneToOneInquiryform(String codeType){
-    	List<Code> codeList = service.selectByCodeType(codeType);
-    	return new ModelAndView("oneToOneInquiryRegisterform.tiles","codeList",codeList);
+    public ModelAndView registerOneToOneInquiryform(String codeType, HttpSession session){
+    	Member login = (Member)session.getAttribute("login");
+    	
+    	if(login!=null){
+    		List<Code> codeList = service.selectByCodeType(codeType);
+        	return new ModelAndView("oneToOneInquiryRegisterform.tiles","codeList",codeList);
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("registerOneToOneInquiry.udc")
-    public String registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId) {
-	service.registerOneToOneInquiry(oneToOneInquiry, memberId);
-	return "redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc";
+    public ModelAndView registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId, HttpSession session) {
+    	Member login = (Member)session.getAttribute("login");
+    	
+    	if(login!=null){
+    		service.registerOneToOneInquiry(oneToOneInquiry, memberId);
+    		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
     
     @RequestMapping("deleteOneToOneInquiryMember.udc")
-    public String deleteOneToOneInquiryMember(int inquiryNo){
-    	service.deleteOneToOneInquiry(inquiryNo);
-    	return "redirect:/member/memberInquiryListPaging.udc";
+    public ModelAndView deleteOneToOneInquiryMember(int inquiryNo, HttpSession session){
+    	Member login = (Member)session.getAttribute("login");
+    	
+    	if(login!=null){
+    		service.deleteOneToOneInquiry(inquiryNo);
+        	return new ModelAndView("redirect:/member/memberInquiryListPaging.udc");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("deleteOneToOneInquiryMaster.udc")
-    public String deleteOneToOneInquiryMaster(int inquiryNo) {
-	service.deleteOneToOneInquiry(inquiryNo);
-	return "redirect:/oneToOneInquiry/oneToOneInquiryListPaging.udc";
+    public ModelAndView deleteOneToOneInquiryMaster(int inquiryNo, HttpSession session) {
+    	Member login = (Member)session.getAttribute("login");
+    	
+    	if(login!=null){
+    		service.deleteOneToOneInquiry(inquiryNo);
+    		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryListPaging.udc");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("modifyOneToOneInquiryform.udc")
-    public ModelAndView oneToOneInquiryModifyForm(int inquiryNo, String codeType) {
-	OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
-	List<Code> codeList = service.selectByCodeType(codeType);
+    public ModelAndView oneToOneInquiryModifyForm(int inquiryNo, String codeType, HttpSession session) {
+    	Member login = (Member)session.getAttribute("login");
+    	if( login!=null && (login.getMemberType().equals("generalMember") || login.getMemberType().equals("licenseeMember")) ){
+    		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
+    		List<Code> codeList = service.selectByCodeType(codeType);
+    		
+    		HashMap map = new HashMap();
+    		map.put("oneToOneInquiry", oneToOneInquiry);
+    		map.put("codeList", codeList);
+    		
+    		return new ModelAndView("oneToOneInquiryModifyform.tiles", "map", map);
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
 	
-	HashMap map = new HashMap();
-	map.put("oneToOneInquiry", oneToOneInquiry);
-	map.put("codeList", codeList);
-	
-	return new ModelAndView("oneToOneInquiryModifyform.tiles", "map", map);
     }
 
     @RequestMapping("modifyOneToOneInquiry.udc")
-    public String modifyOneToOneInquiry(OneToOneInquiry afterInquiry, int inquiryNo) {
-	service.selectOneToOneInquiry(inquiryNo).setInquiryNo(inquiryNo);
-	service.updateOneToOneInquiry(afterInquiry);
-
-	return "redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc";
+    public ModelAndView modifyOneToOneInquiry(OneToOneInquiry afterInquiry, int inquiryNo, HttpSession session) {
+    	Member login = (Member)session.getAttribute("login");
+    	if( login!=null && (login.getMemberType().equals("generalMember") || login.getMemberType().equals("licenseeMember")) ){
+			service.selectOneToOneInquiry(inquiryNo).setInquiryNo(inquiryNo);
+			service.updateOneToOneInquiry(afterInquiry);
+		
+			return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("modifyOneToOneInquiryReplyform.udc")
-    public ModelAndView oneToOneInquiryReplyModifyForm(int inquiryNo) {
-	OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
-
-	return new ModelAndView("oneToOneInquiryReplyModify.tiles", "oneToOneInquiry", oneToOneInquiry);
+    public ModelAndView oneToOneInquiryReplyModifyForm(int inquiryNo, HttpSession session) {
+    	Member master = (Member)session.getAttribute("login");
+    	if(master!=null && master.getMemberType().equals("master")){
+    		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
+    		return new ModelAndView("oneToOneInquiryReplyModify.tiles", "oneToOneInquiry", oneToOneInquiry);
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","마스터 로그인이 필요합니다.");
+    	}
+	
     }
 
     @RequestMapping("modifyOneToOneInquiryReply.udc")
-    public String oneToOneInquiryReply(OneToOneInquiry afterInquiry) {
-	service.updateReplyOneToOneInquiry(afterInquiry);
-
-	return "redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc";
+    public ModelAndView oneToOneInquiryReply(OneToOneInquiry afterInquiry, HttpSession session) {
+    	Member master = (Member)session.getAttribute("login");
+    	if(master!=null && master.getMemberType().equals("master")){
+    		service.updateReplyOneToOneInquiry(afterInquiry);
+    		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","마스터 로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("oneToOneInquiry.udc")
-    public ModelAndView oneToOneInquiry(int inquiryNo, String memberId) {
-	OneToOneInquiry inquiry = service.selectOneToOneInquiry(inquiryNo);
+    public ModelAndView oneToOneInquiry(int inquiryNo, String memberId, HttpSession session) {
+    	Member login = (Member)session.getAttribute("login");
+    	OneToOneInquiry inquiry = service.selectOneToOneInquiry(inquiryNo);
+    	
+    	if(login!=null && ( login.getMemberType().equals(inquiry.getMemberId()) || login.getMemberType().equals("master")) ){
+    		HashMap map = new HashMap();
+    		map.put("oneToOneInquiry", inquiry);
+    		map.put("memberId", memberId);
 
-	HashMap map = new HashMap();
-	map.put("oneToOneInquiry", inquiry);
-	map.put("memberId", memberId);
-
-	return new ModelAndView("oneToOneInquiry.tiles", "map", map);
+    		return new ModelAndView("oneToOneInquiry.tiles", "map", map);
+    	}else if( login!=null && (! login.getMemberType().equals(inquiry.getMemberId())) && (!login.getMemberType().equals("master")) ){
+    		return new ModelAndView("error.tiles","error","자신이 작성한 문의글만 조회 가능합니다.");
+    	}else{
+    		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
+    	}
     }
 
     @RequestMapping("/oneList.udc")
