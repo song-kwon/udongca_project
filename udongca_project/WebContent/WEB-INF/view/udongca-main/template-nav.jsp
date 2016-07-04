@@ -20,6 +20,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("button").prop({"class":"btn btn-default"});
+	$("input[type='button']").prop({"class":"btn btn-default"});
+	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 });
@@ -68,6 +70,15 @@ a{
 	width:1280px;
 }
 a:hover{color:saddlebrown;}
+button{
+	color:black;
+}
+input[type="submit"]{
+	color:black;
+}
+input[type="button"]{
+	color:black;
+}
 </style>
 </head>
 <body>
