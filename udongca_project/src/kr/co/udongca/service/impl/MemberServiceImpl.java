@@ -243,23 +243,26 @@ public class MemberServiceImpl implements MemberService {
 		Map map = memberDaoImpl.selectPreferLocationByMemberId(memberId);
 		Map address = new HashMap<>();
 		List prBoard = new ArrayList<>();
-		for (int i = 1 ; i <=map.size(); i++) {
-			if(map.get("address"+i) != null){
-			Map result =  memberDaoImpl.selectMemberPreferLocationAddress(i);
-				if(result != null)
-					address.put("address"+i, result.get("ADDRESS1")+" "+result.get("ADDRESS2"));
-			}
-		}
 		
-		Set key = address.keySet();
-		for (Object object : key) {
-			if(address.get(object) != null){
-				String cafeAddress=null;
-				cafeAddress=address.get(object).toString();
-				List<PRBoard> result=prBoardDao.selectMainPRBoardByAddress(cafeAddress);
-				
-				if(!result.isEmpty())
-					prBoard.add(result);
+		if(map != null){
+			for (int i = 1 ; i <=map.size(); i++) {
+				if(map.get("address"+i) != null){
+				Map result =  memberDaoImpl.selectMemberPreferLocationAddress(i);
+					if(result != null)
+						address.put("address"+i, result.get("ADDRESS1")+" "+result.get("ADDRESS2"));
+				}
+			}
+			
+			Set key = address.keySet();
+			for (Object object : key) {
+				if(address.get(object) != null){
+					String cafeAddress=null;
+					cafeAddress=address.get(object).toString();
+					List<PRBoard> result=prBoardDao.selectMainPRBoardByAddress(cafeAddress);
+					
+					if(!result.isEmpty())
+						prBoard.add(result);
+				}
 			}
 		}
 		return prBoard;
