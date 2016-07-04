@@ -12,22 +12,19 @@ $(document).ready(function(){
 	
 	var countGroup = '${requestScope.countGroup}';
 	$('#addReply').on('click',function(){
-		++countGroup;
+		alert($('#replyContent').val());
 		$.ajax({
 			'url':'/udongca_project/review/addReply.udc',
 			'type':'post',
 			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'replyGroup':countGroup,'reviewNo':'${param.reviewNo}'},
 			'dataType':'json',
-			'error':function(){alert('에러');alert(countGroup);},
+			'error':function(xhr){alert('error occured while adding reply: ' + xhr.status + ' ' + xhr.statusText);alert(countGroup);},
 			'success':function(json){
 				if(json==null){
 					alert('등록 실패. 다시 시도하세요.');
 					return false;
 				}
-				else{
-					$('#replyBoard').append('<tbody class="reply" class="'+json.replyNo+'"><tr id="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="replyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">'+$('#replyContent').val()+'</textarea></td></tr></tbody>');
-					$('#replyContent').val("");
-				}
+				location.reload(true);
 			}
 		});
 	});
@@ -35,7 +32,7 @@ $(document).ready(function(){
 	$('#replyBoard').on('click','.reReplyInputBtn',function(){
 		$("#reReplyInput").remove();
 		alert($(this).parent().parent().parent().prop('id'));
-		$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='replyContent' placeholder='댓글 입력'><button class='addReReply'>등록</button></div>");
+		$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력'><button class='addReReply'>등록</button></div>");
 	});
 	
 	$('#replyBoard').on('click','.addReReply',function(){
@@ -46,22 +43,17 @@ $(document).ready(function(){
 		$.ajax({
 			'url':'/udongca_project/review/addReReply.udc',
 			'type':'post',
-			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'reviewNo':'${param.reviewNo}','parentReply':reReply.prop('id'),'targetName':reReply.children(':first').find(':first').prop('id'),'replyGroup':reReply.children(':first').prop('class')},
+			'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#reReplyContent').val(),'reviewNo':'${param.reviewNo}','parentReply':reReply.prop('id'),'targetName':reReply.children(':first').find(':first').prop('id'),'replyGroup':reReply.children(':first').prop('class')},
 			'dataType':'json',
-			'error':function(){
-				alert('error');
+			'error':function(xhr){
+				alert('error occured while adding re-reply: ' + xhr.status + ' ' + xhr.statusText);
 			},
 			'success':function(json){
 				if(json==null){
 					alert('등록 실패. 다시 시도하세요.');
 					return false;
 				}
-				else{
-					$('.'+json.replyGroup).last().parent().append('<tbody class="reReply" id="'+json.replyNo+'"><tr class="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="reReplyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">['+json.targetName+']'+$('#replyContent').val()+'</textarea></td></tr></tbody>');
-					//reReply.append('<tbody class="reply" id="'+json.replyNo+'"><tr class="'+json.replyGroup+'"><td id="'+json.replyId+'">'+json.replyId+'&nbsp;<button class="reReplyInputBtn">답글</button></td></tr><tr><td class="replyContent">['+json.targetName+']'+$('#replyContent').val()+'</td></tr></tbody>');
-					$('#replyContent').val("");
-					$("#reReplyInput").remove();
-				}
+				location.reload(true);
 			}
 		}); 
 	});
