@@ -196,7 +196,7 @@
 	</select>
 	
 	<select id="countThemeCafe" parameterType="string" resultType="int">
-		select count(cafeNo) from prboard where cafeFeature=#{cafeFeature}
+		select count(cafeNo) from prboard where cafeFeature like '%${value}%'
 	</select>
 	
 	<select id="countCafeAddress" parameterType="string" resultType="int">

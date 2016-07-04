@@ -56,6 +56,7 @@ table{
 	margin:30px;
 	margin-top:20px;
 	margin-bottom:20px;
+	text-align:left;
 }
 .div{
 	border:1px dotted;
@@ -63,6 +64,8 @@ table{
 
 .text{
 	font-weight:bold;
+	width:100px;
+	height:40px;
 }
 </style>
 
@@ -84,7 +87,7 @@ table{
 	</tr>
 	<tr>
 		<td class="text">제목</td>
-		<td><input type="text" name="noticeTitle" id="title" placeholder="제목 입력" value="${requestScope.map.noticeBoard.noticeTitle }" style="width:660px;"></td>
+		<td><input type="text" name="noticeTitle" id="title" placeholder="제목은 한글 기준 최대 50자까지 입력 가능합니다.." value="${requestScope.map.noticeBoard.noticeTitle }" style="width:660px;"></td>
 	</tr>
 	<tr>
 		<td class="text">내용</td>

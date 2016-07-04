@@ -46,7 +46,7 @@ public class SearchDaoImpl implements SearchDao {
 	
 	@Override
 	public List<Code> selectThemeCategory() {
-		return session.selectList("codeMapper.select_code","cafeTheme");
+		return session.selectList("codeMapper.select_code","cafe_theme");
 	}
 	
 	@Override

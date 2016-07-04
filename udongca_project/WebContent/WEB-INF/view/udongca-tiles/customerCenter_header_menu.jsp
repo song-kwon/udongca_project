@@ -38,7 +38,15 @@ $(document).ready(function(){
 });
 </script>
 
-<div id="ccMenu" style="float:right;"><div>고객센터 ▼</div></div>
+<style type="text/css">
+div#ccMenu{
+color:sienna;
+cursor:pointer;
+}
+</style>
+
+
+<div id="ccMenu" style="float:right;"><div>고객센터▼</div></div>
 <div>
 	<div id="subMenu" style="display:none;">
 		<div><a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc">공지사항</a></div>

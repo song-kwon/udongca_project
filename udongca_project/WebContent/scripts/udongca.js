@@ -110,10 +110,11 @@ $(document).ready(function(){
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 						if(idx == json.pageBean.page)
-							$("#pageNum").append('['+idx+']');
+							$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
 						else
-							$("#pageNum").append('<a href="#" onclick="themePage('+idx+')"> '+idx+' </a>');
+							$("#pageNum").append('<a href="#" onclick="themePage('+submitString+','+idx+')"> '+idx+' </a>');
 					}
+
 					if(json.pageBean.nextPageGroup){
 						$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
 					}else{

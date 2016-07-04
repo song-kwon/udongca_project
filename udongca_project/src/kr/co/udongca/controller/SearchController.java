@@ -110,4 +110,5 @@ public class SearchController {
 		System.out.println(themeSearchResult(cafeFeature, 1));
 		return "search/search_result.tiles";
 	}
+	
 }
