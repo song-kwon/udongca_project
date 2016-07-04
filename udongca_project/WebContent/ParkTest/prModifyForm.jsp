@@ -15,7 +15,6 @@
 			var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 			var cafeRealImageArray = "${requestScope.prBoard.cafeRealImage}".split(";");
 			var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
-			var currentImageNumber = 0;
 			
 			var cafeFeatureArray = "${requestScope.prBoard.cafeFeature}".split(" ");
 			for (var i = 0; i < cafeFeatureArray.length; i++){
@@ -114,12 +113,6 @@
 				
 				$("form").on("submit", function(){
 					if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val())){
-						alert($("#cafeName").val());
-						alert($("#operationHour").val());
-						alert($("#cafeTel").val());
-						alert($("#managerName").val());
-						alert($("#managerTel").val());
-						alert($("#cafeAddress").val());
 						alert("필수 사항을 입력하세요");
 						return false;
 					}
@@ -214,7 +207,7 @@
 				</tr>
 				<tr>
 					<td>추가 카페 이미지</td>
-					<td id="addCafeImages"><input type="file" name="addCafeImage" multiple="multiple"></td>
+					<td><input type="file" name="addCafeImage" multiple="multiple"></td>
 					<td></td>
 				</tr>
 				<tr>

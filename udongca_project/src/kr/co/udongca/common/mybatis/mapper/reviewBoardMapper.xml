@@ -45,7 +45,7 @@
 	<select id="cafeReviewListPaging" parameterType="map" resultType="reviewBoard">
 		SELECT <include refid="review-column"/>
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="review-column"/>
-			     FROM(SELECT <include refid="review-column"/> FROM review_board where cafeNo = #{cafeNo} order by reviewNo asc
+			     FROM(SELECT <include refid="review-column"/> FROM review_board where cafeNo = #{cafeNo} order by reviewNo desc
 					     )
 				 )
 		WHERE page = #{page}
@@ -86,4 +86,14 @@
 		DELETE FROM review_board
 		WHERE reviewNo = #{reviewNo}
 	</delete>
+	
+	<select id="selectNextReviewBoardSequence" resultType="_int">
+		SELECT review_board_reviewNo_seq.nextval FROM dual
+	</select>
+	
+	<select id="selectMainReviewList" resultType="reviewBoard">
+		select * 
+		from review_board
+		where ceil(rownum) <![CDATA[ < ]]> 11 order by reviewDate desc
+	</select>
 </mapper>

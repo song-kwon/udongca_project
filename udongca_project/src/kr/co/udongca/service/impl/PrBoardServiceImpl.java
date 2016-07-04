@@ -88,11 +88,20 @@ public class PrBoardServiceImpl implements PrBoardService{
 
 	@Override
 	public List<Code> selectThemeList() {
-		return codeDao.selectCode("cafeTheme");
+		return codeDao.selectCode("cafe_theme");
 	}
 
 	@Override
 	public List<Code> selectMenuList() {
-		return codeDao.selectCode("cafeMenu");
+		return codeDao.selectCode("cafe_menu");
+	}
+	
+	@Override
+	public List<PRBoard> selectMainPRBoardByRating() {
+		return dao.selectMainPRBoardByRating();
+	}
+	
+	public List<PRBoard> selectMainPRBoardByRegistrationDate(){
+		return dao.selectMainPRBoardByRegistrationDate();
 	}
 }

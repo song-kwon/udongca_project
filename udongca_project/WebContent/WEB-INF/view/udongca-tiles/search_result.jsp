@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="nonav_bodyDiv" style="width:800px;">
-<div id="searchResult" style="width:800px;">
+<div id="nonav_bodyDiv" style="width:630px;">
+<div id="searchResult" style="width:630px;">
 <c:choose>
 			<c:when test="${empty requestScope.error }">
 			<c:forEach items="${requestScope.result.list }" var="result">
@@ -17,7 +17,7 @@
 			</c:otherwise>
 			</c:choose>
 </div>
-<div id="pageNum" style="clear:both;">
+<div id="pageNum" style="width:630px;clear:both; padding-top: 10px;" align="center">
 	<c:choose>
 		<c:when test="${requestScope.searchType =='address' }">
 			<c:choose>

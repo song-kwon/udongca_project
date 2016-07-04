@@ -14,4 +14,5 @@ public interface NoticeBoardService {
 	public int updateNoticeBoard(NoticeBoard noticeBoard);
 	public Map<String, Object> selectListNoticeBoard(int page);
 	public List<Code> selectByCodeType(String codeType);
+	public List<NoticeBoard> selectNoticeBoardTopTen();
 }

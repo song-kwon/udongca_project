@@ -1,7 +1,35 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
-	
+
+--리뷰 등록시 홍보글 cafeRating 업데이트
+update prboard set cafeRating=(select cafeRating from prboard where cafeNo=1)+(select ratingStars from review_board where reviewNo = 9),cafeReviewCount=(select cafeReviewCount from prboard where cafeNo=1)+1 where cafeNo= 1;
+
+--리뷰, 공지 최근 10건
+select * from (select * from review_BOARD order by reviewdate desc) where ceil(rownum) <= 10 
+select * from (select * from notice_BOARD order by noticedate desc) where ceil(rownum) <= 10
+
+--추천 순 카페 9건
+select * from REVIEW_BOARD where 
+
+--내 즐찾 카페 번호 & 이미지
+SELECT b.cafeNo , p.cafeFakeImage FROM bookmark b, prboard p WHERE b.memberId = 'scott' and b.cafeNo=p.cafeNo
+
+--내 선호지역 카페
+select * from preferlocation where memberId='scott'
+
+select middle.*,major.* ,p.*
+from  MAJORCATEGORY major, MIDDLECATEGORY middle, (select * from PREFERLOCATION where memberId='scott') p
+where middle.major_categoryNo = major.major_categoryNO 
+and p.address1=middle.middle_categoryNo
+
+--notioce new top 10
+SELECT noticeNo, noticeTitle, noticeContent, category, noticeDate FROM notice_board    WHERE ceil(rownum)   <  11 order by noticedate
+
+--review new top 10
+	select * 
+		from review_board
+		where ceil(rownum) < 11 order by reviewDate desc;
 -- create sequence --
 insert into member values ('id','name','pwd','email',0,'possible','generalMember')
 delete  from member where memberid='id'
@@ -122,9 +150,9 @@ memberType	varchar2(50)	NOT NULL
 insert into member values('udongca','udongca','master','master@udongca.com','0','possible','master');
 insert into member values('scott','scott','tiger','osung212@naver.com','0','possible','generalMember');
 insert into member values('test1','test1','test1','a@a.com','0','possible','licenseeMember');
-insert into member values('test2','test2','test2','b@b.com','0','possible','generalMember');
-insert into member values('test3','test3','test3','c@c.com','0','possible','generalMember');
-insert into member values('test4','test4','test4','d@d.com','0','possible','generalMember');
+insert into member values('test2','test2','test2','b@b.com','0','possible','licenseeMember');
+insert into member values('test3','test3','test3','c@c.com','0','possible','licenseeMember');
+insert into member values('test4','test4','test4','d@d.com','0','possible','licenseeMember');
 insert into member values('test5','test5','test5','e@d.com','0','possible','licenseeMember');
 insert into member values('test6','test6','test6','f@d.com','0','possible','licenseeMember');
 insert into member values('test7','test7','test7','g@d.com','0','possible','licenseeMember');
@@ -168,18 +196,21 @@ managerName	varchar2(50)	NOT NULL,
 managerTel	varchar2(50)	NOT NULL,
 cafeRealImage	CLOB	NULL,
 cafeFakeImage	CLOB	NULL,
+cafeRating number default 0,
+cafeReviewCount number default 0,
+RegistrationDate date not null,
 memberId	varchar2(50)	NOT NULL,
 constraint prboard_memberId_fk
 foreign key (memberId)
 references member(memberId) on delete cascade
 );
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','test1');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','test5');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','test6');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','test7');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','test2');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','test3');
-insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','test4');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1','TEST1',0,0,sysdate,'test1');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2','TEST2',0,0,sysdate,'test2');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3','TEST3',0,0,sysdate,'test3');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4','TEST4',0,0,sysdate,'test4');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5','TEST5',0,0,sysdate,'test5');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6','TEST6',0,0,sysdate,'test6');
+insert into PRboard values(PRboard_cafeNo_seq.nextval,'TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7','TEST7',0,0,sysdate,'test7');
 
 
 create table review_board(
@@ -190,6 +221,7 @@ reviewContent	CLOB	NOT NULL,
 reviewGrade	NUMBER	NOT NULL,
 reviewRealImage CLOB,
 reviewfakeImage CLOB,
+ratingStars number,
 memberId	varchar2(50)	NOT NULL,
 cafeNo	NUMBER	NOT NULL,
 constraint review_board_memberId_fk
@@ -199,14 +231,14 @@ constraint review_cafeNo_fk
 foreign key (cafeNo)
 references PRboard(cafeNo) on delete cascade
 );
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1','scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2','scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3','test1',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4',1,'TEST4','TEST4','scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5',1,'TEST1','TEST5','test3',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6','scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7',1,'TEST3','TEST7','scott',1);
-insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8',1,'TEST4','TEST8','test2',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1',1,'TEST1','TEST1',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2',1,'TEST2','TEST2',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3',1,'TEST3','TEST3',1,'test1',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4',1,'TEST4','TEST4',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5',1,'TEST1','TEST5',1,'test3',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7',1,'TEST3','TEST7',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8',1,'TEST4','TEST8',1,'test2',1);
 
 
 
@@ -280,15 +312,15 @@ foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
 
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,1,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,2,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,3,0,'',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,1,0,'scott',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','리플이야4',sysdate,1,0,'scott',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,1,0,'scott',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,3,0,'udonca',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,3,0,'scott',11);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,2,0,'udongca',11);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,1,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,2,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,3,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,1,0,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','리플이야4',sysdate,1,0,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,1,0,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,3,0,'udonca',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,3,0,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,2,0,'udongca',1);
 
 
 

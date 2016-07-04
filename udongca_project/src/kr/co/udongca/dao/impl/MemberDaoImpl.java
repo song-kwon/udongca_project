@@ -159,4 +159,9 @@ public class MemberDaoImpl implements MemberDao {
 	public int countMemberPRBoard(String memberId) {
 		return session.selectOne("memberMapper.countMemberPRBoard",memberId);
 	}
+	
+	@Override
+	public Map selectMemberPreferLocationAddress(Map map) {
+		return session.selectOne("preferLocationMapper.selectMemberPreferLocationAddress", map);
+	}
 }

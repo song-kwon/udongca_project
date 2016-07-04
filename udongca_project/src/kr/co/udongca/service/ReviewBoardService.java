@@ -22,4 +22,8 @@ public interface ReviewBoardService {
 	public int updateReview(ReviewBoard review);
 	
 	public int deleteReview(int reviewNo);
+	
+	public int selectNextReviewBoardSequence();
+	
+	public List<ReviewBoard> selectMainReviewList();
 }

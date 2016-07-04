@@ -91,7 +91,7 @@ public class PrBoardController {
 		prBoard.setManagerTel((String)map.get("managerTel"));
 		prBoard.setMemberId(mem.getMemberId());
 		
-		if (cafeImage.length != 0 && cafeImage != null) {
+		if (cafeImage != null && cafeImage.length != 0 && !cafeImage[0].isEmpty()) {
 			for(int idx = 0 ; idx < cafeImage.length ; idx++){
 				String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
 				
@@ -107,8 +107,8 @@ public class PrBoardController {
 			}
 		}
 		
-		prBoard.setCafeRealImage(cafeRealImagesName);
-		prBoard.setCafeFakeImage(cafeFakeImagesName);
+		prBoard.setCafeRealImage((cafeRealImagesName.equals("") ? "defaultCafe.png;" : cafeRealImagesName));
+		prBoard.setCafeFakeImage((cafeFakeImagesName.equals("") ? "defaultCafe.png;" : cafeFakeImagesName));
 		
 		service.insertPRBoard(prBoard);
 		
@@ -164,7 +164,7 @@ public class PrBoardController {
 			cafeFeature += map.get("cafeFeature2");
 		}
 		
-		if (addCafeImage.length != 0 && addCafeImage != null) {
+		if (addCafeImage != null && addCafeImage.length != 0 && !addCafeImage[0].isEmpty()) {
 			for(int idx = 0 ; idx < addCafeImage.length ; idx++){
 				String imageName = addCafeImage[idx].getOriginalFilename();// 업로드된 파일명
 				
@@ -184,10 +184,12 @@ public class PrBoardController {
 		
 		for (int i = 0; i < originalCafeFakeImage.length; i++){
 			int temp = -1;
-			for (int j = 0; j < modifiedCafeFakeImage.length; j++){
-				if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
-					temp = j;
-					break;
+			if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")){
+				for (int j = 0; j < modifiedCafeFakeImage.length; j++){
+					if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
+						temp = j;
+						break;
+					}
 				}
 			}
 			if (temp == -1){
@@ -197,8 +199,13 @@ public class PrBoardController {
 			}
 		}
 		
-		String resultFakeImage = String.join(";", modifiedCafeFakeImage) + ";" + addFakeImagesName;
-		String resultRealImage = String.join(";", modifiedCafeRealImage) + ";" + addRealImagesName;
+		String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) : "") + ";" + addFakeImagesName;
+		String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) : "") + ";" + addRealImagesName;
+		
+		if (resultRealImage.equals(";")){
+			resultRealImage = "defaultCafe.png;";
+			resultFakeImage = "defaultCafe.png;";
+		}
 		
 		service.updatePRBoard(
 				new PRBoard(
@@ -351,7 +358,7 @@ public class PrBoardController {
 		menu.setMenuType(menuType);
 		menu.setMenuName(menuName);
 		
-		if (menuImage != null) {
+		if (menuImage != null && !menuImage.isEmpty()) {
 			String imageName = menuImage.getOriginalFilename();// 업로드된 파일명
 			
 			// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
@@ -365,10 +372,11 @@ public class PrBoardController {
 			menuRealImage = imageName;
 			menuFakeImage = fake+imageName;
 		}
+		else{
+			menuRealImage = "defaultMenu.png";
+			menuFakeImage = "defaultMenu.png";
+		}
 		
-		/*
-		 * TODO: 만약 Image의 값이 ""이라면, 기본 이미지를 넣게 하는 것도 좋을 듯.
-		 */
 		menu.setMenuRealImage(menuRealImage);
 		menu.setMenuFakeImage(menuFakeImage);
 		
@@ -424,34 +432,35 @@ public class PrBoardController {
 		
 		for (int i = 0; i < originalMenuList.size(); i++){
 			boolean deleteFlag = true;
-						
-			for (int j = 0; j < menuNOArray.length; j++){
-				if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
-					Menu updateMenu = new Menu();
-					updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
-					updateMenu.setMenuType(menuTypeArray[j]);
-					updateMenu.setMenuName(menuNameArray[j]);
-					if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
-						updateMenu.setMenuRealImage(originalMenuList.get(i).getMenuRealImage());
-						updateMenu.setMenuFakeImage(originalMenuList.get(i).getMenuFakeImage());
+			if (menuNOArray != null){
+				for (int j = 0; j < menuNOArray.length; j++){
+					if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
+						Menu updateMenu = new Menu();
+						updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
+						updateMenu.setMenuType(menuTypeArray[j]);
+						updateMenu.setMenuName(menuNameArray[j]);
+						if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
+							updateMenu.setMenuRealImage(originalMenuList.get(i).getMenuRealImage());
+							updateMenu.setMenuFakeImage(originalMenuList.get(i).getMenuFakeImage());
+						}
+						else{
+							String imageName = menuImageArray[j].getOriginalFilename();// 업로드된 파일명
+							
+							// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+							// 최종 저장소 디렉토리 조회
+							String dir = req.getServletContext().getRealPath("/images");
+							long fake = System.currentTimeMillis();
+							File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+							
+							menuImageArray[j].transferTo(dest);
+							
+							updateMenu.setMenuRealImage(imageName);
+							updateMenu.setMenuFakeImage(fake+imageName);
+						}
+						service.updateMenu(updateMenu);
+						deleteFlag = false;
+						break;
 					}
-					else{
-						String imageName = menuImageArray[j].getOriginalFilename();// 업로드된 파일명
-						
-						// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-						// 최종 저장소 디렉토리 조회
-						String dir = req.getServletContext().getRealPath("/images");
-						long fake = System.currentTimeMillis();
-						File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-						
-						menuImageArray[j].transferTo(dest);
-						
-						updateMenu.setMenuRealImage(imageName);;
-						updateMenu.setMenuFakeImage(fake+imageName);
-					}
-					service.updateMenu(updateMenu);
-					deleteFlag = false;
-					break;
 				}
 			}
 			
@@ -462,36 +471,37 @@ public class PrBoardController {
 				service.deleteMenu(originalMenuList.get(i).getMenuNo());
 			}
 		}
-		
-		for (int i = 0; i < menuNOArray.length; i++){
-			if (menuNOArray[i] == 0){
-				Menu newMenu = new Menu();
-								
-				newMenu.setMenuNo(service.selectNextMenuSequence());
-				newMenu.setCafeNo(cafeNo);
-				newMenu.setMenuType(menuTypeArray[i]);
-				newMenu.setMenuName(menuNameArray[i]);
-				
-				if (menuImageArray[i] != null && !menuImageArray[i].isEmpty()){
-					String imageName = menuImageArray[i].getOriginalFilename();// 업로드된 파일명
+		if (menuNOArray != null){
+			for (int i = 0; i < menuNOArray.length; i++){
+				if (menuNOArray[i] == 0){
+					Menu newMenu = new Menu();
+									
+					newMenu.setMenuNo(service.selectNextMenuSequence());
+					newMenu.setCafeNo(cafeNo);
+					newMenu.setMenuType(menuTypeArray[i]);
+					newMenu.setMenuName(menuNameArray[i]);
 					
-					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-					// 최종 저장소 디렉토리 조회
-					String dir = req.getServletContext().getRealPath("/images");
-					long fake = System.currentTimeMillis();
-					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+					if (menuImageArray[i] != null && !menuImageArray[i].isEmpty()){
+						String imageName = menuImageArray[i].getOriginalFilename();// 업로드된 파일명
+						
+						// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+						// 최종 저장소 디렉토리 조회
+						String dir = req.getServletContext().getRealPath("/images");
+						long fake = System.currentTimeMillis();
+						File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+						
+						menuImageArray[i].transferTo(dest);
+						
+						newMenu.setMenuRealImage(imageName);;
+						newMenu.setMenuFakeImage(fake+imageName);
+					}
+					else{
+						newMenu.setMenuFakeImage("defaultMenu.png");
+						newMenu.setMenuRealImage("defaultMenu.png");
+					}
 					
-					menuImageArray[i].transferTo(dest);
-					
-					newMenu.setMenuRealImage(imageName);;
-					newMenu.setMenuFakeImage(fake+imageName);
+					service.insertMenu(newMenu);
 				}
-				else{
-					newMenu.setMenuFakeImage("");
-					newMenu.setMenuRealImage("");
-				}
-				
-				service.insertMenu(newMenu);
 			}
 		}
 		

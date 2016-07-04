@@ -37,4 +37,11 @@
 		FROM preferlocation
 		where memberId = #{memberId}
 	</select>
+	
+		<select id="selectMemberPreferLocationAddress" parameterType="map" resultType="hashmap">
+		select middle.*,major.* ,p.*
+		from  MAJORCATEGORY major, MIDDLECATEGORY middle, (select * from PREFERLOCATION where memberId=#{memberId}) p
+		where middle.major_categoryNo = major.major_categoryNO 
+		and p.address${addressNumber}=middle.middle_categoryNo
+	</select>
 </mapper>

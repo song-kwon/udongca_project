@@ -95,4 +95,14 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	public int deleteReview(int reviewNo) {
 		return dao.deleteReview(reviewNo);
 	}
+
+	@Override
+	public int selectNextReviewBoardSequence() {
+		return dao.selectNextReviewBoardSequence();
+	}
+	
+	@Override
+	public List<ReviewBoard> selectMainReviewList() {
+		return dao.selectMainReviewList();
+	}
 }

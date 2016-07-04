@@ -14,4 +14,5 @@ public interface NoticeBoardDao {
 	public int updateNoticeBoard(NoticeBoard noticeBoard);
 	public int countNoticeBoard();
 	public List<Code> selectByCodeType(String codeType);
+	public List<NoticeBoard> selectNoticeBoardTopTen();
 }

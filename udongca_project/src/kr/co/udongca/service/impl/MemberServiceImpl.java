@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,15 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
+import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.dao.CodeDao;
 import kr.co.udongca.dao.MemberDao;
-import kr.co.udongca.dao.impl.CodeDaoImpl;
+import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
-import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.PreferLocation;
@@ -32,6 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDaoImpl;
 	@Autowired
 	private CodeDao codeDaoImpl;
+	
+	@Autowired
+	private PrBoardDao prBoardDao;
 
 	@Override
 	public Member login(String id, String password) {
@@ -233,5 +236,39 @@ public class MemberServiceImpl implements MemberService {
 			map.put("list", list);
 			map.put("pageBean", pagingBean);
 			return map;
+	}
+	
+	@Override
+	public List selectMemberPreferLocationAddress(String memberId) {
+		Map map = memberDaoImpl.selectPreferLocationByMemberId(memberId);
+		Map address = new HashMap<>();
+		List prBoard = new ArrayList<>();
+		
+		if(map != null){
+			for (int i = 1 ; i <=map.size(); i++) {
+				if(map.get("address"+i) != null){
+					Map searchMap = new HashMap<>();
+					searchMap.put("memberId", memberId);
+					searchMap.put("addressNumber", i);
+					
+					Map result =  memberDaoImpl.selectMemberPreferLocationAddress(searchMap);
+						if(result != null)
+							address.put("address"+i, result.get("ADDRESS1")+" "+result.get("ADDRESS2"));
+				}
+			}
+			
+			Set key = address.keySet();
+			for (Object object : key) {
+				if(address.get(object) != null){
+					String cafeAddress=null;
+					cafeAddress=address.get(object).toString();
+					List<PRBoard> result=prBoardDao.selectMainPRBoardByAddress(cafeAddress);
+					
+					if(!result.isEmpty())
+						prBoard.add(result);
+				}
+			}
+		}
+		return prBoard;
 	}
 }

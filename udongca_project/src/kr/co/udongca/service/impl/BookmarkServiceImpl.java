@@ -46,12 +46,12 @@ public class BookmarkServiceImpl  implements BookmarkService{
 	
 	@Override
 	public int deleteBookmark(int cafeNo, String memberId) {
-		return dao.deleteBookmark(new Bookmark(0, memberId, cafeNo, null));
+		return dao.deleteBookmark(new Bookmark(0, memberId, null, cafeNo,null));
 	}
 
 	@Override
 	public int insertBookmark(int cafeNo, String memberId) {
-		return dao.insertBookmark(new Bookmark(0, memberId, cafeNo, null));
+		return dao.insertBookmark(new Bookmark(0, memberId, null,cafeNo, null));
 	}
 
 	@Override
@@ -62,5 +62,10 @@ public class BookmarkServiceImpl  implements BookmarkService{
 	@Override
 	public List<Bookmark> selectBookmarkByMemberId(String memberId) {
 		return dao.selectBookmarkByMemberId(memberId);
+	}
+	
+	@Override
+	public List<Bookmark> selectBookmarkAndPRBoardByMemberId(String memberId) {
+		return dao.selectBookmarkAndPRBoardByMemberId(memberId);
 	}
 }

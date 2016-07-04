@@ -90,6 +90,5 @@ $(document).ready(function(){
 </select>&nbsp;
 <button id="searchTheme">검색</button>
 </div>
-</div>
 <c:if test="${sessionScope.login.memberType eq 'licenseemember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 </div>

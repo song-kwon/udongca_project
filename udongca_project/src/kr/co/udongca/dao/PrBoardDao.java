@@ -86,4 +86,10 @@ public interface PrBoardDao {
 	 * @return 메뉴의 다음 Sequence 번호 출력 
 	 */
 	public int selectNextMenuSequence();
+	
+	public List<PRBoard> selectMainPRBoardByAddress(String cafeAddress);
+	
+	public List<PRBoard> selectMainPRBoardByRating();
+	
+	public List<PRBoard> selectMainPRBoardByRegistrationDate();
 }
