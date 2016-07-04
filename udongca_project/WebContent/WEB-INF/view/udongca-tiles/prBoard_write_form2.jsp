@@ -37,17 +37,20 @@
 				});
 				
 				$("form").on("submit", function(){
+					var flag = true;
 					$("[name='menuTypeArray']").each(function(){
 						if ($("option:selected", this).text() == "종류"){
 							alert("종류를 선택하세요");
+							flag = false;
 						}
 					});
 					$("[name='menuNameArray']").each(function(){
 						if (!($(this).val())){
 							alert("메뉴 이름을 입력하세요");
-							return false;
+							flag = false;
 						}
 					});
+					return flag;
 				});
 				
 				$("#cancel").on("click", function(){
@@ -68,7 +71,7 @@
 		type="hidden" name="cafeTel" value="${requestScope.cafeTel}">
 	<input type="hidden" name="cafeAddress"
 		value="${requestScope.cafeAddress}"> <input type="hidden"
-		name="coporateNumb" value="${requestScope.coporateNumb}"> <input
+		name="coporateNumber" value="${requestScope.coporateNumber}"> <input
 		type="hidden" name="managerName" value="${requestScope.managerName}">
 	<input type="hidden" name="managerTel"
 		value="${requestScope.managerTel}">

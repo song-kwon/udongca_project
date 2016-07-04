@@ -8,119 +8,103 @@ public class ReviewBoard {
 	private String reviewTitle;
 	private Date reviewDate;
 	private String reviewContent;
-	private String reviewGrade;
+	private int ratingStars;
 	private String memberId;
 	private String reviewRealImage;
 	private String reviewFakeImage;
 	private int cafeNo;
 	private PRBoard prBoard;
 	
-	public ReviewBoard() {
-	}
-
-	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
+	public ReviewBoard(){}
+	
+	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, int ratingStars,
 			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
 		this.reviewDate = reviewDate;
 		this.reviewContent = reviewContent;
-		this.reviewGrade = reviewGrade;
+		this.ratingStars = ratingStars;
 		this.memberId = memberId;
 		this.reviewRealImage = reviewRealImage;
 		this.reviewFakeImage = reviewFakeImage;
 		this.cafeNo = cafeNo;
-	}
-
-	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, String reviewGrade,
-			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo, PRBoard prBoard) {
-		super();
-		this.reviewNo = reviewNo;
-		this.reviewTitle = reviewTitle;
-		this.reviewDate = reviewDate;
-		this.reviewContent = reviewContent;
-		this.reviewGrade = reviewGrade;
-		this.memberId = memberId;
-		this.reviewRealImage = reviewRealImage;
-		this.reviewFakeImage = reviewFakeImage;
-		this.cafeNo = cafeNo;
-		this.prBoard = prBoard;
 	}
 
 	public int getReviewNo() {
 		return reviewNo;
 	}
 
-	public void setReviewNo(int reviewNo) {
-		this.reviewNo = reviewNo;
-	}
-
 	public String getReviewTitle() {
 		return reviewTitle;
-	}
-
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
 	}
 
 	public Date getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(Date reviewDate) {
-		this.reviewDate = reviewDate;
-	}
-
 	public String getReviewContent() {
 		return reviewContent;
 	}
 
-	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
-	}
-
-	public String getReviewGrade() {
-		return reviewGrade;
-	}
-
-	public void setReviewGrade(String reviewGrade) {
-		this.reviewGrade = reviewGrade;
+	public int getRatingStars() {
+		return ratingStars;
 	}
 
 	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
 	public String getReviewRealImage() {
 		return reviewRealImage;
-	}
-
-	public void setReviewRealImage(String reviewRealImage) {
-		this.reviewRealImage = reviewRealImage;
 	}
 
 	public String getReviewFakeImage() {
 		return reviewFakeImage;
 	}
 
-	public void setReviewFakeImage(String reviewFakeImage) {
-		this.reviewFakeImage = reviewFakeImage;
-	}
-
 	public int getCafeNo() {
 		return cafeNo;
 	}
 
-	public void setCafeNo(int cafeNo) {
-		this.cafeNo = cafeNo;
-	}
-
 	public PRBoard getPrBoard() {
 		return prBoard;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
+
+	public void setReviewTitle(String reviewTitle) {
+		this.reviewTitle = reviewTitle;
+	}
+
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+
+	public void setRatingStars(int ratingStars) {
+		this.ratingStars = ratingStars;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public void setReviewRealImage(String reviewRealImage) {
+		this.reviewRealImage = reviewRealImage;
+	}
+
+	public void setReviewFakeImage(String reviewFakeImage) {
+		this.reviewFakeImage = reviewFakeImage;
+	}
+
+	public void setCafeNo(int cafeNo) {
+		this.cafeNo = cafeNo;
 	}
 
 	public void setPrBoard(PRBoard prBoard) {
@@ -134,10 +118,10 @@ public class ReviewBoard {
 		result = prime * result + cafeNo;
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + ((prBoard == null) ? 0 : prBoard.hashCode());
+		result = prime * result + ratingStars;
 		result = prime * result + ((reviewContent == null) ? 0 : reviewContent.hashCode());
 		result = prime * result + ((reviewDate == null) ? 0 : reviewDate.hashCode());
 		result = prime * result + ((reviewFakeImage == null) ? 0 : reviewFakeImage.hashCode());
-		result = prime * result + ((reviewGrade == null) ? 0 : reviewGrade.hashCode());
 		result = prime * result + reviewNo;
 		result = prime * result + ((reviewRealImage == null) ? 0 : reviewRealImage.hashCode());
 		result = prime * result + ((reviewTitle == null) ? 0 : reviewTitle.hashCode());
@@ -165,6 +149,8 @@ public class ReviewBoard {
 				return false;
 		} else if (!prBoard.equals(other.prBoard))
 			return false;
+		if (ratingStars != other.ratingStars)
+			return false;
 		if (reviewContent == null) {
 			if (other.reviewContent != null)
 				return false;
@@ -179,11 +165,6 @@ public class ReviewBoard {
 			if (other.reviewFakeImage != null)
 				return false;
 		} else if (!reviewFakeImage.equals(other.reviewFakeImage))
-			return false;
-		if (reviewGrade == null) {
-			if (other.reviewGrade != null)
-				return false;
-		} else if (!reviewGrade.equals(other.reviewGrade))
 			return false;
 		if (reviewNo != other.reviewNo)
 			return false;
@@ -203,13 +184,8 @@ public class ReviewBoard {
 	@Override
 	public String toString() {
 		return "ReviewBoard [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewDate=" + reviewDate
-				+ ", reviewContent=" + reviewContent + ", reviewGrade=" + reviewGrade + ", memberId=" + memberId
+				+ ", reviewContent=" + reviewContent + ", ratingStars=" + ratingStars + ", memberId=" + memberId
 				+ ", reviewRealImage=" + reviewRealImage + ", reviewFakeImage=" + reviewFakeImage + ", cafeNo=" + cafeNo
 				+ ", prBoard=" + prBoard + "]";
 	}
-	
-	
-
-	
 }
-

@@ -45,6 +45,9 @@
 			managerTel managerTel,
 			cafeRealImage cafeRealImage,
 			cafeFakeImage cafeFakeImage,
+			cafeRating cafeRating,
+			cafeReviewCount cafeReviewCount,
+			RegistrationDate RegistrationDate,
 			memberId memberId
 		FROM PRboard
 	</sql>
@@ -61,6 +64,9 @@
 			managerTel managerTel,
 			cafeRealImage cafeRealImage,
 			cafeFakeImage cafeFakeImage,
+			cafeRating cafeRating,
+			cafeReviewCount cafeReviewCount,
+			RegistrationDate RegistrationDate,
 			memberId memberId
 	</sql>
 	<!-- 홍보글 추가 -->
@@ -180,7 +186,7 @@
 		WHERE cafeNo = #{cafeNo}
 	</select>
 	<!-- 사업자 등록 번호 중복 확인 -->
-	<select id="selectPRBoardByCoporateNumb" parameterType="String" resultType="PRBoard">
+	<select id="selectPRBoardByCoporateNumber" parameterType="String" resultType="PRBoard">
 		<include refid="select-full-PRBoard"/>
 		WHERE coporateNumber = #{coporateNumber}
 	</select>
@@ -229,4 +235,20 @@
 		where ceil(rownum) <![CDATA[ < ]]> 10
 		ORDER BY RegistrationDate DESC
 	</select>
+	
+	<select id="selectCafeReviewCountInPRBoard" parameterType="int" resultType="int">
+		SELECT cafeReviewCount FROM PRBoard WHERE cafeNo = #{cafeNo}
+	</select>
+	
+	<update id="updateCafeReviewCountInPRBoard" parameterType="map">
+		UPDATE PRBoard SET cafeReviewCount = #{cafeReviewCount} WHERE cafeNo = #{cafeNo}
+	</update>
+	
+	<select id="selectCafeRatingInPRBoard" parameterType="int" resultType="int">
+		SELECT cafeRating FROM PRBoard WHERE cafeNo = #{cafeNo}
+	</select>
+	
+	<update id="updateCafeRatingInPRBoard" parameterType="map">
+		UPDATE PRBoard SET cafeRating = #{cafeRating} WHERE cafeNo = #{cafeNo}
+	</update>
 </mapper>

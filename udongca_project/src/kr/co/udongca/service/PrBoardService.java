@@ -39,7 +39,7 @@ public interface PrBoardService {
 	 * @param coporateNumb 중복을 확인하고자 하는 사업자 등록 번호
 	 * @return 성공 시 해당 사업자 등록 번호에 맞는 홍보글 객체 출력(중복), 실패 시  null 출력(중복되지 않음)
 	 */
-	public PRBoard selectPRBoardByCoporateNumb (String coporateNumb);
+	public PRBoard selectPRBoardByCoporateNumber (String coporateNumber);
 	/**
 	 * 홍보글의 다음 Sequence 번호 출력. 홍보글 게시 시 사용
 	 * @return 홍보글의 다음 Sequence 번호 출력 
@@ -100,4 +100,12 @@ public interface PrBoardService {
 	public List<PRBoard> selectMainPRBoardByRating();
 	
 	public List<PRBoard> selectMainPRBoardByRegistrationDate();
+	
+	public int updateCafeReviewCountInPRBoard(Map<String, Integer> map);
+	
+	public int selectCafeReviewCountInPRBoard(int cafeNo);
+	
+	public int updateCafeRatingInPRBoard(Map<String, Integer> map);
+	
+	public int selectCafeRatingInPRBoard(int cafeNo);
 }
