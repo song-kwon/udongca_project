@@ -54,11 +54,19 @@ public class ReviewBoardController {
 		}
 	}
 	
+	/*
 	@RequestMapping("reviewDetail.udc")
 	public ModelAndView reviewDetail(int cafeNo,int reviewNo){
 		
 		Map map = service.reviewDetail(cafeNo, reviewNo);
 		return new ModelAndView("/testView/testReply.jsp",map);
+	}
+	*/
+	
+	@RequestMapping("reviewDetail.udc")
+	@ResponseBody
+	public Map reviewDetail(int cafeNo,int reviewNo){
+		return service.reviewDetail(cafeNo, reviewNo);
 	}
 	
 	@RequestMapping("cafeReviewListPaging.udc")
