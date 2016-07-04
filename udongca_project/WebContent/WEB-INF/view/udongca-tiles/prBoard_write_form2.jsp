@@ -3,7 +3,7 @@
 <script src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript">
 			var menuTypeList = null;
-			
+
 			$(document).ready(function(){
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
@@ -22,7 +22,7 @@
 				});
 				
 				$("#menuAdd").on("click", function(){
-					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray'><option>종류</option></select> <b>이름:</b> <input type='text' name='menuNameArray'> 사진: <input type='file' name='menuImageArray'><br></div>");
+					$("#menuList").append("<div><b>종류:</b> <select name='menuTypeArray' class='form-control'><option>종류</option></select><br> <b>이름:</b> <input type='text' name='menuNameArray' class='form-control'><br> 사진: <input type='file' name='menuImageArray'><hr></div>");
 					if (menuTypeList){
 						for(var i = 0; i < menuTypeList.length; i++){
 							$("[name='menuTypeArray']:last").append("<option>" + menuTypeList[i].codeName + "</option>");
@@ -37,17 +37,20 @@
 				});
 				
 				$("form").on("submit", function(){
+					var flag = true;
 					$("[name='menuTypeArray']").each(function(){
 						if ($("option:selected", this).text() == "종류"){
 							alert("종류를 선택하세요");
+							flag = false;
 						}
 					});
 					$("[name='menuNameArray']").each(function(){
 						if (!($(this).val())){
 							alert("메뉴 이름을 입력하세요");
-							return false;
+							flag = false;
 						}
 					});
+					return flag;
 				});
 				
 				$("#cancel").on("click", function(){
@@ -55,11 +58,10 @@
 				});
 			});
 </script>
-<div id="nonav_bodyDiv">
+<div class="nonav_bodyDiv" style="width:400px;">
 굵은 글씨 항목은 필수 입력 사항입니다.
 <br>
-<form action="/udongca_project/prBoard/prWrite.udc"
-	enctype="multipart/form-data" method="post">
+<form action="/udongca_project/prBoard/prWrite.udc" enctype="multipart/form-data" method="post" role="form">
 	<input type="hidden" name="cafeName" value="${requestScope.cafeName}">
 	<input type="hidden" name="cafeIntro" value="${requestScope.cafeIntro}">
 	<input type="hidden" name="cafeFeature"
@@ -68,33 +70,31 @@
 		type="hidden" name="cafeTel" value="${requestScope.cafeTel}">
 	<input type="hidden" name="cafeAddress"
 		value="${requestScope.cafeAddress}"> <input type="hidden"
-		name="coporateNumb" value="${requestScope.coporateNumb}"> <input
+		name="coporateNumber" value="${requestScope.coporateNumber}"> <input
 		type="hidden" name="managerName" value="${requestScope.managerName}">
 	<input type="hidden" name="managerTel"
 		value="${requestScope.managerTel}">
-	<table>
-		<tr>
-			<td>매장사진</td>
-			<td><input type="file" name="cafeImage" multiple="multiple"><br></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>메뉴</td>
-			<td id="menuList">
-				<div>
-					<b>종류:</b> <select name="menuTypeArray"><option>종류</option></select>
-					<b>이름:</b> <input type="text" name="menuNameArray"> 사진: <input
-						type="file" name="menuImageArray"><br>
+	<div class="form-group">
+			<label for="cafeImage">매장사진(다수 선택 가능)</label>
+			<input type="file" name="cafeImage" multiple="multiple"><br>
+	</div>
+	<div class="form-group">
+			<label for="menu">메뉴</label>
+				<div id="menuList" class="form-inline">
+					<div>
+						종류: <select name="menuTypeArray" class="form-control"><option>종류</option></select><br>
+						이름: <input type="text" name="menuNameArray" class="form-control"><br>
+						사진: <input type="file" name="menuImageArray">
+						<hr>
+					</div>
 				</div>
-			</td>
-			<td><input type="button" value="메뉴 추가" id="menuAdd"><input
-				type="button" value="메뉴 삭제" id="menuDelete"></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" value="확인"></td>
-			<td><input type="button" value="취소" id="cancel"></td>
-		</tr>
-	</table>
+				<div>
+				<input type="button" value="메뉴 추가" id="menuAdd"><input type="button" value="메뉴 삭제" id="menuDelete">
+				</div>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="확인">
+		<input type="button" value="취소" id="cancel">
+	</div>
 </form>
 </div>

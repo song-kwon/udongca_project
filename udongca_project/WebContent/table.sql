@@ -217,7 +217,6 @@ reviewNo 	NUMBER	primary key,
 reviewTitle	varchar2(50)	NOT NULL,
 reviewDate	DATE	NOT NULL,
 reviewContent	CLOB	NOT NULL,
-reviewGrade	NUMBER	NOT NULL,
 reviewRealImage CLOB,
 reviewfakeImage CLOB,
 ratingStars number,
@@ -238,6 +237,14 @@ insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdat
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6',1,'TEST2','TEST6',1,'scott',7);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7',1,'TEST3','TEST7',1,'scott',1);
 insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8',1,'TEST4','TEST8',1,'test2',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST1',sysdate,'TEST1','TEST1','TEST1',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST2',sysdate,'TEST2','TEST2','TEST2',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST3',sysdate,'TEST3','TEST3','TEST3',1,'test1',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST4',sysdate,'TEST4','TEST4','TEST4',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST5',sysdate,'TEST5','TEST1','TEST5',1,'test3',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST6',sysdate,'TEST6','TEST2','TEST6',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST7',sysdate,'TEST7','TEST3','TEST7',1,'scott',1);
+insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdate,'TEST8','TEST4','TEST8',1,'test2',1);
 
 
 

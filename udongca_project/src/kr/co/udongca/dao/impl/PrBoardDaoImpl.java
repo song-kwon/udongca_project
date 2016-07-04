@@ -42,8 +42,8 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	}
 
 	@Override
-	public PRBoard selectPRBoardByCoporateNumb(String coporateNumb) {
-		return session.selectOne(prBoardNamespace + "selectPRBoardByCoporateNumb", coporateNumb);
+	public PRBoard selectPRBoardByCoporateNumber(String coporateNumber) {
+		return session.selectOne(prBoardNamespace + "selectPRBoardByCoporateNumber", coporateNumber);
 	}
 	
 	@Override
@@ -99,5 +99,25 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	@Override
 	public List<PRBoard> selectMainPRBoardByRegistrationDate() {
 		return session.selectList(prBoardNamespace+"selectMainPRBoardByRegistrationDate");
+	}
+
+	@Override
+	public int updateCafeReviewCountInPRBoard(Map<String, Integer> map) {
+		return session.update(prBoardNamespace+"updateCafeReviewCountInPRBoard", map);
+	}
+
+	@Override
+	public int updateCafeRatingInPRBoard(Map<String, Integer> map) {
+		return session.update(prBoardNamespace+"updateCafeRatingInPRBoard", map);
+	}
+
+	@Override
+	public int selectCafeReviewCountInPRBoard(int cafeNo) {
+		return session.selectOne(prBoardNamespace+"selectCafeReviewCountInPRBoard", cafeNo);
+	}
+
+	@Override
+	public int selectCafeRatingInPRBoard(int cafeNo) {
+		return session.selectOne(prBoardNamespace+"selectCafeRatingInPRBoard", cafeNo);
 	}
 }

@@ -56,6 +56,7 @@ table{
 	margin:30px;
 	margin-top:20px;
 	margin-bottom:20px;
+	text-align:left;
 }
 .div{
 	border:1px dotted;
@@ -63,6 +64,8 @@ table{
 
 .text{
 	font-weight:bold;
+	width:100px;
+	height:40px;
 }
 </style>
 

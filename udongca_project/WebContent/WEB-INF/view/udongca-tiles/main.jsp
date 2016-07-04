@@ -1,5 +1,18 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('img').mouseover(function(){
+		$(this).css({'opacity':'0.5'})
+	});
+	
+	$('img').mouseout(function(){
+		$(this).css({'opacity':'1'})
+	});
+	
+});
+</script>
+
 <div style="width:1030px; height:910px;" class="nonav_bodyDiv" align="center">
 	<c:choose>
 		<c:when test="${sessionScope.login.memberType eq 'generalMember'}">

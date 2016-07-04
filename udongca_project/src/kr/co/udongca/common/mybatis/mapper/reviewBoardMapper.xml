@@ -3,7 +3,7 @@
 <mapper namespace="reviewBoardMapper">
 	
 	<sql id="review-column">
-		reviewNo, reviewTitle, reviewDate, reviewContent, reviewGrade, reviewRealImage, reviewFakeImage, memberId, cafeNo
+		reviewNo, reviewTitle, reviewDate, reviewContent, ratingStars, reviewRealImage, reviewFakeImage, memberId, cafeNo
 	</sql>
 
 	<select id="countMyReview" parameterType="string" resultType="int">
@@ -64,7 +64,7 @@
 			#{reviewTitle},
 			#{reviewDate},
 			#{reviewContent},
-			#{reviewGrade},
+			#{ratingStars},
 			#{reviewRealImage},
 			#{reviewFakeImage},
 			#{memberId},
@@ -76,7 +76,7 @@
 		UPDATE review_board SET
 			reviewTitle = #{reviewTitle},
 			reviewContent = #{reviewContent},
-			reviewGrade = #{reviewGrade},
+			ratingStars = #{ratingStars},
 			reviewRealImage = #{reviewRealImage},
 			reviewFakeImage = #{reviewFakeImage}
 		WHERE reviewNo = #{reviewNo}
