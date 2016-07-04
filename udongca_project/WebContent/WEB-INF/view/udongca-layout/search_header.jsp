@@ -36,14 +36,13 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 .div{
-	padding:10px;
+	padding:7px;
 	padding-left:15px;
 	padding-right:15px;
 	text-align:center;
-	background-color:wheat;
-	font-size:15px;
-	font-weight:bold;
-	color:saddlebrown;
+	background-color:antiquewhite;
+	font-size:20px;
+	color:sienna;
 	width:auto;
 }
 
@@ -69,24 +68,24 @@ $(document).ready(function(){
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
 <div class="form-inline">
-	<div class="form-group">지역선택&nbsp;
-	<select class="form-control" id="address1">
+	<div class="div">지역선택&nbsp;&nbsp;
+	<select class="form-control" id="address1" style="width:auto;">
 	<option value=0>시/도</option>
 		<c:forEach items="${requestScope.result.majorCategory}" var="majorList" varStatus="status">
 			<option value="${majorList.majorCategoryNo }"
 				${param.address1 == majorList.addressName ? 'selected':'' }>${majorList.addressName }</option>
 		</c:forEach>
 	</select>&nbsp;
-	<select class="form-control" id="address2">
+	<select class="form-control" id="address2" style="width:auto;">
 	<option value=0>시/도 먼저 선택</option>
 		<c:forEach items="${requestScope.result.middleCategory}" var="middleList" varStatus="status">
 			<option value="${middleList.middleCategoryNo }"
 				${param.address2 == middleList.addressName ? 'selected':'' }>${middleList.addressName }</option>
 		</c:forEach>
 	</select>&nbsp;
-	<button id="searchAddress">검색</button>&nbsp;&nbsp;
-	테마검색&nbsp;
-	<select class="form-control" id="theme">
+	<button id="searchAddress">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	테마검색&nbsp;&nbsp;
+	<select class="form-control" id="theme" style="width:auto;">
 	<option value=0>테마 선택</option>
 	</select>&nbsp;
 	<button id="searchTheme">검색</button>

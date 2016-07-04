@@ -63,10 +63,10 @@
 				<tr>
 					<td>등급</td>
 					<td>
-						<select name="reviewGrade" id="reviewGrade">
+						<select name="ratingStars" id="ratingStars">
 							<c:forEach var="i" begin="1" end="5">
 								<c:choose>
-									<c:when test="${requestScope.review.reviewGrade eq i}">
+									<c:when test="${requestScope.review.ratingStars eq i}">
 										<option selected>${i}</option>
 									</c:when>
 									<c:otherwise>

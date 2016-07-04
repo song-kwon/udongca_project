@@ -20,17 +20,22 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("button").prop({"class":"btn btn-default"});
+	$("input[type='button']").prop({"class":"btn btn-default"});
+	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
+	$("nav").height($("section").height()+60);
 });
 </script>
 
 <style type="text/css">
+table{
+	color:black;
+}
 header{
 	background-color:darkgoldenrod;
-	min-height:150px;
+	min-height:190px;
 	text-align:center;
-	padding: 5px;
 }
 header, a{
 	color:lightsteelblue;
@@ -38,8 +43,6 @@ header, a{
 nav{
 	line-height: 70px;
 	background-color:burlywood;
-	padding: 15px;
-	min-height:700px;
 	width:180px;
 	overflow:auto;
 	float:left;
@@ -50,6 +53,7 @@ nav{
 }
 section{
 	padding: 15px;
+	margin-top:30px;
 	min-height:700px;
 	float:left;
 }
@@ -66,11 +70,21 @@ a{
 }
 #wrap{
 	width:1280px;
+	margin:0 auto;
 }
 textarea{
 	outline: none;
 }
 a:hover{color:saddlebrown;}
+button{
+	color:black;
+}
+input[type="submit"]{
+	color:black;
+}
+input[type="button"]{
+	color:black;
+}
 </style>
 </head>
 <body>

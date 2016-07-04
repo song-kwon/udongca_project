@@ -33,6 +33,9 @@
 			var currentImageNumber = 0;
 			var currentMenuList = null;
 			var currentMenuType = null;
+			var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
+			var cafeRating = Number("${requestScope.prBoard.cafeRating}");
+			var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
 			
 			$(document).ready(function(){
 				$.ajax({
@@ -58,22 +61,29 @@
 						$("#buttonArea").append("<button onclick='prModify()'>홍보글 수정</button><button onclick='prDelete()'>홍보글 삭제</button>");
 					}
 					else{
-						$.ajax({
-							"url":"/udongca_project/member/isBookmarkAdded.udc",
-							"type":"POST",
-							"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
-							"dataType":"json",
-							"success":function(json){
-								isAddedFavorite = json;
-								$("#buttonArea").append("<button onclick='favoriteToggle()'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
-							},
-							"error":function(xhr){
-								alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
-							}
-						});
-						
+						if("${sessionScope.login.memberType}" == "generalMember"){
+							$.ajax({
+								"url":"/udongca_project/member/isBookmarkAdded.udc",
+								"type":"POST",
+								"data":"cafeNo=" + "${requestScope.prBoard.cafeNo}",
+								"dataType":"json",
+								"success":function(json){
+									isAddedFavorite = json;
+									$("#buttonArea").append("<button onclick='favoriteToggle()'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
+								},
+								"error":function(xhr){
+									alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
+								}
+							});
+						}
 						$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
 					}
+				}
+				
+				$("#cafeAverageRatingNumber").text(cafeAverageRating + " / ${requestScope.prBoard.cafeReviewCount}");
+				
+				for (var i = 1; i < 6; i++){
+					$("#cafeAverageRatingIcon").append("<img src='/udongca_project/udongca-image/star" + ((i <= cafeAverageRating) ? "1" : "0" ) + ".png' height='32' width='32'>");
 				}
 			});
 			
@@ -133,9 +143,7 @@
 					"data":{cafeNumber:no,menuType:menuType},
 					"dataType":"json",
 					"success":function(obj){
-						alert(obj);
 						if(obj != ""){
-							alert("!");
 							$("#content").append(
 									"<div id='myCarousel' class='carousel slide'>"+
 									"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
@@ -168,7 +176,6 @@
 						    });
 						}
 						else{
-							alert(".");
 							$("#content").append("해당 카테고리의 메뉴가 존재하지 않습니다<br>");
 						}
 						
@@ -289,7 +296,7 @@
 						html += "<td>" + json.reviewDate + "</td></tr>";
 						html += "<tr><td colspan=3>";
 						for (var i = 0; i < 5; i++){
-							html += "<img src='/udongca_project/udongca-image/star" + ((i < json.reviewGrade) ? "1" : "0" ) + ".png' height='32' width='32'>";
+							html += "<img src='/udongca_project/udongca-image/star" + ((i < json.ratingStars) ? "1" : "0" ) + ".png' height='32' width='32'>";
 						}
 						html += "</td></tr>";
 						html += "<tr><td id='reviewContent' colspan=3>";
@@ -369,6 +376,11 @@
 								카페: ${requestScope.prBoard.cafeTel}<br>
 								사업자: ${requestScope.prBoard.managerTel}
 							</td>
+						</tr>
+						<tr>
+							<td>카페 점수</td>
+							<td id="cafeAverageRatingIcon"></td>
+							<td id="cafeAverageRatingNumber"></td>
 						</tr>
 						<tr>
 							<td>카페 특징</td>

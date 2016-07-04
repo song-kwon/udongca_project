@@ -39,23 +39,23 @@ $(document).ready(function(){
 		$("#managerTelTd").text(($("#managerTel").val()) ? "" : "입력 필수");
 	});
 	
-	$("#coporateNumb").on("change", function(){
-		var result = isValidCoporateNumb();
+	$("#coporateNumber").on("change", function(){
+		var result = isValidCoporateNumber();
 		if (result){
-			$("#coporateNumbTd").text("중복 확인 필요");
+			$("#coporateNumberTd").text("중복 확인 필요");
 		}
 	});
 	
-	$("#isCoporateNumbDuplicated").on("click", function(){
-		var result = isValidCoporateNumb();
+	$("#isCoporateNumberDuplicated").on("click", function(){
+		var result = isValidCoporateNumber();
 		if (result){
 			$.ajax({
-				"url":"/udongca_project/prBoard/isCoporateNumbDuplicated.udc",
+				"url":"/udongca_project/prBoard/isCoporateNumberDuplicated.udc",
 				"type":"POST",
-				"data":"coporateNumb=" + $("#coporateNumb").val(),
+				"data":"coporateNumber=" + $("#coporateNumber").val(),
 				"dataType":"text",
 				"success":function(text){
-					$("#coporateNumbTd").text(((text == "true") ? "중복" : "사용 가능" ) + " 사업자 등록 번호");
+					$("#coporateNumberTd").text(((text == "true") ? "중복" : "사용 가능" ) + " 사업자 등록 번호");
 				},
 				"error":function(xhr){
 					alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -92,7 +92,7 @@ $(document).ready(function(){
 	});
 	
 	$("form").on("submit", function(){
-		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumbTd").text() == "사용 가능 사업자 등록 번호")){
+		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumberTd").text() == "사용 가능 사업자 등록 번호")){
 			alert("필수 사항을 입력하세요");
 			return false;
 		}
@@ -115,17 +115,17 @@ function execDaumPostcode(){
     }).open();
 };
 
-function isValidCoporateNumb(){
-	if (!($("#coporateNumb").val())){
-		$("#coporateNumbTd").text("입력 필수");
+function isValidCoporateNumber(){
+	if (!($("#coporateNumber").val())){
+		$("#coporateNumberTd").text("입력 필수");
 		return 0;
 	}
-	else if ($("#coporateNumb").val().length != 10 || !($("#coporateNumb").val().match(/\d{10}/))){
-		$("#coporateNumbTd").text("양식에 맞게 입력");
+	else if ($("#coporateNumber").val().length != 10 || !($("#coporateNumber").val().match(/\d{10}/))){
+		$("#coporateNumberTd").text("양식에 맞게 입력");
 		return 0;
 	}
 	else{
-		$("#coporateNumbTd").text("");
+		$("#coporateNumberTd").text("");
 		return 1;
 	}
 }

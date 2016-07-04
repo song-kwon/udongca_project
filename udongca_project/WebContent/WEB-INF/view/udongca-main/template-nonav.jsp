@@ -17,7 +17,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("button,input[type='button'],input[type='submit']").prop({"class":"btn btn-default"});
+	$("button").prop({"class":"btn btn-default"});
+	$("input[type='button']").prop({"class":"btn btn-default"});
+	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 });
@@ -27,10 +29,9 @@ $(document).ready(function(){
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	padding: 5px;
 	min-width: 1024px;
 	width: auto;
-	min-height: 150px;
+	min-height: 190px;
 }
 
 nav {
@@ -48,6 +49,7 @@ nav {
 
 section {
 	padding: 15px;
+	margin-top:30px;
 	width: 100%;
 	min-height: 768px;
 	float: left;
@@ -76,6 +78,15 @@ textarea{
 	outline: none;
 }
 a:hover{color:saddlebrown;}
+button{
+	color:black;
+}
+input[type="submit"]{
+	color:black;
+}
+input[type="button"]{
+	color:black;
+}
 </style>
 </head>
 <body>

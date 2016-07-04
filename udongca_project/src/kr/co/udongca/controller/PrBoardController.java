@@ -85,7 +85,7 @@ public class PrBoardController {
 		prBoard.setCafeTel((String)map.get("cafeTel"));
 		prBoard.setCafeFeature((String)map.get("cafeFeature"));
 		prBoard.setCafeAddress((String)map.get("cafeAddress"));
-		prBoard.setCoporateNumb((String)map.get("coporateNumb"));
+		prBoard.setCoporateNumber((String)map.get("coporateNumber"));
 		prBoard.setOperationHour((String)map.get("operationHour"));
 		prBoard.setManagerName((String)map.get("managerName"));
 		prBoard.setManagerTel((String)map.get("managerTel"));
@@ -221,12 +221,15 @@ public class PrBoardController {
 					(String)map.get("managerTel"),
 					resultRealImage,
 					resultFakeImage,
-					(String)map.get("memberId")));
+					(String)map.get("memberId"),
+					0,
+					0,
+					null));
 		return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 	}
 	
 	/**
-	 * 현재 제작 중
+	 * 구현 완료
 	 * @param cafeNo
 	 * @param session
 	 * @return
@@ -246,10 +249,10 @@ public class PrBoardController {
 	 * @param coporateNumb
 	 * @return
 	 */
-	@RequestMapping("isCoporateNumbDuplicated.udc")
+	@RequestMapping("isCoporateNumberDuplicated.udc")
 	@ResponseBody
-	public String isCoporateNumbDuplicated(String coporateNumb){
-		return "" + (service.selectPRBoardByCoporateNumb(coporateNumb) != null);
+	public String isCoporateNumberDuplicated(String coporateNumber){
+		return "" + (service.selectPRBoardByCoporateNumber(coporateNumber) != null);
 	}
 	
 	/**
@@ -286,7 +289,7 @@ public class PrBoardController {
 		model.put("operationHour", map.get("operationHour"));
 		model.put("cafeTel", map.get("cafeTel"));
 		model.put("cafeAddress", map.get("cafeAddress"));
-		model.put("coporateNumb", map.get("coporateNumb"));
+		model.put("coporateNumber", map.get("coporateNumber"));
 		model.put("managerName", map.get("managerName"));
 		model.put("managerTel", map.get("managerTel"));
 		
