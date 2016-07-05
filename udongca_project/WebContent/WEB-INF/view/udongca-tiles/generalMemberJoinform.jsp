@@ -182,13 +182,15 @@ function checkSubmit(){
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:450px;
+	width:550px;
 	margin:30px;
+	font-size:18px;
+	text-align:left;
 }
 
 table, th{
 	text-align:left;
-	width:450px;
+	width:480px;
 }
 
 .width_size{
@@ -202,10 +204,10 @@ table, th{
 </style>
 
 <div class="nonav_bodyDiv" style="width:600px;">
-<div><h1>일반 회원 가입</h1></div>
-<div style="color:red;"><font size="2">**모든 사항은 필수 입력 사항입니다.</font></div>
-<div><font size="1">아이디는 공백을 제외하여 영문, 숫자 또는 영문과 숫자를 혼합하여 6글자 이상으로 작성해주십시오.</font></div>
-<div><font size="1">비밀 번호는 공백을 제외하여 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
+<div><h1>일반 회원 가입</h1></div><br>
+<div style="color:red;"><font size="3">**모든 사항은 필수 입력 사항입니다.</font></div>
+<div><font size="2">아이디는 공백을 제외하여 영문, 숫자 또는 영문과 숫자를 혼합하여 6글자 이상으로 작성해주십시오.</font></div>
+<div><font size="2">비밀 번호는 공백을 제외하여 영문, 숫자, 특수문자 중 2가지를 혼합하여 10~20자 이내로 작성해주십시오.</font></div>
 <br>
 <form action="/udongca_project/member/generalMemberJoin.udc" method="post" onsubmit="return checkSubmit();">
 <input type="hidden" value="false" id="idVerify">
@@ -213,6 +215,7 @@ table, th{
 	<tr>
 		<th>아이디</th>
 		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }" class="width_size"></td>
+		<td> </td>
 		<td>&nbsp;<input type="button" id="idVerification" value="아이디 확인"></td>
 		<td><span class="error"><form:errors path="member.memberId"/></span></td>
 	</tr>
@@ -235,7 +238,8 @@ table, th{
 	<tr>
 		<th>이메일</th>
 		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }" class="width_size"></td>
-		<td style="width:200px;">@&nbsp;<select id="emailAddress" name="emailAddress" style="width:100px;">
+		<td style="width:2px;">@</td>
+		<td><select id="emailAddress" name="emailAddress" style="width:130px;"class="form-control">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
@@ -247,7 +251,7 @@ table, th{
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 </table>
-	<div align="center" style="width:450px;">
+	<div align="center" style="width:550px;">
 		<input type="submit" class="width_size2" value="가입하기"/>&nbsp;&nbsp;
 		<a href="/udongca_project/main.udc"><input type="button" id="cancel" class="width_size2" value="취소"></a>
 	</div>
