@@ -38,7 +38,7 @@ header{
 	text-align:center;
 }
 header, a{
-	color:lightsteelblue;
+	color:sienna;
 }
 nav{
 	line-height: 70px;

@@ -36,6 +36,8 @@ tr#tr, td{
 .cursor{
 	cursor:pointer;
 	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+	text-align:left;
+	margin:30px;
 }
 
 td#td1:hover{text-decoration:underline; color:red;}
@@ -43,7 +45,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 </style>
 
 <div>
-	<h1>나의 리뷰 리스트</h1>
+	<h1>나의 리뷰 리스트</h1><br>
 	<c:choose>
 		<c:when test="${empty requestScope.error }">
 			<table>
