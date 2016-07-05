@@ -326,6 +326,8 @@ table, tbody{
 .cursor{
 	cursor:pointer;
 	table-layout:fixed;
+	text-align:left;
+	margin:30px;
 }
 
 select#selectType{

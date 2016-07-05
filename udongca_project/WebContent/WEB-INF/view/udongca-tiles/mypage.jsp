@@ -2,13 +2,14 @@
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:400px;
-	margin:30px;
+	width:500px;
+	margin:40px;
+	font-size:18px;
 }
 
 table, th{
 	text-align:left;
-	width:250px;
+	width:300px;
 }
 
 </style>

@@ -3,17 +3,18 @@
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:250px;
+	width:400px;
 	margin:30px;
+	font-size:18px;
 }
 
 table, th{
 	text-align:left;
-	width:250px;
+	width:300px;
 }
 
 .width_size{
-	width:150px;
+	width:180px;
 }
 
 .width_size2{

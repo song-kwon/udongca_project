@@ -26,9 +26,6 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	
 	@Override
 	public int registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId){
-		oneToOneInquiry.setInquiryTitle(TextUtil.textToHtml(oneToOneInquiry.getInquiryTitle()));
-		oneToOneInquiry.setInquiryContent(TextUtil.textToHtml(oneToOneInquiry.getInquiryContent()));
-		
 		int inquiryNo = dao.selectNoOneToOneInquiry();
 		oneToOneInquiry.setInquiryNo(inquiryNo);
 		oneToOneInquiry.setMemberId(memberId);
@@ -42,16 +39,11 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	
 	@Override
 	public int updateOneToOneInquiry(OneToOneInquiry afterInquiry){
-		afterInquiry.setInquiryTitle(TextUtil.textToHtml(afterInquiry.getInquiryTitle()));
-		afterInquiry.setInquiryContent(TextUtil.textToHtml(afterInquiry.getInquiryContent()));
-		
 		return dao.updateOneToOneInquiry(afterInquiry);
 	}
 	
 	@Override
 	public int updateReplyOneToOneInquiry(OneToOneInquiry afterInquiry){
-		afterInquiry.setInquiryReply(TextUtil.textToHtml(afterInquiry.getInquiryReply()));
-		
 		return dao.updateReplyOneToOneInquiry(afterInquiry);
 	}
 	

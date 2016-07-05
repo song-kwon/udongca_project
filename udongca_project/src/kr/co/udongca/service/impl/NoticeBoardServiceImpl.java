@@ -22,10 +22,6 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
 	@Override
 	public int registerNoticeBoard(NoticeBoard noticeBoard){
-		
-		noticeBoard.setNoticeTitle(TextUtil.textToHtml(noticeBoard.getNoticeTitle()));
-		noticeBoard.setNoticeContent(TextUtil.textToHtml(noticeBoard.getNoticeContent()));
-		
 		int noticeNo = dao.selectNoNoticeBoard();
 		noticeBoard.setNoticeNo(noticeNo);
 		
@@ -44,9 +40,6 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
 	@Override
 	public int updateNoticeBoard(NoticeBoard noticeBoard){
-		noticeBoard.setNoticeTitle(TextUtil.textToHtml(noticeBoard.getNoticeTitle()));
-		noticeBoard.setNoticeContent(TextUtil.textToHtml(noticeBoard.getNoticeContent()));
-		
 		return dao.updateNoticeBoard(noticeBoard);
 	}
 	

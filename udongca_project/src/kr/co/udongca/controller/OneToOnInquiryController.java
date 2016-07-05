@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //github.com/song-kwon/udongca_project.git
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.TextUtil;
 import kr.co.udongca.service.OneToOneInquiryService;
 import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
@@ -56,7 +57,7 @@ public class OneToOnInquiryController {
     @RequestMapping("registerOneToOneInquiryform.udc")
     public ModelAndView registerOneToOneInquiryform(String codeType, HttpSession session){
     	Member login = (Member)session.getAttribute("login");
-    	
+  
     	if(login!=null){
     		List<Code> codeList = service.selectByCodeType(codeType);
         	return new ModelAndView("oneToOneInquiryRegisterform.tiles","codeList",codeList);
@@ -68,8 +69,10 @@ public class OneToOnInquiryController {
     @RequestMapping("registerOneToOneInquiry.udc")
     public ModelAndView registerOneToOneInquiry(OneToOneInquiry oneToOneInquiry, String memberId, HttpSession session) {
     	Member login = (Member)session.getAttribute("login");
-    	
     	if(login!=null){
+        	oneToOneInquiry.setInquiryTitle(TextUtil.textToHtml(oneToOneInquiry.getInquiryTitle()));
+    		oneToOneInquiry.setInquiryContent(TextUtil.textToHtml(oneToOneInquiry.getInquiryContent()));
+        	
     		service.registerOneToOneInquiry(oneToOneInquiry, memberId);
     		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc");
     	}else{
@@ -106,6 +109,10 @@ public class OneToOnInquiryController {
     	Member login = (Member)session.getAttribute("login");
     	if( login!=null && (login.getMemberType().equals("generalMember") || login.getMemberType().equals("licenseeMember")) ){
     		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
+    		
+    		oneToOneInquiry.setInquiryTitle(TextUtil.htmlToText(oneToOneInquiry.getInquiryTitle()));
+        	oneToOneInquiry.setInquiryContent(TextUtil.htmlToText(oneToOneInquiry.getInquiryContent()));
+    		
     		List<Code> codeList = service.selectByCodeType(codeType);
     		
     		HashMap map = new HashMap();
@@ -123,7 +130,10 @@ public class OneToOnInquiryController {
     public ModelAndView modifyOneToOneInquiry(OneToOneInquiry afterInquiry, int inquiryNo, HttpSession session) {
     	Member login = (Member)session.getAttribute("login");
     	if( login!=null && (login.getMemberType().equals("generalMember") || login.getMemberType().equals("licenseeMember")) ){
-			service.selectOneToOneInquiry(inquiryNo).setInquiryNo(inquiryNo);
+    		afterInquiry.setInquiryTitle(TextUtil.textToHtml(afterInquiry.getInquiryTitle()));
+    		afterInquiry.setInquiryContent(TextUtil.textToHtml(afterInquiry.getInquiryContent()));
+    		
+    		service.selectOneToOneInquiry(inquiryNo).setInquiryNo(inquiryNo);
 			service.updateOneToOneInquiry(afterInquiry);
 		
 			return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc");
@@ -137,6 +147,11 @@ public class OneToOnInquiryController {
     	Member master = (Member)session.getAttribute("login");
     	if(master!=null && master.getMemberType().equals("master")){
     		OneToOneInquiry oneToOneInquiry = service.selectOneToOneInquiry(inquiryNo);
+    		
+    		if((oneToOneInquiry.getInquiryReply()!=null) && (!oneToOneInquiry.getInquiryReply().equals(""))){
+    			oneToOneInquiry.setInquiryReply(TextUtil.htmlToText(oneToOneInquiry.getInquiryReply()));
+    		}
+    			
     		return new ModelAndView("oneToOneInquiryReplyModify.tiles", "oneToOneInquiry", oneToOneInquiry);
     	}else{
     		return new ModelAndView("/loginPage.udc","error","마스터 로그인이 필요합니다.");
@@ -148,6 +163,7 @@ public class OneToOnInquiryController {
     public ModelAndView oneToOneInquiryReply(OneToOneInquiry afterInquiry, HttpSession session) {
     	Member master = (Member)session.getAttribute("login");
     	if(master!=null && master.getMemberType().equals("master")){
+    		afterInquiry.setInquiryReply(TextUtil.textToHtml(afterInquiry.getInquiryReply()));
     		service.updateReplyOneToOneInquiry(afterInquiry);
     		return new ModelAndView("redirect:/oneToOneInquiry/oneToOneInquiryModifySuccess.udc");
     	}else{

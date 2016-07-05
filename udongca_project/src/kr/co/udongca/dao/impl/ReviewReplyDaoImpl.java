@@ -9,16 +9,13 @@ import kr.co.udongca.vo.ReviewReply;
 
 @Repository
 public class ReviewReplyDaoImpl implements ReviewReplyDao{
-
 	@Autowired
 	private SqlSessionTemplate session;
 	
-	public ReviewReplyDaoImpl() {
-	}
+	public ReviewReplyDaoImpl() {}
 	
 	@Override
 	public int replySequenceNo() {
-	
 		return session.selectOne("reviewReplyMapper.replySequenceNo");
 	}
 	
@@ -29,7 +26,6 @@ public class ReviewReplyDaoImpl implements ReviewReplyDao{
 	
 	@Override
 	public int addReReply(ReviewReply reply) {
-		// TODO Auto-generated method stub
 		return session.insert("reviewReplyMapper.addReReply",reply);
 	}
 	
@@ -37,5 +33,9 @@ public class ReviewReplyDaoImpl implements ReviewReplyDao{
 	public ReviewReply selectReplyByReplyNo(int replyNo) {
 		return session.selectOne("reviewReplyMapper.selectReplyByReplyNo",replyNo);
 	}
-	
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return session.delete("reviewReplyMapper.deleteReply", replyNo);
+	}
 }

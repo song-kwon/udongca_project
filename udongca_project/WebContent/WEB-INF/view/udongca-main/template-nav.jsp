@@ -11,11 +11,11 @@
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -23,6 +23,7 @@ $(document).ready(function(){
 	$("input[type='button']").prop({"class":"btn btn-default"});
 	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
+	$("input[type='password']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 	$("nav").height($("section").height()+60);
 });
@@ -38,7 +39,7 @@ header{
 	text-align:center;
 }
 header, a{
-	color:lightsteelblue;
+	color:sienna;
 }
 nav{
 	line-height: 70px;
