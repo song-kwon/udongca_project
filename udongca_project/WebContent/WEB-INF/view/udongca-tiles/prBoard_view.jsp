@@ -149,6 +149,7 @@
 		});
 		
 		$(document).on('click','.deleteReply',function(){
+			alert($(this).parent().parent().parent().prop('id'));
 			if (window.confirm("정말 삭제하겠습니까?")){
 				$.ajax({
 					'url':'/udongca_project/review/deleteReply.udc',

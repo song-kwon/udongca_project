@@ -6,8 +6,20 @@ $(document).ready(function(){
 });
 </script>
 <style type="text/css">
-table {
-	border-collapse: collapse;
+thead{
+	text-align:center;
+	width:800px;
+	height:40px;
+	margin:20px;
+	font-size:13pt;
+	font-weight:bold;
+	cursor:default;
+	border-bottom:2px solid;
+}
+
+
+table, tbody{
+	height:30px;
 }
 </style>
 <div id="nav_bodyDiv" style="width: 400px;">
