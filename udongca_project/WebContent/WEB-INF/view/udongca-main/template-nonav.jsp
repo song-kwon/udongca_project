@@ -23,6 +23,8 @@ $(document).ready(function(){
 	$("input[type='text']").prop({"class":"form-control"});
 	$("input[type='password']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
+	
+	
 });
 </script>
 
@@ -30,7 +32,7 @@ $(document).ready(function(){
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	min-width: 1024px;
+	width: 1024px;
 	width: auto;
 	min-height: 190px;
 }
@@ -68,7 +70,7 @@ a{
 	text-decoration: none;
 }
 #wrap{
-	width:1280px;
+	width:1280px !important;
 	margin: 0 auto;
 }
 .nonav_bodyDiv{
@@ -87,6 +89,9 @@ input[type="submit"]{
 }
 input[type="button"]{
 	color:black;
+}
+select{
+	width:150px !important;
 }
 </style>
 </head>

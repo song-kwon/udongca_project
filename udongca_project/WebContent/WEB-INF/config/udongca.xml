@@ -40,6 +40,7 @@
 	<mvc:view-controller path="/oneToOneInquiry/master/oneToOneList.udc" view-name="master/master_oneToOneList.tiles"/>
 	<mvc:view-controller path="/prBoard_write_form.udc" view-name="prBoard_write_form.tiles"/>
 	<mvc:view-controller path="/prBoard/prBoard_write_form2.udc" view-name="prBoard_write_form2.tiles"/>
+	<mvc:view-controller path="/member/member_bookmark.udc" view-name="member/member_bookmark.tiles"/>
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 

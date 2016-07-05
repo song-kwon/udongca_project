@@ -1,7 +1,14 @@
 --create user id:udongca/pwd:master  ( sqlplus sysdba --
 create user udongca identified by master; --유저 생성
 grant all privileges to udongca; --모든 권한 주기
-
+		SELECT
+				cafeNo cafeNo,
+				cafeName cafeName,
+				cafeFakeImage cafeFakeImage,
+				cafeAddress cafeAddress
+		FROM PRboard
+		where ceil(rownum) <![CDATA[ < ]]> 10
+		ORDER BY (cafeRating/cafereviewcount) DESC
 --리뷰 등록시 홍보글 cafeRating 업데이트
 update prboard set cafeRating=(select cafeRating from prboard where cafeNo=1)+(select ratingStars from review_board where reviewNo = 9),cafeReviewCount=(select cafeReviewCount from prboard where cafeNo=1)+1 where cafeNo= 1;
 
@@ -193,9 +200,9 @@ coporateNumber	varchar2(50)	NOT NULL,
 operationHour	varchar2(50)	NOT NULL,
 managerName	varchar2(50)	NOT NULL,
 managerTel	varchar2(50)	NOT NULL,
+cafeRating number null,
 cafeRealImage	CLOB	NULL,
 cafeFakeImage	CLOB	NULL,
-cafeRating number default 0,
 cafeReviewCount number default 0,
 RegistrationDate date not null,
 memberId	varchar2(50)	NOT NULL,

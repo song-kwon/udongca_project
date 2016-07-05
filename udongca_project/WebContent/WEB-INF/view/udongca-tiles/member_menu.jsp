@@ -33,7 +33,7 @@ a{
 	</c:when>
 	<c:otherwise>
 		<div class="menuLink">
-			<a id="book" href="/udongca_project/member/memberBookmarkListPaging.udc">즐겨찾기</a><br>
+			<a id="book" href="/udongca_project/member/member_bookmark.udc">즐겨찾기</a><br>
 			<a href="/udongca_project/member/member_preferLocation_form.udc">선호지역</a><br>
 			<a href="/udongca_project/member/memberReviewListPaging.udc">내가쓴리뷰</a><br>
 			<a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a><br>
