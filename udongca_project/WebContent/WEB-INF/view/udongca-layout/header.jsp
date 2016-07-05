@@ -57,6 +57,12 @@ $(document).ready(function(){
 	width:auto;
 }
 
+.a{
+	font-size:13px;
+	color:palegoldenrod;
+	hover{text-decoration:none;}
+}
+
 </style>
 
 <div id="header_div">
@@ -64,10 +70,21 @@ $(document).ready(function(){
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
 			<c:when test="${sessionScope.login.memberType =='master'}" >
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/></div>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
+					</div>
+				</div>
 			</c:when>
 			<c:otherwise>
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/></div>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
+					</div>
+					<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }">
+						<a href="/udongca_project/prBoard_write_form.udc"><input type="button" value="홍보글 등록하기"></a>
+					</c:if>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
@@ -82,5 +99,4 @@ $(document).ready(function(){
 <div class="form-inline">
 <div class="div">지역선택&nbsp;&nbsp;<select id="address1" class="form-control"><option >시/도</option></select>&nbsp;<select id="address2" class="form-control"><option >시/도 먼저 선택</option></select>&nbsp;<button class="btn btn-default" id="main_searchAddress">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;테마검색&nbsp;&nbsp;<select id="theme" class="form-control"><option >테마 선택</option></select>&nbsp;<button class="btn btn-default" id="main_searchTheme">검색</button></div>
 </div>
-<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 </div>
