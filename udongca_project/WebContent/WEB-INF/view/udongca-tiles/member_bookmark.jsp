@@ -7,10 +7,11 @@ table {
 </style>
 <div id="nav_bodyDiv" style="width: 400px;">
 	<div id="bookmarkDiv">
-		<h2>즐겨찾기</h2>
+		<div><h1>즐겨찾는 카페</h1></div>
+		<br><br>
 		<c:choose>
 			<c:when test="${empty requestScope.error }">
-				<table id="memberBookmark" border="1" style="width: 400px;">
+				<table id="memberBookmark" style="width: 350px; text-align:center;">
 					<!-- 			<thead>
 				<tr>
 					<td>번호</td>
@@ -20,16 +21,16 @@ table {
 					<tbody class="tbody">
 						<c:forEach items="${requestScope.bookmarkList.list }" var="list">
 							<tr>
+								<td style="font-size:20px;"><a href="/udongca_project/prBoard/prView.udc?cafeNo=${list.cafeNo }">${list.cafeName }</a></td>
 								<td id="${list.cafeNo }"
-									style="width: 75px; text-align: center;"><button
-										class="deleteBookmark">즐찾 취소</button></td>
-								<td><a href="/udongca_project/prBoard/prView.udc?cafeNo=${list.cafeNo }">${list.cafeName }</a></td>
+									style="width: 100px; text-align: center;"><button
+										class="deleteBookmark">즐겨찾기 해제</button></td>
 							<tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				<!-- 이전페이지그룹 -->
-				<div style="text-align: center; margin-top: 6px;">
+				<div style="text-align: center; margin-top: 50px;">
 					<c:choose>
 						<c:when
 							test="${requestScope.bookmarkList.pageBean.previousPageGroup }">
