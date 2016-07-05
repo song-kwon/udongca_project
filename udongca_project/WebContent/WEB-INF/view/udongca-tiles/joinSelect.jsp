@@ -23,12 +23,12 @@ table{
 </style>
 
 <div class="nonav_bodyDiv" style="width:600px;">
-<div><h1>우동카 회원가입</h1></div>
+<div><h1>우동카 회원가입</h1></div><br>
 <table>
 	<tr>
-		<td><h2>일반 회원 가입</h2><br><input type="radio" name="memberType" value="generalMember"></td>
+		<td style="font-size:xx-large; cursor:pointer;"><label>일반 회원 가입<br><input type="radio" name="memberType" value="generalMember"></label></td>
 		<td></td>
-		<td><h2>사업자 회원 가입</h2><br><input type="radio" name="memberType" value="licenseeMember"></td>
+		<td style="font-size:xx-large; cursor:pointer;"><label>사업자 회원 가입<br><input type="radio" name="memberType" value="licenseeMember"></label></td>
 	</tr>
 </table>
 

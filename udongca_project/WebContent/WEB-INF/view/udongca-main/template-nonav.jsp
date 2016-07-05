@@ -21,6 +21,7 @@ $(document).ready(function(){
 	$("input[type='button']").prop({"class":"btn btn-default"});
 	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
+	$("input[type='password']").prop({"class":"btn btn-default"});
 	$("textarea").prop({"class":"form-control"});
 	
 	
