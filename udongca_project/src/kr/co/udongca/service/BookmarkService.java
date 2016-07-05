@@ -9,7 +9,7 @@ import kr.co.udongca.vo.Bookmark;
 
 public interface BookmarkService {
 
-	public ModelAndView memberBookmarkListPaging(int no,String memberId);
+	public Map memberBookmarkListPaging(int no,String memberId);
 	public int deleteBookmark(int cafeNo,String memberId);
 	public int insertBookmark(int cafeNo,String memberId);
 	public int countMemberBookmark(String memberId);

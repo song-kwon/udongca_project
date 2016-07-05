@@ -55,6 +55,7 @@ $(document).ready(function(){
 	font-size:20px;
 	color:sienna;
 	width:auto;
+	height:48px;
 }
 
 </style>

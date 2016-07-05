@@ -241,27 +241,6 @@ $(document).ready(function(){
 	});
 	*/
 
-	//북마크 취소
-	$('tbody tr td').on('click','.deleteBookmark',function(){
-		var cafeNo=$(this).parent().prop('id');
-		$.ajax({
-			'url':'/udongca_project/member/deleteBookmark.udc',
-			'type':'post',
-			'data':{'cafeNo':cafeNo},
-			'success':function(){
-				if(this){
-					alert('즐겨찾기를 해제했습니다.');
-					location.reload();
-				}
-				else{
-					alert('다시 시도해주십시오.');
-					location.reload();
-				}
-			}
-		})
-	})
-	
-	
 	
 	//$(window).resize();
 	
@@ -509,4 +488,66 @@ function themePage(page){
 			}
 		}
 	});
-} 
+}
+ 
+ 
+ function bookmarkPage(page){
+		$.ajax({
+			"url":"/udongca_project/member/memberBookmarkListPaging.udc",
+			"type":"POST",
+			"data":"no=" + page,
+			"dataType":"json",
+			"success":function(json){
+				
+				$("#tbody").empty();
+				$(".pagination").empty();
+				
+				if (json == null || json.list.length == 0){
+					$("#tbody").append("검색 결과 없음");
+				}
+				else{
+					for(var i = 0; i < json.list.length; i++){
+						$("#tbody").append("<tr id='"+json.list[i].cafeNo+"'><td style='width: 75px; height:40px; text-align: center'><button onclick='deleteBookmark("+json.list[i].cafeNo+")' class='btn btn-default' ><span class='glyphicon glyphicon-remove'></span></button></td><td><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'>"+json.list[i].cafeName+"</a>");
+					}
+					
+					
+					if(json.pageBean.previousPageGroup){
+						$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+(json.pageBean.beginPage-1)+')">◀</a></li>');
+					}else{
+						$(".pagination").append('<li><a>◀</a></li>');
+					}
+					
+					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
+						if(idx == json.pageBean.page)
+							$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
+						else
+							$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+idx+')"> '+idx+' </a></li>');
+					}
+				}
+				
+				if(json.pageBean.nextPageGroup){
+					$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+ ++json.pageBean.endPage +')">▶</a></li>');
+				}else{
+					$(".pagination").append('<li><a>▶</a></li>');
+				}
+			}
+		});
+	} 
+ 
+ 
+ function deleteBookmark(cafeNo){
+		$.ajax({
+			'url':'/udongca_project/member/deleteBookmark.udc',
+			'type':'post',
+			'data':{'cafeNo':cafeNo},
+			'success':function(){
+				if(this){
+					alert('즐겨찾기를 해제했습니다.');
+					$('#'+cafeNo).remove();
+				}
+				else{
+					alert('다시 시도해주십시오.');
+				}
+			}
+		})
+}

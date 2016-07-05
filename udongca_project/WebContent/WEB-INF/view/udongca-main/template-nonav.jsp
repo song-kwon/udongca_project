@@ -22,7 +22,16 @@ $(document).ready(function(){
 	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
+	
+	
 });
+function resizeToMinimum(w,h){
+    w=w>window.outerWidth?w:window.outerWidth;
+    h=h>window.outerHeight?h:window.outerHeight;
+    window.resizeTo(w, h);
+};
+
+window.addEventListener('resize', function(){resizeToMinimum(1280,860)}, false);
 </script>
 
 <style type="text/css">
@@ -86,6 +95,9 @@ input[type="submit"]{
 }
 input[type="button"]{
 	color:black;
+}
+select{
+	width:150px !important;
 }
 </style>
 </head>
