@@ -87,6 +87,22 @@ public class ReportBoardController {
     public int deleteArticle(@RequestParam("reportType") String reportType, @RequestParam("reportNO") int reportNo) {
 	return reportService.deleteArticle(reportType, reportNo);
     }
+    
+    @RequestMapping("memberReportListPaging.udc")
+    public ModelAndView memberReportListPaging(@RequestParam(required = false) String pnum, HttpSession session) {
+	Member login = (Member) session.getAttribute("login");
+	int page = 1;
+	try {
+	    page = Integer.parseInt(pnum);
+	} catch (Exception e) {
+	}
+	try {
+	    return reportService.memberReportList(page, login.getMemberId());
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+	}
+    }
 
   
     @RequestMapping("memberReportDetail.udc")

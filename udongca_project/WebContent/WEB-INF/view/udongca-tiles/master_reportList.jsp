@@ -21,6 +21,10 @@
 						
 					});
 					refresh($("#pnum").text(),$("#selectType").val());
+				},
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+				
 				}
 			});
 			
@@ -81,8 +85,9 @@
 								} 
 							
 						},
-						"error":function(xhr, status, errorMsg){
-						alert(xhr+status+errorMsg);
+						"error" : function(xhr,status,errorMsg) {
+							alert(xhr.status+","+status+","+errorMsg);
+							
 						}
 					});
 					}
@@ -126,8 +131,9 @@
 						 $(".pagination").append("<li><a>▶</a></li>");
 					 }
 				},
-				"error":function(xhr, status, errorMsg){
-				alert("오류발생");
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 			});
 			}
@@ -148,8 +154,9 @@
 					$("#reportResult").val(obj.reportInfo.reportResult);
 					$("#cancelReason").val(obj.reportInfo.reportCancelReason);
 				},
-				"error":function(xhr, status, errorMsg){
-					alert("오류발생");
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 			});
 		}  
@@ -174,8 +181,8 @@
 						return obj;
 							},
 							"error" : function(xhr,status,errorMsg) {
+								alert(xhr.status+","+status+","+errorMsg);
 								
-								alert(xhr+status+errorMsg);
 							}
 					
 				});
@@ -226,8 +233,8 @@
 								
 							},
 							"error" : function(xhr,status,errorMsg) {
+								alert(xhr.status+","+status+","+errorMsg);
 								
-								alert(xhr+status+errorMsg);
 							}
 					});
 					}
@@ -272,8 +279,8 @@
 							return false;
 					},
 					"error" : function(xhr,status,errorMsg) {
+						alert(xhr.status+","+status+","+errorMsg);
 						
-						alert(xhr+status+errorMsg);
 					}
 				});
 			}

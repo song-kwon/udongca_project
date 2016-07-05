@@ -61,8 +61,9 @@
 
 						
 					},
-					"error":function(xhr, status, errorMsg){
-					alert(xhr+status+errorMsg);
+					"error" : function(xhr,status,errorMsg) {
+						alert(xhr.status+","+status+","+errorMsg);
+						
 					}
 				});
 				}
@@ -92,8 +93,9 @@
 					 }
 				 } 
 			},
-			"error":function(xhr, status, errorMsg){
-			alert(xhr+status+errorMsg);
+			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
+				
 			}
 		});
 	}
@@ -111,8 +113,9 @@
 				$("#inquiryContent").val(obj.inquiry.inquiryContent);
 				$("#inquiryReply").val(obj.inquiry.inquiryReply);
 			},
-			"error":function(xhr, status, errorMsg){
-				alert("오류발생");
+			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
+				
 			}
 		});
 	}
@@ -143,8 +146,9 @@
 							alert("등록실패");
 						}
 					},
-					"error" : function(aa,bb,cc) {
-						alert(aa,bb,cc);
+					"error" : function(xhr,status,errorMsg) {
+						alert(xhr.status+","+status+","+errorMsg);
+						
 					}
 			});
 			 }
@@ -166,8 +170,9 @@
 				$("#reportResult").val(obj.reportInfo.reportResult);
 				$("#cancelReason").val(obj.reportInfo.reportCancelReason);
 			},
-			"error":function(xhr, status, errorMsg){
-				alert("오류발생");
+			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
+				
 			}
 		});
 	}
@@ -191,8 +196,9 @@
 				"success":function(obj){
 					return obj;
 				},
-				"error" : function(aa,bb,cc) {
-					alert(aa,bb,cc);
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 				
 			});
@@ -241,8 +247,9 @@
 							}
 							
 						},
-						"error" : function(aa,bb,cc) {
-							alert(aa,bb,cc);
+						"error" : function(xhr,status,errorMsg) {
+							alert(xhr.status+","+status+","+errorMsg);
+							
 						}
 				});
 				}
@@ -286,8 +293,8 @@
 						return false;
 				},
 				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
 					
-					alert(xhr+status+errorMsg);
 				}
 			});
 		}

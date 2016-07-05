@@ -100,8 +100,9 @@ td{
 					 $(".pagination").append("<li><a>▶</a></li>");
 				 }
 			},
-			"error":function(xhr, status, errorMsg){
-			alert(xhr+status+errorMsg);
+			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
+				
 			}
 		});
 		}
@@ -119,8 +120,9 @@ td{
 					$("#inquiryContent").val(obj.inquiry.inquiryContent);
 					$("#inquiryReply").val(obj.inquiry.inquiryReply);
 				},
-				"error":function(xhr, status, errorMsg){
-					alert("오류발생");
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 			});
 		}  
@@ -151,8 +153,9 @@ td{
 						alert("등록실패");
 					}
 				},
-				"error" : function(aa,bb,cc) {
-					alert(aa,bb,cc);
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 		});
 		 }
