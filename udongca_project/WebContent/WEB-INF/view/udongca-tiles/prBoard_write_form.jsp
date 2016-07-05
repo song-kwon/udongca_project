@@ -23,6 +23,10 @@ $(document).ready(function(){
 		$("#cafeNameTd").text(($("#cafeName").val()) ? "" : "입력 필수");
 	});
 	
+	$("#cafeIntro").on("blur", function(){
+		$("#cafeIntroTd").text(($("#cafeIntro").val()) ? "" : "입력 필수");
+	});
+	
 	$("#operationHour").on("blur", function(){
 		$("#operationHourTd").text(($("#operationHour").val()) ? "" : "입력 필수");
 	});
@@ -131,18 +135,20 @@ function isValidCoporateNumber(){
 }
 </script>
 <div class="nonav_bodyDiv" style="width:400px;">
-굵은 글씨 항목은 필수 입력 사항을 나타냅니다.
+<c:forEach var="${requestScope.errorList}" items="errorList">
+	${errorList}<br>
+</c:forEach>
 <br>
 <form action="/udongca_project/prBoard/moveToNewPr2Jsp.udc"	method="post" role="form">
 	<div class="form-group">
 			<label for="cafeName">카페명</label>
-			<input type="text" name="cafeName" id="cafeName" class="form-control">
+			<input type="text" name="cafeName" value="${requestScope.cafeName}" id="cafeName" class="form-control">
 			<span id="cafeNameTd"></span>
 	</div>
 	<div class="form-group">
 			<label for="cafeIntro">카페 소개</label>
-			<textarea rows="10" cols="20" name="cafeIntro" id="cafeIntro" class="form-control"></textarea>
-			<span id="cafeIntro"></span>
+			<textarea rows="10" cols="20" name="cafeIntro" id="cafeIntro" class="form-control">${requestScope.cafeIntro}</textarea>
+			<span id="cafeIntroTd"></span>
 	</div>
 		<div class="form-group">
 			<label for="cafeFeature">특징</label>
@@ -159,19 +165,19 @@ function isValidCoporateNumber(){
 		</div>
 	<div class="form-group">
 			<label for="operationHour">영업시간</label>
-			<input type="text" name="operationHour" id="operationHour" class="form-control">
+			<input type="text" name="operationHour" value="${requestScope.operationHour}" id="operationHour" class="form-control">
 			<span id="operationHourTd"></span>
 	</div>
 	<div class="form-group">
 			<label for="cafeTel">카페연락처</label>
-			<input type="text" name="cafeTel" id="cafeTel" class="form-control">
+			<input type="text" name="cafeTel" value="${requestScope.cafeTel}" id="cafeTel" class="form-control">
 			<span id="cafeTelTd"></span>
 	</div>
 	<div class="form-group">
 			<label for="cafeAddress">카페주소</label>
 			
 			<div class="form-inline">
-				<input type="text" name="cafeAddress" id="cafeAddress" class="form-control">
+				<input type="text" name="cafeAddress" value="${requestScope.cafeAddress}" id="cafeAddress" class="form-control">
 				<input type="button" value="주소검색" id="searchAddressButton" class="form-control">
 				<span id="cafeAddressTd"></span>
 			</div>
@@ -179,20 +185,20 @@ function isValidCoporateNumber(){
 	<div class="form-group">
 			<label for="coporateNumber">사업자등록번호</label>
 			<div class="form-inline">
-				<input type="text" name="coporateNumb" id="coporateNumb" class="form-control" placeholder=" - 없이 입력">
-				<input type="button" value="중복확인" id="isCoporateNumbDuplicated" class="form-control">
+				<input type="text" name="coporateNumber" id="coporateNumber" value="${requestScope.coporateNumber}" class="form-control" placeholder=" - 없이 입력">
+				<input type="button" value="중복확인" id="isCoporateNumberDuplicated" class="form-control">
 			</div>
-			<span id="coporateNumbTd"></span>
+			<span id="coporateNumberTd"></span>
 			
 	</div>
 	<div class="form-group">
 			<label for="managerName">관리자명</label>
-			<input type="text" name="managerName" id="managerName" class="form-control">
+			<input type="text" name="managerName" value="${requestScope.managerName}" id="managerName" class="form-control">
 			<span id="managerNameTd"></span>
 	</div>
 	<div class="form-group">
 			<label for="managerTel">관리자 연락처</label>
-			<input type="text" name="managerTel" id="managerTel">
+			<input type="text" name="managerTel" value="${requestScope.managerTel}" id="managerTel">
 			<span id="managerTelTd"></span>
 	</div>
 	<div class="form-group">
