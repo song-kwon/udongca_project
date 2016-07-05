@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -207,9 +208,16 @@ public class OneToOnInquiryController {
 
     @RequestMapping("master/requiryReply.udc")
     @ResponseBody
-    public int requiryReply(@ModelAttribute("requiry") OneToOneInquiry oneToOneInquiry) {
-	System.out.println(oneToOneInquiry);
-	return service.updateInquiryReply(oneToOneInquiry);
+    @Transactional
+    public Map requiryReply(@ModelAttribute("requiry") OneToOneInquiry oneToOneInquiry) {
+	HashMap map = new HashMap();
+	
+	if(oneToOneInquiry.getInquiryReply()==null&&oneToOneInquiry.getInquiryReply().length()==0){
+	    map.put("error", "답변을 등록하세요");
+	}else{
+	    map.put("value", service.updateInquiryReply(oneToOneInquiry));
+	}
+	return map;
     }
 
     @RequestMapping("viewInquiry.udc")

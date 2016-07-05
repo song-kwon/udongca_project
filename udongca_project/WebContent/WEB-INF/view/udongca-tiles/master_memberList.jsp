@@ -183,7 +183,7 @@ thead{
 	table-layout:fixed;
 }
 .nav>li>a{
-    padding-left: 20px;
+    padding-left: 0px;
     padding-bottom: 0px;
     padding-top: 0px;
     padding-right: 0px;

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,32 +70,25 @@ public class ReportBoardController {
 
     @RequestMapping("/updateInfo.udc")
     @ResponseBody
-    public int updateInfo(@ModelAttribute ReportBoard reportBoard) {
-	return reportService.updateReport(reportBoard);
+    @Transactional
+    public Map updateInfo(@ModelAttribute ReportBoard reportBoard) {
+	HashMap map = new HashMap();
+	if(reportBoard.getReportReason().equals("신고취소")&&reportBoard.getReportCancelReason().length()==0&&reportBoard.getReportCancelReason()==null){
+	    map.put("error", "신고취소이유를 등록하세요");
+	}else{
+	    map.put("value",reportService.updateReport(reportBoard));
+	}
+	return map;
     }
 
     @RequestMapping("/deleteArticle.udc")
     @ResponseBody
+    @Transactional
     public int deleteArticle(@RequestParam("reportType") String reportType, @RequestParam("reportNO") int reportNo) {
 	return reportService.deleteArticle(reportType, reportNo);
     }
 
-    @RequestMapping("memberReportListPaging.udc")
-    public ModelAndView memberReportListPaging(@RequestParam(required = false) String pnum, HttpSession session) {
-	Member login = (Member) session.getAttribute("login");
-	int page = 1;
-	try {
-	    page = Integer.parseInt(pnum);
-	} catch (Exception e) {
-	}
-	try {
-	    return reportService.memberReportList(page, login.getMemberId());
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
-	}
-    }
-
+  
     @RequestMapping("memberReportDetail.udc")
     public ModelAndView memberReportDetail(int reportboardNo) {
 	return new ModelAndView("/WEB-INF/view/udongca-tiles/member_report_detail.jsp", "report",

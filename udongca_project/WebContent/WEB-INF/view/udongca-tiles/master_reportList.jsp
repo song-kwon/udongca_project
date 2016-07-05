@@ -9,6 +9,7 @@
 				alert("권한이 없습니다.");
 				location.href="/udongca_project/main.udc";
 			}
+			/* 페이지 시작시 code호출 */
 			$.ajax({
 				"url":"/udongca_project/master/reportSelect.udc",
 				"type":"GET",
@@ -19,18 +20,20 @@
 						$("#selectType").append("<option id="+id+">"+id+"</option>");
 						
 					});
-					a($("#pnum").text(),$("#selectType").val());
+					refresh($("#pnum").text(),$("#selectType").val());
 				}
 			});
 			
-			
+			/* selectType에따른 리스트 출력 */
 			$("#search").on("click",function(){
 				
-				a(1,$("#selectType").val());
+				refresh(1,$("#selectType").val());
 			});
+			/*close 클릭시 업데이트*/
 			$("#close").on("click",function(){
-				a($("#pnum").text(),$("#selectType").val());
+				refresh($("#pnum").text(),$("#selectType").val());
 			});
+			/* 손가락 클릭시 이벤트처리 */
 			$('.fa').on('click',function(){
 				 var $this = $(this); 
 				 if($this.hasClass("fa-thumbs-down")){
@@ -42,18 +45,16 @@
 				 $this.nextAll().removeClass("fa-thumbs-down").addClass("fa-thumbs-o-down");
 				 $this.prevAll().removeClass("fa-thumbs-o-down").addClass("fa-thumbs-down"); 
 				});
-			$(".fa").removeClass("fa-thumbs-down").addClass("fa-thumbs-o-down");
-			for(var i =0; i<$("#memberPenalty").val();i++){
-				$(".fa")[i].className = "fa fa-thumbs-down";
-			}
-			 if($("#loginPossibility").val()=='possible'){
-					$("#possible").attr("selected","selected");
-				}else if($("#loginPossibility").val()=='impossible'){
-					$("#impossible").attr("selected","selected");
-				} 
 			
-
+			
+			/* 회원 벌점 */
 			 $("#penalty").on("click",function(){
+				 var txt =  $("#cancelReason").val();
+					if(!(txt.trim()=="" || txt.length==0)){
+						alert("신고취소 이유를 지워주세요");
+						return false
+						
+					}else{
 				  $.ajax({
 						"url":"/udongca_project/member/memberInfoMaster.udc",
 						"type":"post",
@@ -74,20 +75,22 @@
 								$(".fa")[i].className = "fa fa-thumbs-down";
 							}
 							 if($("#loginPossibility").val()=='possible'){
-								$("#possible").attr("selected","selected");
-							}else if($("#loginPossibility").val()=='impossible'){
-								$("#impossible").attr("selected","selected");
-							} 
+									$("#possible").attr("selected","selected");
+								}else if($("#loginPossibility").val()=='impossible'){
+									$("#impossible").attr("selected","selected");
+								} 
 							
 						},
 						"error":function(xhr, status, errorMsg){
 						alert(xhr+status+errorMsg);
 						}
 					});
+					}
 				
 			});
 		});
-		function a(pnum,reportType){
+		/* 리스트 출력과 페이징처리 */
+		function refresh(pnum,reportType){
 			$.ajax({
 				"url":"/udongca_project/master/reportBoardList.udc",
 				"type":"post",
@@ -98,7 +101,7 @@
 					 var list=obj['list'];
 					$("#table").empty();
 					for(var i=0;i<list.length;i++){
-						$("#table").append("<tr class='cursor' data-toggle='modal' data-backdrop='static' data-target='#myModal' id='td2' onclick='link("+list[i].reportboardNo+")'><td>"+list[i].reportboardNo+"</td><td>"+list[i].reportMemberId+"</td><td>"+list[i].reportReason+"</td><td>"+list[i].reportResult+"</td><td>"+list[i].reportType+"</td></tr>");
+						$("#table").append("<tr class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' id='td2' onclick='link("+list[i].reportboardNo+")'><td>"+list[i].reportboardNo+"</td><td>"+list[i].reportMemberId+"</td><td>"+list[i].reportReason+"</td><td>"+list[i].reportResult+"</td><td>"+list[i].reportType+"</td></tr>");
 						
 						}
 					
@@ -128,6 +131,7 @@
 				}
 			});
 			}
+		/* 게시글클릭시 게시글 상세보기 정보 출력 */
 		  function link(No){
 			$.ajax({
 				"url":"/udongca_project/master/reportBoardInfo.udc",
@@ -135,7 +139,6 @@
 				"dataType":"json",
 				"data": "reportNo="+No,
 				"success":function(obj){
-					var d = obj;
 					$("#reportboardNo").val(obj.reportInfo.reportboardNo);
 					$("#reportMemberId").val(obj.reportInfo.reportMemberId);
 					$("#reportReason").val(obj.reportInfo.reportReason);
@@ -150,6 +153,7 @@
 				}
 			});
 		}  
+		/* reportBoard Update */
 		  function ajaxUpdate(){
 			  $.ajax({
 					"url" : "/udongca_project/master/updateInfo.udc",
@@ -166,18 +170,17 @@
 								reportCancelReason : $("#cancelReason").val(),
 								
 							},
-					"success" : function(obj) {
-						if(obj==1){
-							alert("등록성공");
-							
-						}
-					},
-					"error" : function(aa,bb,cc) {
-						alert(aa,bb,cc);
-					}
+					"success":function(obj){
+						return obj;
+							},
+							"error" : function(xhr,status,errorMsg) {
+								
+								alert(xhr+status+errorMsg);
+							}
 					
 				});
 		  }
+		/* 취소이유 등록 ajaxUpdate를 통해 update */
 		  function update(){
 			  var txt = $("#cancelReason").val();
 				 if(txt.trim()=="" || txt.length==0){
@@ -185,34 +188,51 @@
 					 return false;
 				 }else{
 						$("#reportResult").val("신고취소");
-						ajaxUpdate();
+						var obj = ajaxUpdate();
+						if(obj.error){
+							alert(obj.error);
+						}else if(obj.value==1){
+							alert("취소완료");
+						}else{
+							alert("취소처리실패 ");
+						}
 				 }
 		
 			
 		}
+		/* 신고글 삭제 처리 */
 		  function deleteArticle(){
-				$.ajax({
-					"url" : "/udongca_project/master/deleteArticle.udc",
-					"type" : "post",
-					"data" : {
-								reportType : $("#reportType").val(),
-								reportNO : $("#reportNO").val(),
+			  var txt =  $("#cancelReason").val();
+				if(!(txt.trim()=="" || txt.length==0)){
+					alert("신고취소 이유를 지워주세요");
+					return false
+					
+				}else{
+						$.ajax({
+							"url" : "/udongca_project/master/deleteArticle.udc",
+							"type" : "post",
+							"data" : {
+										reportType : $("#reportType").val(),
+										reportNO : $("#reportNO").val(),
+									},
+							"success" : function(obj) {
+								if(obj==1){
+									alert("삭제성공");
+									$("#reportResult").val(" 게시글 삭제");
+									ajaxUpdate();
+								}else{
+									alert("이미 삭제된 게시글입니다.");
+								}
+								
 							},
-					"success" : function(obj) {
-						if(obj==1){
-							alert("삭제성공");
-							$("#reportResult").val("게시글 삭제");
-							ajaxUpdate();
-						}else{
-							alert("삭제실패");
-						}
-						
-					},
-					"error" : function(aa,bb,cc) {
-						alert(aa,bb,cc);
+							"error" : function(xhr,status,errorMsg) {
+								
+								alert(xhr+status+errorMsg);
+							}
+					});
 					}
-			});
 		  }
+		/* 회원 로그인 수정 */
 		  function submit(){
 				var value=0;
 				var a = $(".fa");
@@ -240,7 +260,8 @@
 								loginPossibility : $("#loginPossibility").val(),
 							},
 					"success" : function(obj) {
-							$("#reportResult").val("벌점 부과");
+						var text = $("#reportResult").val();
+							$("#reportResult").val(text+" 벌점 부과");
 							ajaxUpdate();
 					},
 					"beforeSend" : function(){
@@ -268,6 +289,12 @@ table{
 	width:800px;
 	margin-left:30px;
 	text-align:center;
+}
+.nav>li>a{
+    padding-left: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
 }
 .pager li > a,
 .pager li > span {
@@ -300,12 +327,7 @@ table, tbody{
 	cursor:pointer;
 	table-layout:fixed;
 }
-.nav>li>a{
-    padding-left: 20px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-}
+
 select#selectType{
 	width:100px;
 	float:left;
@@ -313,17 +335,18 @@ select#selectType{
 </style>
 <div id="div">
 <input type="hidden" id="memberPenalty">
-	<input type="hidden" id="memberCheck"
-		value="${sessionScope.login.memberType }">
+	<input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 	<c:if test="${sessionScope.login.memberType != master}">
 		<div style="margin-left: 30px; margin-top: 30px">
 			<h3>신고리스트</h3>
+			<!-- 신고 테이블 선택 -->
 			<div class="form-group">
 				<select class="form-control" id="selectType">
 				</select>
 				<button type="button" class="btn btn-default" id="search">검색</button>
 			</div>
 		</div>
+		<!-- 테이블 -->
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -341,8 +364,8 @@ select#selectType{
 		<div align="center" id="page" style="margin-top: 30px"></div>
 	</c:if>
 </div>
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<!-- report Modal -->
+<div id="report" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
@@ -379,7 +402,7 @@ select#selectType{
   </div>
   <div class="form-group">
     <label for="reportResult">신고 결과</label><br>
-   <input type="text" class="form-control" id="reportResult">
+   <input type="text" class="form-control" id="reportResult" readonly="readonly">
   </div>
   <div class="form-group">
     <label for="cancelReason">신고 취소 이유</label><br>
@@ -390,14 +413,14 @@ select#selectType{
       <div class="modal-footer">
       <button type="button" class="btn btn-default" onclick="update()">신고취소이유 등록</button>
 	<button type="button" class="btn btn-default" onclick="deleteArticle()">게시글삭제</button>
-	<button class="btn btn-default" data-toggle='modal' data-target='#myModal2' data-backdrop='static' id="penalty">id벌점</button>
+	<button class="btn btn-default" data-toggle='modal' data-target='#memberModal' data-backdrop='static' id="penalty">id벌점</button>
         <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 </div>
 </div>
-
- <div id="myModal2" class="modal fade" role="dialog">
+<!-- 회원상세정보 모달 -->
+ <div id="memberModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content -->
