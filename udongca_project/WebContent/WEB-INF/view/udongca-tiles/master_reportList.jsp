@@ -299,6 +299,8 @@ table, tbody{
 .cursor{
 	cursor:pointer;
 	table-layout:fixed;
+	text-align:left;
+	margin:30px;
 }
 .nav>li>a{
     padding-left: 20px;

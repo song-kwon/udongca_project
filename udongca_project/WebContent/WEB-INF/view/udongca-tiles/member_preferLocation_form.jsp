@@ -10,8 +10,8 @@
 }
 </style>
 <div id="nav_bodyDiv">
-<h3>선호지역</h3>
-<div class="form-inline" align="left">
+<div><h1>선호 지역</h1></div><br><br>
+<div class="form-inline" align="left" style="font-size:18px;">
 	선호지역 1 : <select class="form-control major_category" id="first_category">
 		<option value="0">시/도 선택</option>
 		<c:forEach items="${requestScope.category.majorList }" var="majorList" varStatus="status">
@@ -78,6 +78,6 @@
 			</c:choose>
 		</select>
 	<p>
-</div>
+</div><br>
 <div align="center"><button id="preferLocation_modiftBtn">선호지역 수정</button></div>
 </div>

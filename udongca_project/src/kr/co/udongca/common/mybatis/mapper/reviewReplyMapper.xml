@@ -25,4 +25,7 @@
 		values(#{replyNo},#{replyId},#{replyContent},sysdate,#{replyGroup},#{parentReply},#{targetName},#{reviewNo})
 	</insert>
 	
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM review_reply WHERE replyNo = #{replyNo}
+	</delete>
 </mapper>

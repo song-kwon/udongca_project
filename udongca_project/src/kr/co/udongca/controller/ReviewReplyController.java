@@ -5,11 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.udongca.service.ReviewReplyService;
-import kr.co.udongca.service.impl.ReviewReplyServiceImpl;
+import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.ReviewReply;
 
 @Controller
@@ -38,4 +37,10 @@ public class ReviewReplyController {
 		else return null;
 	}
 	
+	@RequestMapping("deleteReply.udc")
+	@ResponseBody
+	public int deleteReply(int replyNo, HttpSession session){
+		Member m = (Member)session.getAttribute("login");
+		return ((m != null && m.getMemberId().equals(service.selectReplyByReplyNo(replyNo).getReplyId())) ? service.deleteReply(replyNo) : 0);
+	}
 }

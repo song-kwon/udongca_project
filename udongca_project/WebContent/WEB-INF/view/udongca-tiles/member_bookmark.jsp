@@ -14,7 +14,7 @@ table {
 	<div id="bookmarkDiv">
 		<h2>즐겨찾기</h2>
 		<div id="bookmarkTable" align="center">
-			<table class="table table-hover" id="memberBookmark" style="width: 400px;">
+			<table class="table table-hover" id="memberBookmark" style="width: 350px; text-align: center">
 				<thead>
 					<tr>
 						<td colspan="2" align="center"><h4>목록</h4></td>
@@ -23,7 +23,6 @@ table {
 				</tbody>
 			</table>
 		</div>
-
 		<div id="page" align="center">
 			<ul class="pagination">
 			</ul>

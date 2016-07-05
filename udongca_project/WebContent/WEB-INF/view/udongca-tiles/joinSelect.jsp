@@ -5,9 +5,9 @@ $(document).ready(function(){
 	$("input[name='memberType']").on("change",function(){
 		var value = $(this).val();
 		if(value=="generalMember"){
-			$("#a").html("<a href='/udongca_project/generalMemberJoinform.udc'><input type='button' value='회원가입하기'></a>");
+			$("#a").html("<a href='/udongca_project/generalMemberJoinform.udc'><input type='button' class='btn btn-default' value='회원가입하기'></a>");
 		}else{
-			$("#a").html("<a href='licenseeMemberJoinform.udc'><input type='button' value='회원가입하기'></a>");
+			$("#a").html("<a href='licenseeMemberJoinform.udc'><input type='button' class='btn btn-default' value='회원가입하기'></a>");
 		}
 	});
 });

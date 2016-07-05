@@ -24,61 +24,61 @@ $(document).ready(function(){
 	
 	$("#idVerification").on("click",function(){
 		$.ajax({
-				"url":"/udongca_project/member/countSameId.udc",
-				"type":"POST",
-				"data":"memberId="+$("#id").val(),
-				"dataType":"text",
-				"success" : function(countId){
-					if(countId!=0){
-						alert("이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.");
+			"url":"/udongca_project/member/countSameId.udc",
+			"type":"POST",
+			"data":"memberId="+$("#id").val(),
+			"dataType":"text",
+			"success" : function(countId){
+				if(countId!=0){
+					alert("이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.");
+					$("#id").focus();
+				}else{
+					var result = confirm("'"+$.trim($("#id").val())+"'"+"는 사용 가능한 아이디입니다. 사용하시겠습니까?");
+					if(result == false){
 						$("#id").focus();
 					}else{
-						var result = confirm("'"+$.trim($("#id").val())+"'"+"는 사용 가능한 아이디입니다. 사용하시겠습니까?");
-						if(result == false){
-							$("#id").focus();
-						}else{
-							$("#id").val($.trim($("#id").val()));
-							$("#password").focus();
-							$("#idVerify").val(true);
-						}
+						$("#id").val($.trim($("#id").val()));
+						$("#password").focus();
+						$("#idVerify").val(true);
 					}
-				},
-				"beforeSend" : function chkId(){
-					var id = $("#id").val();
-					var id2 = $.trim($("#id").val());
-					var num = id.search(/[0-9]/g);
-					var eng = id.search(/[a-z]/ig);
-					var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
-					
-					//아이디 한글 에러 처리
-					for (i = 0; i < id.length; i++) {
-						   var retCode = id.charCodeAt(i);
-						   var retChar = id.substr(i,1).toUpperCase();
-						   retCode = parseInt(retCode);
-						   
-						  if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ){
-							  alert("아이디는 영문과 숫자만 입력가능합니다.");
-							  $("#id").focus();
-							  return false;
-						  }
-					}
-				
-					//영문, 숫자 이외의 문자 입력시 에러 처리
-					if((num<0 && eng<0) || spe.test(id)==true){
-						  alert("아이디는 영문과 숫자만 입력가능합니다.");
-						  $("id").focus();
-						  return false;
-					}
-					
-					//공백 입력시 에러 처리
-					if((id.length != id2.length) || id.length<6 || (id.search(/[" "]/g) > 0)){
-						alert("아이디는 공백없이 6글자 이상 입력해주세요.");
-						$("#id").focus();
-						return false;
-					}
-					return true;
 				}
-		});
+			},
+			"beforeSend" : function chkId(){
+				var id = $("#id").val();
+				var id2 = $.trim($("#id").val());
+				var num = id.search(/[0-9]/g);
+				var eng = id.search(/[a-z]/ig);
+				var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+				
+				//아이디 한글 에러 처리
+				for (i = 0; i < id.length; i++) {
+					   var retCode = id.charCodeAt(i);
+					   var retChar = id.substr(i,1).toUpperCase();
+					   retCode = parseInt(retCode);
+					   
+					  if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ){
+						  alert("아이디는 영문과 숫자만 입력가능합니다.");
+						  $("#id").focus();
+						  return false;
+					  }
+				}
+			
+				//영문, 숫자 이외의 문자 입력시 에러 처리
+				if((num<0 && eng<0) || spe.test(id)==true){
+					  alert("아이디는 영문과 숫자만 입력가능합니다.");
+					  $("id").focus();
+					  return false;
+				}
+				
+				//공백 입력시 에러 처리
+				if((id.length != id2.length) || id.length<6 || (id.search(/[" "]/g) > 0)){
+					alert("아이디는 공백없이 6글자 이상 입력해주세요.");
+					$("#id").focus();
+					return false;
+				}
+				return true;
+			}
+	});
 	});
 	
 	$("#id").on("focus",function(){

@@ -45,7 +45,7 @@ $(document).ready(function(){
 					$("#searchResult").empty();
 					$("#pageNum").empty();
 					if (json == null || json.list.length == 0){
-						$("#searchResult").append("검색 결과 없음");
+						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
@@ -93,7 +93,7 @@ $(document).ready(function(){
 				$("#searchResult").empty();
 				$("#pageNum").empty();
 				if (json == null || json.list.length == 0){
-					$("#searchResult").append("검색 결과 없음");
+					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){

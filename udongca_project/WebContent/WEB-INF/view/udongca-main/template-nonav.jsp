@@ -25,20 +25,13 @@ $(document).ready(function(){
 	
 	
 });
-function resizeToMinimum(w,h){
-    w=w>window.outerWidth?w:window.outerWidth;
-    h=h>window.outerHeight?h:window.outerHeight;
-    window.resizeTo(w, h);
-};
-
-window.addEventListener('resize', function(){resizeToMinimum(1280,860)}, false);
 </script>
 
 <style type="text/css">
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	min-width: 1024px;
+	width: 1024px;
 	width: auto;
 	min-height: 190px;
 }
@@ -76,7 +69,7 @@ a{
 	text-decoration: none;
 }
 #wrap{
-	width:1280px;
+	width:1280px !important;
 	margin: 0 auto;
 }
 .nonav_bodyDiv{

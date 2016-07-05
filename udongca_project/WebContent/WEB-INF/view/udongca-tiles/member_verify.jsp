@@ -3,16 +3,18 @@
 table{
 	border-collapse: collapse;
 	width:400px;
-	margin:30px;
+	margin:40px;
+	font-size:18px;
 }
 
 table, th{
 	text-align:left;
-	width:250px;
+	width:300px;
 }
 </style>
 
 <div class="nav_bodyDiv">
+<div><h1>회원 정보 수정</h1></div>
 <table>
 	<tr>
 		<th>아이디</th>
