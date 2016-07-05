@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
+import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.dao.ReviewBoardDao;
 import kr.co.udongca.service.ReviewBoardService;
 import kr.co.udongca.vo.ReviewBoard;
@@ -18,7 +19,9 @@ import kr.co.udongca.vo.ReviewBoard;
 public class ReviewBoardServiceImpl implements ReviewBoardService{
 	
 	@Autowired
-	private ReviewBoardDao dao;
+	private ReviewBoardDao reviewDao;
+	@Autowired
+	private PrBoardDao prBoardDao;
 	
 	public ReviewBoardServiceImpl() {
 	}
@@ -26,7 +29,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	@Override
 	public ModelAndView myReviewListPaging(int page,String memberId) {
 		ModelAndView mav;
-		if(dao.countMyReview(memberId) == 0){
+		if(reviewDao.countMyReview(memberId) == 0){
 			mav = new ModelAndView("member/member_review_list.tiles","error","등록된 리뷰가 없습니다.");
 		}else{
 			Map map = new HashMap<>();
@@ -34,9 +37,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 			map.put("page", page);
 			map.put("memberId", memberId);
 			
-			List list = dao.myReviewListPaging(map);
+			List list = reviewDao.myReviewListPaging(map);
 			
-			PagingBean pagingBean = new PagingBean(dao.countMyReview(memberId), page);
+			PagingBean pagingBean = new PagingBean(reviewDao.countMyReview(memberId), page);
 			
 			map.put("list", list);
 			map.put("pageBean", pagingBean);
@@ -54,9 +57,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		map.put("reviewNo", reviewNo);
 		
 		Map<String,Object> reviewBoard= new HashMap<>();
-		reviewBoard.put("countGroup", dao.reviewGourpCount(reviewNo));
-		reviewBoard.put("review",dao.reviewDetail(map));
-		reviewBoard.put("reply", dao.ReviewReplyList(reviewNo));
+		reviewBoard.put("countGroup", reviewDao.reviewGourpCount(reviewNo));
+		reviewBoard.put("review",reviewDao.reviewDetail(map));
+		reviewBoard.put("reply", reviewDao.ReviewReplyList(reviewNo));
 		return reviewBoard;
 	}
 
@@ -67,9 +70,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		map.put("page", page);
 		map.put("cafeNo", cafeNo);
 		
-		List list = dao.cafeReviewListPaging(map);
+		List list = reviewDao.cafeReviewListPaging(map);
 		
-		PagingBean pagingBean = new PagingBean(dao.countCafeReview(cafeNo), page);
+		PagingBean pagingBean = new PagingBean(reviewDao.countCafeReview(cafeNo), page);
 		
 		map.put("list", list);
 		map.put("pageBean", pagingBean);
@@ -78,31 +81,31 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 
 	@Override
 	public ReviewBoard selectReview(int reviewNo) {
-		return dao.selectReview(reviewNo);
+		return reviewDao.selectReview(reviewNo);
 	}
 	
 	@Override
 	public int insertReview(ReviewBoard review) {
-		return dao.insertReview(review);
+		return reviewDao.insertReview(review);
 	}
 
 	@Override
 	public int updateReview(ReviewBoard review) {
-		return dao.updateReview(review);
+		return reviewDao.updateReview(review);
 	}
 
 	@Override
 	public int deleteReview(int reviewNo) {
-		return dao.deleteReview(reviewNo);
+		return reviewDao.deleteReview(reviewNo);
 	}
 
 	@Override
 	public int selectNextReviewBoardSequence() {
-		return dao.selectNextReviewBoardSequence();
+		return reviewDao.selectNextReviewBoardSequence();
 	}
 	
 	@Override
 	public List<ReviewBoard> selectMainReviewList() {
-		return dao.selectMainReviewList();
+		return reviewDao.selectMainReviewList();
 	}
 }

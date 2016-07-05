@@ -97,20 +97,21 @@ public class MemberController {
     
 
     @RequestMapping("memberInfoMaster.udc")
-    public String memberInfoMaster(@RequestParam("id") String id ,@RequestParam(value="page",required=false,defaultValue="1") int page, HttpSession session, Model model) {
+    @ResponseBody
+    public Map memberInfoMaster(@RequestParam("id") String id, HttpSession session, Model model) {
 	Member master = (Member) session.getAttribute("login");
+	HashMap map = new HashMap();
 	if (master != null && master.getMemberType().equals("master")){
-	       	model.addAttribute("memberInfo", memberService.memberIdMaster(id));
-        	model.addAttribute("code", memberService.loginPossibility("login_possibility"));
-        	model.addAttribute("page",page);
-        	return "master/master_memberInfo.tiles";
+	    map.put("memberInfo", memberService.memberIdMaster(id));
+	    map.put("code", memberService.loginPossibility("login_possibility"));
+        	return map;
 	}else{
-	    return "redirect:/main.udc"; 
+	    return map; 
 	}
     }
     @RequestMapping("memberUpdate.udc")
     @ResponseBody
-    public String memberUpdate(@RequestParam("page") String page, @ModelAttribute Member member,Model model,HttpSession session) {
+    public String memberUpdate(@ModelAttribute Member member,Model model,HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master")){
 		if(memberService.memberUpdateMaster(member)==1){
@@ -119,7 +120,7 @@ public class MemberController {
 		    return "false";
 		}
 	}else{
-	    return "redirect:/main.udc"; 
+	    return "권한이 없습니다."; 
 	}
     }
 	@RequestMapping("generalMemberJoin.udc")

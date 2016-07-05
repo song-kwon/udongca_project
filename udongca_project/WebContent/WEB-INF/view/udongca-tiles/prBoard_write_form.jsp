@@ -39,23 +39,23 @@ $(document).ready(function(){
 		$("#managerTelTd").text(($("#managerTel").val()) ? "" : "입력 필수");
 	});
 	
-	$("#coporateNumb").on("change", function(){
-		var result = isValidCoporateNumb();
+	$("#coporateNumber").on("change", function(){
+		var result = isValidCoporateNumber();
 		if (result){
-			$("#coporateNumbTd").text("중복 확인 필요");
+			$("#coporateNumberTd").text("중복 확인 필요");
 		}
 	});
 	
-	$("#isCoporateNumbDuplicated").on("click", function(){
-		var result = isValidCoporateNumb();
+	$("#isCoporateNumberDuplicated").on("click", function(){
+		var result = isValidCoporateNumber();
 		if (result){
 			$.ajax({
-				"url":"/udongca_project/prBoard/isCoporateNumbDuplicated.udc",
+				"url":"/udongca_project/prBoard/isCoporateNumberDuplicated.udc",
 				"type":"POST",
-				"data":"coporateNumb=" + $("#coporateNumb").val(),
+				"data":"coporateNumber=" + $("#coporateNumber").val(),
 				"dataType":"text",
 				"success":function(text){
-					$("#coporateNumbTd").text(((text == "true") ? "중복" : "사용 가능" ) + " 사업자 등록 번호");
+					$("#coporateNumberTd").text(((text == "true") ? "중복" : "사용 가능" ) + " 사업자 등록 번호");
 				},
 				"error":function(xhr){
 					alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -92,7 +92,7 @@ $(document).ready(function(){
 	});
 	
 	$("form").on("submit", function(){
-		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumbTd").text() == "사용 가능 사업자 등록 번호")){
+		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumberTd").text() == "사용 가능 사업자 등록 번호")){
 			alert("필수 사항을 입력하세요");
 			return false;
 		}
@@ -115,88 +115,89 @@ function execDaumPostcode(){
     }).open();
 };
 
-function isValidCoporateNumb(){
-	if (!($("#coporateNumb").val())){
-		$("#coporateNumbTd").text("입력 필수");
+function isValidCoporateNumber(){
+	if (!($("#coporateNumber").val())){
+		$("#coporateNumberTd").text("입력 필수");
 		return 0;
 	}
-	else if ($("#coporateNumb").val().length != 10 || !($("#coporateNumb").val().match(/\d{10}/))){
-		$("#coporateNumbTd").text("양식에 맞게 입력");
+	else if ($("#coporateNumber").val().length != 10 || !($("#coporateNumber").val().match(/\d{10}/))){
+		$("#coporateNumberTd").text("양식에 맞게 입력");
 		return 0;
 	}
 	else{
-		$("#coporateNumbTd").text("");
+		$("#coporateNumberTd").text("");
 		return 1;
 	}
 }
 </script>
-<div class="nonav_bodyDiv" style="width:440px;height:470px;">
+<div class="nonav_bodyDiv" style="width:400px;">
 굵은 글씨 항목은 필수 입력 사항을 나타냅니다.
 <br>
-<form action="/udongca_project/prBoard/moveToNewPr2Jsp.udc"
-	method="post">
-	<table>
-		<tr>
-			<td><b>카페명</b></td>
-			<td><input type="text" name="cafeName" id="cafeName"></td>
-			<td id="cafeNameTd"></td>
-		</tr>
-		<tr>
-			<td>카페 소개</td>
-			<td><textarea rows="10" cols="20" name="cafeIntro"
-					id="cafeIntro"></textarea></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>특징</td>
-			<td><input type="checkbox" name="cafeFeature1" value="wifi">와이파이
-				<input type="checkbox" name="cafeFeature1" value="socket">콘센트
-				<input type="checkbox" name="cafeFeature1" value="park">주차
-				<input type="checkbox" name="cafeFeature1" value="smoking">흡연실<br>
-				<input type="checkbox" id="themeCheck">테마 
-				<select name="cafeFeature2" id="cafeFeature2">
-					<option>테마 선택</option>
-				</select></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><b>영업시간</b></td>
-			<td><input type="text" name="operationHour" id="operationHour"></td>
-			<td id="operationHourTd"></td>
-		</tr>
-		<tr>
-			<td><b>카페연락처</b></td>
-			<td><input type="text" name="cafeTel" id="cafeTel"></td>
-			<td id="cafeTelTd"></td>
-		</tr>
-		<tr>
-			<td><b>카페주소</b></td>
-			<td><input type="text" name="cafeAddress" id="cafeAddress">
-				<input type="button" value="주소검색" id="searchAddressButton"></td>
-			<td id="cafeAddressTd"></td>
-		</tr>
-		<tr>
-			<td><b>사업자등록번호</b><br> - 없이 입력</td>
-			<td><input type="text" name="coporateNumb" id="coporateNumb">
-				<input type="button" value="중복확인" id="isCoporateNumbDuplicated">
-			</td>
-			<td id="coporateNumbTd"></td>
-		</tr>
-		<tr>
-			<td><b>관리자명</b></td>
-			<td><input type="text" name="managerName" id="managerName"></td>
-			<td id="managerNameTd"></td>
-		</tr>
-		<tr>
-			<td><b>관리자 연락처</b></td>
-			<td><input type="text" name="managerTel" id="managerTel"></td>
-			<td id="managerTelTd"></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="확인"></td>
-			<td><input type="button" value="취소" id="cancel"></td>
-			<td></td>
-		</tr>
-	</table>
+<form action="/udongca_project/prBoard/moveToNewPr2Jsp.udc"	method="post" role="form">
+	<div class="form-group">
+			<label for="cafeName">카페명</label>
+			<input type="text" name="cafeName" id="cafeName" class="form-control">
+			<span id="cafeNameTd"></span>
+	</div>
+	<div class="form-group">
+			<label for="cafeIntro">카페 소개</label>
+			<textarea rows="10" cols="20" name="cafeIntro" id="cafeIntro" class="form-control"></textarea>
+			<span id="cafeIntro"></span>
+	</div>
+		<div class="form-group">
+			<label for="cafeFeature">특징</label>
+			<div class="form-inline">
+			<input type="checkbox" name="cafeFeature1" value="wifi" >와이파이
+			<input type="checkbox" name="cafeFeature1" value="socket" >콘센트
+			<input type="checkbox" name="cafeFeature1" value="park" >주차
+			<input type="checkbox" name="cafeFeature1" value="smoking" >흡연실<br>
+			<input type="checkbox" id="themeCheck">테마 
+			<select name="cafeFeature2" id="cafeFeature2" class="form-control">
+				<option>테마 선택</option>
+			</select>
+			</div>
+		</div>
+	<div class="form-group">
+			<label for="operationHour">영업시간</label>
+			<input type="text" name="operationHour" id="operationHour" class="form-control">
+			<span id="operationHourTd"></span>
+	</div>
+	<div class="form-group">
+			<label for="cafeTel">카페연락처</label>
+			<input type="text" name="cafeTel" id="cafeTel" class="form-control">
+			<span id="cafeTelTd"></span>
+	</div>
+	<div class="form-group">
+			<label for="cafeAddress">카페주소</label>
+			
+			<div class="form-inline">
+				<input type="text" name="cafeAddress" id="cafeAddress" class="form-control">
+				<input type="button" value="주소검색" id="searchAddressButton" class="form-control">
+				<span id="cafeAddressTd"></span>
+			</div>
+	</div>
+	<div class="form-group">
+			<label for="coporateNumber">사업자등록번호</label>
+			<div class="form-inline">
+				<input type="text" name="coporateNumb" id="coporateNumb" class="form-control" placeholder=" - 없이 입력">
+				<input type="button" value="중복확인" id="isCoporateNumbDuplicated" class="form-control">
+			</div>
+			<span id="coporateNumbTd"></span>
+			
+	</div>
+	<div class="form-group">
+			<label for="managerName">관리자명</label>
+			<input type="text" name="managerName" id="managerName" class="form-control">
+			<span id="managerNameTd"></span>
+	</div>
+	<div class="form-group">
+			<label for="managerTel">관리자 연락처</label>
+			<input type="text" name="managerTel" id="managerTel">
+			<span id="managerTelTd"></span>
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">다음단계</button>
+		<button type="button" id="cancel">취소</button>
+	</div>
 </form>
 </div>

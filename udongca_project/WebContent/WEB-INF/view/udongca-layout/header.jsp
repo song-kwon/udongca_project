@@ -56,6 +56,7 @@ $(document).ready(function(){
 	color:sienna;
 	width:auto;
 }
+
 </style>
 
 <div id="header_div">

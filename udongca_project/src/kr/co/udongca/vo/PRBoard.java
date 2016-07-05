@@ -1,6 +1,7 @@
 package kr.co.udongca.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class PRBoard implements Serializable{
 	
@@ -17,14 +18,17 @@ public class PRBoard implements Serializable{
 	private String cafeRealImage;
 	private String cafeFakeImage;
 	private String memberId;
+	private int cafeRating;
+	private int cafeReviewCount;
+	private Date registrationDate;
 	private Member member;
 	
-	public PRBoard() {
-	}
+	public PRBoard(){}
 	
 	public PRBoard(int cafeNo, String cafeName, String cafeIntro, String cafeTel, String cafeFeature,
-			String cafeAddress, String coporateNumb, String operationHour, String managerName, String managerTel,
-			String cafeRealImage, String cafeFakeImage, String memberId) {
+			String cafeAddress, String coporateNumber, String operationHour, String managerName, String managerTel,
+			String cafeRealImage, String cafeFakeImage, String memberId, int cafeRating, int cafeReviewCount,
+			Date registrationDate) {
 		super();
 		this.cafeNo = cafeNo;
 		this.cafeName = cafeName;
@@ -32,141 +36,148 @@ public class PRBoard implements Serializable{
 		this.cafeTel = cafeTel;
 		this.cafeFeature = cafeFeature;
 		this.cafeAddress = cafeAddress;
-		this.coporateNumber = coporateNumb;
+		this.coporateNumber = coporateNumber;
 		this.operationHour = operationHour;
 		this.managerName = managerName;
 		this.managerTel = managerTel;
 		this.cafeRealImage = cafeRealImage;
 		this.cafeFakeImage = cafeFakeImage;
 		this.memberId = memberId;
-	}
-
-	public PRBoard(int cafeNo, String cafeName, String cafeIntro, String cafeTel, String cafeFeature,
-			String cafeAddress, String coporateNumb, String operationHour, String managerName, String managerTel,
-			String cafeRealImage, String cafeFakeImage, String memberId, Member member) {
-		super();
-		this.cafeNo = cafeNo;
-		this.cafeName = cafeName;
-		this.cafeIntro = cafeIntro;
-		this.cafeTel = cafeTel;
-		this.cafeFeature = cafeFeature;
-		this.cafeAddress = cafeAddress;
-		this.coporateNumber = coporateNumb;
-		this.operationHour = operationHour;
-		this.managerName = managerName;
-		this.managerTel = managerTel;
-		this.cafeRealImage = cafeRealImage;
-		this.cafeFakeImage = cafeFakeImage;
-		this.memberId = memberId;
-		this.member = member;
+		this.cafeRating = cafeRating;
+		this.cafeReviewCount = cafeReviewCount;
+		this.registrationDate = registrationDate;
 	}
 
 	public int getCafeNo() {
 		return cafeNo;
 	}
 
-	public void setCafeNo(int cafeNo) {
-		this.cafeNo = cafeNo;
-	}
-
 	public String getCafeName() {
 		return cafeName;
-	}
-
-	public void setCafeName(String cafeName) {
-		this.cafeName = cafeName;
 	}
 
 	public String getCafeIntro() {
 		return cafeIntro;
 	}
 
-	public void setCafeIntro(String cafeIntro) {
-		this.cafeIntro = cafeIntro;
-	}
-
 	public String getCafeTel() {
 		return cafeTel;
-	}
-
-	public void setCafeTel(String cafeTel) {
-		this.cafeTel = cafeTel;
 	}
 
 	public String getCafeFeature() {
 		return cafeFeature;
 	}
 
-	public void setCafeFeature(String cafeFeature) {
-		this.cafeFeature = cafeFeature;
-	}
-
 	public String getCafeAddress() {
 		return cafeAddress;
 	}
 
-	public void setCafeAddress(String cafeAddress) {
-		this.cafeAddress = cafeAddress;
-	}
-
-	public String getCoporateNumb() {
+	public String getCoporateNumber() {
 		return coporateNumber;
-	}
-
-	public void setCoporateNumb(String coporateNumb) {
-		this.coporateNumber = coporateNumb;
 	}
 
 	public String getOperationHour() {
 		return operationHour;
 	}
 
-	public void setOperationHour(String operationHour) {
-		this.operationHour = operationHour;
-	}
-
 	public String getManagerName() {
 		return managerName;
-	}
-
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
 	}
 
 	public String getManagerTel() {
 		return managerTel;
 	}
 
-	public void setManagerTel(String managerTel) {
-		this.managerTel = managerTel;
-	}
-
 	public String getCafeRealImage() {
 		return cafeRealImage;
-	}
-
-	public void setCafeRealImage(String cafeRealImage) {
-		this.cafeRealImage = cafeRealImage;
 	}
 
 	public String getCafeFakeImage() {
 		return cafeFakeImage;
 	}
 
-	public void setCafeFakeImage(String cafeFakeImage) {
-		this.cafeFakeImage = cafeFakeImage;
-	}
-
 	public String getMemberId() {
 		return memberId;
+	}
+
+	public int getCafeRating() {
+		return cafeRating;
+	}
+
+	public int getCafeReviewCount() {
+		return cafeReviewCount;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setCafeNo(int cafeNo) {
+		this.cafeNo = cafeNo;
+	}
+
+	public void setCafeName(String cafeName) {
+		this.cafeName = cafeName;
+	}
+
+	public void setCafeIntro(String cafeIntro) {
+		this.cafeIntro = cafeIntro;
+	}
+
+	public void setCafeTel(String cafeTel) {
+		this.cafeTel = cafeTel;
+	}
+
+	public void setCafeFeature(String cafeFeature) {
+		this.cafeFeature = cafeFeature;
+	}
+
+	public void setCafeAddress(String cafeAddress) {
+		this.cafeAddress = cafeAddress;
+	}
+
+	public void setCoporateNumber(String coporateNumber) {
+		this.coporateNumber = coporateNumber;
+	}
+
+	public void setOperationHour(String operationHour) {
+		this.operationHour = operationHour;
+	}
+
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	public void setManagerTel(String managerTel) {
+		this.managerTel = managerTel;
+	}
+
+	public void setCafeRealImage(String cafeRealImage) {
+		this.cafeRealImage = cafeRealImage;
+	}
+
+	public void setCafeFakeImage(String cafeFakeImage) {
+		this.cafeFakeImage = cafeFakeImage;
 	}
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
-	public Member getMember() {
-		return member;
+	public void setCafeRating(int cafeRating) {
+		this.cafeRating = cafeRating;
+	}
+
+	public void setCafeReviewCount(int cafeReviewCount) {
+		this.cafeReviewCount = cafeReviewCount;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public void setMember(Member member) {
@@ -177,13 +188,16 @@ public class PRBoard implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
 		result = prime * result + ((cafeAddress == null) ? 0 : cafeAddress.hashCode());
 		result = prime * result + ((cafeFakeImage == null) ? 0 : cafeFakeImage.hashCode());
 		result = prime * result + ((cafeFeature == null) ? 0 : cafeFeature.hashCode());
 		result = prime * result + ((cafeIntro == null) ? 0 : cafeIntro.hashCode());
 		result = prime * result + ((cafeName == null) ? 0 : cafeName.hashCode());
 		result = prime * result + cafeNo;
+		result = prime * result + cafeRating;
 		result = prime * result + ((cafeRealImage == null) ? 0 : cafeRealImage.hashCode());
+		result = prime * result + cafeReviewCount;
 		result = prime * result + ((cafeTel == null) ? 0 : cafeTel.hashCode());
 		result = prime * result + ((coporateNumber == null) ? 0 : coporateNumber.hashCode());
 		result = prime * result + ((managerName == null) ? 0 : managerName.hashCode());
@@ -203,6 +217,11 @@ public class PRBoard implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		PRBoard other = (PRBoard) obj;
+		if (registrationDate == null) {
+			if (other.registrationDate != null)
+				return false;
+		} else if (!registrationDate.equals(other.registrationDate))
+			return false;
 		if (cafeAddress == null) {
 			if (other.cafeAddress != null)
 				return false;
@@ -230,10 +249,14 @@ public class PRBoard implements Serializable{
 			return false;
 		if (cafeNo != other.cafeNo)
 			return false;
+		if (cafeRating != other.cafeRating)
+			return false;
 		if (cafeRealImage == null) {
 			if (other.cafeRealImage != null)
 				return false;
 		} else if (!cafeRealImage.equals(other.cafeRealImage))
+			return false;
+		if (cafeReviewCount != other.cafeReviewCount)
 			return false;
 		if (cafeTel == null) {
 			if (other.cafeTel != null)
@@ -275,13 +298,11 @@ public class PRBoard implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PrBoard [cafeNo=" + cafeNo + ", cafeName=" + cafeName + ", cafeIntro=" + cafeIntro + ", cafeTel="
-				+ cafeTel + ", cafeFeature=" + cafeFeature + ", cafeAddress=" + cafeAddress + ", coporateNumb="
+		return "PRBoard [cafeNo=" + cafeNo + ", cafeName=" + cafeName + ", cafeIntro=" + cafeIntro + ", cafeTel="
+				+ cafeTel + ", cafeFeature=" + cafeFeature + ", cafeAddress=" + cafeAddress + ", coporateNumber="
 				+ coporateNumber + ", operationHour=" + operationHour + ", managerName=" + managerName + ", managerTel="
 				+ managerTel + ", cafeRealImage=" + cafeRealImage + ", cafeFakeImage=" + cafeFakeImage + ", memberId="
-				+ memberId + ", member=" + member + "]";
+				+ memberId + ", cafeRating=" + cafeRating + ", cafeReviewCount=" + cafeReviewCount
+				+ ", registrationDate=" + registrationDate + ", member=" + member + "]";
 	}
-
-	
-	
 }

@@ -8,6 +8,10 @@
 		<script src="/udongca_project/scripts/jquery.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
+				for (var i = 1; i < 6; i++){
+					$("#ratingStars").append("<option>" + i + "</option>");
+				}
+				
 				$("#reviewTitle").on("blur", function(){
 					$("#reviewTitleTd").text(($("#reviewTitle").val()) ? "" : "입력 필수");
 				});
@@ -43,11 +47,7 @@
 				<tr>
 					<td>등급</td>
 					<td>
-						<select name="reviewGrade">
-							<c:forEach var="i" begin="1" end="5">
-								<option>${i}</option>
-							</c:forEach>
-						</select>
+						<select name="ratingStars" id="ratingStars"></select>
 					</td>
 					<td></td>
 				</tr>

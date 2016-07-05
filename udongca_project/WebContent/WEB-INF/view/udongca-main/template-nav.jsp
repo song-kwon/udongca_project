@@ -24,6 +24,7 @@ $(document).ready(function(){
 	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
+	$("nav").height($("section").height()+60);
 });
 </script>
 
@@ -42,8 +43,6 @@ header, a{
 nav{
 	line-height: 70px;
 	background-color:burlywood;
-	padding: 15px;
-	min-height:700px;
 	width:180px;
 	overflow:auto;
 	float:left;
@@ -88,7 +87,10 @@ input[type="button"]{
 }
 </style>
 </head>
+
 <body>
+<!-- 부트스트랩 컨테이너 -->
+<div class="container">
 <div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
@@ -105,6 +107,7 @@ input[type="button"]{
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>
+</div>
 </div>
 </body>
 </html>

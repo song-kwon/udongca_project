@@ -3,6 +3,7 @@ package kr.co.udongca.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.service.PrBoardService;
 import kr.co.udongca.service.ReviewBoardService;
 import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.ReviewBoard;
 
 @Controller
@@ -28,6 +31,8 @@ public class ReviewBoardController {
 
 	@Autowired
 	private ReviewBoardService service;
+	@Autowired
+	private PrBoardService prService;
 	
 	public ReviewBoardController() {
 	}
@@ -49,11 +54,19 @@ public class ReviewBoardController {
 		}
 	}
 	
+	/*
 	@RequestMapping("reviewDetail.udc")
 	public ModelAndView reviewDetail(int cafeNo,int reviewNo){
 		
 		Map map = service.reviewDetail(cafeNo, reviewNo);
 		return new ModelAndView("/testView/testReply.jsp",map);
+	}
+	*/
+	
+	@RequestMapping("reviewDetail.udc")
+	@ResponseBody
+	public Map reviewDetail(int cafeNo,int reviewNo){
+		return service.reviewDetail(cafeNo, reviewNo);
 	}
 	
 	@RequestMapping("cafeReviewListPaging.udc")
@@ -86,7 +99,18 @@ public class ReviewBoardController {
 		if (mem == null || !mem.getMemberId().equals(writerId)){
 			return "redirect:/loginPage.udc";
 		}
+		
+		HashMap<String, Integer> inputMap = new HashMap<String, Integer>();
+		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
+		
+		inputMap.put("cafeNo", cafeNo);
+		inputMap.put("cafeReviewCount", pr.getCafeReviewCount() - 1);
+		inputMap.put("cafeRating", pr.getCafeRating() - service.selectReview(reviewNo).getRatingStars());
+		
 		service.deleteReview(reviewNo);
+		prService.updateCafeRatingInPRBoard(inputMap);
+		prService.updateCafeReviewCountInPRBoard(inputMap);
+		
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
@@ -113,6 +137,12 @@ public class ReviewBoardController {
 		
 		String addRealImagesName="";
 		String addFakeImagesName="";
+		HashMap<String, Integer> inputMap = new HashMap<String, Integer>();
+		int reviewNo = Integer.parseInt(((String)map.get("reviewNo")));
+		int cafeNo = Integer.parseInt((String)(map.get("cafeNo")));
+		int ratingStars = Integer.parseInt((String)(map.get("ratingStars")));
+		ReviewBoard review = service.selectReview(reviewNo);
+		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
 		if (addReviewImage != null && addReviewImage.length != 0 && !addReviewImage[0].isEmpty()) {
 			for(int idx = 0 ; idx < addReviewImage.length ; idx++){
@@ -157,19 +187,24 @@ public class ReviewBoardController {
 			resultFakeImage = "defaultReview.png;";
 		}
 		
+		inputMap.put("cafeNo", cafeNo);
+		inputMap.put("cafeRating", pr.getCafeRating() + ratingStars - review.getRatingStars());
+		
+		prService.updateCafeRatingInPRBoard(inputMap);
+		
 		service.updateReview(new ReviewBoard(
-				Integer.parseInt(((String)map.get("reviewNo"))),
+				reviewNo,
 				(String)map.get("reviewTitle"),
 				null,
 				(String)map.get("reviewContent"),
-				(String)map.get("reviewGrade"),
+				ratingStars,
 				null,
 				resultRealImage,
 				resultFakeImage,
 				0
 		));
 		
-		return "/prBoard/prView.udc?cafeNo=" + (String)(map.get("cafeNo"));
+		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
 	@RequestMapping("reviewWriteForm.udc")
@@ -195,14 +230,18 @@ public class ReviewBoardController {
 		ReviewBoard review = new ReviewBoard();
 		String reviewRealImagesName="";
 		String reviewFakeImagesName="";
+		HashMap<String, Integer> inputMap = new HashMap<String, Integer>();
+		int cafeNo = Integer.parseInt((String)(map.get("cafeNo")));
+		int ratingStars = Integer.parseInt((String)(map.get("ratingStars")));
+		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
 		review.setReviewNo(service.selectNextReviewBoardSequence());
 		review.setReviewTitle((String)(map.get("reviewTitle")));
 		review.setReviewDate(new Date(System.currentTimeMillis()));
 		review.setReviewContent((String)(map.get("reviewContent")));
-		review.setReviewGrade((String)(map.get("reviewGrade")));
+		review.setRatingStars(ratingStars);
 		review.setMemberId(mem.getMemberId());
-		review.setCafeNo(Integer.parseInt((String)(map.get("cafeNo"))));
+		review.setCafeNo(cafeNo);
 		
 		if (reviewImage != null && reviewImage.length != 0 && !reviewImage[0].isEmpty()) {
 			for(int idx = 0 ; idx < reviewImage.length ; idx++){
@@ -223,8 +262,14 @@ public class ReviewBoardController {
 		review.setReviewRealImage((reviewRealImagesName.equals("")) ? "defaultReview.png;" : reviewRealImagesName);
 		review.setReviewFakeImage((reviewFakeImagesName.equals("")) ? "defaultReview.png;" : reviewFakeImagesName);
 		
-		service.insertReview(review);
+		inputMap.put("cafeNo", cafeNo);
+		inputMap.put("cafeReviewCount", pr.getCafeReviewCount() + 1);
+		inputMap.put("cafeRating", pr.getCafeRating() + ratingStars);
 		
-		return "/prBoard/prView.udc?cafeNo=" + (String)(map.get("cafeNo"));
+		service.insertReview(review);
+		prService.updateCafeRatingInPRBoard(inputMap);
+		prService.updateCafeReviewCountInPRBoard(inputMap);
+		
+		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 }

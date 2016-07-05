@@ -42,8 +42,8 @@ public class PrBoardServiceImpl implements PrBoardService{
 	}
 
 	@Override
-	public PRBoard selectPRBoardByCoporateNumb(String coporateNumb) {
-		return dao.selectPRBoardByCoporateNumb(coporateNumb);
+	public PRBoard selectPRBoardByCoporateNumber(String coporateNumber) {
+		return dao.selectPRBoardByCoporateNumber(coporateNumber);
 	}
 	
 	@Override
@@ -103,5 +103,25 @@ public class PrBoardServiceImpl implements PrBoardService{
 	
 	public List<PRBoard> selectMainPRBoardByRegistrationDate(){
 		return dao.selectMainPRBoardByRegistrationDate();
+	}
+
+	@Override
+	public int updateCafeReviewCountInPRBoard(Map<String, Integer> map) {
+		return dao.updateCafeReviewCountInPRBoard(map);
+	}
+
+	@Override
+	public int updateCafeRatingInPRBoard(Map<String, Integer> map) {
+		return dao.updateCafeRatingInPRBoard(map);
+	}
+
+	@Override
+	public int selectCafeReviewCountInPRBoard(int cafeNo) {
+		return dao.selectCafeReviewCountInPRBoard(cafeNo);
+	}
+
+	@Override
+	public int selectCafeRatingInPRBoard(int cafeNo) {
+		return dao.selectCafeRatingInPRBoard(cafeNo);
 	}
 }
