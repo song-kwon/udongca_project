@@ -311,15 +311,15 @@ foreign key (reviewNo)
 references review_board(reviewNo) on delete set null
 );
 
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야',sysdate,1,0,'',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야1',sysdate,2,0,'',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야2',sysdate,3,0,'',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야3',sysdate,1,0,'scott',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','리플이야4',sysdate,1,0,'scott',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야5',sysdate,1,0,'scott',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야6',sysdate,3,0,'udonca',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야7',sysdate,3,0,'scott',1);
-insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','리플이야8',sysdate,2,0,'udongca',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test1',sysdate,1,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','test2',sysdate,2,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','test3',sysdate,3,0,'',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test4',sysdate,1,1,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'udongca','test5',sysdate,1,4,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test6',sysdate,1,4,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test7',sysdate,3,3,'udongca',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test8',sysdate,3,7,'scott',1);
+insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test9',sysdate,2,2,'udongca',1);
 
 
 
