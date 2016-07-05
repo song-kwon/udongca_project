@@ -9,16 +9,17 @@
 	text-align: center;
 }
 </style>
+<div id="nav_bodyDiv">
 <div><h1>선호 지역</h1></div><br><br>
-<div align="left" style="font-size:18px;">
-	선호지역 1 : <select class="major_category" id="first_category">
+<div class="form-inline" align="left" style="font-size:18px;">
+	선호지역 1 : <select class="form-control major_category" id="first_category">
 		<option value="0">시/도 선택</option>
 		<c:forEach items="${requestScope.category.majorList }" var="majorList" varStatus="status">
 			<option value="${majorList.majorCategoryNo }"
 				${requestScope.category.myLocationList[0].majorCategoryNo == majorList.majorCategoryNo ? 'selected':'' }>${majorList.addressName }</option>
 		</c:forEach>
 	</select>&nbsp;&nbsp; 
-	<select class="middle_category" name="first_category">
+	<select class="form-control middle_category" name="first_category">
 		<c:choose>
 			<c:when test="${empty requestScope.category.myLocationList[0]}">
 				<option value="0">시/도 먼저 선택</option>
@@ -34,14 +35,14 @@
 	</select>
 	<p>
 	<p>
-		선호지역 2 : <select class="major_category" id="second_category">
+		선호지역 2 : <select  class="form-control major_category" id="second_category">
 			<option value="0">시/도 선택</option>
 			<c:forEach items="${requestScope.category.majorList }" var="majorList">
 				<option value="${majorList.majorCategoryNo }"
 					${requestScope.category.myLocationList[1].majorCategoryNo == majorList.majorCategoryNo ? 'selected':'' }>${majorList.addressName }</option>
 			</c:forEach>
 		</select>&nbsp;&nbsp; 
-		<select class="middle_category" name="second_category">
+		<select class="form-control middle_category" name="second_category">
 			<c:choose>
 				<c:when test="${empty requestScope.category.myLocationList[1]}">
 					<option value="0">시/도 먼저 선택</option>
@@ -56,14 +57,14 @@
 		</select>
 	<p>
 	<p>
-		선호지역 3 : <select class="major_category" id="third_category">
+		선호지역 3 : <select class="form-control major_category" id="third_category">
 			<option value="0">시/도 선택</option>
 			<c:forEach items="${requestScope.category.majorList }" var="majorList">
 				<option value="${majorList.majorCategoryNo }"
 					${requestScope.category.myLocationList[2].majorCategoryNo == majorList.majorCategoryNo ? 'selected':'' }>${majorList.addressName }</option>
 			</c:forEach>
 		</select>&nbsp;&nbsp; 
-		<select class="middle_category" name="third_category">
+		<select class="form-control middle_category" name="third_category">
 			<c:choose>
 				<c:when test="${empty requestScope.category.myLocationList[2]}">
 					<option value="0">시/도 먼저 선택</option>
@@ -79,3 +80,4 @@
 	<p>
 </div><br>
 <div align="center"><button id="preferLocation_modiftBtn">선호지역 수정</button></div>
+</div>

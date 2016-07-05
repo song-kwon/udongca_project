@@ -44,7 +44,7 @@ td{
 	table-layout:fixed;
 }
 .nav>li>a{
-    padding-left: 20px;
+    padding-left: 0px;
     padding-bottom: 0px;
     padding-top: 0px;
     padding-right: 0px;
@@ -56,13 +56,14 @@ td{
 			alert("권한이 없습니다.");
 			location.href = "/udongca_project/main.udc";
 		}
+		/* 시작시 데이터 불러옴 */
 		a($("#pnum").text());
-		
+		/* 닫기시 데이터 다시 */
 		$("#close").on("click",function(){
-			alert($("#pnum").text());
 			a($("#pnum").text());
 		});
 	});
+	/* 리스트,페이지 출력 답변안달린것만 가져옴  */
 	function a(pnum){
 		$.ajax({
 			"url":"/udongca_project/oneToOneInquiry/oneList.udc",
@@ -74,7 +75,7 @@ td{
 				$("#table").empty();
 				
 				$.each(obj['list'],function(){
-					$("#table").append("<tr class='cursor' data-backdrop='static' id='td2' data-toggle='modal' data-target='#myModal' onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
+					$("#table").append("<tr class='cursor' id='td2' data-backdrop='static' data-toggle='modal' data-target='#otoModal' onclick='link("+'"'+this.inquiryNo+'",'+page.page+")'><td>"+this.inquiryNo+"</td><td>"+this.inquiryTitle+"</td><td>"+this.inquiryType+"</td><td>"+this.memberId+"</td></tr>");
 					
 				});
 				
@@ -99,11 +100,13 @@ td{
 					 $(".pagination").append("<li><a>▶</a></li>");
 				 }
 			},
-			"error":function(xhr, status, errorMsg){
-			alert(xhr+status+errorMsg);
+			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
+				
 			}
 		});
 		}
+	/* 모달 열면서 서버로부터 데이터 받아오기 */
 	 function link(No,pnum){
 			$.ajax({
 				"url":"/udongca_project/oneToOneInquiry/master/oneInfo.udc",
@@ -111,20 +114,25 @@ td{
 				"dataType":"json",
 				"data": {page:pnum,inquiryNo:No},
 				"success":function(obj){
-					var d = obj;
 					$("#inquiryNo").val(obj.inquiry.inquiryNo);
 					$("#inquiryTitle").val(obj.inquiry.inquiryTitle);
 					$("#memberId").val(obj.inquiry.memberId);
 					$("#inquiryContent").val(obj.inquiry.inquiryContent);
 					$("#inquiryReply").val(obj.inquiry.inquiryReply);
 				},
-				"error":function(xhr, status, errorMsg){
-					alert("오류발생");
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 			});
 		}  
+	 /* 답변등록 클릭시 서버로 데이터 전송  */
 	 function requiryReply(){
-		 alert($("#no").val());
+		var txt = $("#inquiryReply").val(); 
+		 if(txt.trim()=="" || txt.length==0){
+			 alert("답변을 입력하세요");
+			 return false;
+		 }else{
 			$.ajax({
 				"url" : "/udongca_project/oneToOneInquiry/master/requiryReply.udc",
 				"type" : "post",
@@ -137,18 +145,20 @@ td{
 							memberId : $("#memberId").val(),
 						},
 				"success" : function(obj) {
-					if(obj==1){
+					if(obj.error){
+						alert(obj.error);						
+					}else if(obj.value==1){
 						alert("등록성공");
-						
 					}else{
 						alert("등록실패");
 					}
 				},
-				"error" : function(aa,bb,cc) {
-					alert(aa,bb,cc);
+				"error" : function(xhr,status,errorMsg) {
+					alert(xhr.status+","+status+","+errorMsg);
+					
 				}
 		});
-		
+		 }
 	}
 </script>
 <div id="div">
@@ -173,8 +183,8 @@ td{
 	<div align="center" id="page"></div>
 </c:if>
 </div>
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<!-- 1:1Modal -->
+<div id="otoModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->

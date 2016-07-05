@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -111,7 +112,8 @@ public class MemberController {
     }
     @RequestMapping("memberUpdate.udc")
     @ResponseBody
-    public String memberUpdate(@ModelAttribute Member member,Model model,HttpSession session) {
+    @Transactional
+    public String memberUpdate(@ModelAttribute Member member,HttpSession session) {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master")){
 		if(memberService.memberUpdateMaster(member)==1){

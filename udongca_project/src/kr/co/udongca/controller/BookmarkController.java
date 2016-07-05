@@ -1,6 +1,8 @@
 package kr.co.udongca.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,10 +28,13 @@ public class BookmarkController {
 	}
 
 	@RequestMapping("memberBookmarkListPaging.udc")
-	public ModelAndView memberBookmarkListPaging(@RequestParam(required = false) String no, HttpSession session) {
+	@ResponseBody
+	public Map memberBookmarkListPaging(@RequestParam(required = false) String no, HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
+		Map map = new HashMap<>();
 		if (login == null) {
-			return new ModelAndView("login.tiles", "error", "로그인이 필요한 서비스 입니다.");
+			map.put("error", "로그인이 필요한 서비스 입니다.");
+			return map;
 		} else {
 			int page = 1;
 			try {
@@ -40,7 +45,8 @@ public class BookmarkController {
 				return service.memberBookmarkListPaging(page, login.getMemberId());
 			} catch (Exception e) {
 				e.printStackTrace();
-				return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+				map.put("error_message", e.getMessage());
+				return map;
 			}
 		}
 	}
