@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.udongca.common.util.TextUtil;
 import kr.co.udongca.service.NoticeBoardService;
 import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
@@ -55,10 +56,14 @@ public class NoticeBoardController {
 	@RequestMapping("registerNoticeBoard.udc")
 	public ModelAndView registerNoticeBoard(NoticeBoard noticeBoard, HttpSession session){
 		Member master = (Member)session.getAttribute("login");
-		service.registerNoticeBoard(noticeBoard);
+	
+		if(master != null && master.getMemberType().equals("master")){
+			noticeBoard.setNoticeTitle(TextUtil.textToHtml(noticeBoard.getNoticeTitle()));
+			noticeBoard.setNoticeContent(TextUtil.textToHtml(noticeBoard.getNoticeContent()));
+			service.registerNoticeBoard(noticeBoard);
 		
-		if(master != null && master.getMemberType().equals("master"))
 			return new ModelAndView("redirect:/noticeBoard/noticeBoardRegisterSuccess.udc");
+		}
 		else
 		    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
 	}
@@ -84,15 +89,22 @@ public class NoticeBoardController {
 	@RequestMapping("modifyNoticeBoardform.udc")
 	public ModelAndView modifyNoticeBoardForm(int noticeNo, String codeType, HttpSession session){
 		Member master = (Member)session.getAttribute("login");
-		NoticeBoard noticeBoard = service.selectNoticeBoard(noticeNo);
-		List<Code> codeList = service.selectByCodeType(codeType);
+	
+		if(master != null && master.getMemberType().equals("master")){
+			
+			NoticeBoard noticeBoard = service.selectNoticeBoard(noticeNo);
+			
+			noticeBoard.setNoticeTitle(TextUtil.htmlToText(noticeBoard.getNoticeTitle()));
+			noticeBoard.setNoticeContent(TextUtil.htmlToText(noticeBoard.getNoticeContent()));
+			
+			List<Code> codeList = service.selectByCodeType(codeType);
+			
+			HashMap map = new HashMap();
+			map.put("noticeBoard", noticeBoard);
+			map.put("codeList", codeList);
 		
-		HashMap map = new HashMap();
-		map.put("noticeBoard", noticeBoard);
-		map.put("codeList", codeList);
-		
-		if(master != null && master.getMemberType().equals("master"))
 			return new ModelAndView("noticeBoardModifyform.tiles","map",map);
+		}
 		else
 		    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
 	}
@@ -100,11 +112,17 @@ public class NoticeBoardController {
 	@RequestMapping("modifyNoticeBoard.udc")
 	public ModelAndView modifyNoticeBoard(NoticeBoard noticeBoard, int noticeNo, HttpSession session){
 		Member master = (Member)session.getAttribute("login");
-		service.selectNoticeBoard(noticeNo).setNoticeNo(noticeNo);
-		service.updateNoticeBoard(noticeBoard);
 		
-		if(master != null && master.getMemberType().equals("master"))
+		if(master != null && master.getMemberType().equals("master")){
+
+			noticeBoard.setNoticeTitle(TextUtil.textToHtml(noticeBoard.getNoticeTitle()));
+			noticeBoard.setNoticeContent(TextUtil.textToHtml(noticeBoard.getNoticeContent()));
+			
+			service.selectNoticeBoard(noticeNo).setNoticeNo(noticeNo);
+			service.updateNoticeBoard(noticeBoard);
+		
 			return new ModelAndView("redirect:/noticeBoard/noticeBoardModifySuccess.udc");
+		}
 		else
 		    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
 	}
