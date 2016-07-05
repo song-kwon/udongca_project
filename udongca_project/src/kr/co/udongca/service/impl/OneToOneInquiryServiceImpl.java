@@ -65,23 +65,25 @@ public class OneToOneInquiryServiceImpl implements OneToOneInquiryService{
 	    return map;
 	}
 	public OneToOneInquiry selectOneInquiry(int inquiryNo){
-		return dao.selectOneInquiry(inquiryNo);
+	    	OneToOneInquiry one = dao.selectOneInquiry(inquiryNo);
+	    	
+	    	if(one.getInquiryReply()==null){
+	    	    one.setInquiryReply("");
+	    	}
+	    	one.setInquiryReply(TextUtil.htmlToText(one.getInquiryReply()));
+	    	one.setInquiryContent(TextUtil.htmlToText(one.getInquiryContent()));
+	    	one.setInquiryTitle(TextUtil.htmlToText(one.getInquiryTitle()));
+		return one;
 	}
-	/*public Map<String, Object> oneToOneList(int page){
-	    HashMap<String, Object> map = new HashMap<String,Object>();
-	    List list = dao.selectList(page);
-	    map.put("list", list);
-	    PagingBean pagingBean = new PagingBean(dao.countList(), page);
-	    map.put("pageBean", pagingBean);
-	    return map;
-	}*/
+	
 	public List oneToOneList(int page){
 	    return dao.selectList(page);
 	}
-	public PagingBean page(int page){
+	public PagingBean page(int page){ 
 	    return new PagingBean(dao.countList2(), page);
 	}
 	public int updateInquiryReply(OneToOneInquiry oneToOneInquiry){
+	    oneToOneInquiry.setInquiryReply(TextUtil.textToHtml(oneToOneInquiry.getInquiryReply()));
 	    return dao.updateInquiryReply(oneToOneInquiry);
 	}
 }

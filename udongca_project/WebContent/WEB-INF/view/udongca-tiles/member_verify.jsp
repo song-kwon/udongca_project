@@ -2,14 +2,14 @@
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:400px;
+	width:500px;
 	margin:40px;
 	font-size:18px;
 }
 
 table, th{
 	text-align:left;
-	width:300px;
+	width:250px;
 }
 </style>
 
@@ -18,7 +18,7 @@ table, th{
 <table>
 	<tr>
 		<th>아이디</th>
-		<td><input type="text" style="background-color: white; border: thin;" value="${sessionScope.login.memberId}" readonly="readonly" id="id"></td>
+		<td><input type="text" style="background-color: white; border: thin; width:150px;" value="${sessionScope.login.memberId}" readonly="readonly" id="id"></td>
 	</tr>
 	<tr>
 		<th>비밀번호</th>

@@ -57,6 +57,7 @@ $(document).ready(function(){
 	width:auto;
 	height:48px;
 }
+
 .col-xs-1{
 	width:120px;
 }
@@ -73,10 +74,21 @@ $(document).ready(function(){
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
 			<c:when test="${sessionScope.login.memberType =='master'}" >
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/></div>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
+					</div>
+				</div>
 			</c:when>
 			<c:otherwise>
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/></div>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
+					</div>
+					<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }">
+						<a href="/udongca_project/prBoard_write_form.udc"><input type="button" value="홍보글 등록하기"></a>
+					</c:if>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
@@ -94,5 +106,4 @@ $(document).ready(function(){
 <div class="col-xs-1">테마검색</div><div class="col-xs-2"><select id="theme"  class="form-control"><option >테마 선택</option></select></div><div class="col-xs-2"><button class="btn btn-default" id="main_searchTheme">검색</button></div>
 </div>
 </div>
-<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 </div>

@@ -22,22 +22,7 @@ public class ReportBoardServiceImpl implements ReportBoardService {
     @Autowired
     private CodeDao codeDao;
 
-   /* public Map<String, Object> reportList(int page, String reportType) {
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	if (reportType.equals("all")) {
-	    List list = reportBoardDaoImpl.selectList(page);
-	    map.put("list", list);
-	    PagingBean pagingBean = new PagingBean(reportBoardDaoImpl.countReport(), page);
-	    map.put("pageBean", pagingBean);
-	    return map;
-	} else {
-	    List list = reportBoardDaoImpl.selectList(page, reportType);
-	    map.put("list", list);
-	    PagingBean pagingBean = new PagingBean(reportBoardDaoImpl.countReport(reportType), page);
-	    map.put("pageBean", pagingBean);
-	    return map;
-	}
-    }*/
+   
     public List getCode(String code){
 	return codeDao.selectCode(code);
     }
