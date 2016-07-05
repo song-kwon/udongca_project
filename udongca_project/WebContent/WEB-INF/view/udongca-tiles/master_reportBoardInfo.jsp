@@ -35,7 +35,7 @@ $(document).ready(function(){
 		
 	}
 	function deleteArticle(){
-		
+
 		$.ajax({
 			"url" : "/udongca_project/master/deleteArticle.udc",
 			"type" : "post",
@@ -135,6 +135,6 @@ td{
 	<div align="center">
 	<input type="button" onclick="update()" value="등록">
 	<input type="button" onclick="deleteArticle()" value="게시글 삭제">
-	<button onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${requestScope.reportInfo.reportMemberId }&page=${requestScope.page }"' >id벌점</button>
+	<button data-toggle='modal' data-target='#myModal'onclick='location.href="/udongca_project/member/memberInfoMaster.udc?id=${requestScope.reportInfo.reportMemberId }&page=${requestScope.page }"' >id벌점</button>
 	<input type="button" onclick='location.href="/udongca_project/master/reportBoard.udc?reportType=${requestScope.reportInfo.reportType }&page=${requestScope.page }"' value="취소">
 	</div>

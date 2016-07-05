@@ -87,7 +87,10 @@ input[type="button"]{
 }
 </style>
 </head>
+
 <body>
+<!-- 부트스트랩 컨테이너 -->
+<div class="container">
 <div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
@@ -104,6 +107,7 @@ input[type="button"]{
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>
+</div>
 </div>
 </body>
 </html>

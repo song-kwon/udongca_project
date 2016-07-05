@@ -54,26 +54,22 @@ public class ReportBoardController {
   
 
     @RequestMapping("/reportBoardInfo.udc")
-    public String reportBoardInfo(@RequestParam("reportNo") int reportNo, @RequestParam("page") int page,
-	    Model model, HttpSession session) {
-	Member master = (Member) session.getAttribute("login");
-	if (master != null && master.getMemberType().equals("master")) {
-	    model.addAttribute("reportInfo", reportService.reportInfo(reportNo));
-	    model.addAttribute("page", page);
-	    return "master/master_reportBoardInfo.tiles";
-	} else {
-	    return "redirect:/main.udc";
-	}
-    }
+    @ResponseBody
+     public Map reportBoardInfo(@RequestParam("reportNo") int reportNo,    HttpSession session) {
+ 	Member master = (Member) session.getAttribute("login");
+ 	HashMap map = new HashMap();
+ 	if (master != null && master.getMemberType().equals("master")) {
+ 	    map.put("reportInfo",  reportService.reportInfo(reportNo));
+ 	    return map;
+ 	} else {
+ 	    map.put("권한", "권한이 없습니다.");
+ 	    return map;
+ 	}
+     }
 
     @RequestMapping("/updateInfo.udc")
     @ResponseBody
-    public int updateInfo(@ModelAttribute ReportBoard reportBoard, @RequestParam("page") int page) {
-	// model.addAttribute("page",page);
-	// model.addAttribute("result",reportService.updateReport(reportBoard));
-	// HashMap map= new HashMap();
-	// map.put("page", page);
-	// map.put("result", reportService.updateReport(reportBoard));
+    public int updateInfo(@ModelAttribute ReportBoard reportBoard) {
 	return reportService.updateReport(reportBoard);
     }
 
