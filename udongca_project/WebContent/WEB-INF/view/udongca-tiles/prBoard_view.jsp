@@ -104,7 +104,7 @@
 			$.ajax({
 				'url':'/udongca_project/review/addReply.udc',
 				'type':'post',
-				'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'replyGroup':countGroup,'reviewNo':currentReviewNo},
+				'data':{'replyId':'${sessionScope.login.memberId}','replyContent':$('#replyContent').val(),'replyGroup':countGroup+1,'reviewNo':currentReviewNo},
 				'dataType':'json',
 				'error':function(xhr){alert('error occured while adding reply: ' + xhr.status + ' ' + xhr.statusText)},
 				'success':function(json){
@@ -118,18 +118,12 @@
 		});
 		
 		$(document).on('click','.reReplyInputBtn',function(){
-			alert("reReplyInputBtn");
 			$("#reReplyInput").remove();
-			alert($(this).parent().parent().parent().prop('id'));
 			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력'><button class='addReReply'>등록</button></div>");
 		});
 		
 		$(document).on('click','.addReReply',function(){
-			alert("addReReply");
 			var reReply = $(this).parent().parent();
-			alert(reReply.prop('id'))//parentReply
-			alert(reReply.children(':first').prop('class'))//group
-			alert(reReply.children(':first').find(':first').prop('id'))//targetName
 			$.ajax({
 				'url':'/udongca_project/review/addReReply.udc',
 				'type':'post',
@@ -399,10 +393,11 @@
 				
 				html = "<table id='replyBoard'>";
 				
-				for (var group = 1; group < countGroup; group++){
+				for (var group = countGroup; group > 0; group--){
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
 							if (json.reply[idx].replyGroup == group && !json.reply[idx].parentReply && !i){
+								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
@@ -412,9 +407,11 @@
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
 								}
 								html += "</td></tr>";
+								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
 								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
+								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
@@ -424,6 +421,7 @@
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
 								}
 								html += "</td></tr>";
+								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
 								html += "<tr><td class='reReplyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 						}

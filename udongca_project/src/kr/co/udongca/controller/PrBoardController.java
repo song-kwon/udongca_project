@@ -2,6 +2,7 @@ package kr.co.udongca.controller;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.*;
 
@@ -31,18 +32,22 @@ public class PrBoardController {
 	private PrBoardServiceImpl service;
 	
 	/**
-	 * 현재 제작 중
+	 * 구현 완료
 	 * @param cafeNo
 	 * @param map
 	 * @return
 	 */
 	@RequestMapping("prView.udc")
 	public String prView(int cafeNo, ModelMap map){
-		map.put("prBoard", service.selectPRBoardByNo(cafeNo));
-		/*
-		 * TODO: 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
-		 */
-		return "prBoard_view.tiles";
+		PRBoard pr = service.selectPRBoardByNo(cafeNo);
+		if (pr == null){
+			map.put("error", "존재하지 않는 카페입니다");
+			return "error.tiles";
+		}
+		else{
+			map.put("prBoard", service.selectPRBoardByNo(cafeNo));
+			return "prBoard_view.tiles";
+		}
 	}
 	
 	/**
@@ -71,52 +76,65 @@ public class PrBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		
-		PRBoard prBoard = new PRBoard();
-		int cafeNo = service.selectNextPRBoardSequence();
-		String cafeRealImagesName="";
-		String cafeFakeImagesName="";
+		ArrayList<String> errorList = new ArrayList<String>();
 		
-		/*
-		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
-		 */
-		prBoard.setCafeNo(cafeNo);
-		prBoard.setCafeName((String)map.get("cafeName"));
-		prBoard.setCafeIntro((String)map.get("cafeIntro"));
-		prBoard.setCafeTel((String)map.get("cafeTel"));
-		prBoard.setCafeFeature((String)map.get("cafeFeature"));
-		prBoard.setCafeAddress((String)map.get("cafeAddress"));
-		prBoard.setCoporateNumber((String)map.get("coporateNumber"));
-		prBoard.setOperationHour((String)map.get("operationHour"));
-		prBoard.setManagerName((String)map.get("managerName"));
-		prBoard.setManagerTel((String)map.get("managerTel"));
-		prBoard.setMemberId(mem.getMemberId());
-		
-		if (cafeImage != null && cafeImage.length != 0 && !cafeImage[0].isEmpty()) {
-			for(int idx = 0 ; idx < cafeImage.length ; idx++){
-				String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
-				
-				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-				// 최종 저장소 디렉토리 조회
-				String dir = req.getServletContext().getRealPath("/images");
-				long fake = System.currentTimeMillis();
-				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-	
-				cafeImage[idx].transferTo(dest);
-				cafeRealImagesName += imageName+";";
-				cafeFakeImagesName += fake+imageName+";";
+		for(int i = 0; i < menuNameArray.length; i++){
+			if (menuTypeArray[i] == null || menuTypeArray[i].trim().equals("") || menuNameArray[i] == null || menuNameArray[i].trim().equals("")){
+				errorList.add("메뉴 종류 및 이름을 입력하세요");
+				break;
 			}
 		}
 		
-		prBoard.setCafeRealImage((cafeRealImagesName.equals("") ? "defaultCafe.png;" : cafeRealImagesName));
-		prBoard.setCafeFakeImage((cafeFakeImagesName.equals("") ? "defaultCafe.png;" : cafeFakeImagesName));
+		if (errorList.size() == 0){
+			PRBoard prBoard = new PRBoard();
+			String cafeRealImagesName="";
+			String cafeFakeImagesName="";
+			int cafeNo = service.selectNextPRBoardSequence();
+			
+			prBoard.setCafeNo(cafeNo);
+			prBoard.setCafeName((String)map.get("cafeName"));
+			prBoard.setCafeIntro((String)map.get("cafeIntro"));
+			prBoard.setCafeTel((String)map.get("cafeTel"));
+			prBoard.setCafeFeature((String)map.get("cafeFeature"));
+			prBoard.setCafeAddress((String)map.get("cafeAddress"));
+			prBoard.setCoporateNumber((String)map.get("coporateNumber"));
+			prBoard.setOperationHour((String)map.get("operationHour"));
+			prBoard.setManagerName((String)map.get("managerName"));
+			prBoard.setManagerTel((String)map.get("managerTel"));
+			prBoard.setMemberId(mem.getMemberId());
+			
+			if (cafeImage != null && cafeImage.length != 0 && !cafeImage[0].isEmpty()) {
+				for(int idx = 0 ; idx < cafeImage.length ; idx++){
+					String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
+					
+					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+					// 최종 저장소 디렉토리 조회
+					String dir = req.getServletContext().getRealPath("/images");
+					long fake = System.currentTimeMillis();
+					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
 		
-		service.insertPRBoard(prBoard);
-		
-		for(int i = 0; i < menuNameArray.length; i++){
-			menuAdd(cafeNo, menuTypeArray[i], menuNameArray[i], menuImageArray[i], req, session);
+					cafeImage[idx].transferTo(dest);
+					cafeRealImagesName += imageName+";";
+					cafeFakeImagesName += fake+imageName+";";
+				}
+			}
+			
+			prBoard.setCafeRealImage((cafeRealImagesName.equals("") ? "defaultCafe.png;" : cafeRealImagesName));
+			prBoard.setCafeFakeImage((cafeFakeImagesName.equals("") ? "defaultCafe.png;" : cafeFakeImagesName));
+			
+			service.insertPRBoard(prBoard);
+			
+			for(int i = 0; i < menuNameArray.length; i++){
+				menuAdd(cafeNo, menuTypeArray[i], menuNameArray[i], menuImageArray[i], req, session);
+			}
+			
+			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
 		
-		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+		else{
+			model.put("errorList", errorList);
+			return "prBoard_write_form2.tiles";
+		}
 	}
 	
 	@RequestMapping("prModifyForm.udc")
@@ -145,11 +163,14 @@ public class PrBoardController {
 	public String prModify(@RequestParam Map map, String[] cafeFeature1,
 			String[] modifiedCafeFakeImage, String[] modifiedCafeRealImage,
 			MultipartFile[] addCafeImage, HttpServletRequest req,
-			HttpSession session) throws IllegalStateException, IOException{
+			HttpSession session, ModelMap model)
+					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
 		String addRealImagesName="";
 		String addFakeImagesName="";
 		String cafeFeature = "";
+		ArrayList<String> errorList = new ArrayList<String>();
+		
 		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
 			return "redirect:/loginPage.udc";
 		}
@@ -164,50 +185,79 @@ public class PrBoardController {
 			cafeFeature += map.get("cafeFeature2");
 		}
 		
-		if (addCafeImage != null && addCafeImage.length != 0 && !addCafeImage[0].isEmpty()) {
-			for(int idx = 0 ; idx < addCafeImage.length ; idx++){
-				String imageName = addCafeImage[idx].getOriginalFilename();// 업로드된 파일명
-				
-				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-				// 최종 저장소 디렉토리 조회
-				String dir = req.getServletContext().getRealPath("/images");
-				long fake = System.currentTimeMillis();
-				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-	
-				addCafeImage[idx].transferTo(dest);
-				addRealImagesName += imageName+";";
-				addFakeImagesName += fake+imageName+";";
-			}
+		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+			errorList.add("카페 이름을 입력하세요");
 		}
 		
-		String[] originalCafeFakeImage = ((String)(map.get("cafeFakeImage"))).split(";");
+		if(map.get("cafeIntro") == null || ((String)map.get("cafeIntro")).trim().equals("")){
+			errorList.add("카페 소개를 입력하세요");
+		}
 		
-		for (int i = 0; i < originalCafeFakeImage.length; i++){
-			int temp = -1;
-			if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")){
-				for (int j = 0; j < modifiedCafeFakeImage.length; j++){
-					if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
-						temp = j;
-						break;
-					}
+		if(map.get("operationHour") == null || ((String)map.get("operationHour")).trim().equals("")){
+			errorList.add("영업 시간을 입력하세요");
+		}
+		
+		if(map.get("cafeTel") == null || ((String)map.get("cafeTel")).trim().equals("")){
+			errorList.add("카페 연락처를 입력하세요");
+		}
+		
+		if(map.get("cafeAddress") == null || ((String)map.get("cafeAddress")).trim().equals("")){
+			errorList.add("카페 주소를 입력하세요");
+		}
+		
+		if(map.get("managerName") == null || ((String)map.get("managerName")).trim().equals("")){
+			errorList.add("영업자 성함을 입력하세요");
+		}
+		
+		if(map.get("managerTel") == null || ((String)map.get("managerTel")).trim().equals("")){
+			errorList.add("영업자 연락처를 입력하세요");
+		}
+		
+		if (errorList.size() == 0){
+			if (addCafeImage != null && addCafeImage.length != 0 && !addCafeImage[0].isEmpty()) {
+				for(int idx = 0 ; idx < addCafeImage.length ; idx++){
+					String imageName = addCafeImage[idx].getOriginalFilename();// 업로드된 파일명
+					
+					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+					// 최종 저장소 디렉토리 조회
+					String dir = req.getServletContext().getRealPath("/images");
+					long fake = System.currentTimeMillis();
+					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+		
+					addCafeImage[idx].transferTo(dest);
+					addRealImagesName += imageName+";";
+					addFakeImagesName += fake+imageName+";";
 				}
 			}
-			if (temp == -1){
-				String dir = req.getServletContext().getRealPath("/images");
-				File dest = new File(dir, originalCafeFakeImage[i]);
-				dest.delete();
+			
+			String[] originalCafeFakeImage = ((String)(map.get("cafeFakeImage"))).split(";");
+			
+			for (int i = 0; i < originalCafeFakeImage.length; i++){
+				int temp = -1;
+				if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")){
+					for (int j = 0; j < modifiedCafeFakeImage.length; j++){
+						if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
+							temp = j;
+							break;
+						}
+					}
+				}
+				if (temp == -1){
+					String dir = req.getServletContext().getRealPath("/images");
+					File dest = new File(dir, originalCafeFakeImage[i]);
+					dest.delete();
+				}
 			}
-		}
-		
-		String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) : "") + ";" + addFakeImagesName;
-		String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) : "") + ";" + addRealImagesName;
-		
-		if (resultRealImage.equals(";")){
-			resultRealImage = "defaultCafe.png;";
-			resultFakeImage = "defaultCafe.png;";
-		}
-		
-		service.updatePRBoard(
+			
+			String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) : "") + ";" + addFakeImagesName;
+			String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) : "") + ";" + addRealImagesName;
+			
+			if (resultRealImage.equals(";")){
+				resultRealImage = "defaultCafe.png;";
+				resultFakeImage = "defaultCafe.png;";
+			}
+			
+			service.updatePRBoard(
 				new PRBoard(
 					Integer.parseInt(((String)map.get("cafeNo"))),
 					(String)map.get("cafeName"),
@@ -225,7 +275,13 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-		return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+		}
+		else{
+			model.put("errorList", errorList);
+			model.put("prBoard", service.selectPRBoardByNo(Integer.parseInt(((String)map.get("cafeNo")))));
+			return "/ParkTest/prModifyForm.jsp";
+		}
 	}
 	
 	/**
@@ -272,6 +328,7 @@ public class PrBoardController {
 		}
 		
 		String cafeFeature = "";
+		ArrayList<String> errorList = new ArrayList<String>();
 		
 		if (cafeFeature1 != null){
 			for (int i = 0; i < cafeFeature1.length; i++){
@@ -281,6 +338,41 @@ public class PrBoardController {
 		
 		if (!((String)map.get("cafeFeature2")).equals("테마 선택")){
 			cafeFeature += map.get("cafeFeature2");
+		}
+		
+		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+			errorList.add("카페 이름을 입력하세요");
+		}
+		
+		if(map.get("cafeIntro") == null || ((String)map.get("cafeIntro")).trim().equals("")){
+			errorList.add("카페 소개를 입력하세요");
+		}
+		
+		if(map.get("operationHour") == null || ((String)map.get("operationHour")).trim().equals("")){
+			errorList.add("영업 시간을 입력하세요");
+		}
+		
+		if(map.get("cafeTel") == null || ((String)map.get("cafeTel")).trim().equals("")){
+			errorList.add("카페 연락처를 입력하세요");
+		}
+		
+		if(map.get("cafeAddress") == null || ((String)map.get("cafeAddress")).trim().equals("")){
+			errorList.add("카페 주소를 입력하세요");
+		}
+		
+		if(map.get("managerName") == null || ((String)map.get("managerName")).trim().equals("")){
+			errorList.add("영업자 성함을 입력하세요");
+		}
+		
+		if(map.get("managerTel") == null || ((String)map.get("managerTel")).trim().equals("")){
+			errorList.add("영업자 연락처를 입력하세요");
+		}
+		
+		if(map.get("coporateNumber") == null || ((String)map.get("coporateNumber")).trim().equals("") || !Pattern.matches("\\d{10}", ((String)map.get("coporateNumber")).trim())){
+			errorList.add("형식에 맞는 사업자 등록 번호를 입력하세요");
+		}
+		else if(service.selectPRBoardByCoporateNumber((String)map.get("coporateNumber")) != null){
+			errorList.add("중복된 사업자 등록 번호입니다");
 		}
 		
 		model.put("cafeName", map.get("cafeName"));
@@ -293,7 +385,11 @@ public class PrBoardController {
 		model.put("managerName", map.get("managerName"));
 		model.put("managerTel", map.get("managerTel"));
 		
-		return "prBoard_write_form2.tiles";
+		if (errorList.size() > 0){
+			model.put("errorList", errorList);
+		}
+		
+		return "prBoard_write_form" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
 	}
 	
 	/**
@@ -351,15 +447,6 @@ public class PrBoardController {
 		Menu menu = new Menu();
 		String menuRealImage = null;
 		String menuFakeImage = null;
-		int menuNo = service.selectNextMenuSequence();
-		
-		/*
-		 * TODO: 각 Parameter들이 유효한지 검증하는 단계 필요.
-		 */
-		menu.setMenuNo(menuNo);
-		menu.setCafeNo(cafeNumber);
-		menu.setMenuType(menuType);
-		menu.setMenuName(menuName);
 		
 		if (menuImage != null && !menuImage.isEmpty()) {
 			String imageName = menuImage.getOriginalFilename();// 업로드된 파일명
@@ -380,6 +467,10 @@ public class PrBoardController {
 			menuFakeImage = "defaultMenu.png";
 		}
 		
+		menu.setMenuNo(service.selectNextMenuSequence());
+		menu.setCafeNo(cafeNumber);
+		menu.setMenuType(menuType);
+		menu.setMenuName(menuName);
 		menu.setMenuRealImage(menuRealImage);
 		menu.setMenuFakeImage(menuFakeImage);
 		
@@ -418,36 +509,77 @@ public class PrBoardController {
 	 */
 	@RequestMapping("menuModify.udc")
 	@Transactional
-	public String menuModify(int cafeNo, int[] menuNOArray,
+	public String menuModify(@RequestParam Map map, int[] menuNOArray,
 			String[] menuTypeArray, String[] menuNameArray,
 			MultipartFile[] menuImageArray, HttpServletRequest req,
-			HttpSession session) throws IllegalStateException, IOException{
+			HttpSession session, ModelMap model)
+					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
+		ArrayList<String> errorList = new ArrayList<String>();
 		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
-			//return "redirect:/loginPage.udc";
+			return "redirect:/loginPage.udc";
 		}
 		
-		/*
-		 * TODO: 전달된 Parameter menuTypeArray, menuNameArray는 비어 있으면 안 되므로 검증 필요.
-		 */
+		for (int i = 0; i < menuNOArray.length; i++){
+			if (menuTypeArray[i] == null || menuTypeArray[i].trim().equals("") || menuNameArray[i] == null || menuNameArray[i].trim().equals("")){
+				errorList.add("메뉴 종류 및 이름을 입력하세요");
+				break;
+			}
+		}
 		
-		List<Menu> originalMenuList = service.selectMenuListByCafeNo(cafeNo);
+		int cafeNo = Integer.parseInt(((String)map.get("cafeNo")));
 		
-		for (int i = 0; i < originalMenuList.size(); i++){
-			boolean deleteFlag = true;
-			if (menuNOArray != null){
-				for (int j = 0; j < menuNOArray.length; j++){
-					if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
-						Menu updateMenu = new Menu();
-						updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
-						updateMenu.setMenuType(menuTypeArray[j]);
-						updateMenu.setMenuName(menuNameArray[j]);
-						if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
-							updateMenu.setMenuRealImage(originalMenuList.get(i).getMenuRealImage());
-							updateMenu.setMenuFakeImage(originalMenuList.get(i).getMenuFakeImage());
+		if (errorList.size() == 0){
+			List<Menu> originalMenuList = service.selectMenuListByCafeNo(cafeNo);
+			
+			for (int i = 0; i < originalMenuList.size(); i++){
+				boolean deleteFlag = true;
+				if (menuNOArray != null){
+					for (int j = 0; j < menuNOArray.length; j++){
+						if (originalMenuList.get(i).getMenuNo() == menuNOArray[j]){
+							Menu updateMenu = new Menu();
+							updateMenu.setMenuNo(originalMenuList.get(i).getMenuNo());
+							updateMenu.setMenuType(menuTypeArray[j]);
+							updateMenu.setMenuName(menuNameArray[j]);
+							if (menuImageArray[j] == null || menuImageArray[j].isEmpty()){
+								updateMenu.setMenuRealImage(originalMenuList.get(i).getMenuRealImage());
+								updateMenu.setMenuFakeImage(originalMenuList.get(i).getMenuFakeImage());
+							}
+							else{
+								String imageName = menuImageArray[j].getOriginalFilename();// 업로드된 파일명
+								
+								// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+								// 최종 저장소 디렉토리 조회
+								String dir = req.getServletContext().getRealPath("/images");
+								long fake = System.currentTimeMillis();
+								File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
+								
+								menuImageArray[j].transferTo(dest);
+								
+								updateMenu.setMenuRealImage(imageName);
+								updateMenu.setMenuFakeImage(fake+imageName);
+							}
+							service.updateMenu(updateMenu);
+							deleteFlag = false;
+							break;
 						}
-						else{
-							String imageName = menuImageArray[j].getOriginalFilename();// 업로드된 파일명
+					}
+				}
+				
+				if (deleteFlag){
+					String dir = req.getServletContext().getRealPath("/images");
+					File dest = new File(dir, originalMenuList.get(i).getMenuFakeImage());
+					dest.delete();
+					service.deleteMenu(originalMenuList.get(i).getMenuNo());
+				}
+			}
+			if (menuNOArray != null){
+				for (int i = 0; i < menuNOArray.length; i++){
+					if (menuNOArray[i] == 0){
+						Menu newMenu = new Menu();
+						
+						if (menuImageArray[i] != null && !menuImageArray[i].isEmpty()){
+							String imageName = menuImageArray[i].getOriginalFilename();// 업로드된 파일명
 							
 							// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
 							// 최종 저장소 디렉토리 조회
@@ -455,60 +587,33 @@ public class PrBoardController {
 							long fake = System.currentTimeMillis();
 							File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
 							
-							menuImageArray[j].transferTo(dest);
+							menuImageArray[i].transferTo(dest);
 							
-							updateMenu.setMenuRealImage(imageName);
-							updateMenu.setMenuFakeImage(fake+imageName);
+							newMenu.setMenuRealImage(imageName);
+							newMenu.setMenuFakeImage(fake+imageName);
 						}
-						service.updateMenu(updateMenu);
-						deleteFlag = false;
-						break;
+						else{
+							newMenu.setMenuFakeImage("defaultMenu.png");
+							newMenu.setMenuRealImage("defaultMenu.png");
+						}
+						
+						newMenu.setMenuNo(service.selectNextMenuSequence());
+						newMenu.setCafeNo(cafeNo);
+						newMenu.setMenuType(menuTypeArray[i]);
+						newMenu.setMenuName(menuNameArray[i]);
+						
+						service.insertMenu(newMenu);
 					}
 				}
 			}
 			
-			if (deleteFlag){
-				String dir = req.getServletContext().getRealPath("/images");
-				File dest = new File(dir, originalMenuList.get(i).getMenuFakeImage());
-				dest.delete();
-				service.deleteMenu(originalMenuList.get(i).getMenuNo());
-			}
+			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
-		if (menuNOArray != null){
-			for (int i = 0; i < menuNOArray.length; i++){
-				if (menuNOArray[i] == 0){
-					Menu newMenu = new Menu();
-									
-					newMenu.setMenuNo(service.selectNextMenuSequence());
-					newMenu.setCafeNo(cafeNo);
-					newMenu.setMenuType(menuTypeArray[i]);
-					newMenu.setMenuName(menuNameArray[i]);
-					
-					if (menuImageArray[i] != null && !menuImageArray[i].isEmpty()){
-						String imageName = menuImageArray[i].getOriginalFilename();// 업로드된 파일명
-						
-						// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-						// 최종 저장소 디렉토리 조회
-						String dir = req.getServletContext().getRealPath("/images");
-						long fake = System.currentTimeMillis();
-						File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-						
-						menuImageArray[i].transferTo(dest);
-						
-						newMenu.setMenuRealImage(imageName);;
-						newMenu.setMenuFakeImage(fake+imageName);
-					}
-					else{
-						newMenu.setMenuFakeImage("defaultMenu.png");
-						newMenu.setMenuRealImage("defaultMenu.png");
-					}
-					
-					service.insertMenu(newMenu);
-				}
-			}
+		else{
+			model.put("errorList", errorList);
+			model.put("cafeNo", cafeNo);
+			return "/ParkTest/menuModifyForm.jsp";
 		}
-		
-		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
 	/**

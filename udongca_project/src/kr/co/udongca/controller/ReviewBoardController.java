@@ -63,11 +63,13 @@ public class ReviewBoardController {
 	}
 	*/
 	
+	
 	@RequestMapping("reviewDetail.udc")
 	@ResponseBody
 	public Map reviewDetail(int cafeNo,int reviewNo){
 		return service.reviewDetail(cafeNo, reviewNo);
 	}
+	
 	
 	@RequestMapping("cafeReviewListPaging.udc")
 	@ResponseBody
