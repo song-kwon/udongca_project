@@ -15,6 +15,19 @@ public class ReportBoard {
 	
 	public ReportBoard() {
 	}
+	
+	public ReportBoard(int reportboardNo, String reportMemberId, String reportReason, String reportContent,
+			String reportResult, String reportCancelReason, String reportType, int reportNO, String memberId) {
+		this.reportboardNo = reportboardNo;
+		this.reportMemberId = reportMemberId;
+		this.reportReason = reportReason;
+		this.reportContent = reportContent;
+		this.reportResult = reportResult;
+		this.reportCancelReason = reportCancelReason;
+		this.reportType = reportType;
+		this.reportNO = reportNO;
+		this.memberId = memberId;
+	}
 
 	public ReportBoard(int reportboardNo, String reportMemberId, String reportReason, String reportContent,
 			String reportResult, String reportCancelReason, String reportType, int reportNO, String memberId,

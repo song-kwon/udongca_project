@@ -66,4 +66,23 @@
 		from report_board
 		where reportboardNo=#{reportboardNo}
 	</select>
+	
+	<insert id="insertReport" parameterType="reportBoard">
+		INSERT INTO report_board(<include refid="report_board_column"/>)
+		VALUES(
+			${reportboardNo},
+			${reportMemberId},
+			${reportReason},
+			${reportContent},
+			${reportResult},
+			${reportCancelReason},
+			${reportType},
+			${reportNO},
+			${memberId}
+		)
+	</insert>
+	
+	<select id="selectNextReportBoardSequence" resultType="_int">
+		SELECT report_board_reportboardNo_seq.nextval FROM dual
+	</select>
  </mapper>

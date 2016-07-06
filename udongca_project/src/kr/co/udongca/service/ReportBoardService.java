@@ -25,4 +25,8 @@ public interface ReportBoardService {
     public ReportBoard memberReportDetail(int reportboardNo);
     
     public List getCode(String code);
+    
+    public int insertReport(ReportBoard reportboard);
+    
+    public int selectNextReportBoardSequence();
 }
