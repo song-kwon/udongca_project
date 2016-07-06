@@ -57,9 +57,12 @@ table{
 	margin-top:20px;
 	margin-bottom:20px;
 	text-align:left;
+	font-size:18px;
 }
 .div{
 	border:1px dotted;
+	height:auto;
+	background-color:antiquewhite;
 }
 
 .text{

@@ -223,19 +223,19 @@
 							"<div id='myCarousel' class='carousel slide'>"+
 							"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
 					for(var i =0;i<obj.length;i++){
-						
+
 						if(i==0){
 						$(".carousel-inner").append("<div class='item active'>"+
-							      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+							      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 						$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 						}else{
 							$(".carousel-inner").append("<div class='item'>"+
-								    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='americano'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
-							$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1'></li>");
+								    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+							$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='"+(i)+"'  class='item"+(i+1)+"'></li>");
 						}
 					}
 					 // Activate Carousel
-				    $("#myCarousel").carousel({interval:500});
+				    $("#myCarousel").carousel({interval:3000});
 				    // Enable Carousel Indicators
 				    $(".item1").on("click",function(){
 				        $("#myCarousel").carousel(0);

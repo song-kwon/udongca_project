@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$("button").prop({"class":"btn btn-default"});
 	$("input[type='button']").prop({"class":"btn btn-default"});
 	$("input[type='submit']").prop({"class":"btn btn-default"});
-	$("input[type='text']").prop({"class":"form-control"});
+	$("input[type='text']").prop({"class":"form-control col-xs-2"});
 	$("input[type='password']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 	
@@ -35,6 +35,9 @@ header {
 	width: 1024px;
 	width: auto;
 	min-height: 190px;
+}
+header, a{
+	color:sienna;
 }
 
 nav {

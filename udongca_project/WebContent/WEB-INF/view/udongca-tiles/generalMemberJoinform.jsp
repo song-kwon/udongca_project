@@ -182,7 +182,7 @@ function checkSubmit(){
 <style type="text/css">
 table{
 	border-collapse: collapse;
-	width:550px;
+	width:700px;
 	margin:30px;
 	font-size:18px;
 	text-align:left;
@@ -193,17 +193,13 @@ table, th{
 	width:480px;
 }
 
-.width_size{
-	width:150px;
-}
-
 .width_size2{
-	width:80px;
+	width:150px;
 }
 
 </style>
 
-<div class="nonav_bodyDiv" style="width:600px;">
+<div class="nonav_bodyDiv" style="width:700px;">
 <div><h1>일반 회원 가입</h1></div><br>
 <div style="color:red;"><font size="3">**모든 사항은 필수 입력 사항입니다.</font></div>
 <div><font size="2">아이디는 공백을 제외하여 영문, 숫자 또는 영문과 숫자를 혼합하여 6글자 이상으로 작성해주십시오.</font></div>
@@ -214,14 +210,13 @@ table, th{
 <table>
 	<tr>
 		<th>아이디</th>
-		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }" class="width_size"></td>
-		<td> </td>
+		<td><input type="text" id="id" name="memberId" value="${requestScope.member.memberId }"></td>
 		<td>&nbsp;<input type="button" id="idVerification" value="아이디 확인"></td>
 		<td><span class="error"><form:errors path="member.memberId"/></span></td>
 	</tr>
 	<tr>
 		<th>비밀번호</th>
-		<td><input type="password" id="password" name="memberPassword" value="${requestScope.member.memberPassword }" class="width_size"></td>
+		<td><input type="password" id="password" name="memberPassword" value="${requestScope.member.memberPassword }"></td>
 		<td> </td>
 		<td><span class="error"><form:errors path="member.memberPassword"/></span></td>
 	</tr>
@@ -231,15 +226,14 @@ table, th{
 	</tr>
 	<tr>
 		<th>이름</th>
-		<td><input type="text" id="name" name="memberName" value="${requestScope.member.memberName }" class="width_size"></td>
+		<td><input type="text" id="name" name="memberName" value="${requestScope.member.memberName }"></td>
 		<td> </td>
 		<td><span class="error"><form:errors path="member.memberName"/></span></td>
 	</tr>
 	<tr>
 		<th>이메일</th>
-		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }" class="width_size"></td>
-		<td style="width:2px;">@</td>
-		<td><select id="emailAddress" name="emailAddress" style="width:130px;"class="form-control">
+		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }"></td>
+		<td class="input-group"><span class="input-group-addon">@</span><select id="emailAddress" name="emailAddress" style="width:130px;"class="form-control" aria-describedby="inputGroupSuccess1Status">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
