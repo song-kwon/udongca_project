@@ -125,27 +125,30 @@ public class ReportBoardController {
 		String reportReason = (String)map.get("reportReason");
 		String reportContent = (String)map.get("reportContent");
 		
+		System.out.println(reportReason);
+		System.out.println(reportContent);
+		
 		if (reportReason.trim().equals("직접 입력") && (reportContent == null || reportContent.trim().equals(""))){
 			errorList.add("직접 입력 선택 시 신고 사유 입력 필수");
 		}
 		
 		if (errorList.size() == 0){
 			reportService.insertReport(new ReportBoard(
-					reportService.selectNextReportBoardSequence(),
-					login.getMemberId(),
-					reportReason,
-					reportContent,
-					"",
-					"",
-					(String)map.get("reportType"),
-					Integer.parseInt(((String)map.get("reportNO"))),
-					(String)map.get("memberId")
-					));
-			return null;
+				reportService.selectNextReportBoardSequence(),
+				(String)map.get("reportMemberId"),
+				reportReason,
+				reportContent,
+				"",
+				"",
+				(String)map.get("reportType"),
+				Integer.parseInt(((String)map.get("reportNO"))),
+				login.getMemberId()
+			));
+			return "/prBoard/prView.udc?cafeNo=" + (String)map.get("reportNO");
 		}
 		else{
 			model.put("error", errorList);
-			return "/WEB-INF/view/error.jsp";
+			return "error.tiles";
 		}
 	}
 }

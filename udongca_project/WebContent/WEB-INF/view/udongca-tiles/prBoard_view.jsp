@@ -32,6 +32,16 @@
 	.reReply{
 		text-indent: 50px;
 	}
+	
+	.modal-header, h4, .close {
+		background-color: #B8860B;
+		color:white !important;
+		text-align: center;
+		font-size: 30px;
+	}
+	.modal-footer {
+		background-color: #FAEBD7;
+	}
 </style>
 
 <script type="text/javascript">
@@ -140,6 +150,24 @@
 				});
 			}
 		});
+		
+		$(document).on('submit', '#prReportForm', function(){
+			if ($("#reportReason").val() == "직접 입력" && $("#reportContent").val() == ""){
+				alert("신고 내용을 입력하세요");
+				return false;
+			}
+			return window.confirm("정말 신고하겠습니까?");
+		});
+		
+		$(document).on('submit', '#reviewReportForm', function(){
+			alert("준비 중")
+			return false;
+		});
+		
+		$(document).on('submit', '#replyReportForm', function(){
+			alert("준비 중")
+			return false;
+		});
 	});
 	
 	function prModify(){
@@ -153,8 +181,7 @@
 	};
 	
 	function prReport(){
-		window.open();
-		// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
+		$("#prReportModal").modal();
 	};
 	
 	function favoriteToggle(){
@@ -525,4 +552,42 @@
 		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 	</tr>
 </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="prReportModal" role="dialog">
+	<div class="modal-dialog">
+	
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:35px 50px;">
+				<h4>홍보글 신고</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form" id="prReportForm" action="/udongca_project/member/addReport.udc" method="post">
+					<input type="hidden" name="reportType" value="prBoard">
+					<input type="hidden" name="reportNO" value="${requestScope.prBoard.cafeNo}">
+					<input type="hidden" name="reportMemberId" value="${requestScope.prBoard.memberId}">
+					<div>
+						<label for="reportReason">신고 사유</label>
+						<select name="reportReason" id="reportReason" class="form-control">
+							<option>허위 정보</option>
+							<option>욕설, 저속한 언어 사용 또는 타인/타 점포 비방</option>
+							<option>홈페이지 주제와 관련 없는 정보</option>
+							<option>중복 정보</option>
+							<option>직접 입력</option>
+						</select>
+					</div>
+					<div>
+						<label for="reportContent">신고 내용</label>
+						<input type="text" class="form-control" id="reportContent" name="reportContent">
+					</div>
+					<button type="submit" class="btn btn-success btn-block">전송</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
 </div>
