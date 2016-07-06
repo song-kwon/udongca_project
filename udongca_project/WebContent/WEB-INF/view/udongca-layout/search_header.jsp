@@ -120,8 +120,8 @@ $(document).ready(function(){
 	<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 	</div>
 	<div>
-	<c:if test="${!empty sessionScope.login.member }">
-		${sessionScope.login.member.memberName }님! 반갑습니다.
+	<c:if test="${sessionScope.login != null }">
+		${sessionScope.login.memberName }님! 반갑습니다.
 	</c:if>
 </div>
 	
