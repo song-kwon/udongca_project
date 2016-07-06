@@ -70,15 +70,15 @@
 	<insert id="insertReport" parameterType="reportBoard">
 		INSERT INTO report_board(<include refid="report_board_column"/>)
 		VALUES(
-			${reportboardNo},
-			${reportMemberId},
-			${reportReason},
-			${reportContent},
-			${reportResult},
-			${reportCancelReason},
-			${reportType},
-			${reportNO},
-			${memberId}
+			#{reportboardNo},
+			#{reportMemberId},
+			#{reportReason},
+			#{reportContent},
+			#{reportResult},
+			#{reportCancelReason},
+			#{reportType},
+			#{reportNO},
+			#{memberId}
 		)
 	</insert>
 	
