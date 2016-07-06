@@ -124,7 +124,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("review", service.selectReview(reviewNo));
-		return "/ParkTest/reviewModifyForm.jsp";
+		return "review_modifyForm.tiles";
 	}
 	
 	@RequestMapping("reviewModify.udc")
@@ -216,7 +216,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("cafeNo", cafeNo);
-		return "/ParkTest/reviewWrite.jsp";
+		return "review_write.tiles";
 	}
 	
 	@RequestMapping("reviewWrite.udc")

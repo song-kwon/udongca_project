@@ -78,4 +78,12 @@ public class ReportBoardServiceImpl implements ReportBoardService {
     public ReportBoard memberReportDetail(int reportboardNo) {
     	return reportBoardDaoImpl.memberReportDetail(reportboardNo);
     }
+	@Override
+	public int insertReport(ReportBoard reportboard) {
+		return reportBoardDaoImpl.insertReport(reportboard);
+	}
+	@Override
+	public int selectNextReportBoardSequence() {
+		return reportBoardDaoImpl.selectNextReportBoardSequence();
+	}
 }
