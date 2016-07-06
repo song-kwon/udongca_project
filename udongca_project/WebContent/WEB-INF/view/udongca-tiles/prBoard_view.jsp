@@ -1,16 +1,13 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 <style type="text/css">
 	.carousel-inner > .item > img {
 	      top: 0;
 	      left: 0;
 	      width: 600px;
-	      height: 400px;
+	      height: 350px;
 	 } 
 	 .carousel-indicators{
 	 	bottom:-70px;
@@ -43,31 +40,13 @@
 	var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	var currentImageNumber = 0;
-	var currentMenuList = null;
-	var currentMenuType = null;
+	var currentReviewNo = null;
 	var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
 	var cafeRating = Number("${requestScope.prBoard.cafeRating}");
 	var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
 	var countGroup = null;
-	var currentReviewNo = null;
 	
 	$(document).ready(function(){
-		$.ajax({
-			"url":"/udongca_project/prBoard/cafeMenuList.udc",
-			"type":"GET",
-			"data":"",
-			"dataType":"json",
-			"success":function(json){
-				for(var i = 0; i < json.length; i++){
-					var a= "'"+json[i].codeName+"'" ;
-					$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+ a +')">' + json[i].codeName + '</a></li>');
-				}
-			},
-			"error":function(xhr){
-				alert("An error occured while loading cafeMenuList.udc: " + xhr.status + " " + xhr.statusText);
-			}
-		});
-		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 		
 		if ("${sessionScope.login}"){
@@ -96,8 +75,10 @@
 		
 		$("#cafeAverageRatingNumber").text(cafeAverageRating.toPrecision(3) + " / ${requestScope.prBoard.cafeReviewCount}");
 		
+		var starNumber = Math.round(cafeAverageRating * 2) / 2.0;
+		
 		for (var i = 1; i < 6; i++){
-			$("#cafeAverageRatingIcon").append("<img src='/udongca_project/udongca-image/star" + ((i <= cafeAverageRating) ? "1" : "0" ) + ".png' height='32' width='32'>");
+			$("#cafeAverageRatingIcon").append("<img src='/udongca_project/udongca-image/star" + ((i <= starNumber) ? "1" : ((i - starNumber == 0.5) ? "h" : "0") ) + ".png' height='32' width='32'>");
 		}
 		
 		$(document).on('click','#addReply',function(){
@@ -143,6 +124,7 @@
 		});
 		
 		$(document).on('click','.deleteReply',function(){
+			alert($(this).parent().parent().parent().prop('id'));
 			if (window.confirm("정말 삭제하겠습니까?")){
 				$.ajax({
 					'url':'/udongca_project/review/deleteReply.udc',
@@ -380,8 +362,10 @@
 				html += "<tr><td id='reviewContent' colspan=3>";
 				html += "</td></tr>";
 				html += "</table>";
-				html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
-				html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
+				if ("${sessionScope.login.memberId}" == json.review.memberId){
+					html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
+					html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
+				}
 				
 				$("#reviewArea").append(html);
 				$("#reviewTitle").text(json.review.reviewTitle);
@@ -394,10 +378,12 @@
 				html = "<table id='replyBoard'>";
 				
 				for (var group = countGroup; group > 0; group--){
+					var isParentExist = false;
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
 							if (json.reply[idx].replyGroup == group && !json.reply[idx].parentReply && !i){
 								var d = new Date(json.reply[idx].replyDate);
+								isParentExist = true;
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
@@ -414,7 +400,7 @@
 								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
-								if ("${sessionScope.login}"){
+								if (isParentExist && "${sessionScope.login}"){
 									html += "&nbsp;<button class='reReplyInputBtn'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
@@ -456,24 +442,13 @@
 		}
 	}
 </script>
-
+<div>
 <input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
 <table>
 	<tr>
 		<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
 	</tr>
 	<tr>
-		<td id="optionList">
-			<ul>
-				<li><a href="javascript:void(0)" onclick="mapLocation();return false;">지도</a></li>
-				<li>
-					메뉴
-					<ul id="menuCategoryList">
-					</ul>
-				</li>
-				<li><a href="javascript:void(0)" onclick="reviewList(1);return false;">리뷰</a></li>
-			</ul>
-		</td>
 		<td>
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
@@ -550,3 +525,4 @@
 		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 	</tr>
 </table>
+</div>

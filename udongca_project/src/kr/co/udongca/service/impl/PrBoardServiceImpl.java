@@ -20,6 +20,14 @@ public class PrBoardServiceImpl implements PrBoardService{
 	private PrBoardDao dao;
 	@Autowired
 	private CodeDao codeDao;
+	@Autowired
+	private ReviewBoardDao reviewDao;
+	@Autowired
+	private ReviewReplyDao replyDao;
+	@Autowired
+	private BookmarkDao bookmarkDao;
+	
+	public PrBoardServiceImpl(){}
 	
 	@Override
 	public int insertPRBoard(PRBoard prBoard) {
@@ -33,6 +41,13 @@ public class PrBoardServiceImpl implements PrBoardService{
 
 	@Override
 	public int deletePRBoard(int cafeNo) {
+		List<Integer> reviewNoList = reviewDao.selectReviewNoByCafeNo(cafeNo);
+		ListIterator<Integer> reviewNoListIterator = reviewNoList.listIterator();
+		while(reviewNoListIterator.hasNext()){
+			replyDao.deleteReplyByReviewNo(reviewNoListIterator.next());
+		}
+		reviewDao.deleteReviewByCafeNo(cafeNo);
+		bookmarkDao.deleteBookmarkByCafeNo(cafeNo);
 		return dao.deletePRBoard(cafeNo);
 	}
 

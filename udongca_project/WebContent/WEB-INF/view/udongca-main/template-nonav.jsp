@@ -32,8 +32,7 @@ $(document).ready(function(){
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	width: 1024px;
-	width: auto;
+	width: 1280px;
 	min-height: 190px;
 }
 header, a{
@@ -67,6 +66,7 @@ footer {
 	text-align: center;
 	height: 90px;
 	clear: both;
+	width:1280px;
 }
 a{
 	color:sienna;

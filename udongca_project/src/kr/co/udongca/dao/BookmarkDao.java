@@ -13,4 +13,5 @@ public interface BookmarkDao {
 	public int deleteBookmark(Bookmark bookmark);
 	public List<Bookmark> selectBookmarkByMemberId(String memberId);
 	public List<Bookmark> selectBookmarkAndPRBoardByMemberId(String memberId);
+	public int deleteBookmarkByCafeNo(int cafeNo);
 }

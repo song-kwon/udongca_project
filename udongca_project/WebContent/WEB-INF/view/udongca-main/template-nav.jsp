@@ -37,6 +37,7 @@ header{
 	background-color:darkgoldenrod;
 	min-height:190px;
 	text-align:center;
+	width:1280px;
 }
 header, a{
 	color:sienna;
@@ -64,15 +65,22 @@ footer{
 	text-align:center;
 	height:90px;
 	clear:both;
+	width:1280px;
 }
 a{
 	color:sienna;
 	text-decoration: none;
 }
 #wrap{
-	width:1280px;
+	width:1280px !important;
 	margin:0 auto;
 }
+
+.nav_bodyDiv{
+	width:1280px !important;
+	margin:0 auto;
+}
+
 textarea{
 	outline: none;
 }
@@ -86,12 +94,14 @@ input[type="submit"]{
 input[type="button"]{
 	color:black;
 }
+
+select{
+	width:150px !important;
+}
 </style>
 </head>
 
 <body>
-<!-- 부트스트랩 컨테이너 -->
-<div class="container">
 <div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
@@ -108,7 +118,6 @@ input[type="button"]{
 <footer>
 <tiles:insertAttribute name="footer"/>
 </footer>
-</div>
 </div>
 </body>
 </html>

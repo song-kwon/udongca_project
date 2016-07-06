@@ -33,4 +33,8 @@ public interface ReviewBoardDao {
 	public int selectNextReviewBoardSequence();
 	
 	public List<ReviewBoard> selectMainReviewList();
+	
+	public List<Integer> selectReviewNoByCafeNo(int cafeNo);
+	
+	public int deleteReviewByCafeNo(int cafeNo);
 }
