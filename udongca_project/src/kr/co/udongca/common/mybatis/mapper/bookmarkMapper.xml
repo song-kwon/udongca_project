@@ -6,12 +6,14 @@
 	</sql>
 	
 	<resultMap type="PRBoard" id="prBoard-fakeimage">
+		<result column="cafeName" property="cafeName"/>
 		<result column="cafeFakeImage" property="cafeFakeImage"/>
 	</resultMap>
 	
 	<resultMap type="bookmark" id="bookmark-member-main">
 		<result column="cafeNo" property="cafeNo"/>
 		<association property="prBoard" javaType="PRBoard" resultMap="prBoard-fakeimage" />
+		
 	</resultMap>
 	
 	<insert id="insertBookmark" parameterType="bookmark">
@@ -43,6 +45,6 @@
 	</select>
 	
 	<select id="selectBookmarkAndPRBoardByMemberId" parameterType="string" resultMap="bookmark-member-main">
-		SELECT b.cafeNo , p.cafeFakeImage FROM bookmark b, prboard p WHERE b.memberId = #{memberId} and b.cafeNo=p.cafeNo and ceil(rownum) <![CDATA[ < ]]> 10
+		SELECT b.cafeNo , p.cafeFakeImage, p.cafeName FROM bookmark b, prboard p WHERE b.memberId = #{memberId} and b.cafeNo=p.cafeNo and ceil(rownum) <![CDATA[ < ]]> 10
 	</select>
 </mapper>
