@@ -42,7 +42,7 @@ public interface MemberService {
 
 	public int memberDrop(String memberId);
 
-	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException;
+	public String memberIdFind(Member member,String title) throws UnsupportedEncodingException;
 
 	public Member memberIdMaster(String memberId);
 
@@ -50,7 +50,7 @@ public interface MemberService {
 
 	public int memberUpdateMaster(Member member);
 
-	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException;
+	public String memberPasswordFind(Member member,String title) throws UnsupportedEncodingException;
 
 	public Map memberInquiryList(int page, String memberId);
 

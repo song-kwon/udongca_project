@@ -103,8 +103,8 @@ a.list-group-item:hover{
 	      height: 400px;
 } 
 .carousel-indicators{
-		width:70%;
-		left:45%;
+		width:100%;
+		left:30%;
 	 	bottom:-70px;
  }
 .carousel-indicators .active{

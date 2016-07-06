@@ -90,13 +90,6 @@ public class MemberController {
 		}
 	}
 
-    @RequestMapping("memberId_find_success.udc")
-    public ModelAndView memberIdFindSuccess(Member success) {
-	return new ModelAndView("/member_find_success_form.udc", "success", success);
-    }
-
-    
-
     @RequestMapping("memberInfoMaster.udc")
     @ResponseBody
     public Map memberInfoMaster(@RequestParam("id") String id, HttpSession session, Model model) {
@@ -137,7 +130,7 @@ public class MemberController {
 			String memberId = member.getMemberId();
 			
 			SendEmailConfig sendEmail = new SendEmailConfig();
-			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>");
+			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
 			return "redirect:/member/joinSuccess.udc?memberId=" + memberId;
 		}
 	}
@@ -155,7 +148,7 @@ public class MemberController {
 			String memberId = member.getMemberId();
 			
 			SendEmailConfig sendEmail = new SendEmailConfig();
-			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>");
+			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
 			return "redirect:/member/joinSuccess.udc?memberId=" + member.getMemberId();
 		}
 	}
@@ -281,12 +274,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("memberId_find.udc")
-	public ModelAndView memberIdFind(String memberName, String memberEmail, String emailAddress)
+	@ResponseBody
+	public String memberIdFind(String memberName, String memberEmail)
 			throws UnsupportedEncodingException {
 		Member findMember = new Member();
 		findMember.setMemberName(memberName);
-		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
-		return memberService.memberIdFind(findMember);
+		findMember.setMemberEmail(memberEmail);
+		return memberService.memberIdFind(findMember,"아이디 찾기");
 	}
 	@RequestMapping("memberList.udc")
 	@ResponseBody
@@ -307,13 +301,14 @@ public class MemberController {
 		}
 	    }
 	@RequestMapping("memberPassword_find.udc")
-	public ModelAndView memberPasswordFind(String memberId, String memberName, String memberEmail, String emailAddress)
+	@ResponseBody
+	public String memberPasswordFind(String memberId, String memberName, String memberEmail, String emailAddress)
 			throws UnsupportedEncodingException {
 		Member findMember = new Member();
 		findMember.setMemberId(memberId);
 		findMember.setMemberName(memberName);
-		findMember.setMemberEmail(memberEmail + "@" + emailAddress);
-		return memberService.memberPasswordFind(findMember);
+		findMember.setMemberEmail(memberEmail);
+		return memberService.memberPasswordFind(findMember,"비밀번호 찾기");
 	}
 	
 	@RequestMapping("memberInquiryListPaging.udc")
