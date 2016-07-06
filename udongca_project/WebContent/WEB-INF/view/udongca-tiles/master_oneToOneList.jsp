@@ -4,6 +4,13 @@
 nav{
 	line-height: 40px;
 }
+.modal-body>form{
+	height:750px;
+
+}
+label{
+	margin-top:7px;
+}
 table{
 	border-collapse: collapse;
 	width:800px;
@@ -164,7 +171,9 @@ td{
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
+<div style="margin-left: 30px; margin-top: 30px">
 	<h3>1:1문의관리</h3>
+	</div>
 	<div class="form-group">
 	<table class="table table-hover">
 		<thead>

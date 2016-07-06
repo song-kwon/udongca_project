@@ -37,6 +37,7 @@
 					"dataType":"json",
 					"data":"id="+$("#reportMemberId").val(),
 					"success":function(obj){
+						
 						$("#loginPossibility").empty();
 						$.each(obj.code,function(){
 							$("#loginPossibility").append("<option id='"+this.codeId+"' value='"+this.codeId+"'>"+this.codeName+"</option>")
@@ -298,7 +299,7 @@
 				}
 			});
 		}
-	  
+
 	  
 </script>
 <style type="text/css">
@@ -326,8 +327,13 @@ thead{
 table, tbody{
 	height:30px;
 }
+.modal-body>form{
+	height:750px;
 
-
+}
+label{
+	margin-top:7px;
+}
 
 .cursor{
 	cursor:pointer;
@@ -341,6 +347,60 @@ h2{
     padding-bottom: 0px;
     padding-top: 0px;
     padding-right: 0px;
+}
+.fa{
+	cursor:pointer;
+	font-size:30pt;
+}
+.loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+	height: 25px;
+	width: 10px;
+	border-radius: 10%;
+	background: $bg-light;
+	border-top-color: $fg;
+	animation: fade2 1s infinite;
+	transition: background .2s;
+	&:after,
+	&:before {
+		content: '';
+		position: absolute;
+		display: block;
+		height: 20px;
+		width: 10px;
+		background: $bg-light;
+		top: 50%;
+		transform: translateY(-50%);
+		left: -15px;
+		border-radius: 10%;
+		animation: fade1 1s infinite;
+		transition: background .2s;
+	}
+	&:before {
+		left: 15px;
+		animation: fade3 1s infinite;
+	}
+}
+
+@keyframes fade1 {
+	0% {
+		background: $fg;
+	}
+}
+
+@keyframes fade2 {
+	33% {
+		background: $fg;
+	}
+}
+
+@keyframes fade3 {
+	66% {
+		background: $fg;
+	}
 }
 </style>
 <!-- 3table -->
@@ -518,6 +578,7 @@ h2{
 </div>
 <!-- 회원상세정보 모달 -->
 <div id="memberModal" class="modal fade" role="dialog">
+<div class="loading"></div>
   <div class="modal-dialog">
 
     <!-- Modal content -->
@@ -527,7 +588,7 @@ h2{
       </div>
       <div class="modal-body">
         
-<form role="form">
+<form role="form" style="height:351px;">
   <div class="form-group">
     <label for="id">아이디</label>
     <input type="text" class="form-control" id="memberId" readonly="readonly" >

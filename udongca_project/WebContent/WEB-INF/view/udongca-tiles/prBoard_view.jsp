@@ -362,8 +362,10 @@
 				html += "<tr><td id='reviewContent' colspan=3>";
 				html += "</td></tr>";
 				html += "</table>";
-				html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
-				html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
+				if ("${sessionScope.login.memberId}" == json.review.memberId){
+					html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
+					html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
+				}
 				
 				$("#reviewArea").append(html);
 				$("#reviewTitle").text(json.review.reviewTitle);

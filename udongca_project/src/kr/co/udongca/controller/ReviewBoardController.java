@@ -124,7 +124,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("review", service.selectReview(reviewNo));
-		return "/ParkTest/reviewModifyForm.jsp";
+		return "review_modifyForm.tiles";
 	}
 	
 	@RequestMapping("reviewModify.udc")
@@ -166,7 +166,7 @@ public class ReviewBoardController {
 		
 		for (int i = 0; i < originalReviewFakeImage.length; i++){
 			int temp = -1;
-			if (modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && modifiedReviewFakeImage[0].equals("")){
+			if (modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && !modifiedReviewFakeImage[0].equals("")){
 				for (int j = 0; j < modifiedReviewFakeImage.length; j++){
 					if (originalReviewFakeImage[i].equals(modifiedReviewFakeImage[j])){
 						temp = j;
@@ -181,8 +181,8 @@ public class ReviewBoardController {
 			}
 		}
 		
-		String resultFakeImage = ((modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && modifiedReviewFakeImage[0].equals("")) ? String.join(";", modifiedReviewFakeImage) : "") + ";" + addFakeImagesName;
-		String resultRealImage = ((modifiedReviewRealImage != null && modifiedReviewRealImage.length != 0 && modifiedReviewRealImage[0].equals("")) ? String.join(";", modifiedReviewRealImage) : "") + ";" + addRealImagesName;
+		String resultFakeImage = ((modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && !modifiedReviewFakeImage[0].equals("")) ? String.join(";", modifiedReviewFakeImage) + ";" : "") + ((addFakeImagesName != null && !addFakeImagesName.equals("")) ? addFakeImagesName : ";");
+		String resultRealImage = ((modifiedReviewRealImage != null && modifiedReviewRealImage.length != 0 && !modifiedReviewRealImage[0].equals("")) ? String.join(";", modifiedReviewRealImage) + ";" : "") + ((addRealImagesName != null && !addRealImagesName.equals("")) ? addRealImagesName : ";");
 		
 		if (resultRealImage.equals(";")){
 			resultRealImage = "defaultReview.png;";
@@ -216,7 +216,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("cafeNo", cafeNo);
-		return "/ParkTest/reviewWrite.jsp";
+		return "review_write.tiles";
 	}
 	
 	@RequestMapping("reviewWrite.udc")

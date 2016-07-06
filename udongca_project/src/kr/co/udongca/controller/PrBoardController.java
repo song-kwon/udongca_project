@@ -144,7 +144,7 @@ public class PrBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("prBoard", service.selectPRBoardByNo(cafeNo));
-		return "/ParkTest/prModifyForm.jsp";
+		return "prBoard_modifyForm.tiles";
 	}
 	
 	/**
@@ -234,7 +234,7 @@ public class PrBoardController {
 			
 			for (int i = 0; i < originalCafeFakeImage.length; i++){
 				int temp = -1;
-				if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")){
+				if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && !modifiedCafeFakeImage[0].equals("")){
 					for (int j = 0; j < modifiedCafeFakeImage.length; j++){
 						if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
 							temp = j;
@@ -249,8 +249,8 @@ public class PrBoardController {
 				}
 			}
 			
-			String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) : "") + ";" + addFakeImagesName;
-			String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) : "") + ";" + addRealImagesName;
+			String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && !modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) + ";" : "") + ((addFakeImagesName != null && !addFakeImagesName.equals("")) ? addFakeImagesName : ";");
+			String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && !modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) + ";" : "") + ((addRealImagesName != null && !addRealImagesName.equals("")) ? addRealImagesName : ";");
 			
 			if (resultRealImage.equals(";")){
 				resultRealImage = "defaultCafe.png;";
@@ -280,7 +280,7 @@ public class PrBoardController {
 		else{
 			model.put("errorList", errorList);
 			model.put("prBoard", service.selectPRBoardByNo(Integer.parseInt(((String)map.get("cafeNo")))));
-			return "/ParkTest/prModifyForm.jsp";
+			return "prBoard_modifyForm.tiles";
 		}
 	}
 	
@@ -491,7 +491,7 @@ public class PrBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("cafeNo", cafeNo);
-		return "/ParkTest/menuModifyForm.jsp";
+		return "menu_modifyForm.tiles";
 	}
 	
 	/**
@@ -612,7 +612,7 @@ public class PrBoardController {
 		else{
 			model.put("errorList", errorList);
 			model.put("cafeNo", cafeNo);
-			return "/ParkTest/menuModifyForm.jsp";
+			return "menu_modifyForm.tiles";
 		}
 	}
 	

@@ -288,6 +288,12 @@
 		  
 </script>
 <style type="text/css">
+.modal-body>form{
+	height:750px;
+}
+label{
+	margin-top:7px;
+}
 nav{
 	line-height: 40px;
 }
@@ -439,7 +445,7 @@ select#selectType{
       </div>
       <div class="modal-body">
         
-<form role="form">
+<form role="form" style="height:351px;">
   <div class="form-group">
     <label for="id">아이디</label>
     <input type="text" class="form-control" id="memberId" readonly="readonly" >

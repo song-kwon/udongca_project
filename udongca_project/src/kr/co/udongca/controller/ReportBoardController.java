@@ -1,5 +1,6 @@
 package kr.co.udongca.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,6 +110,42 @@ public class ReportBoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
+		}
+	}
+	
+	@RequestMapping("addReport.udc")
+	public String insertReport(@RequestParam Map map, HttpSession session,
+			ModelMap model){
+		Member login = (Member) session.getAttribute("login");
+		if (login == null || !login.getMemberType().equals("generalMember")){
+			return "redirect:/loginPage.udc";
+		}
+		
+		ArrayList<String> errorList = new ArrayList<String>();
+		String reportReason = (String)map.get("reportReason");
+		String reportContent = (String)map.get("reportContent");
+		
+		if (reportReason.trim().equals("직접 입력") && (reportContent == null || reportContent.trim().equals(""))){
+			errorList.add("직접 입력 선택 시 신고 사유 입력 필수");
+		}
+		
+		if (errorList.size() == 0){
+			reportService.insertReport(new ReportBoard(
+					reportService.selectNextReportBoardSequence(),
+					login.getMemberId(),
+					reportReason,
+					reportContent,
+					"",
+					"",
+					(String)map.get("reportType"),
+					Integer.parseInt(((String)map.get("reportNO"))),
+					(String)map.get("memberId")
+					));
+			return null;
+		}
+		else{
+			model.put("error", errorList);
+			return "/WEB-INF/view/error.jsp";
 		}
 	}
 }
