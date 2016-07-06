@@ -135,11 +135,11 @@ $(document).ready(function(){
           		<span id="id_error_span"></span>
           	</div>
             <div class="form-group" >
-              <label for="memberName_id" class="col-xs-1">이름</label>
+              <label for="memberName_id" class="col-xs-1" style="width:100px">이름</label>
               <input type="text" class="form-control" id="memberName_id" placeholder="이름을 입력하세요">
             </div><br>
             <div class="form-group">
-              <label for="memberEmail_id" class="col-xs-1">이메일</label>
+              <label for="memberEmail_id" class="col-xs-1" style="width:100px">이메일</label>
               <input type="text" class="form-control" id="memberEmail_id" placeholder="이메일을 입력하세요">
             </div><br>
               <button id="find_id_btn" type="button" class="btn btn-success btn-block" style="margin-top:15px;">찾기</button>
@@ -166,15 +166,15 @@ $(document).ready(function(){
           	</div>
           <form class="form-inline" role="form">
             <div class="form-group" >
-              <label for="memberId" class="col-xs-1">아이디</label>
+              <label for="memberId" class="col-xs-1" style="width:100px">아이디</label>
               <input type="text" class="form-control" id="memberId" placeholder="아이디를 입력하세요">
             </div><br>
             <div class="form-group" >
-              <label for="memberName_pwd" class="col-xs-1">이름</label>
+              <label for="memberName_pwd" class="col-xs-1" style="width:100px">이름</label>
               <input type="text" class="form-control" id="memberName_pwd" placeholder="이름을 입력하세요">
             </div><br>
             <div class="form-group">
-              <label for="memberEmail_pwd" class="col-xs-1">이메일</label>
+              <label for="memberEmail_pwd" class="col-xs-1" style="width:100px">이메일</label>
               <input type="text" class="form-control" id="memberEmail_pwd" placeholder="이메일을 입력하세요">
             </div><br>
               <button id="find_pwd_btn" type="button" class="btn btn-success btn-block" style="margin-top:15px;">찾기</button>
