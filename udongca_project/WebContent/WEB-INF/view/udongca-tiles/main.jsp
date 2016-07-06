@@ -73,12 +73,28 @@ $(document).ready(function(){
 });
 </script>
 <style>
+.main_style{
+	font-size:30px;
+	font-weight:bold;
+	font-famaily:'맑은고딕';
+	color:sandybrown;
+	text-shadow: -2px 0 linen, 0 2px linen, 2px 0 linen, 0 -2px linen;
+	box-shadow:5px 5px 8px 5px lightgray;
+	letter-spacing:10px;
+	margin:10px;
+	margin-left:0px;
+	margin-right:40px;
+	margin-top:0px;
+}
 a.list-group-item:hover{
 	background-color:#faebd7;
 }
 .list-group-item{
-	padding: 20px 15px;
-	border : 1px solid #b8860b;
+	height:38px; 
+	margin-top:25px; 
+	font-size:18px;
+	/* padding: 20px 15px;
+	border : 1px solid #b8860b; */
 }
  .carousel-inner > .item > img {
 	      top: 0;
@@ -100,13 +116,14 @@ a.list-group-item:hover{
 		height:40px;
 }
 </style>
+
 <div style="width:1030px; height:910px;" class="nonav_bodyDiv" align="center">
 	<c:choose>
 		<c:when test="${sessionScope.login.memberType eq 'generalMember'}">
 			<c:choose>
 				<c:when test="${not empty requestScope.bookmark }">
 					<div style="float:left; width:500px; height:450px;">
-						<div style="width:500px;height:50px; margin-top: 25px;">즐겨찾는 카페</div>
+						<div style="width:500px;height:50px; " class="main_style">즐겨찾는 카페</div>
 						<div id="BookmarkCafe">
 							<div id="bookmark" class="carousel slide">
 							 <!-- Indicators -->
@@ -114,7 +131,7 @@ a.list-group-item:hover{
 								<c:forEach varStatus="status" items="${requestScope.bookmark }" var="bookmark">
 									<c:choose>
 										<c:when test="${status.index==0 }">
-											<img src="/udongca_project/images/${bookmark.prBoard.cafeFakeImage }" data-target='#bookmark' data-slide-to='0'  class='item1 active'>
+											 <img src="/udongca_project/images/${bookmark.prBoard.cafeFakeImage }" data-target='#bookmark' data-slide-to='0'  class='item1 active'>
 										</c:when>
 										<c:otherwise>
 											<img src='/udongca_project/images/${bookmark.prBoard.cafeFakeImage }' data-target='#bookmark' data-slide-to='${status.index }'  class='item${status.index+1 }'>
@@ -155,7 +172,7 @@ a.list-group-item:hover{
 				</c:when>
 				<c:otherwise>
 					<div style="float:left; width:500px; height:450px; ">
-						<div style="width:500px;height:50px; margin-top: 25px;">추천</div>
+						<div style="width:500px;height:50px; " class="main_style">추천</div>
 						<div id="cafeRating">
 					<div id="rating" class="carousel slide">
 						 <!-- Indicators -->
@@ -205,10 +222,10 @@ a.list-group-item:hover{
 				</c:otherwise>
 			</c:choose>
 			
-			<div style=" float:left; width:500px; height:450px; margin-left:5px;">
+			<div style=" float:left; width:500px; height:450px; margin-left:20px;">
 			
-				<div style="width:500px;height:50px; margin-top: 25px;">공지</div>
-				<div id="notice">
+				<div style="width:500px;height:50px; margin-left:10px;" class="main_style" >공지</div>
+				<div id="notice" style="margin-left:20px;">
 				<div class="list-group">
 					<c:forEach items="${requestScope.notice }" var="notice" varStatus="status">
 						<c:choose>
@@ -223,8 +240,8 @@ a.list-group-item:hover{
 			</div>
 		<c:choose>
 			<c:when test="${not empty requestScope.preferLocation}">
-				<div style="float:left; width:500px; height:450px; margin-top:5px; ">
-					<div style="width:500px;height:50px; margin-top: 25px;">선호지역 카페</div>
+				<div style="float:left; width:500px; height:450px; margin-top:5px;">
+					<div style="width:500px;height:50px;" class="main_style">선호지역 카페</div>
 					<div id="preferLocationCafe">
 					<div id="preferCafe" class="carousel slide">
 					<!-- Indicators -->
@@ -278,7 +295,7 @@ a.list-group-item:hover{
 			
 			<c:otherwise>
 				<div style="float:left; width:500px; height:450px; margin-top:5px;">
-				<div style="width:500px;height:50px; margin-top: 25px;">신규</div>
+				<div style="width:500px;height:50px; margin-left:10px;" class="main_style">신규</div>
 				<div id="newCafe">
 				<div id="new" class="carousel slide">
 				 <!-- Indicators -->
@@ -326,9 +343,9 @@ a.list-group-item:hover{
 			</c:otherwise>
 		</c:choose>
 		
-			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:5px;">
-				<div style="width:500px;height:50px; margin-top: 25px;">리뷰</div>
-					<div id="review">
+			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:20px;">
+				<div style="width:500px;height:50px; margin-left:10px;" class="main_style">리뷰</div>
+					<div id="review" style="margin-left:20px;">
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">
 								<c:choose>
@@ -344,7 +361,7 @@ a.list-group-item:hover{
 	
 		<c:otherwise>
 			<div style="float:left; width:500px; height:450px;">
-				<div style="width:500px;height:50px; margin-top: 25px;">추천</div>
+				<div style="width:500px;height:50px;" class="main_style">추천</div>
 				<div id="cafeRating">
 					<div id="rating" class="carousel slide">
 						 <!-- Indicators -->
@@ -393,10 +410,10 @@ a.list-group-item:hover{
 			</div>
 			
 
-			<div style=" float:left; width:500px; height:450px; margin-left:5px;">
+			<div style=" float:left; width:500px; height:450px; margin-left:20px;">
 			
-				<div style="width:500px;height:50px; margin-top: 25px;">공지</div>
-				<div id="notice">
+				<div style="width:500px;height:50px; margin-left:10px;" class="main_style">공지</div>
+				<div id="notice" style="margin-left:20px;">
 				<div class="list-group">
 					<c:forEach items="${requestScope.notice }" var="notice" varStatus="status">
 						<c:choose>
@@ -411,7 +428,7 @@ a.list-group-item:hover{
 			</div>
 		
 			<div style="float:left; width:500px; height:450px; margin-top:5px;">
-				<div style="width:500px;height:50px; margin-top: 25px;">신규</div>
+				<div style="width:500px;height:50px;" class="main_style">신규</div>
 				<div id="newCafe">
 				<div id="new" class="carousel slide">
 				 <!-- Indicators -->
@@ -456,8 +473,8 @@ a.list-group-item:hover{
 					</div>
 				</div>
 			</div>
-			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:5px; ">
-				<div style="width:500px;height:50px; margin-top: 25px;">리뷰</div>
+			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:20px; ">
+				<div style="width:500px;height:50px;" class="main_style">리뷰</div>
 					<div id="review">
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">

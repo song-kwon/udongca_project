@@ -168,6 +168,9 @@ table{
   border: 1px solid #ddd;
   border-radius: 15px;
 }
+label{
+	margin-top:7px;
+}
 thead{
 	text-align:center;
 	width:800px;
