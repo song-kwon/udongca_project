@@ -17,7 +17,7 @@ import kr.co.udongca.vo.Member;
 
 public class SendEmailConfig {
 
-	public String sendEmail(Member member,String content) throws UnsupportedEncodingException {
+	public String sendEmail(Member member,String content,String title) throws UnsupportedEncodingException {
 		Properties p = System.getProperties();
 		p.put("mail.smtp.starttls.enable", "true"); // gmail은 무조건 true 고정
 		p.put("mail.smtp.host", "smtp.gmail.com"); // smtp 서버 주소
@@ -49,7 +49,7 @@ public class SendEmailConfig {
 			msg.setRecipient(Message.RecipientType.TO, to);
 
 			// 이메일 제목
-			msg.setSubject("메일 전송 테스트", "UTF-8");
+			msg.setSubject(title, "UTF-8");
 
 			// 이메일 내용
 			msg.setText(content, "UTF-8");
