@@ -103,7 +103,7 @@ $(document).ready(function(){
 <div class="form-inline">
 <div class="div2">
 <div class="col-xs-1 col-xs-offset-1">지역선택</div><div class="col-xs-2"><select id="address1" class="form-control"><option >시/도</option></select></div><div class="col-xs-2"><select id="address2" class="form-control"><option >시/도 먼저 선택</option></select></div><div class="col-xs-1"><button class="btn btn-default" id="main_searchAddress">검색</button></div>
-<div class="col-xs-1">테마검색</div><div class="col-xs-2"><select id="theme"  class="form-control"><option >테마 선택</option></select></div><div class="col-xs-2"><button class="btn btn-default" id="main_searchTheme">검색</button></div>
+<div class="col-xs-1">테마검색</div><div class="col-xs-2"><select id="theme"  class="form-control"><option >테마 선택</option></select></div><div class="col-xs-1"><button class="btn btn-default" id="main_searchTheme">검색</button></div>
 </div>
 </div>
 </div>

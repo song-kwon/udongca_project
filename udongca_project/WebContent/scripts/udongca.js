@@ -46,6 +46,7 @@ $(document).ready(function(){
 					$("#pageNum").empty();
 					if (json == null || json.list.length == 0){
 						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+						return false;
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
@@ -94,6 +95,7 @@ $(document).ready(function(){
 				$("#pageNum").empty();
 				if (json == null || json.list.length == 0){
 					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+					return false;
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
@@ -416,7 +418,8 @@ function themePage(page){
 			$("#searchResult").empty();
 			$("#pageNum").empty();
 			if (json == null || json.list.length == 0){
-				$("#searchResult").append("검색 결과 없음");
+				$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+				return false;
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
@@ -458,7 +461,8 @@ function themePage(page){
 			$("#searchResult").empty();
 			$("#pageNum").empty();
 			if (json == null || json.list.length == 0){
-				$("#searchResult").append("검색 결과 없음");
+				$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+				return false;
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
@@ -502,8 +506,9 @@ function themePage(page){
 				$("#tbody").empty();
 				$(".pagination").empty();
 				
-				if (json == null || json.list.length == 0){
-					$("#tbody").append("검색 결과 없음");
+				if (json == null || json.list == null){
+					$("#tbody").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+					return false;
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
@@ -536,6 +541,7 @@ function themePage(page){
  
  
  function deleteBookmark(cafeNo){
+	 if(confirm("즐겨찾기를 취소하시겠습니까?")){
 		$.ajax({
 			'url':'/udongca_project/member/deleteBookmark.udc',
 			'type':'post',
@@ -544,10 +550,12 @@ function themePage(page){
 				if(this){
 					alert('즐겨찾기를 해제했습니다.');
 					$('#'+cafeNo).remove();
+					location.reload();
 				}
 				else{
 					alert('다시 시도해주십시오.');
 				}
 			}
 		})
+	 }
 }
