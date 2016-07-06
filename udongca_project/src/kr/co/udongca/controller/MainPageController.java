@@ -36,7 +36,6 @@ public class MainPageController {
 	@RequestMapping("main.udc")
 	public String mainPage(ModelMap map, HttpSession session){
 		Member login = (Member)session.getAttribute("login");
-		
 		if(login != null){
 			map.put("bookmark", bookmarkService.selectBookmarkAndPRBoardByMemberId(login.getMemberId()));
 			map.put("preferLocation",memberService.selectMemberPreferLocationAddress(login.getMemberId()));

@@ -102,7 +102,6 @@ select{
 </head>
 
 <body>
-
 <div id="wrap">
 <header>
 <tiles:insertAttribute name="header"/>
@@ -120,6 +119,5 @@ select{
 <tiles:insertAttribute name="footer"/>
 </footer>
 </div>
-
 </body>
 </html>

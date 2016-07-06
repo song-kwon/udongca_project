@@ -75,8 +75,10 @@
 		
 		$("#cafeAverageRatingNumber").text(cafeAverageRating.toPrecision(3) + " / ${requestScope.prBoard.cafeReviewCount}");
 		
+		var starNumber = Math.round(cafeAverageRating * 2) / 2.0;
+		
 		for (var i = 1; i < 6; i++){
-			$("#cafeAverageRatingIcon").append("<img src='/udongca_project/udongca-image/star" + ((i <= cafeAverageRating) ? "1" : "0" ) + ".png' height='32' width='32'>");
+			$("#cafeAverageRatingIcon").append("<img src='/udongca_project/udongca-image/star" + ((i <= starNumber) ? "1" : ((i - starNumber == 0.5) ? "h" : "0") ) + ".png' height='32' width='32'>");
 		}
 		
 		$(document).on('click','#addReply',function(){
@@ -374,10 +376,12 @@
 				html = "<table id='replyBoard'>";
 				
 				for (var group = countGroup; group > 0; group--){
+					var isParentExist = false;
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
 							if (json.reply[idx].replyGroup == group && !json.reply[idx].parentReply && !i){
 								var d = new Date(json.reply[idx].replyDate);
+								isParentExist = true;
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
@@ -394,7 +398,7 @@
 								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
-								if ("${sessionScope.login}"){
+								if (isParentExist && "${sessionScope.login}"){
 									html += "&nbsp;<button class='reReplyInputBtn'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
