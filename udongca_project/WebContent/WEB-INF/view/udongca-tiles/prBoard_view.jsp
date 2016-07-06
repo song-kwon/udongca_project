@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 <style type="text/css">
 	.carousel-inner > .item > img {
@@ -43,31 +40,13 @@
 	var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	var currentImageNumber = 0;
-	var currentMenuList = null;
-	var currentMenuType = null;
+	var currentReviewNo = null;
 	var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
 	var cafeRating = Number("${requestScope.prBoard.cafeRating}");
 	var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
 	var countGroup = null;
-	var currentReviewNo = null;
 	
 	$(document).ready(function(){
-		$.ajax({
-			"url":"/udongca_project/prBoard/cafeMenuList.udc",
-			"type":"GET",
-			"data":"",
-			"dataType":"json",
-			"success":function(json){
-				for(var i = 0; i < json.length; i++){
-					var a= "'"+json[i].codeName+"'" ;
-					$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+ a +')">' + json[i].codeName + '</a></li>');
-				}
-			},
-			"error":function(xhr){
-				alert("An error occured while loading cafeMenuList.udc: " + xhr.status + " " + xhr.statusText);
-			}
-		});
-		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 		
 		if ("${sessionScope.login}"){
@@ -466,17 +445,6 @@
 		<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
 	</tr>
 	<tr>
-		<td id="optionList">
-			<ul>
-				<li><a href="javascript:void(0)" onclick="mapLocation();return false;">지도</a></li>
-				<li>
-					메뉴
-					<ul id="menuCategoryList">
-					</ul>
-				</li>
-				<li><a href="javascript:void(0)" onclick="reviewList(1);return false;">리뷰</a></li>
-			</ul>
-		</td>
 		<td>
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.

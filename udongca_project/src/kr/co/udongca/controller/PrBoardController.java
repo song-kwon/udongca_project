@@ -42,7 +42,7 @@ public class PrBoardController {
 		/*
 		 * TODO: 실패했을 경우 JavaScript Alert으로 경고창을 띄운 뒤 뒤로 가기를 하고, 성공했을 때는 내용을 보여 주도록 계획 중
 		 */
-		return "prBoard_view.tiles";
+		return "prBoard/prBoard_view.tiles";
 	}
 	
 	/**

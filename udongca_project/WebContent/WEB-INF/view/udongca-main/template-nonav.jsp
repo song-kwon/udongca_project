@@ -32,7 +32,6 @@ $(document).ready(function(){
 header {
 	background-color: darkgoldenrod;
 	text-align: center;
-	width: 1024px;
 	width: auto;
 	min-height: 190px;
 }

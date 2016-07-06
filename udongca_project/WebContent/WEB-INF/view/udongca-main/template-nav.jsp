@@ -37,6 +37,7 @@ header{
 	background-color:darkgoldenrod;
 	min-height:190px;
 	text-align:center;
+	width:auto;
 }
 header, a{
 	color:sienna;
@@ -70,7 +71,7 @@ a{
 	text-decoration: none;
 }
 #wrap{
-	width:1280px;
+	width:1280px !important;
 	margin:0 auto;
 }
 textarea{
@@ -91,8 +92,8 @@ input[type="button"]{
 
 <body>
 <!-- 부트스트랩 컨테이너 -->
-<div class="container">
 <div id="wrap">
+<div class="container">
 <header>
 <tiles:insertAttribute name="header"/>
 </header>
