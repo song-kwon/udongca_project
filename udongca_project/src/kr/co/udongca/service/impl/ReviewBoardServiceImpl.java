@@ -6,12 +6,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.Constants;
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.dao.PrBoardDao;
 import kr.co.udongca.dao.ReviewBoardDao;
+import kr.co.udongca.dao.ReviewReplyDao;
 import kr.co.udongca.service.ReviewBoardService;
 import kr.co.udongca.vo.ReviewBoard;
 
@@ -22,6 +24,8 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 	private ReviewBoardDao reviewDao;
 	@Autowired
 	private PrBoardDao prBoardDao;
+	@Autowired
+	private ReviewReplyDao replyDao;
 	
 	public ReviewBoardServiceImpl() {
 	}
@@ -96,6 +100,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 
 	@Override
 	public int deleteReview(int reviewNo) {
+		replyDao.deleteReplyByReviewNo(reviewNo);
 		return reviewDao.deleteReview(reviewNo);
 	}
 

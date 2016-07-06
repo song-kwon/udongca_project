@@ -84,4 +84,14 @@ public class ReviewBoardDaoImpl implements ReviewBoardDao{
 	public List<ReviewBoard> selectMainReviewList() {
 		return session.selectList("reviewBoardMapper.selectMainReviewList");
 	}
+
+	@Override
+	public List<Integer> selectReviewNoByCafeNo(int cafeNo) {
+		return session.selectList("reviewBoardMapper.selectReviewNoByCafeNo", cafeNo);
+	}
+
+	@Override
+	public int deleteReviewByCafeNo(int cafeNo) {
+		return session.delete("reviewBoardMapper.deleteReviewByCafeNo", cafeNo);
+	}
 }

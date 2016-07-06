@@ -38,4 +38,9 @@ public class ReviewReplyDaoImpl implements ReviewReplyDao{
 	public int deleteReply(int replyNo) {
 		return session.delete("reviewReplyMapper.deleteReply", replyNo);
 	}
+
+	@Override
+	public int deleteReplyByReviewNo(int reviewNo) {
+		return session.delete("reviewReplyMapper.deleteReplyByReviewNo", reviewNo);
+	}
 }
