@@ -6,6 +6,7 @@ table{
 	width:750px;
 	margin:30px;
 	text-align:left;
+	font-size:18px;
 }
 
 tr#tr{

@@ -12,4 +12,6 @@ public interface ReviewReplyDao {
 	public ReviewReply selectReplyByReplyNo(int replyNo);
 	
 	public int deleteReply(int replyNo);
+	
+	public int deleteReplyByReviewNo(int reviewNo);
 }

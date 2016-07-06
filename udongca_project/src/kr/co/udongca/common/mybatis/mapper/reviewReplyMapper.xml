@@ -29,7 +29,7 @@
 		DELETE FROM review_reply WHERE replyNo = #{replyNo}
 	</delete>
 	
-	<delete id="deleteReplyForReviewNo" parameterType="int">
+	<delete id="deleteReplyByReviewNo" parameterType="int">
 		DELETE FROM review_reply WHERE reviewNo = #{reviewNo}
 	</delete>
 </mapper>

@@ -47,4 +47,8 @@
 	<select id="selectBookmarkAndPRBoardByMemberId" parameterType="string" resultMap="bookmark-member-main">
 		SELECT b.cafeNo , p.cafeFakeImage, p.cafeName FROM bookmark b, prboard p WHERE b.memberId = #{memberId} and b.cafeNo=p.cafeNo and ceil(rownum) <![CDATA[ < ]]> 10
 	</select>
+	
+	<delete id="deleteBookmarkByCafeNo" parameterType="int">
+		DELETE FROM bookmark WHERE cafeNo = #{cafeNo}
+	</delete>
 </mapper>

@@ -107,7 +107,6 @@ public class SearchController {
 	public String mainThemeSearchResult(String cafeFeature,ModelMap map){
 		map.put("result", themeSearchResult(cafeFeature, 1));
 		map.put("searchType", "theme");
-		System.out.println(themeSearchResult(cafeFeature, 1));
 		return "search/search_result.tiles";
 	}
 	
