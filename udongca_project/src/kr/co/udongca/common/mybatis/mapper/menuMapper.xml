@@ -27,7 +27,7 @@
 			menuName = #{menuName},
 			menuRealImage = #{menuRealImage},
 			menuFakeImage = #{menuFakeImage}
-		WHERE menuNo = #{menuNO}
+		WHERE menuNo = #{menuNo}
 	</update>
 	<!-- 메뉴 삭제 -->
 	<delete id="deleteMenu" parameterType="_int">

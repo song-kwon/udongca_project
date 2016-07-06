@@ -50,8 +50,9 @@ function link(id){
 			} 
 			
 		},
-		"error":function(xhr, status, errorMsg){
-		alert(xhr+status+errorMsg);
+		"error" : function(xhr,status,errorMsg) {
+			alert(xhr.status+","+status+","+errorMsg);
+			
 		}
 	});
 
@@ -93,8 +94,9 @@ function link(id){
 				 $(".pagination").append("<li><a>▶</a></li>");
 			 }
 		},
-		"error":function(xhr, status, errorMsg){
-		alert(xhr+status+errorMsg);
+		"error" : function(xhr,status,errorMsg) {
+			alert(xhr.status+","+status+","+errorMsg);
+			
 		}
 	});
 	
@@ -141,8 +143,8 @@ function link(id){
 					return false;
 			},
 			"error" : function(xhr,status,errorMsg) {
+				alert(xhr.status+","+status+","+errorMsg);
 				
-				alert(xhr+status+errorMsg);
 			}
 		});
 	}

@@ -28,4 +28,8 @@
 	<delete id="deleteReply" parameterType="int">
 		DELETE FROM review_reply WHERE replyNo = #{replyNo}
 	</delete>
+	
+	<delete id="deleteReplyForReviewNo" parameterType="int">
+		DELETE FROM review_reply WHERE reviewNo = #{reviewNo}
+	</delete>
 </mapper>

@@ -6,6 +6,7 @@ table{
 	width:700px;
 	margin:30px;
 	text-align:left;
+	font-size:18px;
 }
 
 tr#tr{
@@ -25,7 +26,7 @@ $(document).ready(function(){
 });
 </script>
 
-<div><h2>공지 사항</h2></div>
+<div><h1>공지 사항</h1></div>
 <table border="1">
 	<tr id="tr">
 		<td style="width:60px; border-right:1px dotted; font-weight:bold;">[${requestScope.noticeBoard.category }]</td>

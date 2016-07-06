@@ -7,6 +7,7 @@ table{
 	width:700px;
 	margin:30px;
 	text-align:left;
+	font-size:18px;
 }
 
 tr#tr{
@@ -46,7 +47,7 @@ function checkSubmit(){
 	</tr>
 	<tr><td colspan="3" align="center" style="width:500px; height:30px; border-top:3px double; border-bottom:1px dotted; font-weight:bold;">문의 답변</td></tr>
 	<tr>
-		<td colspan="3"><textarea name="inquiryReply" rows="20" cols="120" placeholder="아직 답변이 달리지 않았습니다. 문의에 대한 답변을 남겨주세요..">${requestScope.oneToOneInquiry.inquiryReply }</textarea></td>
+		<td colspan="3"><textarea name="inquiryReply" rows="20" cols="140" placeholder="아직 답변이 달리지 않았습니다. 문의에 대한 답변을 남겨주세요..">${requestScope.oneToOneInquiry.inquiryReply }</textarea></td>
 	</tr>
 </table>
 <div align="center">

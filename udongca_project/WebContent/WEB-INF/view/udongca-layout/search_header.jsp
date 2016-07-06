@@ -35,10 +35,8 @@ $(document).ready(function(){
 });
 </script>
 <style type="text/css">
-.div{
+.div2{
 	padding:7px;
-	padding-left:15px;
-	padding-right:15px;
 	text-align:center;
 	background-color:antiquewhite;
 	font-size:20px;
@@ -88,10 +86,10 @@ $(document).ready(function(){
 <div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
 <br>
 <div class="form-inline">
-	<div class="div">
+	<div class="div2">
 	
 	<div class="col-xs-1 col-xs-offset-1">지역선택</div>
-	<div class="col-xs-1">
+	<div class="col-xs-2">
 	<select class="form-control" id="address1" style="width:auto;">
 	<option value=0>시/도</option>
 		<c:forEach items="${requestScope.result.majorCategory}" var="majorList" varStatus="status">
@@ -100,7 +98,7 @@ $(document).ready(function(){
 		</c:forEach>
 	</select>
 	</div>
-	<div class="col-xs-1">
+	<div class="col-xs-2">
 	<select class="form-control" id="address2" style="width:auto;">
 	<option value=0>시/도 먼저 선택</option>
 		<c:forEach items="${requestScope.result.middleCategory}" var="middleList" varStatus="status">
@@ -111,7 +109,7 @@ $(document).ready(function(){
 	</div>
 	<div class="col-xs-1"><button id="searchAddress">검색</button></div>
 	<div class="col-xs-1">테마검색</div>
-	<div class="col-xs-1">
+	<div class="col-xs-2">
 	<select class="form-control" id="theme" style="width:auto;">
 	<option value=0>테마 선택</option>
 	</select></div>

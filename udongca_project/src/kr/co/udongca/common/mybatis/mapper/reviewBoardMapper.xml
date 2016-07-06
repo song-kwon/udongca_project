@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="reviewGourpCount" parameterType="int" resultType="int">
-		select count(replyNo)
+		select COALESCE(MAX(replyGroup), 0)
 		from review_reply
 		where reviewNo=#{reviewNo} and parentReply=0
 	</select>
@@ -96,4 +96,12 @@
 		from review_board
 		where ceil(rownum) <![CDATA[ < ]]> 11 order by reviewDate desc
 	</select>
+	
+	<select id="selectReviewNoForCafeNo" parameterType="int" resultType="int">
+		SELECT reviewNo FROM review_board WHERE cafeNo = #{cafeNo}
+	</select>
+	
+	<delete id="deleteReviewForCafeNo" parameterType="int">
+		DELETE FROM review_board WHERE cafeNo = #{cafeNo}
+	</delete>
 </mapper>
