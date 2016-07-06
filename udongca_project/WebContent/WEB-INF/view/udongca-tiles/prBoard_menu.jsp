@@ -200,22 +200,26 @@ function reviewDelete(reviewNo, writerId){
 		window.location.href = "/udongca_project/review/reviewDelete.udc?reviewNo=" + reviewNo + "&writerId=" + writerId + "&cafeNo=" + $("#cafeNo").val();
 	}
 }
+
+function collapseMenu(){
+	if($('#cafeMenuList').prop('class') != 'collapsed')
+		$('#cafeMenuList').trigger('click');	
+}
 </script>
 <style type="text/css">
-ul li{
-	size:15pt;
-}
 </style>
 <div id="prboard_nav">
-<div id="optionList">
-			<ul>
-				<li><a href="#" onclick="mapLocation();return false;">지도</a></li>
-				<li>
-					메뉴
-					<ul id="menuCategoryList">
-					</ul>
-				</li>
-				<li><a href="#" onclick="reviewList(1);return false;">리뷰</a></li>
-			</ul>
-</div>
+	<div id="optionList">
+		<div class="panel-group">
+			<a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a><br>
+			
+			<a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a><br>		
+			<div id="collapse1" class="panel-collapse collapse">
+				<ul class="list-group" id="menuCategoryList">
+				</ul>
+			</div>
+			
+			<a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a>
+		</div>
+	</div>
 </div>

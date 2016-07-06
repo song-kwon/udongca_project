@@ -100,6 +100,7 @@ public class SearchController {
 		
 		map.put("result", locationSearchResult(cafeAddress, 1));
 		map.put("searchType", "address");
+		System.out.println(map);
 		return "search/search_result.tiles";
 	}
 	

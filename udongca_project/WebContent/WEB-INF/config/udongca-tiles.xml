@@ -170,4 +170,5 @@
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/prBoard_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/{1}.jsp"/>
 	</definition>
+	
 </tiles-definitions>

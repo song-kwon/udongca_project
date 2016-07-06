@@ -7,7 +7,7 @@
 	      top: 0;
 	      left: 0;
 	      width: 600px;
-	      height: 400px;
+	      height: 350px;
 	 } 
 	 .carousel-indicators{
 	 	bottom:-70px;
@@ -436,7 +436,7 @@
 		}
 	}
 </script>
-
+<div>
 <input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
 <table>
 	<tr>
@@ -519,3 +519,4 @@
 		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
 	</tr>
 </table>
+</div>

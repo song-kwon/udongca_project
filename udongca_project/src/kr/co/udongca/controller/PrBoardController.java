@@ -46,7 +46,7 @@ public class PrBoardController {
 		}
 		else{
 			map.put("prBoard", service.selectPRBoardByNo(cafeNo));
-			return "prBoard_view.tiles";
+			return "prBoard/prBoard_view.tiles";
 		}
 	}
 	
