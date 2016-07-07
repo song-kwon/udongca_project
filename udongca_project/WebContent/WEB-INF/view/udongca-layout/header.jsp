@@ -68,14 +68,14 @@ $(document).ready(function(){
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
 			<c:when test="${sessionScope.login.memberType =='master'}" >
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
 					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
 						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
 					</div>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
+				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
 					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
 						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
 					</div>
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	</c:when>
 	
 	<c:otherwise>
-		<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/joinSelect.udc">회원가입</a>|<a href="/udongca_project/loginPage.udc">로그인</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/></div>
+		<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/joinSelect.udc">회원가입</a>|<a href="/udongca_project/loginPage.udc">로그인</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/></div>
 	</c:otherwise>
 </c:choose>
 

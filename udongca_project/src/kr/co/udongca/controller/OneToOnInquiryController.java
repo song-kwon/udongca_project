@@ -42,7 +42,7 @@ public class OneToOnInquiryController {
 
         	try {
         		Map<String, Object> map = service.selectListOneToOneInquiry(page);
-        		return new ModelAndView("oneToOneInquiryList.tiles", "map", map);
+        		return new ModelAndView("oneToOneInquiry/oneToOneInquiryList.tiles", "map", map);
         	} catch (Exception e) {
         		e.printStackTrace();
         		return new ModelAndView("/WEB-INF/view/error.jsp", "error_message", e.getMessage());
@@ -60,7 +60,7 @@ public class OneToOnInquiryController {
   
     	if(login!=null){
     		List<Code> codeList = service.selectByCodeType(codeType);
-        	return new ModelAndView("oneToOneInquiryRegisterform.tiles","codeList",codeList);
+        	return new ModelAndView("oneToOneInquiry/oneToOneInquiryRegisterform.tiles","codeList",codeList);
     	}else{
     		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
     	}
@@ -119,7 +119,7 @@ public class OneToOnInquiryController {
     		map.put("oneToOneInquiry", oneToOneInquiry);
     		map.put("codeList", codeList);
     		
-    		return new ModelAndView("oneToOneInquiryModifyform.tiles", "map", map);
+    		return new ModelAndView("oneToOneInquiry/oneToOneInquiryModify.tiles", "map", map);
     	}else{
     		return new ModelAndView("/loginPage.udc","error","로그인이 필요합니다.");
     	}
@@ -152,7 +152,7 @@ public class OneToOnInquiryController {
     			oneToOneInquiry.setInquiryReply(TextUtil.htmlToText(oneToOneInquiry.getInquiryReply()));
     		}
     			
-    		return new ModelAndView("oneToOneInquiryReplyModify.tiles", "oneToOneInquiry", oneToOneInquiry);
+    		return new ModelAndView("oneToOneInquiry/oneToOneInquiryReplyModify.tiles", "oneToOneInquiry", oneToOneInquiry);
     	}else{
     		return new ModelAndView("/loginPage.udc","error","마스터 로그인이 필요합니다.");
     	}
@@ -181,7 +181,7 @@ public class OneToOnInquiryController {
     		map.put("oneToOneInquiry", inquiry);
     		map.put("memberId", memberId);
 
-    		return new ModelAndView("oneToOneInquiry.tiles", "map", map);
+    		return new ModelAndView("oneToOneInquiry/oneToOneInquiry.tiles", "map", map);
     	}else if( login!=null && (! login.getMemberId().equals(inquiry.getMemberId())) && (!login.getMemberType().equals("master")) ){
     		return new ModelAndView("error.tiles","error","자신이 작성한 문의글만 조회 가능합니다.");
     	}else{

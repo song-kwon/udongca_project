@@ -24,18 +24,18 @@ import kr.co.udongca.vo.NoticeBoard;
 public class NoticeBoardController {
 	
 	@Autowired
-	private NoticeBoardService service;
+	private NoticeBoardService service; 
 	
-	@RequestMapping("noticeBoardListPaging.udc")
+	@RequestMapping("/noticeBoardListPaging.udc")
 	public ModelAndView selectListNoticeBoard(@RequestParam(required=false) String pnum){
 		int page = 1;
 		try {
 			page = Integer.parseInt(pnum);
-		} catch (Exception e) {}
+		} catch (Exception e) {} 
 		
 		try {
 			Map<String, Object> map = service.selectListNoticeBoard(page);
-			return new ModelAndView("noticeBoardList.tiles","map",map);
+			return new ModelAndView("noticeBoard/noticeBoardList.tiles","map",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ModelAndView("/WEB-INF/view/error.jsp","error_message", e.getMessage());
@@ -48,7 +48,7 @@ public class NoticeBoardController {
 		List<Code> codeList = service.selectByCodeType(codeType);
 		
 		if(master != null && master.getMemberType().equals("master"))
-			return new ModelAndView("noticeBoardRegisterform.tiles","codeList",codeList);
+			return new ModelAndView("noticeBoard/noticeBoardRegisterform.tiles","codeList",codeList);
 		else
 		    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
 	}
@@ -101,9 +101,9 @@ public class NoticeBoardController {
 			
 			HashMap map = new HashMap();
 			map.put("noticeBoard", noticeBoard);
-			map.put("codeList", codeList);
+			map.put("codeList", codeList); 
 		
-			return new ModelAndView("noticeBoardModifyform.tiles","map",map);
+			return new ModelAndView("noticeBoard/noticeBoardModify.tiles","map",map);
 		}
 		else
 		    return new ModelAndView("/loginPage.udc","error"," 마스터 로그인이 필요합니다.");
@@ -130,6 +130,6 @@ public class NoticeBoardController {
 	@RequestMapping("noticeBoard.udc")
 	public ModelAndView noticeBoard(int noticeNo){
 		NoticeBoard noticeBoard = service.selectNoticeBoard(noticeNo);
-		return new ModelAndView("noticeBoard.tiles", "noticeBoard", noticeBoard);
+		return new ModelAndView("noticeBoard/noticeBoard.tiles", "noticeBoard", noticeBoard);
 	}
 }

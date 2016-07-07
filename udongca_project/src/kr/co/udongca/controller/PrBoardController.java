@@ -133,7 +133,7 @@ public class PrBoardController {
 		
 		else{
 			model.put("errorList", errorList);
-			return "prBoard_write_form2.tiles";
+			return "prBoard/prBoard_write_form2.tiles";
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class PrBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("prBoard", service.selectPRBoardByNo(cafeNo));
-		return "prBoard_modifyForm.tiles";
+		return "prBoard/prBoard_modifyForm.tiles";
 	}
 	
 	/**
@@ -226,7 +226,7 @@ public class PrBoardController {
 			model.put("errorList", errorList);
 		}
 		
-		return "prBoard_modifyForm" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
+		return "prBoard/prBoard_modifyForm" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
 	}
 	
 	@RequestMapping("prModify.udc")
@@ -305,12 +305,12 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-			return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 		}
 		else{
 			model.put("errorList", errorList);
 			model.put("prBoard", service.selectPRBoardByNo(Integer.parseInt(((String)map.get("cafeNo")))));
-			return "prBoard_modifyForm2.tiles";
+			return "prBoard/prBoard_modifyForm2.tiles";
 		}
 	}
 	
@@ -419,7 +419,7 @@ public class PrBoardController {
 			model.put("errorList", errorList);
 		}
 		
-		return "prBoard_write_form" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
+		return "prBoard/prBoard_write_form" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
 	}
 	
 	/**
@@ -519,9 +519,9 @@ public class PrBoardController {
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			return "redirect:/loginPage.udc";
-		}
+		} 
 		map.put("cafeNo", cafeNo);
-		return "menu_modifyForm.tiles";
+		return "prBoard/menu_modifyForm.tiles";
 	}
 	
 	/**
@@ -642,7 +642,7 @@ public class PrBoardController {
 		else{
 			model.put("errorList", errorList);
 			model.put("cafeNo", cafeNo);
-			return "menu_modifyForm.tiles";
+			return "prBoard/menu_modifyForm.tiles";
 		}
 	}
 	
