@@ -37,6 +37,7 @@ public class ReportBoardController {
 		HashMap map = new HashMap();
 		if (master != null && master.getMemberType().equals("master")) {
 			try {
+			    
 				page = Integer.parseInt(pnum);
 			} catch (Exception e) {
 			}

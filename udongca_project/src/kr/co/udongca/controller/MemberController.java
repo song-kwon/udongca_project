@@ -122,7 +122,7 @@ public class MemberController {
 	public String generalMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
 			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
-			return "generalMemberJoinform.tiles";
+			return "member/generalMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
@@ -139,7 +139,7 @@ public class MemberController {
 	public String licenseeMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
 			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
-			return "licenseeMemberJoinform.tiles";
+			return "member/licenseeMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
