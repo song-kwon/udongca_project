@@ -4,10 +4,7 @@
 nav{
 	line-height: 40px;
 }
-.modal-body>form{
-	height:750px;
 
-}
 label{
 	margin-top:7px;
 }
