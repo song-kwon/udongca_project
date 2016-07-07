@@ -33,7 +33,7 @@ thead{
 	font-size:13pt;
 	font-weight:bold;
 	cursor:default;
-	border-bottom:2px solid;
+	border-bottom:3px solid;
 }
 
 
@@ -55,6 +55,16 @@ td{
     padding-bottom: 0px;
     padding-top: 0px;
     padding-right: 0px;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
 }
 </style>
 <script type="text/javascript">
@@ -222,7 +232,7 @@ td{
   </div>
 	<div class="form-group">
     <label for="reportNO">답변</label><br>
-   <textarea rows="10" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
+   <textarea rows="15" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
   </div>
  
 </form>

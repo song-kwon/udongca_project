@@ -179,7 +179,7 @@ thead{
 	font-size:13pt;
 	font-weight:bold;
 	cursor:default;
-	border-bottom:2px solid;
+	border-bottom:3px solid;
 }
 
 
@@ -196,6 +196,16 @@ thead{
 .fa{
 	cursor:pointer;
 	font-size:30pt;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
 }
 </style>
 
