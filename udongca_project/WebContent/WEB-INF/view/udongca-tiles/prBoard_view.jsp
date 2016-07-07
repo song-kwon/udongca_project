@@ -62,12 +62,13 @@
 	
 	
 	$(document).ready(function(){
-		mapLocation();
+		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
-
+		
 		if(location.href.indexOf('prView.udc') != -1){
 			$('#content').empty();
 			$(".myReviewReplyArea").empty();
+			mapLocation();
 		}
 		
 		if ("${sessionScope.login}"){
@@ -610,12 +611,11 @@
 					</tr>
 					<tr>
 						<td colspan="3"> 			
-							<c:forEach begin="1" end="5"></c:forEach>
 						</td>
 					</tr>
 					<tr>
 						<td id="reviewContent" colspan="3">
-							<img>
+							<img src='/udongca_project/images/${requestScope.review.reviewFakeImage }' height='300' width='300'><br>
 							<br>
 							<pre style="height:200px;" id="reviewContentText">${requestScope.review.reviewContent }</pre>
 						</td>
@@ -682,11 +682,7 @@
 					<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
 					<div>
 						<label for="reportReason">신고 사유</label>
-<<<<<<< HEAD
-						<select style="width:250;" name="reportReason" id="reportReason" class="form-control">
-=======
 						<select name="reportReason" id="prReportReason" class="form-control">
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 							<option>허위 정보</option>
 							<option>욕설, 저속한 언어 사용</option>
 							<option>타인/타 점포 비방</option>
