@@ -113,20 +113,20 @@
 					 $("#page").empty();
 					 $("#page").append("<ul class='pagination'></ul>")
 					 if(page.previousPageGroup){
-						 $(".pagination").append("<li><a onclick=a("+(page.beginPage-1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>◀</a></li>");
+						 $(".pagination").append("<li><a onclick=refresh("+(page.beginPage-1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>◀</a></li>");
 					 }else{
 						 $(".pagination").append("<li><a>◀</a></li>");
 					 }
 					
 					for(var i = page.beginPage;i<=page.endPage;i++){
 						if(page.page!=i){
-							$(".pagination").append("<li><a onclick=a("+i+",'"+$("#selectType").val()+"') style='cursor:pointer;'>"+i+"</a></li>");
+							$(".pagination").append("<li><a onclick=refresh("+i+",'"+$("#selectType").val()+"') style='cursor:pointer;'>"+i+"</a></li>");
 						}else{
 							$(".pagination").append("<li id='pnum' class='active'><a>"+i+"</a></li>");
 						}
 					} 
 					 if(page.nextPageGroup){
-						 $(".pagination").append("<li><a onclick=a("+(page.endPage+1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>▶</a></li>");
+						 $(".pagination").append("<li><a onclick=refresh("+(page.endPage+1)+",'"+$("#selectType").val()+"') style='cursor:pointer;'>▶</a></li>");
 					 }else{
 						 $(".pagination").append("<li><a>▶</a></li>");
 					 }
@@ -161,9 +161,11 @@
 			});
 		}  
 		/* reportBoard Update */
+		var success;
 		  function ajaxUpdate(){
 			  $.ajax({
 					"url" : "/udongca_project/master/updateInfo.udc",
+					"async":false,
 					"type" : "post",
 					"data" : {
 								reportboardNo : $("#reportboardNo").val(),
@@ -178,34 +180,31 @@
 								
 							},
 					"success":function(obj){
-						return obj;
-							},
-							"error" : function(xhr,status,errorMsg) {
-								alert(xhr.status+","+status+","+errorMsg);
-								
-							}
-					
+						success = obj;
+					},
+					"error" : function(xhr,status,errorMsg) {
+						alert(xhr.status+","+status+","+errorMsg);
+					}
 				});
 		  }
-		/* 취소이유 등록 ajaxUpdate를 통해 update */
+		  /* 취소이유 등록 ajaxUpdate를 통해 update */
 		  function update(){
 			  var txt = $("#cancelReason").val();
 				 if(txt.trim()=="" || txt.length==0){
 					 alert("취소이유 등록하세요");
 					 return false;
 				 }else{
+					
 						$("#reportResult").val("신고취소");
-						var obj = ajaxUpdate();
-						if(obj.error){
-							alert(obj.error);
-						}else if(obj.value==1){
+						 ajaxUpdate();
+						if(success.error){
+							alert(success.error);
+						}else if(success.value==1){
 							alert("취소완료");
 						}else{
 							alert("취소처리실패 ");
 						}
 				 }
-		
-			
 		}
 		/* 신고글 삭제 처리 */
 		  function deleteArticle(){
@@ -325,7 +324,7 @@ thead{
 	font-size:13pt;
 	font-weight:bold;
 	cursor:default;
-	border-bottom:2px solid;
+	border-bottom:3px solid;
 }
 
 .fa{
@@ -339,13 +338,22 @@ table, tbody{
 .cursor{
 	cursor:pointer;
 	table-layout:fixed;
-	text-align:left;
 	margin:30px;
 }
 
 select#selectType{
 	width:100px;
 	float:left;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
 }
 </style>
 <div id="div">

@@ -93,8 +93,6 @@ a.list-group-item:hover{
 	height:38px; 
 	margin-top:25px; 
 	font-size:18px;
-	/* padding: 20px 15px;
-	border : 1px solid #b8860b; */
 }
  .carousel-inner > .item > img {
 	      top: 0;
@@ -103,8 +101,8 @@ a.list-group-item:hover{
 	      height: 400px;
 } 
 .carousel-indicators{
-		width:100%;
-		left:30%;
+		width:70%;
+		left:45%;
 	 	bottom:-70px;
  }
 .carousel-indicators .active{
@@ -412,8 +410,8 @@ a.list-group-item:hover{
 
 			<div style=" float:left; width:500px; height:450px; margin-left:20px;">
 			
-				<div style="width:500px;height:50px; margin-left:10px;" class="main_style">공지</div>
-				<div id="notice" style="margin-left:20px;">
+				<div style="width:500px;height:50px;" class="main_style">공지</div>
+				<div id="notice">
 				<div class="list-group">
 					<c:forEach items="${requestScope.notice }" var="notice" varStatus="status">
 						<c:choose>
@@ -474,7 +472,7 @@ a.list-group-item:hover{
 				</div>
 			</div>
 			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:20px; ">
-				<div style="width:500px;height:50px;" class="main_style">리뷰</div>
+				<div style="width:500px;height:50px;" margin-left:10px; class="main_style">리뷰</div>
 					<div id="review">
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">
@@ -490,3 +488,4 @@ a.list-group-item:hover{
 		</c:otherwise>
 	</c:choose>
 </div>
+

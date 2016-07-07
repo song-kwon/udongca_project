@@ -228,7 +228,6 @@ public class ReviewBoardController {
 		if (mem == null || !mem.getMemberType().equals("generalMember")){
 			return "redirect:/loginPage.udc";
 		}
-		
 		ReviewBoard review = new ReviewBoard();
 		String reviewRealImagesName="";
 		String reviewFakeImagesName="";
