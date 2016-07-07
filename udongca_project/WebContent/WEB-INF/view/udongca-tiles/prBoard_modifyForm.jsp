@@ -7,9 +7,6 @@
 	var parkChecked = false;
 	var smokingChecked = false;
 	var themeSelected = null;
-	var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
-	var cafeRealImageArray = "${requestScope.prBoard.cafeRealImage}".split(";");
-	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	
 	var cafeFeatureArray = "${requestScope.prBoard.cafeFeature}".split(" ");
 	for (var i = 0; i < cafeFeatureArray.length; i++){
@@ -29,6 +26,8 @@
 	themeSelected = cafeFeatureArray[cafeFeatureArray.length - 1];
 	
 	$(document).ready(function(){
+		$("input[type='text']").prop({"class":"form-control col-xs-3"});
+		
 		$("#cafeFeature1Wifi").prop("checked", wifiChecked);
 		$("#cafeFeature1Socket").prop("checked", socketChecked);
 		$("#cafeFeature1Park").prop("checked", parkChecked);
@@ -94,14 +93,6 @@
 			}
 		});
 		
-		for(var i = 0; i < cafeFakeImageArrayNumber; i++){
-			$("#cafeImages").append("<img src='/udongca_project/images/" + cafeFakeImageArray[i] + "' class='image" + i + "' height='20' width='20'>");
-			$("#cafeImages").append("<button onclick='deleteImage(" + i + ")' class='image" + i + "'>삭제</button>");
-			$("#cafeImages").append("<input type='hidden' name='modifiedCafeFakeImage' value='" + cafeFakeImageArray[i] + "' class='image" + i + "'>");
-			$("#cafeImages").append("<input type='hidden' name='modifiedCafeRealImage' value='" + cafeRealImageArray[i] + "' class='image" + i + "'>");
-			$("#cafeImages").append("<br class='image" + i + "'>");
-		}
-		
 		$("#cancel").on("click", function(){
 			history.back();
 		});
@@ -113,10 +104,6 @@
 			}
 		});
 	});
-	
-	function deleteImage(i){
-		$(".image" + i).remove();
-	}
 	
 	function execDaumPostcode(){
 		new daum.Postcode({
@@ -134,79 +121,103 @@
         }).open();
 	};
 </script>
-굵은 글씨 항목은 필수 입력 사항을 나타냅니다.<br>
-<form action="/udongca_project/prBoard/prModify.udc" enctype="multipart/form-data" method="post">
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:900px;
+	margin:30px;
+	font-size:18px;
+}
+
+table, th{
+	text-align:left;
+	width:650px;
+	height:45px;
+}
+span{
+	font-size:13px;
+	color:red;
+}
+.width_size{
+	width:830px;
+}
+
+.width_size2{
+	width:350px;
+}
+</style>
+
+<div class="nonav_bodyDiv" style="width:900px; padding-left:200px;">
+<div><h1>카페 홍보글 수정</h1></div><br>
+<div style="color:red;"><font size="3">*표시 항목은 필수 입력 사항입니다.</font></div>
+<div><font size="2">사업자등록번호는 수정이 불가능합니다.</font></div><br>
+<form action="/udongca_project/prBoard/moveToModifyPr2Jsp.udc" enctype="multipart/form-data" method="post">
 	<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
 	<input type="hidden" name="memberId" value="${requestScope.prBoard.memberId}">
-	<input type="hidden" name="cafeRealImage" value="${requestScope.prBoard.cafeRealImage}">
-	<input type="hidden" name="cafeFakeImage" value="${requestScope.prBoard.cafeFakeImage}">
+	
 	<table>
 		<tr>
-			<td><b>카페명</b></td>
-			<td><input type="text" name="cafeName" id="cafeName" value="${requestScope.prBoard.cafeName}"></td>
-			<td id="cafeNameTd"></td>
+			<th>*카페 이름</th>
+			<td class="width_size"><input type="text" name="cafeName" value="${requestScope.prBoard.cafeName}" id="cafeName"></td>
+			<td> </td>
+			<td style="width:630px;"><span id="cafeNameTd"></span></td>
 		</tr>
 		<tr>
-			<td>카페 소개</td>
-			<td><textarea rows="10" cols="20" name="cafeIntro" id="cafeIntro">${requestScope.prBoard.cafeIntro}</textarea></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>특징</td>
-			<td>
-				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Wifi" value="wifi">와이파이
-				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Socket" value="socket">콘센트
-				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Park" value="park">주차
-				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Smoking" value="smoking">흡연실<br>
-				<input type="checkbox" id="theme">테마
-				<select name="cafeFeature2" id="cafeFeature2">
+			<th>특징</th>
+			<td class="width_size">
+				<div class="form-inline">
+				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Wifi" value="wifi" >와이파이
+				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Socket" value="socket" >콘센트
+				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Park" value="park" >주차
+				<input type="checkbox" name="cafeFeature1" id="cafeFeature1Smoking" value="smoking" >흡연실<br>
+				<input type="checkbox" id="themeCheck">테마 
+				<select name="cafeFeature2" id="cafeFeature2" class="form-control">
 					<option>테마 선택</option>
 				</select>
+				</div>
 			</td>
-			<td></td>
 		</tr>
 		<tr>
-			<td><b>영업시간</b></td>
-			<td><input type="text" name="operationHour" id="operationHour" value="${requestScope.prBoard.operationHour}"></td>
-			<td id="operationHourTd"></td>
+			<th>*영업 시간</th>
+			<td class="width_size"><input type="text" name="operationHour" value="${requestScope.prBoard.operationHour}" id="operationHour"></td>
+			<td> </td>
+			<td><span id="operationHourTd"></span></td>
 		</tr>
 		<tr>
-			<td><b>카페연락처</b></td>
-			<td><input type="text" name="cafeTel" id="cafeTel" value="${requestScope.prBoard.cafeTel}"></td>
-			<td id="cafeTelTd"></td>
+			<th>*카페 연락처</th>
+			<td class="width_size"><input type="text" name="cafeTel" value="${requestScope.prBoard.cafeTel}" id="cafeTel"></td>
+			<td> </td>
+			<td><span id="cafeTelTd"></span></td>
 		</tr>
 		<tr>
-			<td><b>카페주소</b></td>
-			<td>
-				<input type="text" name="cafeAddress" id="cafeAddress" value="${requestScope.prBoard.cafeAddress}">
-				<input type="button" value="주소검색" id="searchAddress">
-			</td>
-			<td id="cafeAddressTd"></td>
+			<th>*카페 주소</th>
+			<td class="width_size"><input type="text" name="cafeAddress" value="${requestScope.prBoard.cafeAddress}" id="cafeAddress"></td>
+			<td><input type="button" value="주소검색" id="searchAddressButton"></td>
+			<td><span id="cafeAddressTd"></span></td>
 		</tr>
 		<tr>
-			<td><b>관리자명</b></td>
-			<td><input type="text" name="managerName" id="managerName" value="${requestScope.prBoard.managerName}"></td>
-			<td id="managerNameTd"></td>
+			<th>*관리자명</th>
+			<td class="width_size"><input type="text" name="managerName" value="${requestScope.prBoard.managerName}" id="managerName"></td>
+			<td> </td>
+			<td><span id="managerNameTd"></span></td>
 		</tr>
 		<tr>
-			<td><b>관리자 연락처</b></td>
-			<td><input type="text" name="managerTel" id="managerTel" value="${requestScope.prBoard.managerTel}"></td>
-			<td id="managerTelTd"></td>
+			<th>*관리자 연락처</th>
+			<td class="width_size"><input type="text" name="managerTel" value="${requestScope.prBoard.managerTel}" id="managerTel"></td>
+			<td> </td>
+			<td><span id="managerTelTd"></span></td>
 		</tr>
 		<tr>
-			<td>기존 카페 이미지</td>
-			<td id="cafeImages"></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>추가 카페 이미지</td>
-			<td><input type="file" name="addCafeImage" multiple="multiple"></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="확인"></td>
-			<td><input type="button" value="취소" id="cancel"></td>
-			<td></td>
+			<th>*카페 소개</th>
+			<td class="width_size"><textarea rows="20" cols="40" name="cafeIntro" id="cafeIntro" class="form-control">${requestScope.prBoard.cafeIntro}</textarea></td>
+			<td> </td>
+			<td><span id="cafeIntroTd"></span></td>
 		</tr>
 	</table>
+	<div class="form-group" align="center" style="width:600px;">
+		<button type="submit">다음 단계</button>
+		<button type="reset">다시 입력</button>
+		<button type="button" id="cancel">취소</button>
+	</div>
 </form>
+</div>

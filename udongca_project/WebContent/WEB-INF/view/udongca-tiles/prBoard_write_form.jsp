@@ -3,6 +3,8 @@
 <script src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	$("input[type='text']").prop({"class":"form-control col-xs-3"});
+	
 	$("#cafeAddress").on("click", function(){
 		execDaumPostcode();
 	});
@@ -59,7 +61,7 @@ $(document).ready(function(){
 				"data":"coporateNumber=" + $("#coporateNumber").val(),
 				"dataType":"text",
 				"success":function(text){
-					$("#coporateNumberTd").text(((text == "true") ? "중복" : "사용 가능" ) + " 사업자 등록 번호");
+					$("#coporateNumberTd").text(((text == "true") ? "중복된 사업자 등록 번호" : "사용 가능" ));
 				},
 				"error":function(xhr){
 					alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -96,7 +98,7 @@ $(document).ready(function(){
 	});
 	
 	$("form").on("submit", function(){
-		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumberTd").text() == "사용 가능 사업자 등록 번호")){
+		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumberTd").text() == "사용 가능")){
 			alert("필수 사항을 입력하세요");
 			return false;
 		}
@@ -134,24 +136,49 @@ function isValidCoporateNumber(){
 	}
 }
 </script>
-<div class="nonav_bodyDiv" style="width:400px;">
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:900px;
+	margin:30px;
+	font-size:18px;
+}
+
+table, th{
+	text-align:left;
+	width:650px;
+	height:45px;
+}
+span{
+	font-size:13px;
+	color:red;
+}
+.width_size{
+	width:830px;
+}
+
+.width_size2{
+	width:350px;
+}
+</style>
+<div class="nonav_bodyDiv" style="width:900px; padding-left:200px;">
 <c:forEach var="${requestScope.errorList}" items="errorList">
 	${errorList}<br>
 </c:forEach>
-<br>
+<div><h1>카페 홍보글 등록</h1></div><br>
+<div style="color:red;"><font size="3">*표시 항목은 필수 입력 사항입니다.</font></div>
+<div><font size="2">사업자등록번호는 10글자로 - 없이 입력해주십시오.</font></div><br>
 <form action="/udongca_project/prBoard/moveToNewPr2Jsp.udc"	method="post" role="form">
-	<div class="form-group">
-			<label for="cafeName">카페명</label>
-			<input type="text" name="cafeName" value="${requestScope.cafeName}" id="cafeName" class="form-control">
-			<span id="cafeNameTd"></span>
-	</div>
-	<div class="form-group">
-			<label for="cafeIntro">카페 소개</label>
-			<textarea rows="10" cols="20" name="cafeIntro" id="cafeIntro" class="form-control">${requestScope.cafeIntro}</textarea>
-			<span id="cafeIntroTd"></span>
-	</div>
-		<div class="form-group">
-			<label for="cafeFeature">특징</label>
+<table>
+	<tr>
+		<th>*카페 이름</th>
+		<td class="width_size"><input type="text" name="cafeName" value="${requestScope.cafeName}" id="cafeName"></td>
+		<td> </td>
+		<td style="width:630px;"><span id="cafeNameTd"></span></td>
+	</tr>
+	<tr>
+		<th>특징</th>
+		<td class="width_size">
 			<div class="form-inline">
 			<input type="checkbox" name="cafeFeature1" value="wifi" >와이파이
 			<input type="checkbox" name="cafeFeature1" value="socket" >콘센트
@@ -162,48 +189,55 @@ function isValidCoporateNumber(){
 				<option>테마 선택</option>
 			</select>
 			</div>
-		</div>
-	<div class="form-group">
-			<label for="operationHour">영업시간</label>
-			<input type="text" name="operationHour" value="${requestScope.operationHour}" id="operationHour" class="form-control">
-			<span id="operationHourTd"></span>
-	</div>
-	<div class="form-group">
-			<label for="cafeTel">카페연락처</label>
-			<input type="text" name="cafeTel" value="${requestScope.cafeTel}" id="cafeTel" class="form-control">
-			<span id="cafeTelTd"></span>
-	</div>
-	<div class="form-group">
-			<label for="cafeAddress">카페주소</label>
-			
-			<div class="form-inline">
-				<input type="text" name="cafeAddress" value="${requestScope.cafeAddress}" id="cafeAddress" class="form-control">
-				<input type="button" value="주소검색" id="searchAddressButton" class="form-control">
-				<span id="cafeAddressTd"></span>
-			</div>
-	</div>
-	<div class="form-group">
-			<label for="coporateNumber">사업자등록번호</label>
-			<div class="form-inline">
-				<input type="text" name="coporateNumber" id="coporateNumber" value="${requestScope.coporateNumber}" class="form-control" placeholder=" - 없이 입력">
-				<input type="button" value="중복확인" id="isCoporateNumberDuplicated" class="form-control">
-			</div>
-			<span id="coporateNumberTd"></span>
-			
-	</div>
-	<div class="form-group">
-			<label for="managerName">관리자명</label>
-			<input type="text" name="managerName" value="${requestScope.managerName}" id="managerName" class="form-control">
-			<span id="managerNameTd"></span>
-	</div>
-	<div class="form-group">
-			<label for="managerTel">관리자 연락처</label>
-			<input type="text" name="managerTel" value="${requestScope.managerTel}" id="managerTel">
-			<span id="managerTelTd"></span>
-	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-default">다음단계</button>
-		<button type="button" id="cancel">취소</button>
-	</div>
+		</td>
+	</tr>
+	<tr>
+		<th>*영업 시간</th>
+		<td class="width_size"><input type="text" name="operationHour" value="${requestScope.operationHour}" id="operationHour"></td>
+		<td> </td>
+		<td><span id="operationHourTd"></span></td>
+	</tr>
+	<tr>
+		<th>*카페 연락처</th>
+		<td class="width_size"><input type="text" name="cafeTel" value="${requestScope.cafeTel}" id="cafeTel"></td>
+		<td> </td>
+		<td><span id="cafeTelTd"></span></td>
+	</tr>
+	<tr>
+		<th>*카페 주소</th>
+		<td class="width_size"><input type="text" name="cafeAddress" value="${requestScope.cafeAddress}" id="cafeAddress"></td>
+		<td><input type="button" value="주소검색" id="searchAddressButton"></td>
+		<td><span id="cafeAddressTd"></span></td>
+	</tr>
+	<tr>
+		<th>*사업자 등록 번호</th>
+		<td class="width_size"><input type="text" name="coporateNumber" id="coporateNumber" value="${requestScope.coporateNumber}" placeholder=" - 없이 입력"></td>
+		<td><input type="button" value="중복확인" id="isCoporateNumberDuplicated"></td>
+		<td><span id="coporateNumberTd"></span></td>
+	</tr>
+	<tr>
+		<th>*관리자명</th>
+		<td class="width_size"><input type="text" name="managerName" value="${requestScope.managerName}" id="managerName"></td>
+		<td> </td>
+		<td><span id="managerNameTd"></span></td>
+	</tr>
+	<tr>
+		<th>*관리자 연락처</th>
+		<td class="width_size"><input type="text" name="managerTel" value="${requestScope.managerTel}" id="managerTel"></td>
+		<td> </td>
+		<td><span id="managerTelTd"></span></td>
+	</tr>
+	<tr>
+		<th>*카페 소개</th>
+		<td class="width_size"><textarea rows="20" cols="40" name="cafeIntro" id="cafeIntro" class="form-control">${requestScope.cafeIntro}</textarea></td>
+		<td> </td>
+		<td><span id="cafeIntroTd"></span></td>
+	</tr>
+</table>
+<div class="form-group" align="center" style="width:600px;">
+	<button type="submit">다음 단계</button>
+	<button type="reset">다시 입력</button>
+	<button type="button" id="cancel">취소</button>
+</div>
 </form>
 </div>

@@ -5,6 +5,7 @@
 			var menuTypeList = null;
 
 			$(document).ready(function(){
+				$("input[type='text']").prop({"class":"form-control input-sm"});
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeMenuList.udc",
 					"type":"GET",
@@ -58,10 +59,31 @@
 				});
 			});
 </script>
-<div class="nonav_bodyDiv" style="width:400px;">
-굵은 글씨 항목은 필수 입력 사항입니다.
-<br>
-<form action="/udongca_project/prBoard/prWrite.udc" enctype="multipart/form-data" method="post" role="form">
+<style type="text/css">
+table{
+	border-collapse: collapse;
+	width:900px;
+	margin:30px;
+	font-size:18px;
+}
+
+table, th{
+	text-align:left;
+	width:450px;
+}
+.width_size{
+	width:500px;
+}
+
+.width_size2{
+	width:350px;
+}
+</style>
+
+<div class="nonav_bodyDiv" style="width:900px; padding-left:100px;">
+<div><h1>카페 홍보글 등록</h1></div><br>
+<div style="color:red;"><font size="3">*표시 항목은 필수 입력 사항입니다.</font></div>
+<form action="/udongca_project/prBoard/prWrite.udc" enctype="multipart/form-data" method="post" role="form"><br>
 	<input type="hidden" name="cafeName" value="${requestScope.cafeName}">
 	<input type="hidden" name="cafeIntro" value="${requestScope.cafeIntro}">
 	<input type="hidden" name="cafeFeature"
@@ -74,26 +96,37 @@
 		type="hidden" name="managerName" value="${requestScope.managerName}">
 	<input type="hidden" name="managerTel"
 		value="${requestScope.managerTel}">
-	<div class="form-group">
-			<label for="cafeImage">매장사진(다수 선택 가능)</label>
-			<input type="file" name="cafeImage" multiple="multiple"><br>
-	</div>
-	<div class="form-group">
-			<label for="menu">메뉴</label>
-				<div id="menuList" class="form-inline">
+	
+<table>
+	<tr>
+		<th style="padding-bottom:55px;">매장 사진</th>
+		<td class="width_size" style="padding-bottom:55px;"><input type="file" name="cafeImage" multiple="multiple"></td>
+	</tr>
+	<tr>
+		<th>*메뉴</th>
+		<td class="width_size">
+			<div id="menuList" class="form-inline">
 					<div>
-						종류: <select name="menuTypeArray" class="form-control"><option>종류</option></select><br>
-						이름: <input type="text" name="menuNameArray" class="form-control"><br>
-						사진: <input type="file" name="menuImageArray">
-						<hr>
+						메뉴 종류: <select name="menuTypeArray" class="form-control"><option>종류</option></select><br>
+						메뉴 이름: <input type="text" name="menuNameArray" ><br>
+						메뉴 사진: <input type="file" name="menuImageArray"><br>
 					</div>
-				</div>
-				<div>
-				<input type="button" value="메뉴 추가" id="menuAdd"><input type="button" value="메뉴 삭제" id="menuDelete">
-				</div>
-	</div>
-	<div class="form-group">
-		<input type="submit" value="확인">
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td class="width_size">
+			<input type="button" value="메뉴 추가" id="menuAdd">&nbsp;<input type="button" value="메뉴 삭제" id="menuDelete">
+		</td>
+	</tr>	
+
+</table>
+
+
+	<div class="form-group" align="center" style="width:600px; padding-top:20px;">
+		<input type="submit" value="등록">
+		<input type="reset" value="다시 입력">
 		<input type="button" value="취소" id="cancel">
 	</div>
 </form>

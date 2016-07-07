@@ -3,6 +3,8 @@
 <script type="text/javascript">
 //아이디 조건 검사
 $(document).ready(function(){
+	$("input[type='text']").prop({"class":"form-control col-xs-2"});
+	
 	$("#id").on("keyup keypress", function(){
 		if($(this).val().length>50){
 			$(this).val($(this).val().substr(0,50));

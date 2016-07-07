@@ -159,21 +159,17 @@ public class PrBoardController {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	@RequestMapping("prModify.udc")
-	public String prModify(@RequestParam Map map, String[] cafeFeature1,
-			String[] modifiedCafeFakeImage, String[] modifiedCafeRealImage,
-			MultipartFile[] addCafeImage, HttpServletRequest req,
-			HttpSession session, ModelMap model)
-					throws IllegalStateException, IOException{
+	
+	@RequestMapping("moveToModifyPr2Jsp.udc")
+	public String moveToModifyPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
+			HttpSession session, ModelMap model){
 		Member mem = (Member)session.getAttribute("login");
-		String addRealImagesName="";
-		String addFakeImagesName="";
-		String cafeFeature = "";
-		ArrayList<String> errorList = new ArrayList<String>();
-		
 		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
 			return "redirect:/loginPage.udc";
 		}
+		
+		String cafeFeature = "";
+		ArrayList<String> errorList = new ArrayList<String>();
 		
 		if (cafeFeature1 != null){
 			for (int i = 0; i < cafeFeature1.length; i++){
@@ -211,6 +207,38 @@ public class PrBoardController {
 		
 		if(map.get("managerTel") == null || ((String)map.get("managerTel")).trim().equals("")){
 			errorList.add("영업자 연락처를 입력하세요");
+		}
+		
+		model.put("cafeName", map.get("cafeName"));
+		model.put("cafeIntro", map.get("cafeIntro"));
+		model.put("cafeFeature", cafeFeature);
+		model.put("operationHour", map.get("operationHour"));
+		model.put("cafeTel", map.get("cafeTel"));
+		model.put("cafeAddress", map.get("cafeAddress"));
+		model.put("managerName", map.get("managerName"));
+		model.put("managerTel", map.get("managerTel"));
+		
+		if (errorList.size() > 0){
+			model.put("errorList", errorList);
+		}
+		
+		return "prBoard_modifyForm" + ((errorList.size() == 0) ? "2" : "") + ".tiles";
+	}
+	
+	@RequestMapping("prModify.udc")
+	public String prModify(@RequestParam Map map, String[] cafeFeature1,
+			String[] modifiedCafeFakeImage, String[] modifiedCafeRealImage,
+			MultipartFile[] addCafeImage, HttpServletRequest req,
+			HttpSession session, ModelMap model)
+					throws IllegalStateException, IOException{
+		Member mem = (Member)session.getAttribute("login");
+		String addRealImagesName="";
+		String addFakeImagesName="";
+		String cafeFeature = "";
+		ArrayList<String> errorList = new ArrayList<String>();
+		
+		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
+			return "redirect:/loginPage.udc";
 		}
 		
 		if (errorList.size() == 0){
@@ -280,7 +308,7 @@ public class PrBoardController {
 		else{
 			model.put("errorList", errorList);
 			model.put("prBoard", service.selectPRBoardByNo(Integer.parseInt(((String)map.get("cafeNo")))));
-			return "prBoard_modifyForm.tiles";
+			return "prBoard_modifyForm2.tiles";
 		}
 	}
 	
