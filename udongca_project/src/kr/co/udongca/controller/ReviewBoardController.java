@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.service.PrBoardService;
 import kr.co.udongca.service.ReviewBoardService;
+import kr.co.udongca.service.ReviewReplyService;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.ReviewBoard;
@@ -33,6 +34,9 @@ public class ReviewBoardController {
 	private ReviewBoardService service;
 	@Autowired
 	private PrBoardService prService;
+	
+	@Autowired
+	private ReviewReplyService reviewReplyService;
 	
 	public ReviewBoardController() {
 	}
@@ -216,7 +220,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("cafeNo", cafeNo);
-		return "review_write.tiles";
+		return "prBoard/review_write.tiles";
 	}
 	
 	@RequestMapping("reviewWrite.udc")
@@ -273,5 +277,11 @@ public class ReviewBoardController {
 		prService.updateCafeReviewCountInPRBoard(inputMap);
 		
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+	}
+	
+	@RequestMapping("myReviewDetail.udc")
+	public ModelAndView myReviewDetail(int cafeNo,int reviewNo,ModelMap map){
+		
+		return new ModelAndView("/prBoard/prView.udc?cafeNo="+cafeNo,service.myReviewDetail(cafeNo, reviewNo));
 	}
 }

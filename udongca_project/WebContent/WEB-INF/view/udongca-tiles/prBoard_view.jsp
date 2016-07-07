@@ -50,14 +50,19 @@
 	var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	var currentImageNumber = 0;
-	var currentReviewNo = null;
+	var currentReviewNo = '${requestScope.review.reviewNo}';
 	var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
 	var cafeRating = Number("${requestScope.prBoard.cafeRating}");
 	var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
-	var countGroup = null;
+	var countGroup = Number('${requestScope.countGroup}');
 	
 	$(document).ready(function(){
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+
+		if(location.href.indexOf('prView.udc') != -1){
+			$('#content').empty();
+			$(".myReviewReplyArea").empty();
+		}
 		
 		if ("${sessionScope.login}"){
 			if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
@@ -218,6 +223,7 @@
 	
 	function menuImage(no,menuType){
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/prBoard/menuList.udc",
@@ -273,6 +279,7 @@
 	
 	function mapLocation(){
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "width:350px;height:350px;");
 		
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
@@ -319,6 +326,7 @@
 	function reviewList(page){
 		var html = "";
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/review/cafeReviewListPaging.udc",
@@ -365,6 +373,7 @@
 		var html = "";
 		var reviewImageArray = null;
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$.ajax({
 			"url":"/udongca_project/review/reviewDetail.udc",
 			"type":"POST",
@@ -549,7 +558,67 @@
 		</td>
 	</tr>
 	<tr>
-		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
+		<td id="content" colspan=3 style="width:350px;height:350px;">
+			<table>
+				<tbody>
+					<tr>
+						<td id="reviewTitle" style="width:100px;">${requestScope.review.reviewTitle }</td>
+						<td style="width:100px;">${requestScope.review.memberId }</td>			
+						<td style="width:100px;">${requestScope.review.reviewDate }</td>
+					</tr>
+					<tr>
+						<td colspan="3"> 			
+							<c:forEach begin="1" end="5"></c:forEach>
+						</td>
+					</tr>
+					<tr>
+						<td id="reviewContent" colspan="3">
+							<img>
+							<br>
+							<pre style="height:200px;" id="reviewContentText">${requestScope.review.reviewContent }</pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<c:if test="${sessionScope.login.memberId eq requestScope.memberId }">
+				<button onclick="reviewModifyForm(1,1)">수정</button>
+				<button onclick="reviewDelete(1,1)">삭제</button>
+			</c:if>
+		</td>
+	</tr>
+	<tr class="myReviewReplyArea">
+		<td id="replyArea">
+			<table id="replyBoard">
+				<c:forEach begin="0" end="${requestScope.countGroup }" step="1"  varStatus="group">
+				
+					<c:forEach items="${requestScope.reply }" var="reply">
+						<c:if test="${reply.replyGroup eq group.index   and reply.parentReply == 0}">
+							<tbody class="reply" id="${reply.replyNo }">
+								<tr class='${group.index }'>
+									<td id="${reply.replyId }">${reply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button><button class='deleteReply'>삭제</button>
+								<tr>
+									<td class="replyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">${reply.replyContent }</textarea>
+							</tbody>
+						</c:if>
+					</c:forEach>
+					
+					<c:forEach items="${requestScope.reply }" var="reReply">
+						<c:if test="${reReply.replyGroup eq group.index and reReply.parentReply !=0 }">
+							<tbody class="reReply" id="${reReply.replyNo }">
+								<tr  class='${group.index }' >
+									<td id="${reReply.replyId }">${reReply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button><button class='deleteReply'>삭제</button>
+								<tr>
+									<td class="reReplyContent"><textarea style="resize:none;border: thin;background: white; margin-left: 50px;" readonly="readonly">[${reReply.targetName}]${reReply.replyContent }</textarea>
+							</tbody>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</table>
+			<c:if test="${not empty sessionScope.login }">
+				<tr class="myReviewReplyArea">
+					<td colspan="3" class="form-inline"><input type="text" id="replyContent" placeholder="댓글 입력"><button id="addReply">등록</button>
+			</c:if>
+		</td>
 	</tr>
 </table>
 </div>
@@ -570,7 +639,7 @@
 					<input type="hidden" name="reportMemberId" value="${requestScope.prBoard.memberId}">
 					<div>
 						<label for="reportReason">신고 사유</label>
-						<select name="reportReason" id="reportReason" class="form-control">
+						<select style="width:250;" name="reportReason" id="reportReason" class="form-control">
 							<option>허위 정보</option>
 							<option>욕설, 저속한 언어 사용 또는 타인/타 점포 비방</option>
 							<option>홈페이지 주제와 관련 없는 정보</option>

@@ -19,7 +19,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("button").prop({"class":"btn btn-default"});
 	$("input[type='button']").prop({"class":"btn btn-default"});
 	$("input[type='submit']").prop({"class":"btn btn-default"});
 	$("input[type='text']").prop({"class":"form-control col-xs-2"});
@@ -90,19 +89,16 @@ input[type="button"]{
 	color:black;
 }
 
-select{
-	width:150px !important;
-}
 </style>
 </head>
 
 <body>
 <div id="wrap">
-<header>
+<header class="navbar navbar-nav"> 
 <tiles:insertAttribute name="header"/>
 </header>
 
-<nav class="nav">
+<nav class="nav sidenav">
 <tiles:insertAttribute name="menu"/>
 </nav>
 
@@ -110,7 +106,7 @@ select{
 <tiles:insertAttribute name="body"/>
 </section>
 
-<footer>
+<footer class="navbar">
 <tiles:insertAttribute name="footer"/>
 </footer>
 </div>

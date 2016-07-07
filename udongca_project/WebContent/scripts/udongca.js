@@ -393,7 +393,32 @@ function randColor() {
 }
 
 function memberReportDetail(reportboardNo){
-	window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=400px height=610px');
+	$('.tbody').on('click','tr td',function(){
+		$('#report_detail').modal();
+		$.ajax({
+			'url':'/udongca_project/member/memberReportDetail.udc',
+			'type':'post',
+			'data':{'reportboardNo':reportboardNo},
+			'dataType':'json',
+			'success':function(detail){
+				$('#reportTitle').append(detail.reportType == 'prboard' ? '홍보글 신고' : detail.reportType = 'review' ? '리뷰 신고' : '댓글 신고');
+				
+				$('#memberId').append(detail.memberId);
+				
+				$('#reportReason').append(detail.reportReason);
+				
+				$('#reportResult').append(detail.reportResult == null ? '처리중입니다.':detail.reportResult);
+			},
+			'beforeSend':function(){
+				$('#reportTitle').empty();
+				$('#memberId').empty();
+				$('#reportReason').empty();
+				$('#reportResult').empty();
+				
+			}
+		})
+	});
+	//window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=400px height=610px');
 }
 
 function sessionCheck(memberId){
@@ -559,3 +584,7 @@ function themePage(page){
 		})
 	 }
 }
+ 
+ function reviewPageGo(cafeNo,reviewNo){
+	 location.href="/udongca_project/member/myReviewDetail.udc?cafeNo="+cafeNo+"&reviewNo="+reviewNo;
+ }
