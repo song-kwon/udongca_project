@@ -303,7 +303,7 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-			return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 		}
 		else{
 			model.put("errorList", errorList);
