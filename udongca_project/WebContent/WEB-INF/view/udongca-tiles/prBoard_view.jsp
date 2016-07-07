@@ -441,7 +441,7 @@
 				
 				html = "<table id='replyBoard'>";
 				
-				for (var group = countGroup; group > 0; group--){
+				for (var group = 1; group < countGroup+1; group++){
 					var isParentExist = false;
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
