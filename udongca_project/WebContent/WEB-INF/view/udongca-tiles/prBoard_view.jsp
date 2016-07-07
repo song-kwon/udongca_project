@@ -27,7 +27,7 @@
 	}
 	.reReplyContent{
 		text-indent: 50px;
-		height:40px;
+		min-height:40px;
 	}
 	.reReply{
 		text-indent: 50px;
@@ -62,7 +62,9 @@
 	
 	
 	$(document).ready(function(){
-		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
+		
+		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+		
 		mapLocation();
 		
 		if ("${sessionScope.login}"){
@@ -249,6 +251,7 @@
 	
 	function menuImage(no,menuType){
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/prBoard/menuList.udc",
@@ -304,7 +307,8 @@
 	
 	function mapLocation(){
 		$("#content").empty();
-		$("#content").attr("style", "width:650px;height:350px;margin-left:60px;");
+		$(".myReviewReplyArea").empty();
+		$("#content").attr("style", "width:350px;height:350px;");
 		
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 	    mapOption = {
@@ -351,6 +355,7 @@
 		currentPage = page;
 		var html = "";
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/review/cafeReviewListPaging.udc",
@@ -397,6 +402,7 @@
 		var html = "";
 		var reviewImageArray = null;
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$.ajax({
 			"url":"/udongca_project/review/reviewDetail.udc",
 			"type":"POST",
@@ -461,7 +467,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
@@ -477,7 +483,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 						}
 					}

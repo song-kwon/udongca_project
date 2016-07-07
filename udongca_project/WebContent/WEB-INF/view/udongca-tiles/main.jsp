@@ -101,8 +101,8 @@ a.list-group-item:hover{
 	      height: 400px;
 } 
 .carousel-indicators{
-		width:70%;
-		left:45%;
+		width:100%;
+		left:30%;
 	 	bottom:-70px;
  }
 .carousel-indicators .active{
@@ -472,7 +472,7 @@ a.list-group-item:hover{
 				</div>
 			</div>
 			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:20px; ">
-				<div style="width:500px;height:50px;" margin-left:10px; class="main_style">리뷰</div>
+				<div style="width:500px; height:50px; " class="main_style">리뷰</div>
 					<div id="review">
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">

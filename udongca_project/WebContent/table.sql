@@ -258,9 +258,9 @@ insert into review_board values(review_board_reviewNo_seq.nextval,'TEST8',sysdat
 create table report_board(
 reportboardNo	NUMBER	primary key,
 reportMemberId	varchar2(50)	NOT NULL,
-reportReason	varchar2(50)	NOT NULL,
+reportReason	varchar2(100)	NOT NULL,
 reportContent	CLOB	NULL,
-reportResult	varchar2(50)	NULL,
+reportResult	CLOB	NULL,
 reportCancelReason	CLOB	NULL,
 reportType	VARCHAR2(50)	NOT NULL,
 reportNO 	NUMBER	NOT NULL,

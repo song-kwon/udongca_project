@@ -26,4 +26,6 @@ public interface ReviewBoardService {
 	public int selectNextReviewBoardSequence();
 	
 	public List<ReviewBoard> selectMainReviewList();
+	
+	public Map myReviewDetail(int cafeNo,int reviewNo);
 }
