@@ -117,7 +117,7 @@ public class ReportBoardController {
 	public String insertReport(@RequestParam Map map, HttpSession session,
 			ModelMap model){
 		Member login = (Member) session.getAttribute("login");
-		if (login == null || !login.getMemberType().equals("generalMember")){
+		if (login == null){
 			return "redirect:/loginPage.udc";
 		}
 		
@@ -144,7 +144,7 @@ public class ReportBoardController {
 				Integer.parseInt(((String)map.get("reportNO"))),
 				login.getMemberId()
 			));
-			return "/prBoard/prView.udc?cafeNo=" + (String)map.get("reportNO");
+			return "/prBoard/prView.udc?cafeNo=" + (String)map.get("cafeNo");
 		}
 		else{
 			model.put("error", errorList);
