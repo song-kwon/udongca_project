@@ -290,9 +290,7 @@
 		  
 </script>
 <style type="text/css">
-.modal-body>form{
-	height:750px;
-}
+
 label{
 	margin-top:7px;
 }
@@ -456,7 +454,7 @@ select#selectType{
       </div>
       <div class="modal-body">
         
-<form role="form" style="height:351px;">
+<form role="form">
   <div class="form-group">
     <label for="id">아이디</label>
     <input type="text" class="form-control" id="memberId" readonly="readonly" >

@@ -472,7 +472,7 @@ a.list-group-item:hover{
 				</div>
 			</div>
 			<div style=" float:left; width:500px; height:450px; margin-top:5px; margin-left:20px; ">
-				<div style="width:500px;height:50px;" margin-left:10px; class="main_style">리뷰</div>
+				<div style="width:500px; height:50px; " class="main_style">리뷰</div>
 					<div id="review">
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">

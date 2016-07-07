@@ -82,6 +82,7 @@
 				$("#table1").empty();
 				$("#table2").empty();
 				$("#table3").empty();
+				$("#table4").empty();
 				 for(var i = 0; i<obj.length;i++){
 					 for(var j = 0 ;j<obj[i].length;j++){
 						if(i==0){ 
@@ -342,10 +343,6 @@ thead{
 table, tbody{
 	height:30px;
 }
-.modal-body>form{
-	height:750px;
-
-}
 label{
 	margin-top:7px;
 }
@@ -506,7 +503,7 @@ h2{
   </div>
 	<div class="form-group">
     <label for="reportNO">답변</label><br>
-   <textarea rows="15" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
+   <textarea rows="10" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
   </div>
  
 </form>
@@ -584,7 +581,7 @@ h2{
       </div>
       <div class="modal-body">
         
-<form role="form" style="height:351px;">
+<form role="form">
   <div class="form-group">
     <label for="id">아이디</label>
     <input type="text" class="form-control" id="memberId" readonly="readonly" >
