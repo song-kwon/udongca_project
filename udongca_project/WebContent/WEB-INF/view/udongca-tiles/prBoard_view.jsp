@@ -2,38 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
-<style type="text/css">
-	.carousel-inner > .item > img {
-	      top: 0;
-	      left: 0;
-	      width: 600px;
-	      height: 350px;
-	 } 
-	 .carousel-indicators{
-	 	bottom:-70px;
-	 }
-	 .carousel-indicators .active{
-	 	width:60px;
-	 	height:60px;
-	 }
-	.carousel-indicators > img{
-		width:50px;
-		height:50px;
-	}
-	
-	.replyContent{
-		text-indent: 20px;
-		height:30px;
-	}
-	.reReplyContent{
-		text-indent: 50px;
-		height:40px;
-	}
-	.reReply{
-		text-indent: 50px;
-	}
-</style>
-
 <script type="text/javascript">
 	var isAddedFavorite = null;
 	var isMemberLicensed = null;
@@ -47,11 +15,11 @@
 	var countGroup = null;
 	
 	$(document).ready(function(){
-		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 		
 		if ("${sessionScope.login}"){
 			if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
-				$("#buttonArea").append("<button onclick='prModify()'>홍보글 수정</button><button onclick='prDelete()'>홍보글 삭제</button>");
+				$("#buttonArea").append("<button onclick='prModify()' class='btn btn-default'>홍보글 수정</button><button onclick='prDelete()' class='btn btn-default'>홍보글 삭제</button>");
 			}
 			else{
 				if("${sessionScope.login.memberType}" == "generalMember"){
@@ -62,14 +30,14 @@
 						"dataType":"json",
 						"success":function(json){
 							isAddedFavorite = json;
-							$("#buttonArea").append("<button onclick='favoriteToggle()'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
+							$("#buttonArea").append("<button onclick='favoriteToggle()' class='btn btn-default'>즐겨찾기 " + ((isAddedFavorite) ? "해제" : "추가") + "</button>");
 						},
 						"error":function(xhr){
 							alert("An error occured while loading isBookmarkAdded.udc: " + xhr.status + " " + xhr.statusText);
 						}
 					});
 				}
-				$("#buttonArea").append("<button onclick='prReport()'>홍보글 신고</button>");
+				$("#buttonArea").append("<button onclick='prReport()' class='btn btn-default'>홍보글 신고</button>");
 			}
 		}
 		
@@ -100,7 +68,7 @@
 		
 		$(document).on('click','.reReplyInputBtn',function(){
 			$("#reReplyInput").remove();
-			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력'><button class='addReReply'>등록</button></div>");
+			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'><button class='addReReply'>등록</button></div>");
 		});
 		
 		$(document).on('click','.addReReply',function(){
@@ -178,7 +146,7 @@
 		if (currentImageNumber < 0){
 			currentImageNumber = cafeFakeImageArrayNumber - 1;
 		}
-		$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+		$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 	};
 	
 	function nextImage(){
@@ -186,7 +154,7 @@
 		if (currentImageNumber > cafeFakeImageArrayNumber - 1){
 			currentImageNumber = 0;
 		}
-		$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+		$("#imageArea").empty().append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 	};
 	
 	function menuImage(no,menuType){
@@ -205,12 +173,12 @@
 					for(var i =0;i<obj.length;i++){
 
 						if(i==0){
-						$(".carousel-inner").append("<div class='item active'>"+
-							      "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+						$(".carousel-inner").append("<div class='item active'><span><font size=6>"+obj[i].menuType+
+							      "</font></span><p><p><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><font size=6>"+obj[i].menuName+"</font></div></div>");
 						$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 						}else{
-							$(".carousel-inner").append("<div class='item'>"+
-								    "<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
+							$(".carousel-inner").append("<div class='item'><span><font size=6>"+obj[i].menuType+
+								    "</font></span><p><p><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><font size=6>"+obj[i].menuName+"</font></div></div>");
 							$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='"+(i)+"'  class='item"+(i+1)+"'></li>");
 						}
 					}
@@ -231,11 +199,11 @@
 				    });
 				}
 				else{
-					$("#content").append("해당 카테고리의 메뉴가 존재하지 않습니다<br>");
+					$("#content").append("<br><font size=3>해당 카테고리의 메뉴가 존재하지 않습니다.<br></font>");
 				}
 				
 				if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
-					$("#content").append("<button onclick='menuModifyForm()'>메뉴 수정</button>");
+					$("#content").append("<div style='padding:25px; float:right;'><button onclick='menuModifyForm()' class='btn btn-default'>메뉴 수정</button></div>");
 				}
 			},
 			"error":function(xhr){
@@ -246,7 +214,7 @@
 	
 	function mapLocation(){
 		$("#content").empty();
-		$("#content").attr("style", "width:350px;height:350px;");
+		$("#content").attr("style", "width:650px;height:350px;margin-left:60px;");
 		
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 	    mapOption = {
@@ -300,7 +268,7 @@
 			"dataType":"json",
 			"success":function(json){
 				if (!json.list.length){
-					html += "리뷰가 존재하지 않습니다<br>"
+					html += "<br><font size=3>아직 작성된 리뷰가 없습니다.<br></font>"
 				}
 				else{
 					html += "<table>";
@@ -322,7 +290,7 @@
 				}
 				
 				if ("${sessionScope.login.memberType}" == "generalMember"){
-					html += "<button onclick=reviewWrite()>리뷰 작성</button>";
+					html += "<br><button onclick=reviewWrite() class='btn btn-default'>리뷰 작성</button>";
 				}
 				
 				$("#content").append(html);
@@ -442,87 +410,127 @@
 		}
 	}
 </script>
-<div>
+<style type="text/css">
+	table{
+		width:1280px;
+	}
+	table, th{
+		font-size:20px;
+		font-weigth:bold;
+		width:700px;
+	}
+	table,td{
+		font-size:18px;
+		width:1000px;
+	}
+
+	.carousel-inner > .item > img {
+		  padding-top:45px;
+	      top: 0;
+	      left: 0;
+	      width: 350px;
+	      height: 300px;
+	      align:center;
+	 } 
+	 .carousel-indicators{
+	 	bottom:-70px;
+	 }
+	 .carousel-indicators .active{
+	 	width:60px;
+	 	height:60px;
+	 }
+	.carousel-indicators > img{
+		width:50px;
+		height:50px;
+	}
+	
+	.replyContent{
+		text-indent: 20px;
+		height:30px;
+	}
+	.reReplyContent{
+		text-indent: 50px;
+		height:40px;
+	}
+	.reReply{
+		text-indent: 50px;
+	}
+</style>
+
+<div style="width:1000px; padding-top:20px; padding-left:50px;">
 <input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
+<div><h1 id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
+<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
 <table>
 	<tr>
-		<td id="cafeName" colspan=3><c:out value="${requestScope.prBoard.cafeName}"/></td>
-	</tr>
-	<tr>
-		<td>
+		<td rowspan="5" style="height:450px; width:300px; padding-right:15px;">
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
 		
-			<div id="imageArea"></div>
-			<button onclick="prevImage()">이전</button>
-			<button onclick="nextImage()">다음</button>
+			<div id="imageArea" style="padding:10px; width:200px;"></div>
+			<div align="center">
+				<button onclick="prevImage()">이전</button>
+				<button onclick="nextImage()">다음</button>
+			</div>
 		</td>
-		<td id="cafeInfo">
-			<table>
-				<tr>
-					<td>카페 소개</td>
-					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
-				</tr>
-				<tr>
-					<td>영업 시간</td>
-					<td>${requestScope.prBoard.operationHour}</td>
-				</tr>
-				<tr>
-					<td>연락처</td>
+		<th>영업 시간</th>
+		<td>${requestScope.prBoard.operationHour}</td>
+	</tr>
+	<tr>
+					<th>연락처</th>
 					<td>
 						카페: ${requestScope.prBoard.cafeTel}<br>
 						사업자: ${requestScope.prBoard.managerTel}
 					</td>
 				</tr>
 				<tr>
-					<td>카페 점수</td>
+					<th>카페 평점</th>
 					<td id="cafeAverageRatingIcon"></td>
 					<td id="cafeAverageRatingNumber"></td>
 				</tr>
 				<tr>
-					<td>카페 특징</td>
+					<th>카페 특징</th>
 					<td>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'wifi')}">
-							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'socket')}">
-							<img src="/udongca_project/udongca-image/socket.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/socket.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'park')}">
-							<img src="/udongca_project/udongca-image/parking-sign.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/parking-sign.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'smoking')}">
-							<img src="/udongca_project/udongca-image/smoking-area.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/smoking-area.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme1')}">
-							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme2')}">
-							<img src="/udongca_project/udongca-image/books-stack.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/books-stack.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme3')}">
-							<img src="/udongca_project/udongca-image/plain-dog.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/plain-dog.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme4')}">
-							<img src="/udongca_project/udongca-image/halloween-black-cat.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/halloween-black-cat.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme5')}">
-							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme6')}">
-							<img src="/udongca_project/udongca-image/question-button.png" height="64" width="64">
+							<img src="/udongca_project/udongca-image/question-button.png" height="40" width="40">
 						</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 id="buttonArea"></td>
+					<th>카페 소개</th>
+					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
-	</tr>
-</table>
+	</table>
+	
+		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
+			
+		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
 </div>

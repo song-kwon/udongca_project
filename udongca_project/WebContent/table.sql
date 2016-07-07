@@ -188,7 +188,7 @@ insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST8','TEST8','TEST8','TEST8','test1');
 insert into onetoone_inquiry values(onetoone_inquiry_inquiryNo_seq.nextval,'TEST9','TEST9','TEST9','TEST9','scott');
 
-
+drop table PRboard
 create table PRboard(
 cafeNo	NUMBER	primary key,
 cafeName	varchar2(50)	NOT NULL,
