@@ -63,7 +63,7 @@
 	
 	$(document).ready(function(){
 		
-		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
+		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 		
 		mapLocation();
 		
@@ -308,7 +308,7 @@
 	function mapLocation(){
 		$("#content").empty();
 		$(".myReviewReplyArea").empty();
-		$("#content").attr("style", "width:350px;height:350px;");
+		$("#content").attr("style", "width:600px;height:350px;margin-left:150px;");
 		
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 	    mapOption = {
@@ -575,7 +575,7 @@
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
 		
-			<div id="imageArea" style="padding:10px; width:200px;"></div>
+			<div id="imageArea" style="padding:10px; width:400px;"></div>
 			<div align="center">
 				<button onclick="prevImage()">이전</button>
 				<button onclick="nextImage()">다음</button>
@@ -637,9 +637,9 @@
 				</tr>
 	</table>
 	
-		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
+		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
 			
-		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
+		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
 </div>
 
 <!-- Modal -->
