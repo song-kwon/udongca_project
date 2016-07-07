@@ -128,7 +128,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("review", service.selectReview(reviewNo));
-		return "review_modifyForm.tiles";
+		return "prBoard/review_modifyForm.tiles";
 	}
 	
 	@RequestMapping("reviewModify.udc")
