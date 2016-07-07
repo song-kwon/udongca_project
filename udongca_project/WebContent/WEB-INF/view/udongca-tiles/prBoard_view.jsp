@@ -27,7 +27,7 @@
 	}
 	.reReplyContent{
 		text-indent: 50px;
-		height:40px;
+		min-height:40px;
 	}
 	.reReply{
 		text-indent: 50px;
@@ -51,25 +51,21 @@
 	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	var currentImageNumber = 0;
 	var currentPage = 0;
-	var currentReviewNo = '${requestScope.review.reviewNo}';
+	var currentReviewNo = null;
 	var currentReviewMemberId = null;
 	var reportReplyNo = null;
 	var reportReplyMemberId = null;
 	var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
 	var cafeRating = Number("${requestScope.prBoard.cafeRating}");
 	var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
-	var countGroup = Number('${requestScope.countGroup}');
+	var countGroup = null;
 	
 	
 	$(document).ready(function(){
 		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='200' width='200'>");
 		
-		if(location.href.indexOf('prView.udc') != -1){
-			$('#content').empty();
-			$(".myReviewReplyArea").empty();
-			mapLocation();
-		}
+		mapLocation();
 		
 		if ("${sessionScope.login}"){
 			if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
@@ -471,7 +467,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
@@ -487,7 +483,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 						}
 					}
@@ -639,79 +635,12 @@
 					<th>카페 소개</th>
 					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
-<<<<<<< HEAD
 	</table>
 	
 		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
-=======
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td id="content" colspan=3 style="width:350px;height:350px;">
-			<table>
-				<tbody>
-					<tr>
-						<td id="reviewTitle" style="width:100px;">${requestScope.review.reviewTitle }</td>
-						<td style="width:100px;">${requestScope.review.memberId }</td>			
-						<td style="width:100px;">${requestScope.review.reviewDate }</td>
-					</tr>
-					<tr>
-						<td colspan="3"> 			
-						</td>
-					</tr>
-					<tr>
-						<td id="reviewContent" colspan="3">
-							<img src='/udongca_project/images/${requestScope.review.reviewFakeImage }' height='300' width='300'><br>
-							<br>
-							<pre style="height:200px;" id="reviewContentText">${requestScope.review.reviewContent }</pre>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<c:if test="${sessionScope.login.memberId eq requestScope.memberId }">
-				<button onclick="reviewModifyForm(1,1)">수정</button>
-				<button onclick="reviewDelete(1,1)">삭제</button>
-			</c:if>
-		</td>
-	</tr>
-	<tr class="myReviewReplyArea">
-		<td id="replyArea">
-			<table id="replyBoard">
-				<c:forEach begin="0" end="${requestScope.countGroup }" step="1"  varStatus="group">
-				
-					<c:forEach items="${requestScope.reply }" var="reply">
-						<c:if test="${reply.replyGroup eq group.index   and reply.parentReply == 0}">
-							<tbody class="reply" id="${reply.replyNo }">
-								<tr class='${group.index }'>
-									<td id="${reply.replyId }">${reply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button><button class='deleteReply'>삭제</button>
-								<tr>
-									<td class="replyContent"><textarea style="resize:none;border: thin;background: white;" readonly="readonly">${reply.replyContent }</textarea>
-							</tbody>
-						</c:if>
-					</c:forEach>
-					
-					<c:forEach items="${requestScope.reply }" var="reReply">
-						<c:if test="${reReply.replyGroup eq group.index and reReply.parentReply !=0 }">
-							<tbody class="reReply" id="${reReply.replyNo }">
-								<tr  class='${group.index }' >
-									<td id="${reReply.replyId }">${reReply.replyId }&nbsp;<button class="reReplyInputBtn">답글</button><button class='deleteReply'>삭제</button>
-								<tr>
-									<td class="reReplyContent"><textarea style="resize:none;border: thin;background: white; margin-left: 50px;" readonly="readonly">[${reReply.targetName}]${reReply.replyContent }</textarea>
-							</tbody>
-						</c:if>
-					</c:forEach>
-				</c:forEach>
-			</table>
-			<c:if test="${not empty sessionScope.login }">
-				<tr class="myReviewReplyArea">
-					<td colspan="3" class="form-inline"><input type="text" id="replyContent" placeholder="댓글 입력"><button id="addReply">등록</button>
-			</c:if>
-		</td>
-	</tr>
-</table>
+
 </div>
 
 <!-- Modal -->
@@ -832,5 +761,4 @@
 			</div>
 		</div>
 	</div>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </div>
