@@ -76,11 +76,6 @@ a{
 	margin:0 auto;
 }
 
-.nav_bodyDiv{
-	width:1280px !important;
-	margin:0 auto;
-}
-
 textarea{
 	outline: none;
 }

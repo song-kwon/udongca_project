@@ -157,21 +157,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView memberIdFind(Member member) throws UnsupportedEncodingException {
-		ModelAndView mav = null;
+	public String memberIdFind(Member member,String title) throws UnsupportedEncodingException {
 		if (memberDaoImpl.countMemberIdFind(member) == 0) {
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_form.jsp", "error", "회원 정보가 없습니다.");
-			return mav;
+			return "정보가 일치하는 아이디가 없습니다.";
 		} else {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format(
-					"%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동",
+					"%s님의 아이디는 %s 입니다. <br> <a href='http://127.0.0.1:5000/udongca_project/'>우동카</a>로 이동",
 					findMember.getMemberName(), findMember.getMemberId());
-			send.sendEmail(findMember, content);
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp", "success",
-					memberDaoImpl.memberIdFind(member));
-			return mav;
+			send.sendEmail(findMember, content,title);
+			
+			return member.getMemberEmail()+"로 찾으시는 아이디를 보내드렸습니다.";
 		}
 	}
 
@@ -188,20 +185,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView memberPasswordFind(Member member) throws UnsupportedEncodingException {
-		ModelAndView mav = null;
+	public String memberPasswordFind(Member member,String title) throws UnsupportedEncodingException {
 		if (memberDaoImpl.countMemberPasswordFind(member) == 0) {
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp", "error", "회원 정보가 없습니다.");
-			return mav;
+			return "정보가 일치하는 회원이 없습니다.";
 		} else {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format(
 					"%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동",
 					findMember.getMemberName(), findMember.getMemberId(), findMember.getMemberPassword());
-			mav = new ModelAndView("/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp", "success",
-					memberDaoImpl.memberIdFind(member));
-			return mav;
+			send.sendEmail(findMember, content,title);
+			return member.getMemberId()+"의 비밀번호를"+member.getMemberEmail()+"로 보내드렸습니다.";
 		}
 	}
 

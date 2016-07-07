@@ -27,4 +27,8 @@ public interface ReportBoardDao {
     public int countMemberReport(String memberId);
     
     public ReportBoard memberReportDetail(int reportboardNo);
+    
+    public int insertReport(ReportBoard reportboard);
+    
+    public int selectNextReportBoardSequence();
 }

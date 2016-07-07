@@ -4,6 +4,13 @@
 nav{
 	line-height: 40px;
 }
+.modal-body>form{
+	height:750px;
+
+}
+label{
+	margin-top:7px;
+}
 table{
 	border-collapse: collapse;
 	width:800px;
@@ -26,7 +33,7 @@ thead{
 	font-size:13pt;
 	font-weight:bold;
 	cursor:default;
-	border-bottom:2px solid;
+	border-bottom:3px solid;
 }
 
 
@@ -48,6 +55,16 @@ td{
     padding-bottom: 0px;
     padding-top: 0px;
     padding-right: 0px;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
 }
 </style>
 <script type="text/javascript">
@@ -164,7 +181,9 @@ td{
 <div id="div">
 <input type="hidden" id="memberCheck" value="${sessionScope.login.memberType }">
 <c:if test="${sessionScope.login.memberType != master}">
+<div style="margin-left: 30px; margin-top: 30px">
 	<h3>1:1문의관리</h3>
+	</div>
 	<div class="form-group">
 	<table class="table table-hover">
 		<thead>
@@ -213,7 +232,7 @@ td{
   </div>
 	<div class="form-group">
     <label for="reportNO">답변</label><br>
-   <textarea rows="10" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
+   <textarea rows="15" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
   </div>
  
 </form>

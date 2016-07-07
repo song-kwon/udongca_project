@@ -29,8 +29,9 @@ public class ThreeBoardController {
 	Member master = (Member) session.getAttribute("login");
 	if (master != null && master.getMemberType().equals("master")) {
 	    list.add(oneService.oneToOneList(1));
-	    list.add(reportService.reportList(1, "review"));
-	    list.add(reportService.reportList(1, "prboard"));
+	    list.add(reportService.reportList(1, "review_board"));
+	    list.add(reportService.reportList(1, "prBoard"));
+	    list.add(reportService.reportList(1, "review_reply"));
 	    return list;
 
 	} else {

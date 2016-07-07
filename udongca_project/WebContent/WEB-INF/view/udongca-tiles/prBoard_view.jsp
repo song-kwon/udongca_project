@@ -2,20 +2,68 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
+<style type="text/css">
+	.carousel-inner > .item > img {
+	      top: 0;
+	      left: 0;
+	      width: 600px;
+	      height: 350px;
+	 } 
+	 .carousel-indicators{
+	 	bottom:-70px;
+	 }
+	 .carousel-indicators .active{
+	 	width:60px;
+	 	height:60px;
+	 }
+	.carousel-indicators > img{
+		width:50px;
+		height:50px;
+	}
+	
+	.replyContent{
+		text-indent: 20px;
+		height:30px;
+	}
+	.reReplyContent{
+		text-indent: 50px;
+		height:40px;
+	}
+	.reReply{
+		text-indent: 50px;
+	}
+	
+	.modal-header, h4, .close {
+		background-color: #B8860B;
+		color:white !important;
+		text-align: center;
+		font-size: 30px;
+	}
+	.modal-footer {
+		background-color: #FAEBD7;
+	}
+</style>
+
 <script type="text/javascript">
 	var isAddedFavorite = null;
 	var isMemberLicensed = null;
 	var cafeFakeImageArray = "${requestScope.prBoard.cafeFakeImage}".split(";");
 	var cafeFakeImageArrayNumber = cafeFakeImageArray.length - 1;
 	var currentImageNumber = 0;
+	var currentPage = 0;
 	var currentReviewNo = null;
+	var currentReviewMemberId = null;
+	var reportReplyNo = null;
+	var reportReplyMemberId = null;
 	var cafeReviewCount = Number("${requestScope.prBoard.cafeReviewCount}");
 	var cafeRating = Number("${requestScope.prBoard.cafeRating}");
 	var cafeAverageRating = (cafeReviewCount) ? cafeRating / cafeReviewCount : 0;
 	var countGroup = null;
 	
+	
 	$(document).ready(function(){
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
+		mapLocation();
 		
 		if ("${sessionScope.login}"){
 			if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
@@ -108,6 +156,35 @@
 				});
 			}
 		});
+		
+		$(document).on('submit', '#prReportForm', function(){
+			if ($("#prReportReason").val() == "직접 입력" && $("#prReportContent").val() == ""){
+				alert("신고 내용을 입력하세요");
+				return false;
+			}
+			return window.confirm("정말 신고하겠습니까?");
+		});
+		
+		$(document).on('submit', '#reviewReportForm', function(){
+			if ($("#reviewReportReason").val() == "직접 입력" && $("#reviewReportContent").val() == ""){
+				alert("신고 내용을 입력하세요");
+				return false;
+			}
+			$("#reviewReportNo").val(currentReviewNo);
+			$("#reviewReportMemberId").val(currentReviewMemberId);
+			return window.confirm("정말 신고하겠습니까?");
+		});
+		
+		$(document).on('submit', '#replyReportForm', function(){
+			if ($("#replyReportReason").val() == "직접 입력" && $("#replyReportContent").val() == ""){
+				alert("신고 내용을 입력하세요");
+				return false;
+			}
+			
+			$("#replyReportNo").val(reportReplyNo);
+			$("#replyReportMemberId").val(reportReplyMemberId);
+			return window.confirm("정말 신고하겠습니까?");
+		});
 	});
 	
 	function prModify(){
@@ -121,8 +198,21 @@
 	};
 	
 	function prReport(){
-		window.open();
-		// window.open을 이용해 Form을 열고, 거기서 사유를 선택하도록 해야 할 것.
+		$("#prReportModal").modal();
+	};
+	
+	function reviewReport(){
+		$("#reviewReportModal").modal();
+	};
+	
+	function replyReport(replyNo, replyMemberId){
+		/*
+			replyMemberId에 json.reply[idx].replyId를 대입했으므로 ID 문자열이 전달될 줄 알았는데 실제로는 해당 id의 Table이 출력됨.
+			따라서 jQuery 객체로 만들어 id 값을 뽑아내야 했는데, 왜 Table이 넘어오는지는 이유 불명.
+		*/
+		reportReplyNo = replyNo;
+		reportReplyMemberId = $(replyMemberId).prop("id");
+		$("#replyReportModal").modal();
 	};
 	
 	function favoriteToggle(){
@@ -258,6 +348,7 @@
 	}
 	
 	function reviewList(page){
+		currentPage = page;
 		var html = "";
 		$("#content").empty();
 		$("#content").attr("style", "");
@@ -314,13 +405,14 @@
 			"success":function(json){
 				countGroup = json.countGroup;
 				currentReviewNo = reviewNo;
+				currentReviewMemberId = json.review.memberId;
 				
 				$("#content").append("<table><tr><td id='reviewArea'></td></tr><tr><td id='replyArea'></td></tr></table>");
 				
-				var writerId = "'" + json.review.memberId + "'";
+				var writerId = "'" + currentReviewMemberId + "'";
 				reviewImageArray = json.review.reviewFakeImage.split(";");
 				html += "<table><tr><td id='reviewTitle'></td>";
-				html += "<td>" + json.review.memberId + "</td>";
+				html += "<td>" + currentReviewMemberId + "</td>";
 				html += "<td>" + json.review.reviewDate + "</td></tr>";
 				html += "<tr><td colspan=3>";
 				for (var i = 0; i < 5; i++){
@@ -330,10 +422,14 @@
 				html += "<tr><td id='reviewContent' colspan=3>";
 				html += "</td></tr>";
 				html += "</table>";
-				if ("${sessionScope.login.memberId}" == json.review.memberId){
+				if ("${sessionScope.login.memberId}" == currentReviewMemberId){
 					html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
 					html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
 				}
+				if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != currentReviewMemberId){
+					html += "<button onclick='reviewReport()'>신고</button>";
+				}
+				html += "<button onclick='reviewList(" + currentPage + ")'>목록</button>"
 				
 				$("#reviewArea").append(html);
 				$("#reviewTitle").text(json.review.reviewTitle);
@@ -345,12 +441,12 @@
 				
 				html = "<table id='replyBoard'>";
 				
-				for (var group = countGroup; group > 0; group--){
+				for (var group = 1; group < countGroup+1; group++){
 					var isParentExist = false;
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
+							var d = new Date(json.reply[idx].replyDate);
 							if (json.reply[idx].replyGroup == group && !json.reply[idx].parentReply && !i){
-								var d = new Date(json.reply[idx].replyDate);
 								isParentExist = true;
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
@@ -360,12 +456,14 @@
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
 								}
+								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
+								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
 								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
-								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if (isParentExist && "${sessionScope.login}"){
@@ -373,6 +471,9 @@
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
+								}
+								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
@@ -528,9 +629,139 @@
 					<th>카페 소개</th>
 					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
+<<<<<<< HEAD
 	</table>
 	
 		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
+=======
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
+	</tr>
+</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="prReportModal" role="dialog">
+	<div class="modal-dialog">
+	
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:35px 50px;">
+				<h4>홍보글 신고</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form" id="prReportForm" action="/udongca_project/member/addReport.udc" method="post">
+					<input type="hidden" name="reportType" value="prBoard">
+					<input type="hidden" name="reportNO" value="${requestScope.prBoard.cafeNo}">
+					<input type="hidden" name="reportMemberId" value="${requestScope.prBoard.memberId}">
+					<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
+					<div>
+						<label for="reportReason">신고 사유</label>
+						<select name="reportReason" id="prReportReason" class="form-control">
+							<option>허위 정보</option>
+							<option>욕설, 저속한 언어 사용</option>
+							<option>타인/타 점포 비방</option>
+							<option>홈페이지 주제와 관련 없는 정보</option>
+							<option>중복 정보</option>
+							<option>직접 입력</option>
+						</select>
+					</div>
+					<div>
+						<label for="reportContent">신고 내용</label>
+						<input type="text" class="form-control" id="prReportContent" name="reportContent">
+					</div>
+					<button type="submit" class="btn btn-success btn-block">전송</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reviewReportModal" role="dialog">
+	<div class="modal-dialog">
+	
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:35px 50px;">
+				<h4>리뷰 신고</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form" id="reviewReportForm" action="/udongca_project/member/addReport.udc" method="post">
+					<input type="hidden" name="reportType" value="review_board">
+					<input type="hidden" name="reportNO" id="reviewReportNo" value="">
+					<input type="hidden" name="reportMemberId" id="reviewReportMemberId" value="">
+					<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
+					<div>
+						<label for="reportReason">신고 사유</label>
+						<select name="reportReason" id="reviewReportReason" class="form-control">
+							<option>허위 정보</option>
+							<option>욕설, 저속한 언어 사용</option>
+							<option>타인/타 점포 비방</option>
+							<option>홈페이지 주제와 관련 없는 정보</option>
+							<option>중복 정보</option>
+							<option>직접 입력</option>
+						</select>
+					</div>
+					<div>
+						<label for="reportContent">신고 내용</label>
+						<input type="text" class="form-control" id="reviewReportContent" name="reportContent">
+					</div>
+					<button type="submit" class="btn btn-success btn-block">전송</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="replyReportModal" role="dialog">
+	<div class="modal-dialog">
+	
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:35px 50px;">
+				<h4>리플 신고</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form" id="replyReportForm" action="/udongca_project/member/addReport.udc" method="post">
+					<input type="hidden" name="reportType" value="review_reply">
+					<input type="hidden" name="reportNO" id="replyReportNo" value="">
+					<input type="hidden" name="reportMemberId" id="replyReportMemberId" value="">
+					<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
+					<div>
+						<label for="reportReason">신고 사유</label>
+						<select name="reportReason" id="replyReportReason" class="form-control">
+							<option>허위 정보</option>
+							<option>욕설, 저속한 언어 사용</option>
+							<option>타인/타 점포 비방</option>
+							<option>홈페이지 주제와 관련 없는 정보</option>
+							<option>중복 정보</option>
+							<option>직접 입력</option>
+						</select>
+					</div>
+					<div>
+						<label for="reportContent">신고 내용</label>
+						<input type="text" class="form-control" id="replyReportContent" name="reportContent">
+					</div>
+					<button type="submit" class="btn btn-success btn-block">전송</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+>>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </div>

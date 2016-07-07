@@ -81,4 +81,14 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
 	public ReportBoard memberReportDetail(int reportboardNo) {
 		return session.selectOne("reportMapper.member_report_detail",reportboardNo);
 	}
+
+	@Override
+	public int insertReport(ReportBoard reportboard) {
+		return session.insert("reportMapper.insertReport", reportboard);
+	}
+
+	@Override
+	public int selectNextReportBoardSequence() {
+		return session.selectOne("reportMapper.selectNextReportBoardSequence");
+	}
 }
