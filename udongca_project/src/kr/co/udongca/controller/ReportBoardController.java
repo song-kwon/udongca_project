@@ -93,9 +93,9 @@ public class ReportBoardController {
 	}
 
 	@RequestMapping("memberReportDetail.udc")
-	public ModelAndView memberReportDetail(int reportboardNo) {
-		return new ModelAndView("/WEB-INF/view/udongca-tiles/member/member_report_detail.jsp", "report",
-				reportService.memberReportDetail(reportboardNo));
+	@ResponseBody
+	public ReportBoard memberReportDetail(int reportboardNo) {
+		return reportService.memberReportDetail(reportboardNo);
 	}
 
 	@RequestMapping("memberReportListPaging.udc")

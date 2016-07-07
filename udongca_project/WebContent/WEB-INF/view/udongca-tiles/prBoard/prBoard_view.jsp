@@ -27,7 +27,7 @@
 	}
 	.reReplyContent{
 		text-indent: 50px;
-		height:40px;
+		min-height:40px;
 	}
 	.reReply{
 		text-indent: 50px;
@@ -62,7 +62,9 @@
 	
 	
 	$(document).ready(function(){
+		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
+		
 		mapLocation();
 		
 		if ("${sessionScope.login}"){
@@ -249,6 +251,7 @@
 	
 	function menuImage(no,menuType){
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/prBoard/menuList.udc",
@@ -304,7 +307,8 @@
 	
 	function mapLocation(){
 		$("#content").empty();
-		$("#content").attr("style", "width:650px;height:350px;margin-left:60px;");
+		$(".myReviewReplyArea").empty();
+		$("#content").attr("style", "width:600px;height:350px;margin-left:150px;");
 		
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 	    mapOption = {
@@ -351,6 +355,7 @@
 		currentPage = page;
 		var html = "";
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
 		$.ajax({
 			"url":"/udongca_project/review/cafeReviewListPaging.udc",
@@ -397,6 +402,7 @@
 		var html = "";
 		var reviewImageArray = null;
 		$("#content").empty();
+		$(".myReviewReplyArea").empty();
 		$.ajax({
 			"url":"/udongca_project/review/reviewDetail.udc",
 			"type":"POST",
@@ -461,7 +467,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
@@ -477,7 +483,7 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 						}
 					}
@@ -569,7 +575,7 @@
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
 		
-			<div id="imageArea" style="padding:10px; width:200px;"></div>
+			<div id="imageArea" style="padding:10px; width:450px;"></div>
 			<div align="center">
 				<button onclick="prevImage()">이전</button>
 				<button onclick="nextImage()">다음</button>
@@ -629,20 +635,11 @@
 					<th>카페 소개</th>
 					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
-<<<<<<< HEAD
 	</table>
 	
-		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
+		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
 			
-		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
-=======
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
-	</tr>
-</table>
+		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
 </div>
 
 <!-- Modal -->
@@ -763,5 +760,4 @@
 			</div>
 		</div>
 	</div>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </div>

@@ -40,7 +40,6 @@ tr#tr, td{
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
 </style>
-
 <input type="hidden" value="${requestScope.error }" id="error">
 <div id="page" style="width: 700px;">
 	<h1>나의 신고 내역</h1>
@@ -60,7 +59,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
 							<td class="cursor">${list.reportboardNo }</td>
 							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
-							<td class="cursor">${list.reportResult == '' ? '처리중':'처리됨'}</td>
+							<td class="cursor">${empty list.reportResult ? '처리중':'처리됨'}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -113,4 +112,37 @@ td#td2:hover{text-decoration:underline; color:red;}
 		</c:otherwise>
 	</c:choose>
 </div>
-<div></div>
+
+<div class="modal fade" id="report_detail" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content" style="width:400px;">
+        <div class="modal-header" align="center">
+          <h4>신고 상세 내역</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form class="form-vertical" role="form">
+            <div class="form-group" >
+              <label for="reportTitle"  style="width:100px">제목</label>
+              <div class="form-control" style="margin-top:15px;" id="reportTitle"></div>
+            </div>
+            <div class="form-group">
+              <label for="memberId" style="width:100px">작성자</label>
+              <div class="form-control" id="memberId"></div>
+            </div><br>
+            <div class="form-group">
+              <label for="reportReason" style="width:100px">선택사유</label>
+              <div class="form-control" id="reportReason"></div>
+            </div><br>
+            <div class="form-group">
+              <label for="reportResult" style="width:100px">처리결과</label>
+              <div class="form-control" id="reportResult" style="height:200px;"></div>
+            </div><br>
+              <button class="close" style="margin-top:15px;">닫기</button>
+          </form>
+        </div>
+      
+      </div>
+      
+    </div>
+  </div>

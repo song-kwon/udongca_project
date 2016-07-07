@@ -3,7 +3,7 @@
 <script type="text/javascript">
 //아이디 조건 검사
 $(document).ready(function(){
-	$("input[type='text']").prop({"class":"form-control col-xs-2"});
+	$("input[type='text']").prop({"class":"form-control col-xs-2","style":"width:150px;"});
 	
 	$("#id").on("keyup keypress", function(){
 		if($(this).val().length>50){
