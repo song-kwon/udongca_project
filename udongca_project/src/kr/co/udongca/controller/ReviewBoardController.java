@@ -278,9 +278,4 @@ public class ReviewBoardController {
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
-	@RequestMapping("myReviewDetail.udc")
-	public ModelAndView myReviewDetail(int cafeNo,int reviewNo,ModelMap map){
-		
-		return new ModelAndView("/prBoard/prView.udc?cafeNo="+cafeNo,service.myReviewDetail(cafeNo, reviewNo));
-	}
 }

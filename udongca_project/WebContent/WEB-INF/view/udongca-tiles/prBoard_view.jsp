@@ -367,7 +367,7 @@
 					html += "<br><font size=3>아직 작성된 리뷰가 없습니다.<br></font>"
 				}
 				else{
-					html += "<table>";
+					html += "<table><tr><td>번호</td><td>제목></td><td>작성날짜</td></tr>";
 					for (var i = 0; i < json.list.length; i++){
 						html += "<tr>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
@@ -638,7 +638,6 @@
 	</table>
 	
 		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
-			
 		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
 
 </div>
