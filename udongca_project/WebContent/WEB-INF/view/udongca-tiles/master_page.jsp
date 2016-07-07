@@ -87,9 +87,20 @@
 						if(i==0){ 
 						$("#table1").append("<tr id='tr1' class='cursor' data-backdrop='static' data-toggle='modal' data-target='#oneInquiry' onclick='one("+obj[i][j].inquiryNo+")'><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
 						}else if(i==1){
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
 							$("#table2").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
-						}else{
+						}else if(i==2){
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
 							$("#table3").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+						}else{
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
+							$("#table4").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}
 					 }
 				 } 
@@ -435,6 +446,30 @@ h2{
 						</tr>
 					</thead>
 					<tbody id="table3">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:sienna;text-decoration:none;">
+        	리플신고</a>
+      </h4>
+    </div>
+		<div id="collapse4" class="panel-collapse collapse">
+			<div class="panel-body">
+				<table style="table-layout: fixed;" class="table table-hover">
+					<thead>
+						<tr id="tr">
+							<td style="width: 100px;">No</td>
+							<td style="width: 100px;">신고자</td>
+							<td style="width: 300px;">신고사유</td>
+							<td style="width: 100px;">처리결과</td>
+						</tr>
+					</thead>
+					<tbody id="table4">
 					</tbody>
 				</table>
 			</div>

@@ -16,8 +16,8 @@
 				"dataType":"json",
 				"success":function(list){
 					$.each(list,function(){
-						var id= this.codeId;
-						$("#selectType").append("<option id="+id+">"+id+"</option>");
+						
+						$("#selectType").append("<option value="+this.codeId+">"+this.codeName+"</option>");
 						
 					});
 					refresh($("#pnum").text(),$("#selectType").val());
@@ -30,7 +30,6 @@
 			
 			/* selectType에따른 리스트 출력 */
 			$("#search").on("click",function(){
-				
 				refresh(1,$("#selectType").val());
 			});
 			/*close 클릭시 업데이트*/
@@ -105,7 +104,11 @@
 					 var page=obj['page'];
 					 var list=obj['list'];
 					$("#table").empty();
+					
 					for(var i=0;i<list.length;i++){
+						if(list[i].reportResult==null){
+							list[i].reportResult="처리안됨";
+						}
 						$("#table").append("<tr class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' id='td2' onclick='link("+list[i].reportboardNo+")'><td>"+list[i].reportboardNo+"</td><td>"+list[i].reportMemberId+"</td><td>"+list[i].reportReason+"</td><td>"+list[i].reportResult+"</td><td>"+list[i].reportType+"</td></tr>");
 						
 						}
