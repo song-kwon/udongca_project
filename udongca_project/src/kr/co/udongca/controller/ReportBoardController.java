@@ -117,16 +117,13 @@ public class ReportBoardController {
 	public String insertReport(@RequestParam Map map, HttpSession session,
 			ModelMap model){
 		Member login = (Member) session.getAttribute("login");
-		if (login == null || !login.getMemberType().equals("generalMember")){
+		if (login == null){
 			return "redirect:/loginPage.udc";
 		}
 		
 		ArrayList<String> errorList = new ArrayList<String>();
 		String reportReason = (String)map.get("reportReason");
 		String reportContent = (String)map.get("reportContent");
-		
-		System.out.println(reportReason);
-		System.out.println(reportContent);
 		
 		if (reportReason.trim().equals("직접 입력") && (reportContent == null || reportContent.trim().equals(""))){
 			errorList.add("직접 입력 선택 시 신고 사유 입력 필수");
@@ -144,7 +141,7 @@ public class ReportBoardController {
 				Integer.parseInt(((String)map.get("reportNO"))),
 				login.getMemberId()
 			));
-			return "/prBoard/prView.udc?cafeNo=" + (String)map.get("reportNO");
+			return "/prBoard/prView.udc?cafeNo=" + (String)map.get("cafeNo");
 		}
 		else{
 			model.put("error", errorList);

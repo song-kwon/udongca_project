@@ -87,9 +87,20 @@
 						if(i==0){ 
 						$("#table1").append("<tr id='tr1' class='cursor' data-backdrop='static' data-toggle='modal' data-target='#oneInquiry' onclick='one("+obj[i][j].inquiryNo+")'><td>"+obj[i][j].inquiryNo+"</td><td>"+obj[i][j].inquiryTitle+"</td><td>"+obj[i][j].inquiryType+"</td><td>"+obj[i][j].memberId+"</td></tr>");
 						}else if(i==1){
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
 							$("#table2").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
-						}else{
+						}else if(i==2){
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
 							$("#table3").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
+						}else{
+							if(obj[i][j].reportResult==null){
+								obj[i][j].reportResult="처리안됨";
+							}
+							$("#table4").append("<tr id='tr1' class='cursor' data-toggle='modal' data-backdrop='static' data-target='#report' onclick='report("+obj[i][j].reportboardNo+")'><td>"+obj[i][j].reportboardNo+"</td><td>"+obj[i][j].reportMemberId+"</td><td>"+obj[i][j].reportReason+"</td><td>"+obj[i][j].reportResult+"</td></tr>");
 						}
 					 }
 				 } 
@@ -178,10 +189,12 @@
 		});
 	}
 	/* reportBoard update */
+	var success;
 	 function ajaxUpdate(){
 		  $.ajax({
 				"url" : "/udongca_project/master/updateInfo.udc",
 				"type" : "post",
+				"async"	: false,
 				"data" : {
 							reportboardNo : $("#reportboardNo").val(),
 							reportMemberId : $("#reportMemberId").val(),
@@ -195,7 +208,7 @@
 							
 						},
 				"success":function(obj){
-					return obj;
+					success = obj;
 				},
 				"error" : function(xhr,status,errorMsg) {
 					alert(xhr.status+","+status+","+errorMsg);
@@ -212,10 +225,10 @@
 				 return false;
 			 }else{
 					$("#reportResult").val("신고취소");
-					var obj = ajaxUpdate();
-					if(obj.error){
-						alert(obj.error);
-					}else if(obj.value==1){
+					ajaxUpdate();
+					if(success.error){
+						alert(success.error);
+					}else if(success.value==1){
 						alert("취소완료");
 					}else{
 						alert("취소처리실패 ");
@@ -303,6 +316,8 @@
 	  
 </script>
 <style type="text/css">
+
+
 nav{
 	line-height: 40px;
 }
@@ -319,7 +334,7 @@ thead{
 	height:40px;
 	font-size:13pt;
 	font-weight:bold;
-	border-bottom:2px solid;
+	border-bottom:3px solid;
 	cursor:default;
 	 
 }
@@ -343,6 +358,7 @@ h2{
 	margin-left:30px;
 }
 .nav>li>a{
+	
     padding-left: 0px;
     padding-bottom: 0px;
     padding-top: 0px;
@@ -352,55 +368,12 @@ h2{
 	cursor:pointer;
 	font-size:30pt;
 }
-.loading {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%);
-	height: 25px;
-	width: 10px;
-	border-radius: 10%;
-	background: $bg-light;
-	border-top-color: $fg;
-	animation: fade2 1s infinite;
-	transition: background .2s;
-	&:after,
-	&:before {
-		content: '';
-		position: absolute;
-		display: block;
-		height: 20px;
-		width: 10px;
-		background: $bg-light;
-		top: 50%;
-		transform: translateY(-50%);
-		left: -15px;
-		border-radius: 10%;
-		animation: fade1 1s infinite;
-		transition: background .2s;
-	}
-	&:before {
-		left: 15px;
-		animation: fade3 1s infinite;
-	}
+.panel-default > .panel-heading{
+	background-image:linear-gradient(to bottom, #faebd7 0%, rgba(218, 159, 76, 0.68) 100%);
 }
-
-@keyframes fade1 {
-	0% {
-		background: $fg;
-	}
-}
-
-@keyframes fade2 {
-	33% {
-		background: $fg;
-	}
-}
-
-@keyframes fade3 {
-	66% {
-		background: $fg;
-	}
+.panel-title>a{
+	font-weight: bold;
+	font-size:12pt;
 }
 </style>
 <!-- 3table -->
@@ -409,7 +382,7 @@ h2{
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="color:sienna;text-decoration:none;">
        1:1문의</a>
       </h4>
     </div>
@@ -433,7 +406,7 @@ h2{
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="color:sienna;text-decoration:none;">
         리뷰 신고</a>
       </h4>
     </div>
@@ -457,7 +430,7 @@ h2{
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" style="color:sienna;text-decoration:none;">
         	홍보글신고</a>
       </h4>
     </div>
@@ -473,6 +446,30 @@ h2{
 						</tr>
 					</thead>
 					<tbody id="table3">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:sienna;text-decoration:none;">
+        	리플신고</a>
+      </h4>
+    </div>
+		<div id="collapse4" class="panel-collapse collapse">
+			<div class="panel-body">
+				<table style="table-layout: fixed;" class="table table-hover">
+					<thead>
+						<tr id="tr">
+							<td style="width: 100px;">No</td>
+							<td style="width: 100px;">신고자</td>
+							<td style="width: 300px;">신고사유</td>
+							<td style="width: 100px;">처리결과</td>
+						</tr>
+					</thead>
+					<tbody id="table4">
 					</tbody>
 				</table>
 			</div>
@@ -509,7 +506,7 @@ h2{
   </div>
 	<div class="form-group">
     <label for="reportNO">답변</label><br>
-   <textarea rows="10" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
+   <textarea rows="15" cols="130" class="form-control" id="inquiryReply" placeholder="답변을 입력하세요"></textarea>
   </div>
  
 </form>
@@ -578,7 +575,6 @@ h2{
 </div>
 <!-- 회원상세정보 모달 -->
 <div id="memberModal" class="modal fade" role="dialog">
-<div class="loading"></div>
   <div class="modal-dialog">
 
     <!-- Modal content -->

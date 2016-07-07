@@ -1,16 +1,18 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-	
-a{
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+ .nav-pills > li.active > a:focus{
+	background-color:#6b4004;
+}
+.nav>li>a{
 	font-weight: bold;
 	font-size:12pt;
 }
-.nav>li>a{
-    padding-left: 0px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
+.nav > li > a:hover,
+.nav > li > a:focus{
+	background-color:#faebd7;
 }
 </style>
 <script type="text/javascript">
