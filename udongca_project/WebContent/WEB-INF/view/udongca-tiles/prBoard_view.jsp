@@ -629,20 +629,11 @@
 					<th>카페 소개</th>
 					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
-<<<<<<< HEAD
 	</table>
 	
 		<div id="buttonArea" class="form-group" align="center" style="width:700px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:300px;height:250px; padding:200px;"></div>
-=======
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td id="content" colspan=3 style="width:350px;height:350px;"></td>
-	</tr>
-</table>
 </div>
 
 <!-- Modal -->
@@ -763,5 +754,4 @@
 			</div>
 		</div>
 	</div>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </div>
