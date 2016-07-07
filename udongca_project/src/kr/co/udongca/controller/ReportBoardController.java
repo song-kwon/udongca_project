@@ -125,9 +125,6 @@ public class ReportBoardController {
 		String reportReason = (String)map.get("reportReason");
 		String reportContent = (String)map.get("reportContent");
 		
-		System.out.println(reportReason);
-		System.out.println(reportContent);
-		
 		if (reportReason.trim().equals("직접 입력") && (reportContent == null || reportContent.trim().equals(""))){
 			errorList.add("직접 입력 선택 시 신고 사유 입력 필수");
 		}

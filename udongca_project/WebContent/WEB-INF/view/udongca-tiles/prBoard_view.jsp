@@ -206,8 +206,12 @@
 	};
 	
 	function replyReport(replyNo, replyMemberId){
+		/*
+			replyMemberId에 json.reply[idx].replyId를 대입했으므로 ID 문자열이 전달될 줄 알았는데 실제로는 해당 id의 Table이 출력됨.
+			따라서 jQuery 객체로 만들어 id 값을 뽑아내야 했는데, 왜 Table이 넘어오는지는 이유 불명.
+		*/
 		reportReplyNo = replyNo;
-		reportReplyMemberId = replyMemberId;
+		reportReplyMemberId = $(replyMemberId).prop("id");
 		$("#replyReportModal").modal();
 	};
 	
@@ -441,8 +445,8 @@
 					var isParentExist = false;
 					for (var i = 0; i < 2; i++){
 						for (var idx = 0; idx < json.reply.length; idx++){
+							var d = new Date(json.reply[idx].replyDate);
 							if (json.reply[idx].replyGroup == group && !json.reply[idx].parentReply && !i){
-								var d = new Date(json.reply[idx].replyDate);
 								isParentExist = true;
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
@@ -453,14 +457,13 @@
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
-									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + "," + json.reply[idx].replyId + ")'>신고</button>";
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
 								html += "<tr><td class='replyContent'><textarea style='resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
-								var d = new Date(json.reply[idx].replyDate);
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if (isParentExist && "${sessionScope.login}"){
@@ -470,7 +473,7 @@
 									html += "&nbsp;<button class='deleteReply'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
-									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + "," + json.reply[idx].replyId + ")'>신고</button>";
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
