@@ -20,28 +20,24 @@
 	<context:component-scan base-package="kr.co.udongca.controller,kr.co.udongca.service.impl,kr.co.udongca.dao.impl"/>
 	  
 	<!-- 단순 링크 --> 
-	<mvc:view-controller path="/loginPage.udc" view-name="login.tiles" />
-	<mvc:view-controller path="/generalMemberJoinform.udc" view-name="generalMemberJoinform.tiles"/>
-	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="licenseeMemberJoinform.tiles"/>
+	<mvc:view-controller path="/loginPage.udc" view-name="etc/login.tiles" />
+	<mvc:view-controller path="/generalMemberJoinform.udc" view-name="etc/generalMemberJoinform.tiles"/>
+	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="etc/licenseeMemberJoinform.tiles"/>
 	<mvc:view-controller path="/member/member_myPage.udc" view-name="member/mypage.tiles"/>
-	<mvc:view-controller path="/joinSelect.udc" view-name="joinSelect.tiles"/>
-	<mvc:view-controller path="/member/member_list.udc" view-name="memberList.tiles"/> 
-	<mvc:view-controller path="/noticeBoard/noticeBoardRegisterSuccess.udc" view-name="noticeBoardRegisterSuccess.tiles"/>
-	<mvc:view-controller path="/noticeBoard/noticeBoardModifySuccess.udc" view-name="noticeBoardModifySuccess.tiles"/>
-	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc" view-name="oneToOneInquiryRegisterSuccess.tiles"/>
-	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryModifySuccess.udc" view-name="oneToOneInquiryModifySuccess.tiles"/>
-	<mvc:view-controller path="/memberId_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_form.jsp"/>
-	<mvc:view-controller path="/memberId_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberId_find_success_form.jsp"/>
-	<mvc:view-controller path="/member/customerCenter.udc" view-name="/WEB-INF/view/udongca-tiles/customerCenter_header_menu.jsp"/>
-	<mvc:view-controller path="/memberPassword_find_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_form.jsp"/>
-	<mvc:view-controller path="/memberPassword_find_success_form.udc" view-name="/WEB-INF/view/udongca-tiles/memberPassword_find_success_form.jsp"/>	
+	<mvc:view-controller path="/joinSelect.udc" view-name="etc/joinSelect.tiles"/>
+	<mvc:view-controller path="/member/member_list.udc" view-name="member/memberList.tiles"/> 
+	 <mvc:view-controller path="/noticeBoard/noticeBoardRegisterSuccess.udc" view-name="noticeBoard/noticeBoardRegisterSuccess.tiles"/>
+	<mvc:view-controller path="/noticeBoard/noticeBoardModifySuccess.udc" view-name="noticeBoard/noticeBoardModifySuccess.tiles"/>
+	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryRegisterSuccess.udc" view-name="oneToOneInquiry/oneToOneInquiryRegisterSuccess.tiles"/>
+	<mvc:view-controller path="/oneToOneInquiry/oneToOneInquiryModifySuccess.udc" view-name="oneToOneInquiry/oneToOneInquiryModifySuccess.tiles"/>
+	<mvc:view-controller path="/member/customerCenter.udc" view-name="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
 	<mvc:view-controller path="/member/memberListPaging.udc" view-name="master/master_memberList.tiles"/>
 	<mvc:view-controller path="/master/reportBoard.udc" view-name="master/master_reportList.tiles"/>
 	<mvc:view-controller path="/oneToOneInquiry/master/oneToOneList.udc" view-name="master/master_oneToOneList.tiles"/>
-	<mvc:view-controller path="/prBoard_write_form.udc" view-name="prBoard_write_form.tiles"/>
-	<mvc:view-controller path="/prBoard/prBoard_write_form2.udc" view-name="prBoard_write_form2.tiles"/>
-	<mvc:view-controller path="/prBoard_modifyForm.udc" view-name="prBoard_modifyForm.tiles"/>
-	<mvc:view-controller path="/prBoard/prBoard_modifyForm2.udc" view-name="prBoard_modifyForm2.tiles"/>
+	<mvc:view-controller path="/prBoard_write_form.udc" view-name="prBoard/prBoard_write_form.tiles"/>
+	<mvc:view-controller path="/prBoard/prBoard_write_form2.udc" view-name="prBoard/prBoard_write_form2.tiles"/>
+	<mvc:view-controller path="/prBoard_modifyForm.udc" view-name="prBoard/prBoard_modifyForm.tiles"/>
+	<mvc:view-controller path="/prBoard/prBoard_modifyForm2.udc" view-name="prBoard/prBoard_modifyForm2.tiles"/>
 	<mvc:view-controller path="/member/member_bookmark.udc" view-name="member/member_bookmark.tiles"/>
 		<!-- JDBC 설정 -->
  	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"

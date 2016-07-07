@@ -37,6 +37,7 @@ public class ReportBoardController {
 		HashMap map = new HashMap();
 		if (master != null && master.getMemberType().equals("master")) {
 			try {
+			    
 				page = Integer.parseInt(pnum);
 			} catch (Exception e) {
 			}
@@ -93,7 +94,7 @@ public class ReportBoardController {
 
 	@RequestMapping("memberReportDetail.udc")
 	public ModelAndView memberReportDetail(int reportboardNo) {
-		return new ModelAndView("/WEB-INF/view/udongca-tiles/member_report_detail.jsp", "report",
+		return new ModelAndView("/WEB-INF/view/udongca-tiles/member/member_report_detail.jsp", "report",
 				reportService.memberReportDetail(reportboardNo));
 	}
 
