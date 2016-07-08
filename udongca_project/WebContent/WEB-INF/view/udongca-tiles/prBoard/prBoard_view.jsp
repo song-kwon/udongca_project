@@ -46,6 +46,9 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
+	.content {
+		width:300px;
+	}
 </style>
 
 <script type="text/javascript">
@@ -523,20 +526,19 @@
 	}
 </script>
 <div style="width:1000px; padding-left:50px;">
-<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
-<div><h1 style="margin-top:0px;" id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
-<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
-<table style="width:950px;">
-	<tr>
-		<td rowspan="5" style="width:300px; padding-right:15px;">
+	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
+	<div><h1 style="margin-top:0px;" id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
+	<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
+	<table style="width:950px;">
+		<tr>
+			<td rowspan="5" style="width:300px; padding-right:15px;">
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
-		
 			<div id="imageArea" style="padding:10px; width:450px;"></div>
 			<div align="center">
-				<button onclick="prevImage()">이전</button>
-				<button onclick="nextImage()">다음</button>
+				<button onclick="prevImage()" class="btn btn-default">이전</button>
+				<button onclick="nextImage()" class="btn btn-default">다음</button>
 			</div>
 		</td>
 		<th>영업 시간</th>
@@ -594,7 +596,6 @@
 					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
-	
 		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
 		<table style="margin-left:15%">
 		<tr>

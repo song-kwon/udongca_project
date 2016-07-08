@@ -25,6 +25,9 @@ $(document).ready(function(){
 	$("input[type='password']").prop({"class":"form-control"});
 	$("textarea").prop({"class":"form-control"});
 	$("nav").height($("section").height()+60);
+	$("section").resize(function(){
+		$("nav").height($("section").height()+60);
+	})
 });
 </script>
 
@@ -51,6 +54,7 @@ nav{
 	font-size:20px;
 	color:black;
 	color-link:saddlebrown;
+	height: 100%;
 }
 section{
 	padding: 15px;
@@ -98,7 +102,7 @@ input[type="button"]{
 <tiles:insertAttribute name="header"/>
 </header>
 
-<nav class="nav sidenav">
+<nav class="nav sidenav ">
 <tiles:insertAttribute name="menu"/>
 </nav>
 

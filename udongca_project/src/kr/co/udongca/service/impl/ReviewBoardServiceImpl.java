@@ -114,18 +114,5 @@ public class ReviewBoardServiceImpl implements ReviewBoardService{
 		return reviewDao.selectMainReviewList();
 	}
 	
-	@Override
-	public Map myReviewDetail(int cafeNo, int reviewNo) {
-		Map map = new HashMap<>();
-		
-		map.put("review", reviewDao.selectReview(reviewNo));
-		
-		if(reviewDao.ReviewReplyList(reviewNo) != null){	
-			map.put("reply",reviewDao.ReviewReplyList(reviewNo));
-			map.put("countGroup", reviewDao.reviewGourpCount(reviewNo));
-		}
-	
-		return map;
-	}
 }
 

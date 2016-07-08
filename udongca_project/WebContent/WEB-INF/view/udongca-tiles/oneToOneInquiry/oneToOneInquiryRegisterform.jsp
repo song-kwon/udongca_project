@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script  type="text/javascript">
 $(document).ready(function(){
+	$("input[type='text']").prop({"class":"form-control"});
+	
 	$("#title").on("keyup keypress", function(){
 		if($(this).val().length>50){
 			$(this).val($(this).val().substr(0,50));
@@ -89,7 +91,7 @@ table{
 	<tr>
 		<td class="text">문의 유형</td>
 		<td>
-			<select id="inquiryType" name="inquiryType">
+			<select id="inquiryType" name="inquiryType" class="form-control" style="width:130px;">
 				<option>유형 선택</option>
 				<c:forEach items="${requestScope.codeList }" var="code">
 					<option>${code.codeName }</option>

@@ -227,7 +227,7 @@
 							"success" : function(obj) {
 								if(obj==1){
 									alert("삭제성공");
-									$("#reportResult").val(" 게시글 삭제");
+									$("#reportResult").val("신고처리");
 									ajaxUpdate();
 								}else{
 									alert("이미 삭제된 게시글입니다.");
@@ -269,8 +269,7 @@
 								loginPossibility : $("#loginPossibility").val(),
 							},
 					"success" : function(obj) {
-						var text = $("#reportResult").val();
-							$("#reportResult").val(text+" 벌점 부과");
+							$("#reportResult").val("신고처리");
 							ajaxUpdate();
 					},
 					"beforeSend" : function(){
