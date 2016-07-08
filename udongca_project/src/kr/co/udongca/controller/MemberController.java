@@ -81,7 +81,7 @@ public class MemberController {
 
 		Member login = memberService.login(id, password);
 		if (login == null || login.getLoginPossibility().equals("Impossible")) {
-			return new ModelAndView("login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
+			return new ModelAndView("etc/login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else {
 			session.setAttribute("login", login);
 			
@@ -122,7 +122,7 @@ public class MemberController {
 	public String generalMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
 			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
-			return "generalMemberJoinform.tiles";
+			return "member/generalMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
@@ -139,7 +139,7 @@ public class MemberController {
 	public String licenseeMemberJoin(@ModelAttribute("member") @Valid Member member, String emailAddress,
 			BindingResult errors) throws UnsupportedEncodingException {
 		if (errors.hasErrors()) {
-			return "licenseeMemberJoinform.tiles";
+			return "member/licenseeMemberJoinform.tiles";
 		} else {
 			String email = member.getMemberEmail() + "@" + emailAddress;
 			member.setMemberEmail(email);
@@ -157,13 +157,13 @@ public class MemberController {
 	public ModelAndView memberLoginPossible(String memberId){
 		Member member = memberService.findById(memberId);
 		memberService.loginPossible(member);
-		return new ModelAndView("loginPossible.tiles", "member", member);
+		return new ModelAndView("etc/loginPossible.tiles", "member", member);
 	}
 
 	@RequestMapping("joinSuccess.udc")
 	public ModelAndView joinSuccess(String memberId) {
 		Member member = memberService.findById(memberId);
-		return new ModelAndView("joinSuccess.tiles", "member", member);
+		return new ModelAndView("etc/joinSuccess.tiles", "member", member);
 	}
 
 	@RequestMapping("member_verify.udc")

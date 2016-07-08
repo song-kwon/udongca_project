@@ -128,7 +128,7 @@ public class ReviewBoardController {
 			return "redirect:/loginPage.udc";
 		}
 		map.put("review", service.selectReview(reviewNo));
-		return "review_modifyForm.tiles";
+		return "prBoard/review_modifyForm.tiles";
 	}
 	
 	@RequestMapping("reviewModify.udc")
@@ -150,7 +150,7 @@ public class ReviewBoardController {
 		ReviewBoard review = service.selectReview(reviewNo);
 		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
-		if (addReviewImage != null && addReviewImage.length != 0 && !addReviewImage[0].isEmpty()) {
+		if (!isMultipartFileArrayEmpty(addReviewImage)) {
 			for(int idx = 0 ; idx < addReviewImage.length ; idx++){
 				String imageName = addReviewImage[idx].getOriginalFilename();// 업로드된 파일명
 				
@@ -170,7 +170,7 @@ public class ReviewBoardController {
 		
 		for (int i = 0; i < originalReviewFakeImage.length; i++){
 			int temp = -1;
-			if (modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && !modifiedReviewFakeImage[0].equals("")){
+			if (!isStringArrayEmpty(modifiedReviewFakeImage)){
 				for (int j = 0; j < modifiedReviewFakeImage.length; j++){
 					if (originalReviewFakeImage[i].equals(modifiedReviewFakeImage[j])){
 						temp = j;
@@ -185,8 +185,8 @@ public class ReviewBoardController {
 			}
 		}
 		
-		String resultFakeImage = ((modifiedReviewFakeImage != null && modifiedReviewFakeImage.length != 0 && !modifiedReviewFakeImage[0].equals("")) ? String.join(";", modifiedReviewFakeImage) + ";" : "") + ((addFakeImagesName != null && !addFakeImagesName.equals("")) ? addFakeImagesName : ";");
-		String resultRealImage = ((modifiedReviewRealImage != null && modifiedReviewRealImage.length != 0 && !modifiedReviewRealImage[0].equals("")) ? String.join(";", modifiedReviewRealImage) + ";" : "") + ((addRealImagesName != null && !addRealImagesName.equals("")) ? addRealImagesName : ";");
+		String resultFakeImage = (!isStringArrayEmpty(modifiedReviewFakeImage) ? String.join(";", modifiedReviewFakeImage) + ";" : "") + ((!isStringEmpty(addFakeImagesName)) ? addFakeImagesName : ((!isStringArrayEmpty(modifiedReviewFakeImage)) ? "" : ";"));
+		String resultRealImage = (!isStringArrayEmpty(modifiedReviewRealImage) ? String.join(";", modifiedReviewRealImage) + ";" : "") + ((!isStringEmpty(addRealImagesName)) ? addRealImagesName : ((!isStringArrayEmpty(modifiedReviewRealImage)) ? "" : ";"));
 		
 		if (resultRealImage.equals(";")){
 			resultRealImage = "defaultReview.png;";
@@ -248,7 +248,7 @@ public class ReviewBoardController {
 		review.setMemberId(mem.getMemberId());
 		review.setCafeNo(cafeNo);
 		
-		if (reviewImage != null && reviewImage.length != 0 && !reviewImage[0].isEmpty()) {
+		if (!isMultipartFileArrayEmpty(reviewImage)) {
 			for(int idx = 0 ; idx < reviewImage.length ; idx++){
 				String imageName = reviewImage[idx].getOriginalFilename();// 업로드된 파일명
 				
@@ -278,9 +278,21 @@ public class ReviewBoardController {
 		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
-	@RequestMapping("myReviewDetail.udc")
-	public ModelAndView myReviewDetail(int cafeNo,int reviewNo,ModelMap map){
+	@RequestMapping("myReviewCafe.udc")
+	public String myReviewDetail(int cafeNo,int reviewNo,ModelMap map){
 		
-		return new ModelAndView("/prBoard/prView.udc?cafeNo="+cafeNo,service.myReviewDetail(cafeNo, reviewNo));
+		return "redirect:/prBoard/prView.udc?cafeNo="+cafeNo;
+	}
+	
+	private boolean isStringEmpty(String str){
+		return str == null || str.trim().equals("");
+	}
+	
+	private boolean isStringArrayEmpty(String[] strArray){
+		return strArray == null || strArray.length == 0 || strArray[0].equals("");
+	}
+	
+	private boolean isMultipartFileArrayEmpty(MultipartFile[] multiPartFileArray){
+		return multiPartFileArray == null || multiPartFileArray.length == 0 || multiPartFileArray[0].isEmpty();
 	}
 }
