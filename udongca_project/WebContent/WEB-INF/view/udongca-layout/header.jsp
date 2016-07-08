@@ -58,6 +58,12 @@ $(document).ready(function(){
 	height:48px;
 }
 
+.col-xs-1{
+	width:120px;
+}
+.col-xs-2{
+	width:150px;
+}
 .col-xs-offset-1{
     margin-left: 14%;
 }
@@ -97,7 +103,7 @@ $(document).ready(function(){
 <div class="form-inline">
 <div class="div2">
 <div class="col-xs-1 col-xs-offset-1" style="width:120px;">지역선택</div><div class="col-xs-2" style="width:150px;"><select id="address1" class="form-control"><option >시/도</option></select></div><div class="col-xs-2" style="width:150px;"><select id="address2" class="form-control"><option >시/도 먼저 선택</option></select></div><div class="col-xs-1" style="width:120px;"><button class="btn btn-default" id="main_searchAddress">검색</button></div>
-<div class="col-xs-1" style="width:120px;">테마검색</div><div class="col-xs-2" style="width:150px;"><select id="theme"  class="form-control"><option >테마 선택</option></select></div><div class="col-xs-2" style="width:150px;"><button class="btn btn-default" id="main_searchTheme">검색</button></div>
+<div class="col-xs-1" style="width:120px;">테마검색</div><div class="col-xs-2" style="width:150px;"><select id="theme"  class="form-control"><option >테마 선택</option></select></div><div class="col-xs-1"><button class="btn btn-default" id="main_searchTheme">검색</button></div>
 </div>
 </div>
 </div>

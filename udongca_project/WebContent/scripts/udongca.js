@@ -537,7 +537,7 @@ function themePage(page){
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#tbody").append("<tr id='"+json.list[i].cafeNo+"'><td style='width: 75px; height:40px; text-align: center'><button onclick='deleteBookmark("+json.list[i].cafeNo+")' class='btn btn-default' ><span class='glyphicon glyphicon-remove'></span></button></td><td><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'>"+json.list[i].cafeName+"</a>");
+						$("#tbody").append("<tr id='"+json.list[i].cafeNo+"'><td style='width: 75px; height:40px; text-align: center'><button onclick='deleteBookmark("+json.list[i].cafeNo+")' class='btn btn-default' ><span class='glyphicon glyphicon-remove'></span></button></td><td><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'>"+json.list[i].cafeName+"</a></td><td>"+json.list[i].prBoard.cafeAddress+"</td>");
 					}
 					
 					

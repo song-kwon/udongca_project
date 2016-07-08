@@ -6,12 +6,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.PagingBean;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
-import kr.co.udongca.vo.PRBoard;
 import kr.co.udongca.vo.PreferLocation;
 
 public interface MemberService {
@@ -41,7 +41,7 @@ public interface MemberService {
 	public ModelAndView myPreferLocationPage(String memberId);
 
 	public int memberDrop(String memberId);
-
+	
 	public String memberIdFind(Member member,String title) throws UnsupportedEncodingException;
 
 	public Member memberIdMaster(String memberId);

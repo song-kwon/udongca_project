@@ -22,14 +22,16 @@ table, tbody{
 	height:30px;
 }
 </style>
-<div id="nav_bodyDiv" style="width: 400px;">
-	<div id="bookmarkDiv">
+<div id="nav_bodyDiv" style="width: 100%;">
 		<h2>즐겨찾기</h2>
+	<div id="bookmarkDiv" align="center">
 		<div id="bookmarkTable" align="center">
-			<table class="table table-hover" id="memberBookmark" style="width: 350px; text-align: center">
+			<table class="table table-hover" id="memberBookmark" style="width: 450px; text-align: center">
 				<thead>
 					<tr>
-						<td colspan="2" align="center"><h4>목록</h4></td>
+						<td></td>
+						<td>카페명</td>
+						<td>카페주소</td>
 				</thead>
 				<tbody id="tbody">
 				</tbody>

@@ -260,7 +260,7 @@ thead{
  <div class="form-group">
     <label for="penalty">벌점</label><br>
     <span>
-   		<i class="fa fa-thumbs-o-down" ></i>
+   		<i class="fa fa-thumbs-o-down"></i>
 		<i class="fa fa-thumbs-o-down" ></i>
 		<i class="fa fa-thumbs-o-down" ></i>
 		</span>

@@ -79,6 +79,7 @@ $(document).ready(function(){
 		});
 		
 	})
+	
 });
 </script>
 <style type="text/css">
@@ -107,7 +108,7 @@ $(document).ready(function(){
 <div style="min-height: auto; width: 555px;">
 	<form action="/udongca_project/member/login.udc" method="post" onsubmit="return loginCheck();">
 	<div style="float:left; width:230px;">
-		<div style="width:200px; min-height:30px;"><input type="text" style="width:400px; height: 60px; font-size: 20pt" placeholder="아이디" id="id" name="id"></div>
+		<div style="width:200px; min-height:30px;"><input type="text" class="form-control" style="width:400px; height: 60px; font-size: 20pt" placeholder="아이디" id="id" name="id"></div>
 		<div style="width:200px; min-height:30px;"><input type="password" style="width:400px; height: 60px; font-size:20pt;" placeholder="비밀번호" id="password" name="password"></div>
 		<c:if test="${not empty requestScope.error }"><div style="width:400px;"><font color="red">${requestScope.error }</font></div></c:if>
 	</div>

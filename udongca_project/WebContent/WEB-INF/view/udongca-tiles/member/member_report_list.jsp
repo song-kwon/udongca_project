@@ -48,10 +48,9 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<table id="memberReportList" border="1">
 				<thead>
 					<tr>
-						<td>No</td>
-						<td>신고내역</td>
-						<td>처리결과</td>
-						<col width="30px;"><col width="300px;"><col width="60px;">
+						<td style="width:30px;">No</td>
+						<td style="width:300px;">신고내역</td>
+						<td style="width:60px;">처리결과</td>
 					</tr>
 				</thead>
 				<tbody class="tbody" id="reportList">
@@ -66,7 +65,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			</table>
 			
 			<!-- 이전페이지그룹 -->
-			<div style="text-align: center; margin-top: 6px;">
+			<div style="text-align: center; margin-top: 6px; width:800px;">
 				<c:choose>
 					<c:when
 						test="${requestScope.reportList.pageBean.previousPageGroup }">
