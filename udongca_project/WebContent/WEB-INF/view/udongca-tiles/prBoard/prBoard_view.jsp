@@ -42,7 +42,6 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
-<<<<<<< HEAD
 	table#review_table{
 	height:15px; 
 	font-size:18px; 
@@ -50,9 +49,6 @@
 	table-layout:fixed;
 	}
 	td#td1:hover{text-decoration:underline;}
-	a#a1{
-		text-decoration:none;
-	}
 	thead{
 		font-weight:bold; 
 		height:40px; 
@@ -61,7 +57,6 @@
 		border-bottom:1.5px solid;
 }
 	
-=======
 	.cafeIntro {
 		width:250px;
 	}
@@ -71,7 +66,6 @@
 	#reviewContentText{
 		white-space:pre-wrap;
 	}
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </style>
 
 <script type="text/javascript">
@@ -679,7 +673,7 @@
 					<td><pre class="cafeIntro"><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
-		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
+		<div id="buttonArea" class="form-group" align="right" style="width:800px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
 </div>
