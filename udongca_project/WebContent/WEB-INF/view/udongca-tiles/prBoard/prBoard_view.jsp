@@ -42,8 +42,14 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
-	.content {
-		width:300px;
+	.cafeIntro {
+		width:250px;
+	}
+	.replyText{
+		width:500px;
+	}
+	#reviewContentText{
+		white-space:pre-wrap;
 	}
 </style>
 
@@ -145,7 +151,6 @@
 		});
 		
 		$(document).on('click','.deleteReply',function(){
-			alert($(this).parent().parent().parent().prop('id'));
 			if (window.confirm("정말 삭제하겠습니까?")){
 				$.ajax({
 					'url':'/udongca_project/review/deleteReply.udc',
@@ -445,7 +450,7 @@
 				for (var i = 0; i < reviewImageArray.length - 1; i++){
 					$("#reviewContent").append("<img src='/udongca_project/images/" + reviewImageArray[i] + "' height='300' width='300'><br>");
 				}
-				$("#reviewContent").append("<pre id='reviewContentText'></pre>");
+				$("#reviewContent").append("<span id='reviewContentText'></span>");
 				$("#reviewContentText").append(document.createTextNode(json.review.reviewContent));
 				
 				html = "<table id='replyBoard'>";
@@ -470,7 +475,8 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><pre class='replyText' id='replyContent" + json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
+								
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
@@ -486,18 +492,22 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='reReplyContent'><pre class='replyText' id='replyContent" + json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
 							}
 						}
 					}
 				}
 				html += "</table>"
 				if ("${sessionScope.login}"){
-					html += "<input type='text' id='replyContent' placeholder='댓글 입력'>";
+					html += "<input type='text' id='replyContent' width='500px' placeholder='댓글 입력'>";
 					html += "<button id='addReply'>등록</button>";
 				}
 				
 				$("#replyArea").append(html);
+				
+				for (var idx = 0; idx < json.reply.length; idx++){
+					$("#replyContent" + json.reply[idx].replyNo).append(document.createTextNode((($("#replyContent" + json.reply[idx].replyNo).parent().hasClass("reReplyContent")) ? "[" + json.reply[idx].targetName + "]" : "") + json.reply[idx].replyContent));
+				}
 			},
 			
 			"error":function(xhr){
@@ -635,7 +645,7 @@
 				</tr>
 				<tr>
 					<th>카페 소개</th>
-					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
+					<td><pre class="cafeIntro"><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
 		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
