@@ -230,7 +230,6 @@ function deleteMenuType(){
 }
 .nav > li > div#dropBtn:hover,
 .nav > li > a:focus{
-	color:red;
 	font-weight:bold;
 	background-color:#faebd7;
 	cursor:pointer;
