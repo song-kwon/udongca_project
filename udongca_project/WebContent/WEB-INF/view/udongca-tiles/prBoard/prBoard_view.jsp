@@ -148,7 +148,7 @@
 		
 		$(document).on('click','.reReplyInputBtn',function(){
 			$("#reReplyInput").remove();
-			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'>&nbsp;<button class='addReReply' class='btn btn-default'>등록</button></div>");
+			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:80px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'>&nbsp;<button class='addReReply btn btn-default'>등록</button></div>");
 		});
 		
 		$(document).on('click','.addReReply',function(){
@@ -491,10 +491,10 @@
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn' class='btn btn-default'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply' class='btn btn-default'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
 									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
@@ -508,10 +508,10 @@
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if (isParentExist && "${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn' class='btn btn-default'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply' class='btn btn-default'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
 									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
@@ -643,34 +643,34 @@
 					<th>카페 특징</th>
 					<td>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'wifi')}">
-							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" title="Wi-Fi" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'socket')}">
-							<img src="/udongca_project/udongca-image/socket.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/socket.png" title="콘센트" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'park')}">
-							<img src="/udongca_project/udongca-image/parking-sign.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/parking-sign.png" title="주차장" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'smoking')}">
-							<img src="/udongca_project/udongca-image/smoking-area.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/smoking-area.png" title="흡연실" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme1')}">
-							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" title="디저트카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme2')}">
-							<img src="/udongca_project/udongca-image/books-stack.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/books-stack.png" title="북카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme3')}">
-							<img src="/udongca_project/udongca-image/plain-dog.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/plain-dog.png" title="강아지카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme4')}">
-							<img src="/udongca_project/udongca-image/halloween-black-cat.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/halloween-black-cat.png" title="고양이카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme5')}">
-							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" title="키즈카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme6')}">
-							<img src="/udongca_project/udongca-image/question-button.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/question-button.png" title="기타테마" height="40" width="40">
 						</c:if>
 					</td>
 				</tr>
