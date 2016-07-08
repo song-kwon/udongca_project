@@ -142,7 +142,7 @@
 		
 		$(document).on('click','.reReplyInputBtn',function(){
 			$("#reReplyInput").remove();
-			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'>&nbsp;<button class='addReReply' class='btn btn-default'>등록</button></div>");
+			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:80px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'>&nbsp;<button class='addReReply btn btn-default'>등록</button></div>");
 		});
 		
 		$(document).on('click','.addReReply',function(){
@@ -485,10 +485,10 @@
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn' class='btn btn-default'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply' class='btn btn-default'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
 									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
@@ -502,10 +502,10 @@
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if (isParentExist && "${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn' class='btn btn-default'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply' class='btn btn-default'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
 									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
