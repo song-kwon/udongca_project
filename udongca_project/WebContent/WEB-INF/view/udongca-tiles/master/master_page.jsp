@@ -114,6 +114,7 @@
 	}
 	/* 1:1상세 조회 */
 	function one(No){
+		
 		$.ajax({
 			"url":"/udongca_project/oneToOneInquiry/master/oneInfo.udc",
 			"type":"post",
@@ -134,6 +135,7 @@
 	}
 	/* 1:1답변  */
 	 function requiryReply(){
+			
 			var txt = $("#inquiryReply").val(); 
 			 if(txt.trim()=="" || txt.length==0){
 				 alert("답변을 입력하세요");
