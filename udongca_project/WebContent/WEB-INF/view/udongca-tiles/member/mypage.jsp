@@ -55,6 +55,6 @@ table, th{
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center" ><a href="/udongca_project/member/member_modify_form.udc"><button class="btn btn-default" style="margin-top:6px;">정보수정</button></a>
+		<td colspan="2" align="center" ><a href="/udongca_project/member/member_verify.udc"><button class="btn btn-default" style="margin-top:6px;">정보수정</button></a>
 </table>
 </div>

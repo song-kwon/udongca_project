@@ -50,7 +50,7 @@ $(document).ready(function(){
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
+							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
@@ -99,7 +99,7 @@ $(document).ready(function(){
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
+						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 						//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 					}
 					
@@ -114,7 +114,7 @@ $(document).ready(function(){
 						if(idx == json.pageBean.page)
 							$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 						else
-							$(".pagination").append('<li><a href="#" onclick="themePage('+submitString+','+idx+')"> '+idx+' </a></li>');
+							$(".pagination").append('<li><a href="#" onclick="themePage('+idx+')"> '+idx+' </a></li>');
 					}
 
 					if(json.pageBean.nextPageGroup){
@@ -170,7 +170,7 @@ $(document).ready(function(){
 			'data':{'id':$('#id').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'true')
-					location.replace('/udongca_project/member/member_modify_form.udc');
+					location.replace('/udongca_project/member/member_modify_form.udc?flag='+txt);
 				else
 					alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
@@ -448,8 +448,7 @@ function themePage(page){
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
-					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
+					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 				}
 				
 				
@@ -493,7 +492,7 @@ function themePage(page){
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
+					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 				}
 				
