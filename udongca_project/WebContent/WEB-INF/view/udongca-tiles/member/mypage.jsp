@@ -31,6 +31,6 @@ table, th{
 	</tr>
 </table>
 	<div align="center">
-		<a href="/udongca_project/member/member_modify_form.udc"><button>정보수정</button></a>
+		<a href="/udongca_project/member/member_modify_form.udc"><button class="btn btn-default">정보수정</button></a>
 	</div>
 </div>

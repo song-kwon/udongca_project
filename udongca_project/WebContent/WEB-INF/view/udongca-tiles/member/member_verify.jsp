@@ -24,5 +24,5 @@ table, th{
 		<th>비밀번호</th>
 		<td><input type="password" id="password"></td>
 </table>
-<div align="center"><button id="verify">확인</button></div>
+<div align="center"><button id="verify" class="btn btn-default">확인</button></div>
 </div>
