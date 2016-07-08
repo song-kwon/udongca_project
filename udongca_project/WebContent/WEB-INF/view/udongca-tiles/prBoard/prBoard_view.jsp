@@ -42,7 +42,6 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
-<<<<<<< HEAD
 	table#review_table{
 	height:15px; 
 	font-size:18px; 
@@ -60,8 +59,6 @@
 		cursor:default;
 		border-bottom:1.5px solid;
 }
-	
-=======
 	.cafeIntro {
 		width:250px;
 	}
@@ -71,7 +68,6 @@
 	#reviewContentText{
 		white-space:pre-wrap;
 	}
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </style>
 
 <script type="text/javascript">
@@ -618,7 +614,7 @@
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
-			<div id="imageArea" style="padding:10px; width:450px;"></div>
+			<div id="imageArea" style="padding:10px; width:400px;"></div>
 			<div align="center">
 				<button onclick="prevImage()" class="btn btn-default">이전</button>
 				<button onclick="nextImage()" class="btn btn-default">다음</button>

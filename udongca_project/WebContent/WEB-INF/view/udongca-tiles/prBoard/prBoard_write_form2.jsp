@@ -50,6 +50,10 @@
 							alert("메뉴 이름을 입력하세요");
 							flag = false;
 						}
+						else if (countUtf8(($(this).val())) > 50){
+							alert($(this).val() + ": 메뉴 이름이 너무 깁니다");
+							flag = false;
+						}
 					});
 					return flag;
 				});
