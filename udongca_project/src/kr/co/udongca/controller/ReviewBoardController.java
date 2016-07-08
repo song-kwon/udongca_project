@@ -3,6 +3,7 @@ package kr.co.udongca.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,13 +135,14 @@ public class ReviewBoardController {
 	@RequestMapping("reviewModify.udc")
 	public String reviewModify(@RequestParam Map map, MultipartFile[] addReviewImage,
 			String[] modifiedReviewFakeImage, String[] modifiedReviewRealImage,
-			HttpServletRequest req, HttpSession session)
+			HttpServletRequest req, HttpSession session, ModelMap model)
 					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberId().equals(map.get("writerId"))){
 			return "redirect:/loginPage.udc";
 		}
 		
+		ArrayList<String> errorList = new ArrayList<String>();
 		String addRealImagesName="";
 		String addFakeImagesName="";
 		HashMap<String, Integer> inputMap = new HashMap<String, Integer>();
@@ -150,67 +152,81 @@ public class ReviewBoardController {
 		ReviewBoard review = service.selectReview(reviewNo);
 		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
-		if (!isMultipartFileArrayEmpty(addReviewImage)) {
-			for(int idx = 0 ; idx < addReviewImage.length ; idx++){
-				String imageName = addReviewImage[idx].getOriginalFilename();// 업로드된 파일명
-				
-				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-				// 최종 저장소 디렉토리 조회
-				String dir = req.getServletContext().getRealPath("/images");
-				long fake = System.currentTimeMillis();
-				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-	
-				addReviewImage[idx].transferTo(dest);
-				addRealImagesName += imageName+";";
-				addFakeImagesName += fake+imageName+";";
-			}
+		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+			errorList.add("리뷰 제목을 입력하세요");
+		}
+		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 이름이 너무 깁니다");
 		}
 		
-		String[] originalReviewFakeImage = ((String)(map.get("reviewFakeImage"))).split(";");
+		if (errorList.size() == 0){
+			if (!isMultipartFileArrayEmpty(addReviewImage)) {
+				for(int idx = 0 ; idx < addReviewImage.length ; idx++){
+					String imageName = addReviewImage[idx].getOriginalFilename();// 업로드된 파일명
+					
+					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+					// 최종 저장소 디렉토리 조회
+					String dir = req.getServletContext().getRealPath("/images");
+					long fake = System.currentTimeMillis();
+					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
 		
-		for (int i = 0; i < originalReviewFakeImage.length; i++){
-			int temp = -1;
-			if (!isStringArrayEmpty(modifiedReviewFakeImage)){
-				for (int j = 0; j < modifiedReviewFakeImage.length; j++){
-					if (originalReviewFakeImage[i].equals(modifiedReviewFakeImage[j])){
-						temp = j;
-						break;
-					}
+					addReviewImage[idx].transferTo(dest);
+					addRealImagesName += imageName+";";
+					addFakeImagesName += fake+imageName+";";
 				}
 			}
-			if (temp == -1){
-				String dir = req.getServletContext().getRealPath("/images");
-				File dest = new File(dir, originalReviewFakeImage[i]);
-				dest.delete();
+			
+			String[] originalReviewFakeImage = ((String)(map.get("reviewFakeImage"))).split(";");
+			
+			for (int i = 0; i < originalReviewFakeImage.length; i++){
+				int temp = -1;
+				if (!isStringArrayEmpty(modifiedReviewFakeImage)){
+					for (int j = 0; j < modifiedReviewFakeImage.length; j++){
+						if (originalReviewFakeImage[i].equals(modifiedReviewFakeImage[j])){
+							temp = j;
+							break;
+						}
+					}
+				}
+				if (temp == -1){
+					String dir = req.getServletContext().getRealPath("/images");
+					File dest = new File(dir, originalReviewFakeImage[i]);
+					dest.delete();
+				}
 			}
+			
+			String resultFakeImage = (!isStringArrayEmpty(modifiedReviewFakeImage) ? String.join(";", modifiedReviewFakeImage) + ";" : "") + ((!isStringEmpty(addFakeImagesName)) ? addFakeImagesName : ((!isStringArrayEmpty(modifiedReviewFakeImage)) ? "" : ";"));
+			String resultRealImage = (!isStringArrayEmpty(modifiedReviewRealImage) ? String.join(";", modifiedReviewRealImage) + ";" : "") + ((!isStringEmpty(addRealImagesName)) ? addRealImagesName : ((!isStringArrayEmpty(modifiedReviewRealImage)) ? "" : ";"));
+			
+			if (resultRealImage.equals(";")){
+				resultRealImage = "defaultReview.png;";
+				resultFakeImage = "defaultReview.png;";
+			}
+			
+			inputMap.put("cafeNo", cafeNo);
+			inputMap.put("cafeRating", pr.getCafeRating() + ratingStars - review.getRatingStars());
+			
+			prService.updateCafeRatingInPRBoard(inputMap);
+			
+			service.updateReview(new ReviewBoard(
+					reviewNo,
+					(String)map.get("reviewTitle"),
+					null,
+					(String)map.get("reviewContent"),
+					ratingStars,
+					null,
+					resultRealImage,
+					resultFakeImage,
+					0
+			));
+			
+			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+		}
+		else{
+			model.put("error", errorList);
+			return "error.tiles";
 		}
 		
-		String resultFakeImage = (!isStringArrayEmpty(modifiedReviewFakeImage) ? String.join(";", modifiedReviewFakeImage) + ";" : "") + ((!isStringEmpty(addFakeImagesName)) ? addFakeImagesName : ((!isStringArrayEmpty(modifiedReviewFakeImage)) ? "" : ";"));
-		String resultRealImage = (!isStringArrayEmpty(modifiedReviewRealImage) ? String.join(";", modifiedReviewRealImage) + ";" : "") + ((!isStringEmpty(addRealImagesName)) ? addRealImagesName : ((!isStringArrayEmpty(modifiedReviewRealImage)) ? "" : ";"));
-		
-		if (resultRealImage.equals(";")){
-			resultRealImage = "defaultReview.png;";
-			resultFakeImage = "defaultReview.png;";
-		}
-		
-		inputMap.put("cafeNo", cafeNo);
-		inputMap.put("cafeRating", pr.getCafeRating() + ratingStars - review.getRatingStars());
-		
-		prService.updateCafeRatingInPRBoard(inputMap);
-		
-		service.updateReview(new ReviewBoard(
-				reviewNo,
-				(String)map.get("reviewTitle"),
-				null,
-				(String)map.get("reviewContent"),
-				ratingStars,
-				null,
-				resultRealImage,
-				resultFakeImage,
-				0
-		));
-		
-		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 	}
 	
 	@RequestMapping("reviewWriteForm.udc")
@@ -226,13 +242,14 @@ public class ReviewBoardController {
 	@RequestMapping("reviewWrite.udc")
 	@Transactional
 	public String reviewWrite(@RequestParam Map map,MultipartFile[] reviewImage,
-			HttpServletRequest req, HttpSession session)
+			HttpServletRequest req, HttpSession session, ModelMap model)
 					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberType().equals("generalMember")){
 			return "redirect:/loginPage.udc";
 		}
 		ReviewBoard review = new ReviewBoard();
+		ArrayList<String> errorList = new ArrayList<String>();
 		String reviewRealImagesName="";
 		String reviewFakeImagesName="";
 		HashMap<String, Integer> inputMap = new HashMap<String, Integer>();
@@ -240,42 +257,55 @@ public class ReviewBoardController {
 		int ratingStars = Integer.parseInt((String)(map.get("ratingStars")));
 		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
-		review.setReviewNo(service.selectNextReviewBoardSequence());
-		review.setReviewTitle((String)(map.get("reviewTitle")));
-		review.setReviewDate(new Date(System.currentTimeMillis()));
-		review.setReviewContent((String)(map.get("reviewContent")));
-		review.setRatingStars(ratingStars);
-		review.setMemberId(mem.getMemberId());
-		review.setCafeNo(cafeNo);
-		
-		if (!isMultipartFileArrayEmpty(reviewImage)) {
-			for(int idx = 0 ; idx < reviewImage.length ; idx++){
-				String imageName = reviewImage[idx].getOriginalFilename();// 업로드된 파일명
-				
-				// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
-				// 최종 저장소 디렉토리 조회
-				String dir = req.getServletContext().getRealPath("/images");
-				long fake = System.currentTimeMillis();
-				File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
-	
-				reviewImage[idx].transferTo(dest);
-				reviewRealImagesName += imageName+";";
-				reviewFakeImagesName += fake+imageName+";";
-			}
+		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+			errorList.add("리뷰 제목을 입력하세요");
+		}
+		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 이름이 너무 깁니다");
 		}
 		
-		review.setReviewRealImage((reviewRealImagesName.equals("")) ? "defaultReview.png;" : reviewRealImagesName);
-		review.setReviewFakeImage((reviewFakeImagesName.equals("")) ? "defaultReview.png;" : reviewFakeImagesName);
+		if (errorList.size() == 0){
+			if (!isMultipartFileArrayEmpty(reviewImage)) {
+				for(int idx = 0 ; idx < reviewImage.length ; idx++){
+					String imageName = reviewImage[idx].getOriginalFilename();// 업로드된 파일명
+					
+					// 임시저장소 저장된 업로드된 파일을 최종 저장소로 이동
+					// 최종 저장소 디렉토리 조회
+					String dir = req.getServletContext().getRealPath("/images");
+					long fake = System.currentTimeMillis();
+					File dest = new File(dir, fake+imageName);// '/' application 루트경로 - > 파일경로로 알려준다.
 		
-		inputMap.put("cafeNo", cafeNo);
-		inputMap.put("cafeReviewCount", pr.getCafeReviewCount() + 1);
-		inputMap.put("cafeRating", pr.getCafeRating() + ratingStars);
-		
-		service.insertReview(review);
-		prService.updateCafeRatingInPRBoard(inputMap);
-		prService.updateCafeReviewCountInPRBoard(inputMap);
-		
-		return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+					reviewImage[idx].transferTo(dest);
+					reviewRealImagesName += imageName+";";
+					reviewFakeImagesName += fake+imageName+";";
+				}
+			}
+			
+			review.setReviewRealImage((reviewRealImagesName.equals("")) ? "defaultReview.png;" : reviewRealImagesName);
+			review.setReviewFakeImage((reviewFakeImagesName.equals("")) ? "defaultReview.png;" : reviewFakeImagesName);
+			
+			review.setReviewNo(service.selectNextReviewBoardSequence());
+			review.setReviewTitle((String)(map.get("reviewTitle")));
+			review.setReviewDate(new Date(System.currentTimeMillis()));
+			review.setReviewContent((String)(map.get("reviewContent")));
+			review.setRatingStars(ratingStars);
+			review.setMemberId(mem.getMemberId());
+			review.setCafeNo(cafeNo);
+			
+			inputMap.put("cafeNo", cafeNo);
+			inputMap.put("cafeReviewCount", pr.getCafeReviewCount() + 1);
+			inputMap.put("cafeRating", pr.getCafeRating() + ratingStars);
+			
+			service.insertReview(review);
+			prService.updateCafeRatingInPRBoard(inputMap);
+			prService.updateCafeReviewCountInPRBoard(inputMap);
+			
+			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+		}
+		else{
+			model.put("error", errorList);
+			return "error.tiles";
+		}
 	}
 	
 	@RequestMapping("myReviewCafe.udc")

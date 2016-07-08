@@ -83,6 +83,10 @@ public class PrBoardController {
 				errorList.add("메뉴 종류 및 이름을 입력하세요");
 				break;
 			}
+			else if(menuTypeArray[i].getBytes("UTF-8").length > 50){
+				errorList.add("메뉴 이름이 너무 깁니다");
+				break;
+			}
 		}
 		
 		if (errorList.size() == 0){
@@ -156,13 +160,14 @@ public class PrBoardController {
 	 * @param req
 	 * @param session
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
 	
 	@RequestMapping("moveToModifyPr2Jsp.udc")
 	public String moveToModifyPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
-			HttpSession session, ModelMap model){
+			HttpSession session, ModelMap model) throws UnsupportedEncodingException{
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
 			return "redirect:/loginPage.udc";
@@ -184,6 +189,9 @@ public class PrBoardController {
 		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
 			errorList.add("카페 이름을 입력하세요");
 		}
+		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 이름이 너무 깁니다");
+		}
 		
 		if(map.get("cafeIntro") == null || ((String)map.get("cafeIntro")).trim().equals("")){
 			errorList.add("카페 소개를 입력하세요");
@@ -192,21 +200,36 @@ public class PrBoardController {
 		if(map.get("operationHour") == null || ((String)map.get("operationHour")).trim().equals("")){
 			errorList.add("영업 시간을 입력하세요");
 		}
+		else if(((String)map.get("operationHour")).getBytes("UTF-8").length > 50){
+			errorList.add("영업 시간이 너무 깁니다");
+		}
 		
 		if(map.get("cafeTel") == null || ((String)map.get("cafeTel")).trim().equals("")){
 			errorList.add("카페 연락처를 입력하세요");
+		}
+		else if(((String)map.get("cafeTel")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 연락처가 너무 깁니다");
 		}
 		
 		if(map.get("cafeAddress") == null || ((String)map.get("cafeAddress")).trim().equals("")){
 			errorList.add("카페 주소를 입력하세요");
 		}
+		else if(((String)map.get("cafeAddress")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 주소가 너무 깁니다");
+		}
 		
 		if(map.get("managerName") == null || ((String)map.get("managerName")).trim().equals("")){
 			errorList.add("영업자 성함을 입력하세요");
 		}
+		else if(((String)map.get("managerName")).getBytes("UTF-8").length > 50){
+			errorList.add("영업자 성함이 너무 깁니다");
+		}
 		
 		if(map.get("managerTel") == null || ((String)map.get("managerTel")).trim().equals("")){
 			errorList.add("영업자 연락처를 입력하세요");
+		}
+		else if(((String)map.get("managerTel")).getBytes("UTF-8").length > 50){
+			errorList.add("영업자 연락처가 너무 깁니다");
 		}
 		
 		model.put("cafeNo", map.get("cafeNo"));
@@ -348,10 +371,11 @@ public class PrBoardController {
 	 * @param session
 	 * @param model
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping("moveToNewPr2Jsp.udc")
 	public String moveToNewPr2Jsp(@RequestParam Map map, String[] cafeFeature1,
-			HttpSession session, ModelMap model){
+			HttpSession session, ModelMap model) throws UnsupportedEncodingException{
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberType().equals("licenseeMember")){
 			return "redirect:/loginPage.udc";
@@ -373,6 +397,9 @@ public class PrBoardController {
 		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
 			errorList.add("카페 이름을 입력하세요");
 		}
+		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 이름이 너무 깁니다");
+		}
 		
 		if(map.get("cafeIntro") == null || ((String)map.get("cafeIntro")).trim().equals("")){
 			errorList.add("카페 소개를 입력하세요");
@@ -381,21 +408,36 @@ public class PrBoardController {
 		if(map.get("operationHour") == null || ((String)map.get("operationHour")).trim().equals("")){
 			errorList.add("영업 시간을 입력하세요");
 		}
+		else if(((String)map.get("operationHour")).getBytes("UTF-8").length > 50){
+			errorList.add("영업 시간이 너무 깁니다");
+		}
 		
 		if(map.get("cafeTel") == null || ((String)map.get("cafeTel")).trim().equals("")){
 			errorList.add("카페 연락처를 입력하세요");
+		}
+		else if(((String)map.get("cafeTel")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 연락처가 너무 깁니다");
 		}
 		
 		if(map.get("cafeAddress") == null || ((String)map.get("cafeAddress")).trim().equals("")){
 			errorList.add("카페 주소를 입력하세요");
 		}
+		else if(((String)map.get("cafeAddress")).getBytes("UTF-8").length > 50){
+			errorList.add("카페 주소가 너무 깁니다");
+		}
 		
 		if(map.get("managerName") == null || ((String)map.get("managerName")).trim().equals("")){
 			errorList.add("영업자 성함을 입력하세요");
 		}
+		else if(((String)map.get("managerName")).getBytes("UTF-8").length > 50){
+			errorList.add("영업자 성함이 너무 깁니다");
+		}
 		
 		if(map.get("managerTel") == null || ((String)map.get("managerTel")).trim().equals("")){
 			errorList.add("영업자 연락처를 입력하세요");
+		}
+		else if(((String)map.get("managerTel")).getBytes("UTF-8").length > 50){
+			errorList.add("영업자 연락처가 너무 깁니다");
 		}
 		
 		if(map.get("coporateNumber") == null || ((String)map.get("coporateNumber")).trim().equals("") || !Pattern.matches("\\d{10}", ((String)map.get("coporateNumber")).trim())){
@@ -553,6 +595,10 @@ public class PrBoardController {
 		for (int i = 0; i < menuNOArray.length; i++){
 			if (isStringEmpty(menuTypeArray[i]) || isStringEmpty(menuNameArray[i])){
 				errorList.add("메뉴 종류 및 이름을 입력하세요");
+				break;
+			}
+			else if(menuTypeArray[i].getBytes("UTF-8").length > 50){
+				errorList.add("메뉴 이름이 너무 깁니다");
 				break;
 			}
 		}

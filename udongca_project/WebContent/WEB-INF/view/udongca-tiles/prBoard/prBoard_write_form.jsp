@@ -22,7 +22,7 @@ $(document).ready(function(){
 	});
 	
 	$("#cafeName").on("blur", function(){
-		$("#cafeNameTd").text(($("#cafeName").val()) ? (countUtf8($("#cafeName").val()) > 150 ? "글자 수 한도 초과" : "") : "입력 필수");
+		$("#cafeNameTd").text(($("#cafeName").val()) ? (countUtf8($("#cafeName").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#cafeIntro").on("blur", function(){
