@@ -5,7 +5,7 @@
 <c:choose>
 			<c:when test="${empty requestScope.result.error }">
 			<c:forEach items="${requestScope.result.list }" var="result">
-				<div style="margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;">
+				<div style="margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;">
 					<a href="/udongca_project/prBoard/prView.udc?cafeNo=${result.cafeNo }"><img style="width:200px;height:200px;" src="/udongca_project/images/${result.cafeFakeImage} ">${result.cafeNo}&nbsp;&nbsp;${result.cafeName}</a>
 				</div>
 			</c:forEach>
@@ -19,6 +19,7 @@
 </div>
 <div id="pageNum" style="width:630px;clear:both; padding-top: 30px;" align="center">
 	<ul class="pagination">
+	<c:if test="${not empty requestScope.error }">
 	<c:choose>
 		<c:when test="${requestScope.searchType =='address' }">
 			<c:choose>
@@ -80,6 +81,7 @@
 				
 			</c:otherwise>
 		</c:choose>
+	</c:if>
 	</ul>
 	</div>
 </div>

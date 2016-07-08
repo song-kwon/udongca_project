@@ -190,12 +190,19 @@ public class MemberController {
 	}
 
 	@RequestMapping("member_modify_form.udc")
-	public String memberModifyForm(HttpSession session) {
+	public String memberModifyForm(@RequestParam(required = false,defaultValue="false")String flag,HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
-		if (login != null && !login.getMemberType().equals("master"))
-			return "member/member_modify_form.tiles";
-		else
+		if (login != null && !login.getMemberType().equals("master")){
+			if(flag.equals("true")){
+				return "member/member_modify_form.tiles";
+			}
+			else{
+				return "redirect:/member_verify.udc";
+			}
+		}
+		else{
 			return "redirect:/loginPage.udc";
+		}
 	}
 
 	@RequestMapping("member_modify.udc")
