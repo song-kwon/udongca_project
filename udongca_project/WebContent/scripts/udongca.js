@@ -170,7 +170,7 @@ $(document).ready(function(){
 			'data':{'id':$('#id').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'true')
-					location.replace('/udongca_project/member/member_modify_form.udc?flag='+txt);
+					location.href='/udongca_project/member/member_modify_form.udc?flag='+txt;
 				else
 					alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
@@ -187,7 +187,7 @@ $(document).ready(function(){
 			'success':function(txt){
 				if(txt == 'success'){
 					alert("수정되었습니다. 메인페이지로 이동합니다.");
-					location.replace('/udongca_project/main.udc');
+					location.href='/udongca_project/main.udc';
 				}
 				else
 					alert(txt);
@@ -203,7 +203,7 @@ $(document).ready(function(){
 	});
 	
 	$("#memberInquiryList").on("click", ".tr", function(){//tr에 event 처리
-			location.replace('/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
+			location.href='/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text();
 		});
 		
 	
@@ -424,10 +424,10 @@ function memberReportDetail(reportboardNo){
 function sessionCheck(memberId){
 	if(!memberId){
 		if(confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?\n(확인:로그인페이지 / 취소:메인페이지)')){
-			location.replace('http://192.168.0.116:4322/udongca_project/loginPage.udc');
+			location.href='http://192.168.0.116:4322/udongca_project/loginPage.udc';
 			return false;
 		}else{
-			location.replace('http://192.168.0.116:4322/udongca_project/main.udc');
+			location.href='http://192.168.0.116:4322/udongca_project/main.udc';
 			return false;
 		}
 	}
