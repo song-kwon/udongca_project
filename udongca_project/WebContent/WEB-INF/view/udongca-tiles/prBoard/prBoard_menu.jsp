@@ -239,28 +239,17 @@ function deleteMenuType(){
 <div id="prboard_nav" style="width:180px;">
 	<div id="optionList">
 		<div class="panel-group">
-<<<<<<< HEAD
-			<a data-toggle="collapse" onclick="deleteMenuType();collapseMenu();mapLocation();return false;">지도</a><br>
-			
-			<a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a><br>		
-=======
 		<ul class="nav nav-pills nav-stacked">
-			<li class="li"><a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a></li>
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();mapLocation();return false;">지도</a></li>
 			<li class="li"><a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a></li>	
 		</ul>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 			<div id="collapse1" class="panel-collapse collapse">
 				<ul class="list-group nav nav-pills nav-stacked" id="menuCategoryList">
 				</ul>
 			</div>
-<<<<<<< HEAD
-			
-			<a data-toggle="collapse" onclick="deleteMenuType();collapseMenu();reviewList(1);return false;">리뷰</a>
-=======
 		<ul class="nav nav-pills nav-stacked">
-			<li class="li"><a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a></li>
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();reviewList(1);return false;">리뷰</a></li>
 		</ul>
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 		</div>
 	</div>
 </div>

@@ -173,7 +173,7 @@
 		
 		$(document).on('click','.reReplyInputBtn',function(){
 			$("#reReplyInput").remove();
-			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control' style='float:left;width:800px;margin-left:50px'><button class='addReReply' class='btn btn-default' style='float:right;'>등록</button></div>");
+			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control' style='float:left;width:835px;margin-left:50px'><button class='addReReply btn btn-default'>등록</button></div>");
 			$("nav").height($('section').height()+60);
 		});
 		
@@ -413,6 +413,7 @@
 	}
 	
 	function reviewList(page){
+		$(".sidenav").attr("style","height:1085px;")
 		currentPage = page;
 		var html = "";
 		$("#content").empty();
