@@ -205,6 +205,9 @@ function collapseMenu(){
 	if($('#cafeMenuList').prop('class') != 'collapsed')
 		$('#cafeMenuList').trigger('click');	
 }
+function deleteMenuType(){
+	$("#menuType").empty();
+}
 </script>
 <style type="text/css">
 .nav-pills > li.active > a,
@@ -237,7 +240,7 @@ function collapseMenu(){
 	<div id="optionList">
 		<div class="panel-group">
 		<ul class="nav nav-pills nav-stacked">
-			<li class="li"><a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a></li>
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();mapLocation();return false;">지도</a></li>
 			<li class="li"><a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a></li>	
 		</ul>
 			<div id="collapse1" class="panel-collapse collapse">
@@ -245,7 +248,7 @@ function collapseMenu(){
 				</ul>
 			</div>
 		<ul class="nav nav-pills nav-stacked">
-			<li class="li"><a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a></li>
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();reviewList(1);return false;">리뷰</a></li>
 		</ul>
 		</div>
 	</div>

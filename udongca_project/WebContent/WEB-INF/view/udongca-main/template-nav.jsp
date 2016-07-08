@@ -59,7 +59,7 @@ nav, .col-md-2{
 section, .col-md-8{
 	padding: 15px;
 	margin-top:30px;
-	min-height:700px;
+	min-height:700px; 
 	float:left;
 }
 footer{

@@ -589,3 +589,51 @@ function themePage(page){
  function reviewPageGo(cafeNo,reviewNo){
 	 location.href="/udongca_project/review/myReviewCafe.udc?cafeNo="+cafeNo;
  }
+
+// UTF-8 형식 문자열 용량 측정 보조 Function
+function fixedCharCodeAt(str, idx) {
+	idx = idx || 0;
+	var code = str.charCodeAt(idx);
+	var hi, low;
+	if (0xD800 <= code && code <= 0xDBFF) { // High surrogate (could change last hex to 0xDB7F to treat high private surrogates as single characters)
+		hi = code;
+		low = str.charCodeAt(idx + 1);
+		if (isNaN(low)) {
+			throw 'Invaild characters or memory error';
+		}
+		return ((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
+	}
+	if (0xDC00 <= code && code <= 0xDFFF) { // Low surrogate
+		// We return false to allow loops to skip this iteration since should have already handled high surrogate above in the previous iteration
+		return false;
+		/*hi = str.charCodeAt(idx-1);
+		low = code;
+		return ((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;*/
+	}
+	return code;
+}
+
+// DB에 넣을 Data가 한도를 넘는지 알기 위해서는 문자열을 UTF-8 형식으로 용량 계산해야 함. 이를 위한 Function
+// http://stackoverflow.com/questions/2848462/count-bytes-in-textarea-using-javascript
+function countUtf8(str) {
+	var result = 0;
+	for (var n = 0; n < str.length; n++) {
+		var charCode = fixedCharCodeAt(str, n);
+		if (typeof charCode === "number") {
+			if (charCode < 128) {
+				result = result + 1;
+			} else if (charCode < 2048) {
+				result = result + 2;
+			} else if (charCode < 65536) {
+				result = result + 3;
+			} else if (charCode < 2097152) {
+				result = result + 4;
+			} else if (charCode < 67108864) {
+				result = result + 5;
+			} else {
+				result = result + 6;
+			}
+		}
+	}
+	return result;
+}

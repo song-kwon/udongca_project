@@ -40,9 +40,14 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
     }
     public int deleteArt(String reportType, int reportNo){
 	 HashMap map = new HashMap();
-	if(reportType.equals("review")){
+	if(reportType.equals("review_board")){
 	    map.put("reportType", "review_board");
 	    map.put("CorR", "review");
+	    map.put("reportNo", reportNo);
+	    return session.delete("reportMapper.delete_article", map);
+	}else if(reportType.equals("review_reply")){
+	    map.put("reportType", "review_reply");
+	    map.put("CorR", "reply");
 	    map.put("reportNo", reportNo);
 	    return session.delete("reportMapper.delete_article", map);
 	}else{
@@ -50,7 +55,7 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
 	    map.put("CorR", "cafe");
 	    map.put("reportNo", reportNo);
 	    return session.delete("reportMapper.delete_article",map);
-	} 
+	}
     }
     public List selectList(int page){
 	 HashMap param = new HashMap();

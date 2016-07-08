@@ -22,7 +22,7 @@ $(document).ready(function(){
 	});
 	
 	$("#cafeName").on("blur", function(){
-		$("#cafeNameTd").text(($("#cafeName").val()) ? "" : "입력 필수");
+		$("#cafeNameTd").text(($("#cafeName").val()) ? (countUtf8($("#cafeName").val()) > 150 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#cafeIntro").on("blur", function(){
@@ -30,19 +30,19 @@ $(document).ready(function(){
 	});
 	
 	$("#operationHour").on("blur", function(){
-		$("#operationHourTd").text(($("#operationHour").val()) ? "" : "입력 필수");
+		$("#operationHourTd").text(($("#operationHour").val()) ? (countUtf8($("#operationHour").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#cafeTel").on("blur", function(){
-		$("#cafeTelTd").text(($("#cafeTel").val()) ? "" : "입력 필수");
+		$("#cafeTelTd").text(($("#cafeTel").val()) ? (countUtf8($("#cafeTel").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#managerName").on("blur", function(){
-		$("#managerNameTd").text(($("#managerName").val()) ? "" : "입력 필수");
+		$("#managerNameTd").text(($("#managerName").val()) ? (countUtf8($("#managerName").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#managerTel").on("blur", function(){
-		$("#managerTelTd").text(($("#managerTel").val()) ? "" : "입력 필수");
+		$("#managerTelTd").text(($("#managerTel").val()) ? (countUtf8($("#managerTel").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 	});
 	
 	$("#coporateNumber").on("change", function(){
@@ -99,7 +99,7 @@ $(document).ready(function(){
 	
 	$("form").on("submit", function(){
 		if (!($("#cafeName").val() && $("#operationHour").val() && $("#cafeTel").val() && $("#managerName").val() && $("#managerTel").val() && $("#cafeAddress").val() && $("#coporateNumberTd").text() == "사용 가능")){
-			alert("필수 사항을 입력하세요");
+			alert("필수 사항이 입력되지 않았거나 입력 문장이 너무 깁니다");
 			return false;
 		}
 	});
