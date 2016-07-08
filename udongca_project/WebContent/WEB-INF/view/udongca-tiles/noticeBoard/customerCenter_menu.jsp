@@ -14,7 +14,7 @@
 	background-color:#faebd7;
 }
 </style>
-<div>
+<div style="width:180px;">
 <ul class="nav nav-pills nav-stacked">
 <li class="li member"><a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc">공지사항</a></li>
 <c:choose>

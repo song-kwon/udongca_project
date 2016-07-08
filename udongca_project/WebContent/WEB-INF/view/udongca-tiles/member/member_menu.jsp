@@ -45,7 +45,7 @@ a{
 
 </style>
 
-<div>
+<div style="width:180px;">
 <input type="hidden" value="${sessionScope.login.memberId }" id="loginId">
 <c:choose>
 	<c:when test="${sessionScope.login.memberType == 'licenseeMember' }">
