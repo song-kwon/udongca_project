@@ -637,34 +637,34 @@
 					<th>카페 특징</th>
 					<td>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'wifi')}">
-							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/coffee-cup-with-wireless-symbol.png" title="Wi-Fi" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'socket')}">
-							<img src="/udongca_project/udongca-image/socket.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/socket.png" title="콘센트" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'park')}">
-							<img src="/udongca_project/udongca-image/parking-sign.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/parking-sign.png" title="주차장" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'smoking')}">
-							<img src="/udongca_project/udongca-image/smoking-area.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/smoking-area.png" title="흡연실" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme1')}">
-							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/sweet-cake-piece.png" title="디저트카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme2')}">
-							<img src="/udongca_project/udongca-image/books-stack.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/books-stack.png" title="북카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme3')}">
-							<img src="/udongca_project/udongca-image/plain-dog.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/plain-dog.png" title="강아지카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme4')}">
-							<img src="/udongca_project/udongca-image/halloween-black-cat.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/halloween-black-cat.png" title="고양이카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme5')}">
-							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/mother-and-child-with-balloons.png" title="키즈카페" height="40" width="40">
 						</c:if>
 						<c:if test="${fn:contains(requestScope.prBoard.cafeFeature, 'cafeTheme6')}">
-							<img src="/udongca_project/udongca-image/question-button.png" height="40" width="40">
+							<img src="/udongca_project/udongca-image/question-button.png" title="기타테마" height="40" width="40">
 						</c:if>
 					</td>
 				</tr>
