@@ -255,7 +255,7 @@
 						"success" : function(obj) {
 							if(obj==1){
 								alert("삭제성공");
-								$("#reportResult").val("게시글 삭제");
+								$("#reportResult").val("신고처리");
 								ajaxUpdate();
 							}else{
 								alert("이미 삭제된 게시글입니다.");
@@ -297,7 +297,7 @@
 							loginPossibility : $("#loginPossibility").val(),
 						},
 				"success" : function(obj) {
-						$("#reportResult").val("벌점 부과");
+						$("#reportResult").val("신고처리");
 						ajaxUpdate();
 				},
 				"beforeSend" : function(){
@@ -371,6 +371,17 @@ h2{
 .panel-title>a{
 	font-weight: bold;
 	font-size:12pt;
+}
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
 }
 </style>
 <!-- 3table -->
@@ -509,8 +520,8 @@ h2{
 </form>
       </div>
       <div class="modal-footer">
-      <button class="btn btn-default" onclick="requiryReply()">답변등록</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="refresh()" id="close">Close</button>
+      <button class="btn btn-success" onclick="requiryReply()">답변등록</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="refresh()" id="close">Close</button>
       </div>
     </div>
 </div>
@@ -562,10 +573,10 @@ h2{
 </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" onclick="cancel()">신고취소이유 등록</button>
-	<button type="button" class="btn btn-default" onclick="deleteArticle()">게시글삭제</button>
-	<button class="btn btn-default" data-toggle='modal' data-target='#memberModal' data-backdrop='static' id="penalty">id벌점</button>
-        <button type="button" id="close" class="btn btn-default" onclick="refresh()" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success " onclick="cancel()">신고취소이유 등록</button>
+	<button type="button" class="btn btn-success" onclick="deleteArticle()">게시글삭제</button>
+	<button class="btn btn-success" data-toggle='modal' data-target='#memberModal' data-backdrop='static' id="penalty">id벌점</button>
+        <button type="button" id="close" class="btn btn-danger" onclick="refresh()" data-dismiss="modal">Close</button>
       </div>
     </div>
 </div>
@@ -611,8 +622,8 @@ h2{
 </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" onclick="submit()">수정</button>
-        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success" onclick="submit()">수정</button>
+        <button type="button" id="close" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

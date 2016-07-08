@@ -9,7 +9,7 @@ $(document).ready(function(){
 		"success":function(json){
 			for(var i = 0; i < json.length; i++){
 				var a= "'"+json[i].codeName+"'" ;
-				$("#menuCategoryList").append('<li><a onclick="menuImage('+$("#cafeNo").val()+','+ a +')">' + json[i].codeName + '</a></li>');
+				$("#menuCategoryList").append('<li class="li"><a onclick="menuImage('+$("#cafeNo").val()+','+ a +')">' + json[i].codeName + '</a></li>');
 			}
 		},
 		"error":function(xhr){
@@ -205,21 +205,51 @@ function collapseMenu(){
 	if($('#cafeMenuList').prop('class') != 'collapsed')
 		$('#cafeMenuList').trigger('click');	
 }
+function deleteMenuType(){
+	$("#menuType").empty();
+}
 </script>
 <style type="text/css">
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+ .nav-pills > li.active > a:focus{
+	background-color:#6b4004;
+}
+.nav>li>a{
+	font-size:15pt;
+}
+.nav > li > a:hover,
+.nav > li > a:focus{
+	background-color:#faebd7;
+}
+
+.nav-pills > li.active > div#dropBtn,
+.nav-pills > li.active > div#dropBtn:hover,
+ .nav-pills > li.active > div#dropBtn:focus{
+	background-color:#6b4004;
+}
+.nav > li > div#dropBtn:hover,
+.nav > li > a:focus{
+	color:red;
+	font-weight:bold;
+	background-color:#faebd7;
+	cursor:pointer;
+}
 </style>
-<div id="prboard_nav">
+<div id="prboard_nav" style="width:180px;">
 	<div id="optionList">
 		<div class="panel-group">
-			<a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a><br>
-			
-			<a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a><br>		
+		<ul class="nav nav-pills nav-stacked">
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();mapLocation();return false;">지도</a></li>
+			<li class="li"><a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a></li>	
+		</ul>
 			<div id="collapse1" class="panel-collapse collapse">
-				<ul class="list-group" id="menuCategoryList">
+				<ul class="list-group nav nav-pills nav-stacked" id="menuCategoryList">
 				</ul>
 			</div>
-			
-			<a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a>
+		<ul class="nav nav-pills nav-stacked">
+			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();reviewList(1);return false;">리뷰</a></li>
+		</ul>
 		</div>
 	</div>
 </div>

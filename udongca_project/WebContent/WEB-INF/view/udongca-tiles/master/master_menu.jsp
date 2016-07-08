@@ -31,8 +31,10 @@ $(document).ready(function(){
 
 
 </script>
+<div style="width:180px;">
 <ul class="nav nav-pills nav-stacked">
 	<li class="li member"><a href="/udongca_project/member/memberListPaging.udc?nav=member">회원정보관리</a></li>
 	<li class="li master"><a href="/udongca_project/master/reportBoard.udc?reportType=all&nav=master">신고내역</a></li>
 	<li class="li oneToOneInquiry"><a href="/udongca_project/oneToOneInquiry/master/oneToOneList.udc?nav=oneToOneInquiry">1:1문의관리</a></li>
 </ul>
+</div>
