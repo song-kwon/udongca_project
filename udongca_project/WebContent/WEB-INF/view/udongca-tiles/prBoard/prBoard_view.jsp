@@ -26,17 +26,11 @@
 	}
 	
 	.replyContent{
-		text-indent: 20px;
 		height:30px;
 	}
 	.reReplyContent{
-		text-indent: 50px;
 		min-height:40px;
 	}
-	.reReply{
-		text-indent: 50px;
-	}
-	
 	.modal-header, h4, .close {
 		background-color: #B8860B;
 		color:white !important;
@@ -46,8 +40,31 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
-	.content {
-		width:300px;
+	table#review_table{
+	height:15px; 
+	font-size:18px; 
+	text-align:center; 
+	table-layout:fixed;
+	}
+	td#td1:hover{text-decoration:underline;}
+	a#a1{
+		text-decoration:none;
+	}
+	thead{
+		font-weight:bold; 
+		height:40px; 
+		text-align:center;
+		cursor:default;
+		border-bottom:1.5px solid;
+}
+	.cafeIntro {
+		width:250px;
+	}
+	.replyText{
+		width:500px;
+	}
+	#reviewContentText{
+		white-space:pre-wrap;
 	}
 </style>
 
@@ -69,7 +86,7 @@
 	
 	
 	$(document).ready(function(){
-		$(".sidenav").attr("style","height:1021px;")
+		$(".sidenav").attr("style","height:1085px;")
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 		
 		mapLocation();
@@ -125,7 +142,8 @@
 		
 		$(document).on('click','.reReplyInputBtn',function(){
 			$("#reReplyInput").remove();
-			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control'><button class='addReReply'>등록</button></div>");
+			$(this).parent().parent().parent().append("<div id='reReplyInput' style='height:40px;'><input type='text' id='reReplyContent' placeholder='댓글 입력' class='form-control' style='float:left;width:800px;margin-left:50px'><button class='addReReply' class='btn btn-default' style='float:right;'>등록</button></div>");
+			$("nav").height($('section').height()+60);
 		});
 		
 		$(document).on('click','.addReReply',function(){
@@ -144,12 +162,14 @@
 						return false;
 					}
 					reviewDetail(currentReviewNo);
+				},
+				"complete":function(){
+					
 				}
 			});
 		});
 		
 		$(document).on('click','.deleteReply',function(){
-			alert($(this).parent().parent().parent().prop('id'));
 			if (window.confirm("정말 삭제하겠습니까?")){
 				$.ajax({
 					'url':'/udongca_project/review/deleteReply.udc',
@@ -257,6 +277,7 @@
 	};
 	
 	function menuImage(no,menuType){
+		$(".sidenav").attr("style","height:1085px;")
 		$("#content").empty();
 		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
@@ -271,7 +292,7 @@
 				$("#menuType").append(menuType);
 				if(obj != ""){
 					$("#content").append(
-							"<div id='myCarousel' class='carousel slide' style='margin-bottom:60px'>"+
+							"<div id='myCarousel' class='carousel slide' style='margin-bottom:60px margin-bottom:60px;margin-left: 150px;margin-right: 200px;'>"+
 							"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
 					for(var i =0;i<obj.length;i++){
 
@@ -300,7 +321,7 @@
 				    });
 				}
 				else{
-					$("#content").append("<br><font size=3>해당 카테고리의 메뉴가 존재하지 않습니다.<br></font>");
+					$("#content").append("<br><font size=3 style='margin:150px;'>해당 카테고리의 메뉴가 존재하지 않습니다.<br></font>");
 				}
 				
 				if ("${sessionScope.login.memberId}" == "${requestScope.prBoard.memberId}" && "${sessionScope.login.memberType}" == "licenseeMember"){
@@ -314,10 +335,11 @@
 	}
 	
 	function mapLocation(){
+		$(".sidenav").attr("style","height:1085px;")
 		$("#content").empty();
 		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "width:600px;height:350px;margin-left:150px;");
-		
+		$(".contentTable").attr("style","margin-left:15%");
 		var mapContainer = document.getElementById('content'), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -375,26 +397,30 @@
 					html += "<br><font size=3>아직 작성된 리뷰가 없습니다.<br></font>"
 				}
 				else{
-					html += "<table>";
+					html += "<div style='font-size:30px;'>방문 후기</div><br>";
+					html += "<table id='review_table' style='width:950px;'><thead><tr><td style='width:50px;'>No</td><td style='width:150px;'>제목</td><td style='width:250px'>리뷰 내용</td><td style='width:90px;'>작성 날짜</td></tr></thead>";
 					for (var i = 0; i < json.list.length; i++){
-						html += "<tr>";
+						html += "<tr onclick='reviewDetail(" + json.list[i].reviewNo + ")' style='cursor:pointer;'>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
-						html += "<td><a href='javascript:void(0)' onclick='reviewDetail(" + json.list[i].reviewNo + ")'>" + json.list[i].reviewTitle + "</a></td>";
+						html += "<td id='td1' style='text-align:left; cursor:pointer; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'><a href='javascript:void(0)' style='text-decoration:none;' >" + json.list[i].reviewTitle +"</a></td>";
+						html += "<td id='td2' style='text-align:left; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>" + json.list[i].reviewContent + "</td>";
 						html += "<td>" + json.list[i].reviewDate + "</td>";
 						html += "</tr>";
 					}
-					html += "</table><br>";
-					html += ((!json.pageBean.previousPageGroup) ? "◀" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>");
+					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'>";
+					html += ((!json.pageBean.previousPageGroup) ? "◀&nbsp;&nbsp;" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>&nbsp;&nbsp;");
 					
 					for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
-						html += ((i == page) ? "<b>" + i + "</b>" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>");
+						html += ((i == page) ? "<b>" + i + "</b>&nbsp;&nbsp;" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>&nbsp;&nbsp;");
 					}
 					
-					html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a><br>");
+					html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a><br></div>");
 				}
 				
 				if ("${sessionScope.login.memberType}" == "generalMember"){
-					html += "<br><button onclick=reviewWrite() class='btn btn-default'>리뷰 작성</button>";
+					html += "<div style='width:950px;' align='right'><button onclick=reviewWrite(true) class='btn btn-default'>리뷰 작성</button></div>";
+				}else{
+					html += "<div style='width:950px;' align='right'><button onclick=reviewWrite(false) class='btn btn-default'>리뷰 작성</button></div>";
 				}
 				
 				$("#content").append(html);
@@ -421,39 +447,40 @@
 				currentReviewNo = reviewNo;
 				currentReviewMemberId = json.review.memberId;
 				
-				$("#content").append("<table><tr><td id='reviewArea'></td></tr><tr><td id='replyArea'></td></tr></table>");
+				$("#content").append("<table><tr><td id='reviewArea' style='width:950px;'></td></tr><tr><td id='replyArea'></td></tr></table>");
 				
 				var writerId = "'" + currentReviewMemberId + "'";
 				reviewImageArray = json.review.reviewFakeImage.split(";");
-				html += "<table><tr><td id='reviewTitle'></td>";
-				html += "<td>" + currentReviewMemberId + "</td>";
-				html += "<td>" + json.review.reviewDate + "</td></tr>";
-				html += "<tr><td colspan=3>";
+				html += "<table style='text-align:center; font-size:18px; height:50px; width:inherit; table-layout:fixed;'><tr style='font-size:30px; font-weight:bold;'><td id='reviewTitle' style='width:950px;'></td></tr>";
+				html += "<tr style='text-align:right;'><td>작성자 : " + currentReviewMemberId+"</td></tr>";
+				html += "<tr style='text-align:right'><td>작성일자 : " + json.review.reviewDate + "</td></tr>";
+				html += "<tr><td colspan=3><div style='padding:10px;'>평점  ";
 				for (var i = 0; i < 5; i++){
 					html += "<img src='/udongca_project/udongca-image/star" + ((i < json.review.ratingStars) ? "1" : "0" ) + ".png' height='32' width='32'>";
 				}
+				html += "</div></td></tr>";
+				html += "<tr><td style='padding:20px;' id='reviewContent' colspan=3>";
 				html += "</td></tr>";
-				html += "<tr><td id='reviewContent' colspan=3>";
-				html += "</td></tr>";
-				html += "</table>";
+				html += "<tr><td style='word-break:break-all;' id='reviewContentText' colspan=3>";
+				html += "</td></tr></table>";
 				if ("${sessionScope.login.memberId}" == currentReviewMemberId){
-					html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ")>수정</button>";
-					html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ")>삭제</button>";
+					html += "<button onclick=reviewModifyForm(" + reviewNo + "," + writerId + ") class='btn btn-default' style='margin-left:765px;margin-bottom:20px'>수정</button>";
+					html += "<button onclick=reviewDelete(" + reviewNo + "," + writerId + ") class='btn btn-default' style='margin-bottom:20px'>삭제</button>";
 				}
 				if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != currentReviewMemberId){
-					html += "<button onclick='reviewReport()'>신고</button>";
+					html += "<div style='float:right;margin-right:40px;'><button onclick='reviewReport()' class='btn btn-default' style='margin-bottom:20px'>신고</button>";
 				}
-				html += "<button onclick='reviewList(" + currentPage + ")'>목록</button>"
+				html += "<button onclick='reviewList(" + currentPage + ")' class='btn btn-default' style='margin-bottom:20px'>목록</button></td></tr>";
 				
 				$("#reviewArea").append(html);
 				$("#reviewTitle").text(json.review.reviewTitle);
 				for (var i = 0; i < reviewImageArray.length - 1; i++){
 					$("#reviewContent").append("<img src='/udongca_project/images/" + reviewImageArray[i] + "' height='300' width='300'><br>");
 				}
-				$("#reviewContent").append("<pre id='reviewContentText'></pre>");
+				$("#reviewContentText").text(json.review.reviewContent);
 				$("#reviewContentText").append(document.createTextNode(json.review.reviewContent));
 				
-				html = "<table id='replyBoard'>";
+				html = "<table style='width:950px;' id='replyBoard'>";
 				
 				for (var group = 1; group < countGroup+1; group++){
 					var isParentExist = false;
@@ -465,54 +492,67 @@
 								html += "<tbody class='reply' id='" + json.reply[idx].replyNo + "'>";
 								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if ("${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default' class='btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
-									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><pre class='replyText' style='width:inherit;font-size:inherit;' id='replyContent"+ json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
+								
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
-								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
+								html += "<tr style='text-indent:50px' class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
 								if (isParentExist && "${sessionScope.login}"){
-									html += "&nbsp;<button class='reReplyInputBtn'>답글</button>";
+									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
 								if ("${sessionScope.login.memberId}" == json.reply[idx].replyId){
-									html += "&nbsp;<button class='deleteReply'>삭제</button>";
+									html += "&nbsp;<button class='deleteReply btn btn-default'>삭제</button>";
 								}
 								if ("${sessionScope.login.memberId}" && "${sessionScope.login.memberId}" != json.reply[idx].replyId){
-									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")'>신고</button>";
+									html += "&nbsp;<button onclick='replyReport(" + json.reply[idx].replyNo + ", " + json.reply[idx].replyId + ")' class='btn btn-default'>신고</button>";
 								}
 								html += "</td></tr>";
-								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr style='text-indent:50px'><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
+								html += "<tr><td class='reReplyContent'><pre class='replyText' style='width:inherit;margin-left:50px;font-size:inherit;' id='replyContent" + json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
 							}
 						}
 					}
 				}
 				html += "</table>"
 				if ("${sessionScope.login}"){
-					html += "<input type='text' id='replyContent' placeholder='댓글 입력'>";
-					html += "<button id='addReply'>등록</button>";
+					html += "<div class='form-group'><input type='text' class='form-control input-lg' id='replyContent' style='width:860px;float:left;' placeholder='댓글 입력'><button class='btn btn-default btn-lg' id='addReply'>등록</button></div>";
+					html += "";
 				}
 				
 				$("#replyArea").append(html);
+				
+				for (var idx = 0; idx < json.reply.length; idx++){
+					$("#replyContent" + json.reply[idx].replyNo).append(document.createTextNode((($("#replyContent" + json.reply[idx].replyNo).parent().hasClass("reReplyContent")) ? "[" + json.reply[idx].targetName + "]" : "") + json.reply[idx].replyContent));
+				}
 			},
 			
 			"error":function(xhr){
 				alert("An error occured in reviewDetail(): " + xhr.status + " " + xhr.statusText);
+			},
+			"complete":function(){
+				$("nav").height($('section').height()+60);
 			}
 		});
 	}
 	
-	function reviewWrite(){
-		window.location.href = "/udongca_project/review/reviewWriteForm.udc?cafeNo=" + $("#cafeNo").val();
+	function reviewWrite(login){
+		if(login==true){
+			window.location.href = "/udongca_project/review/reviewWriteForm.udc?cafeNo=" + $("#cafeNo").val();
+		}else{
+			alert("리뷰 작성을 위해서는 로그인이 필요합니다.");
+			return false;
+		}
 	}
 	
 	function reviewModifyForm(reviewNo, writerId){
@@ -593,21 +633,14 @@
 				</tr>
 				<tr>
 					<th>카페 소개</th>
-					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
+					<td><pre class="cafeIntro"><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
-		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
-		<table style="margin-left:15%">
-		<tr>
-			<td>
-			<span id="menuType" style="font-size:x-large;"></span>
-			</td>
-		</tr>
-			<tr>
-			<td id="content">
-			</td>
-			</tr>
-		</table>
+
+		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px; margin-bottom:40px;"></div>
+		
+			<span id="menuType" style="margin-left:150px;font-size:x-large;"></span>
+			<div id="content"></div>
 		
 </div>
 

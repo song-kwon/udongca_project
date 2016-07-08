@@ -181,8 +181,14 @@ thead{
 	cursor:default;
 	border-bottom:3px solid;
 }
-
-
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
 .cursor{
 	cursor:pointer;
 	table-layout:fixed;
@@ -206,6 +212,9 @@ thead{
 }
 .pagination > li > a:hover{
 	color:#6b4004;
+}
+.modal-title{
+	color:white;
 }
 </style>
 
@@ -273,8 +282,8 @@ thead{
 </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" onclick="submit()">수정</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success" onclick="submit()">수정</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
 

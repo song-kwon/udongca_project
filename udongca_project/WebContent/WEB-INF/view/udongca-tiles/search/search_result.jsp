@@ -17,14 +17,15 @@
 			</c:otherwise>
 		</c:choose>
 </div>
-<div id="pageNum" style="width:630px;clear:both; padding-top: 10px;" align="center">
+
+<div id="pageNum" style="width:630px;clear:both; padding-top: 30px;" align="center">
 	<c:choose>
 		<c:when test="${not empty requestScope.result.error }">
 		</c:when>
 		<c:when test="${requestScope.searchType =='address' }">
 			<c:choose>
 				<c:when test="${requestScope.result.pageBean.previousPageGroup }">
-					<a href="#" onclick="addressPage('${requestScope.result.cafeAddress}',${requestScope.result.pageBean.beginPage-1})">◀</a>
+					<a href="#" onclick="addressPage('${requestScope.result.cafeAddress}',${requestScope.result.pageBean.beginPage-1}')">◀</a>
 				</c:when>
 				<c:otherwise>◀</c:otherwise>
 			</c:choose>
