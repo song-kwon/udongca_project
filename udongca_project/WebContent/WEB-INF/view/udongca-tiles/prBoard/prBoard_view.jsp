@@ -539,7 +539,7 @@
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
-								html += "<tr style='text-indent:50px' class='" + group + "'><td id='" + json.reply[idx].replyId + "'>" + json.reply[idx].replyId;
+								html += "<tr class='" + group + "'><td id='" + json.reply[idx].replyId + "'><font style='margin-left:50px;'>" + json.reply[idx].replyId+"</font>";
 								if (isParentExist && "${sessionScope.login}"){
 									html += "&nbsp;<button class='reReplyInputBtn btn btn-default'>답글</button>";
 								}
