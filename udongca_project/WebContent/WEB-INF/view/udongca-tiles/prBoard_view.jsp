@@ -577,8 +577,8 @@
 		
 			<div id="imageArea" style="padding:10px; width:450px;"></div>
 			<div align="center">
-				<button onclick="prevImage()">이전</button>
-				<button onclick="nextImage()">다음</button>
+				<button onclick="prevImage()" class="btn btn-default">이전</button>
+				<button onclick="nextImage()" class="btn btn-default">다음</button>
 			</div>
 		</td>
 		<th>영업 시간</th>
