@@ -113,7 +113,7 @@ function execDaumPostcode(){
         },
 		onclose: function(state) {
 	        //state는 우편번호 찾기 화면이 어떻게 닫혔는지에 대한 상태 변수 이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
-	        if(state === 'FORCE_CLOSE' && !($("#cafeAddress"))){
+	        if(state === 'FORCE_CLOSE' && !($("#cafeAddress").val())){
 	            //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
 	        	$("#cafeAddressTd").text("입력 필수");
 	        }

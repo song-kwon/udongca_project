@@ -104,9 +104,9 @@ table, th{
 		<td class="width_size">
 			<div id="menuList" class="form-inline">
 					<div>
-						메뉴 종류: <select name="menuTypeArray" class="form-control"><option>종류</option></select><br>
-						메뉴 이름: <input type="text" name="menuNameArray" ><br>
-						메뉴 사진: <input type="file" name="menuImageArray"><br>
+						<b>종류:</b> <select name="menuTypeArray" class="form-control"><option>종류</option></select><br>
+						<b>이름:</b> <input type="text" name="menuNameArray"><br>
+						사진: <input type="file" name="menuImageArray"><br>
 					</div>
 			</div>
 		</td>
