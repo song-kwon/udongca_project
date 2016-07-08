@@ -25,9 +25,9 @@ $(document).ready(function(){
 
 	$("#searchAddress").on("click", function(){
 		$("#theme").val(0);
-		if ($("#address1").val() == "시/도" || $("#address2").val() == "군/구"){
+		if ($("#address1").val() == 0 || $("#address2").val() == 0){
 			alert("올바른 지역을 선택하세요");
-			($("#address1").val() == "시/도") ? $("#address1").focus() : $("#address2").focus();
+			($("#address1").val() == 0) ? $("#address1").focus() : $("#address2").focus();
 			return false;
 		}
 		else{

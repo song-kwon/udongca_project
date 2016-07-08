@@ -42,6 +42,7 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
+<<<<<<< HEAD
 	table#review_table{
 	height:15px; 
 	font-size:18px; 
@@ -60,6 +61,17 @@
 		border-bottom:1.5px solid;
 }
 	
+=======
+	.cafeIntro {
+		width:250px;
+	}
+	.replyText{
+		width:500px;
+	}
+	#reviewContentText{
+		white-space:pre-wrap;
+	}
+>>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </style>
 
 <script type="text/javascript">
@@ -160,7 +172,6 @@
 		});
 		
 		$(document).on('click','.deleteReply',function(){
-			alert($(this).parent().parent().parent().prop('id'));
 			if (window.confirm("정말 삭제하겠습니까?")){
 				$.ajax({
 					'url':'/udongca_project/review/deleteReply.udc',
@@ -490,7 +501,8 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='replyContent'><textarea style='height:auto;resize:none;border: thin;background: white;' readonly='readonly'>" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='replyContent'><pre class='replyText' id='replyContent" + json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
+								
 							}
 							else if(json.reply[idx].replyGroup == group && json.reply[idx].parentReply && i){
 								html += "<tbody class='reReply' id='" + json.reply[idx].replyNo + "'>";
@@ -506,18 +518,22 @@
 								}
 								html += "</td></tr>";
 								html += "<tr><td>" + d.getFullYear() + "/" + (Number(d.getMonth()) + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + "</td></tr>";
-								html += "<tr><td class='reReplyContent'><textarea  style='resize:none;border: thin;background: white;' readonly='readonly'>[" + json.reply[idx].targetName + "]" + json.reply[idx].replyContent + "</textarea></td></tr></tbody>";
+								html += "<tr><td class='reReplyContent'><pre class='replyText' id='replyContent" + json.reply[idx].replyNo + "'></pre></td></tr></tbody>";
 							}
 						}
 					}
 				}
 				html += "</table>"
 				if ("${sessionScope.login}"){
-					html += "<input type='text' id='replyContent' placeholder='댓글 입력'>";
+					html += "<input type='text' id='replyContent' width='500px' placeholder='댓글 입력'>";
 					html += "<button id='addReply'>등록</button>";
 				}
 				
 				$("#replyArea").append(html);
+				
+				for (var idx = 0; idx < json.reply.length; idx++){
+					$("#replyContent" + json.reply[idx].replyNo).append(document.createTextNode((($("#replyContent" + json.reply[idx].replyNo).parent().hasClass("reReplyContent")) ? "[" + json.reply[idx].targetName + "]" : "") + json.reply[idx].replyContent));
+				}
 			},
 			
 			"error":function(xhr){
@@ -593,16 +609,15 @@
 </style>
 
 <div style="width:1000px; padding-top:20px; padding-left:50px;">
-<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
-<div><h1 id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
-<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
-<table>
-	<tr>
-		<td rowspan="5" style="height:450px; width:300px; padding-right:15px;">
+	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
+	<div><h1 id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
+	<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
+	<table>
+		<tr>
+			<td rowspan="5" style="height:450px; width:300px; padding-right:15px;">
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
-		
 			<div id="imageArea" style="padding:10px; width:450px;"></div>
 			<div align="center">
 				<button onclick="prevImage()" class="btn btn-default">이전</button>
@@ -661,10 +676,9 @@
 				</tr>
 				<tr>
 					<th>카페 소개</th>
-					<td><pre><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
+					<td><pre class="cafeIntro"><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
-	
 		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
