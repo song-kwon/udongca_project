@@ -60,7 +60,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 		<c:choose>
 			<c:when test="${empty requestScope.error }">
 			<c:forEach items="${requestScope.list }" var="list">
-				<tr id="tr">
+				<tr class="tr">
 					<td>${list.inquiryNo }</td>
 					<td id="td1" class="cursor"><span style="text-align:left; width:100px; text-weight:bold; color:red;">[${list.inquiryType }]</span>&nbsp;${list.inquiryTitle }</td>
 					<td id="td2" class="cursor">${list.inquiryContent }</td>
@@ -70,7 +70,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="3" align="center"><h3 style="color:red;">${requestScope.error }</h3></td>
+					<td colspan="4" align="center"><h3 style="color:red;">${requestScope.error }</h3></td>
 				</tr>
 			</c:otherwise>
 			</c:choose>
