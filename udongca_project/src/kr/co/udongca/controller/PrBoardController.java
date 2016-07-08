@@ -79,7 +79,7 @@ public class PrBoardController {
 		ArrayList<String> errorList = new ArrayList<String>();
 		
 		for(int i = 0; i < menuNameArray.length; i++){
-			if (menuTypeArray[i] == null || menuTypeArray[i].trim().equals("") || menuNameArray[i] == null || menuNameArray[i].trim().equals("")){
+			if (isStringEmpty(menuTypeArray[i]) || isStringEmpty(menuNameArray[i])){
 				errorList.add("메뉴 종류 및 이름을 입력하세요");
 				break;
 			}
@@ -103,7 +103,7 @@ public class PrBoardController {
 			prBoard.setManagerTel((String)map.get("managerTel"));
 			prBoard.setMemberId(mem.getMemberId());
 			
-			if (cafeImage != null && cafeImage.length != 0 && !cafeImage[0].isEmpty()) {
+			if (!isMultipartFileArrayEmpty(cafeImage)) {
 				for(int idx = 0 ; idx < cafeImage.length ; idx++){
 					String imageName = cafeImage[idx].getOriginalFilename();// 업로드된 파일명
 					
@@ -209,6 +209,7 @@ public class PrBoardController {
 			errorList.add("영업자 연락처를 입력하세요");
 		}
 		
+		model.put("cafeNo", map.get("cafeNo"));
 		model.put("cafeName", map.get("cafeName"));
 		model.put("cafeIntro", map.get("cafeIntro"));
 		model.put("cafeFeature", cafeFeature);
@@ -217,6 +218,9 @@ public class PrBoardController {
 		model.put("cafeAddress", map.get("cafeAddress"));
 		model.put("managerName", map.get("managerName"));
 		model.put("managerTel", map.get("managerTel"));
+		model.put("cafeRealImage", map.get("cafeRealImage"));
+		model.put("cafeFakeImage", map.get("cafeFakeImage"));
+		model.put("memberId", map.get("memberId"));
 		
 		if (errorList.size() > 0){
 			model.put("errorList", errorList);
@@ -226,15 +230,13 @@ public class PrBoardController {
 	}
 	
 	@RequestMapping("prModify.udc")
-	public String prModify(@RequestParam Map map, String[] cafeFeature1,
+	public String prModify(@RequestParam Map map, MultipartFile[] addCafeImage,
 			String[] modifiedCafeFakeImage, String[] modifiedCafeRealImage,
-			MultipartFile[] addCafeImage, HttpServletRequest req,
-			HttpSession session, ModelMap model)
+			HttpServletRequest req, HttpSession session, ModelMap model)
 					throws IllegalStateException, IOException{
 		Member mem = (Member)session.getAttribute("login");
 		String addRealImagesName="";
 		String addFakeImagesName="";
-		String cafeFeature = "";
 		ArrayList<String> errorList = new ArrayList<String>();
 		
 		if (mem == null || !mem.getMemberId().equals(map.get("memberId"))){
@@ -242,7 +244,7 @@ public class PrBoardController {
 		}
 		
 		if (errorList.size() == 0){
-			if (addCafeImage != null && addCafeImage.length != 0 && !addCafeImage[0].isEmpty()) {
+			if (!isMultipartFileArrayEmpty(addCafeImage)) {
 				for(int idx = 0 ; idx < addCafeImage.length ; idx++){
 					String imageName = addCafeImage[idx].getOriginalFilename();// 업로드된 파일명
 					
@@ -262,7 +264,7 @@ public class PrBoardController {
 			
 			for (int i = 0; i < originalCafeFakeImage.length; i++){
 				int temp = -1;
-				if (modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && !modifiedCafeFakeImage[0].equals("")){
+				if (!isStringArrayEmpty(modifiedCafeFakeImage)){
 					for (int j = 0; j < modifiedCafeFakeImage.length; j++){
 						if (originalCafeFakeImage[i].equals(modifiedCafeFakeImage[j])){
 							temp = j;
@@ -277,8 +279,8 @@ public class PrBoardController {
 				}
 			}
 			
-			String resultFakeImage = ((modifiedCafeFakeImage != null && modifiedCafeFakeImage.length != 0 && !modifiedCafeFakeImage[0].equals("")) ? String.join(";", modifiedCafeFakeImage) + ";" : "") + ((addFakeImagesName != null && !addFakeImagesName.equals("")) ? addFakeImagesName : ";");
-			String resultRealImage = ((modifiedCafeRealImage != null && modifiedCafeRealImage.length != 0 && !modifiedCafeRealImage[0].equals("")) ? String.join(";", modifiedCafeRealImage) + ";" : "") + ((addRealImagesName != null && !addRealImagesName.equals("")) ? addRealImagesName : ";");
+			String resultFakeImage = (!isStringArrayEmpty(modifiedCafeFakeImage) ? String.join(";", modifiedCafeFakeImage) + ";" : "") + ((!isStringEmpty(addFakeImagesName)) ? addFakeImagesName : (!isStringArrayEmpty(modifiedCafeFakeImage) ? "" : ";"));
+			String resultRealImage = (!isStringArrayEmpty(modifiedCafeRealImage) ? String.join(";", modifiedCafeRealImage) + ";" : "") + ((!isStringEmpty(addRealImagesName)) ? addRealImagesName : (!isStringArrayEmpty(modifiedCafeRealImage) ? "" : ";"));
 			
 			if (resultRealImage.equals(";")){
 				resultRealImage = "defaultCafe.png;";
@@ -291,7 +293,7 @@ public class PrBoardController {
 					(String)map.get("cafeName"),
 					(String)map.get("cafeIntro"),
 					(String)map.get("cafeTel"),
-					cafeFeature,
+					(String)map.get("cafeFeature"),
 					(String)map.get("cafeAddress"),
 					"",
 					(String)map.get("operationHour"),
@@ -303,7 +305,7 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-			return "/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 		}
 		else{
 			model.put("errorList", errorList);
@@ -549,7 +551,7 @@ public class PrBoardController {
 		}
 		
 		for (int i = 0; i < menuNOArray.length; i++){
-			if (menuTypeArray[i] == null || menuTypeArray[i].trim().equals("") || menuNameArray[i] == null || menuNameArray[i].trim().equals("")){
+			if (isStringEmpty(menuTypeArray[i]) || isStringEmpty(menuNameArray[i])){
 				errorList.add("메뉴 종류 및 이름을 입력하세요");
 				break;
 			}
@@ -662,5 +664,32 @@ public class PrBoardController {
 	@ResponseBody
 	public List<Code> cafeMenuList (){
 		return service.selectMenuList();
+	}
+	
+	/**
+	 * 
+	 * @param str
+	 * @return
+	 */
+	private boolean isStringEmpty(String str){
+		return str == null || str.trim().equals("");
+	}
+	
+	/**
+	 * 
+	 * @param strArray
+	 * @return
+	 */
+	private boolean isStringArrayEmpty(String[] strArray){
+		return strArray == null || strArray.length == 0 || strArray[0].equals("");
+	}
+	
+	/**
+	 * 
+	 * @param multiPartFileArray
+	 * @return
+	 */
+	private boolean isMultipartFileArrayEmpty(MultipartFile[] multiPartFileArray){
+		return multiPartFileArray == null || multiPartFileArray.length == 0 || multiPartFileArray[0].isEmpty();
 	}
 }

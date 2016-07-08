@@ -586,5 +586,5 @@ function themePage(page){
 }
  
  function reviewPageGo(cafeNo,reviewNo){
-	 location.href="/udongca_project/prBoard/prView.udc?cafeNo="+cafeNo;
+	 location.href="/udongca_project/review/myReviewCafe.udc?cafeNo="+cafeNo;
  }

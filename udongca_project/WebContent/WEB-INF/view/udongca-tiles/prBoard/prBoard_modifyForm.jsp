@@ -32,7 +32,26 @@
 		$("#cafeFeature1Socket").prop("checked", socketChecked);
 		$("#cafeFeature1Park").prop("checked", parkChecked);
 		$("#cafeFeature1Smoking").prop("checked", smokingChecked);
-		$("#cafeFeature2").prop("selected", themeSelected);
+		
+		if (themeSelected == "cafeTheme1" || themeSelected == "cafeTheme2" || themeSelected == "cafeTheme3" || themeSelected == "cafeTheme4" || themeSelected == "cafeTheme5" || themeSelected == "cafeTheme6"){
+			$("#themeCheck").prop("checked", true);
+			$.ajax({
+				"url":"/udongca_project/prBoard/cafeThemeList.udc",
+				"type":"POST",
+				"data":"",
+				"dataType":"json",
+				"success":function(json){
+					$("#cafeFeature2").empty().append("<option>테마 선택</option>");
+					for (var i = 0; i < json.length; i++){
+							var t = json[i].codeId==themeSelected ? ' selected=selected':'';
+							$("#cafeFeature2").append("<option value=" + json[i].codeId + t + ">" + json[i].codeName + "</option>");
+					}
+				},
+				"error":function(xhr){
+					alert("An error occured: " + xhr.status + " " + xhr.statusText);
+				}
+			});
+		}
 		
 		$("#cafeAddress").on("click", function(){
 			execDaumPostcode();
@@ -70,8 +89,8 @@
 			$("#managerTelTd").text(($("#managerTel").val()) ? "" : "입력 필수");
 		});
 		
-		$("#theme").on("change", function(){
-			if ($("#theme").prop("checked")){
+		$("#themeCheck").on("change", function(){
+			if ($("#themeCheck").prop("checked")){
 				$.ajax({
 					"url":"/udongca_project/prBoard/cafeThemeList.udc",
 					"type":"POST",
@@ -154,7 +173,8 @@ span{
 <form action="/udongca_project/prBoard/moveToModifyPr2Jsp.udc" enctype="multipart/form-data" method="post">
 	<input type="hidden" name="cafeNo" value="${requestScope.prBoard.cafeNo}">
 	<input type="hidden" name="memberId" value="${requestScope.prBoard.memberId}">
-	
+	<input type="hidden" name="cafeRealImage" value="${requestScope.prBoard.cafeRealImage}">
+	<input type="hidden" name="cafeFakeImage" value="${requestScope.prBoard.cafeFakeImage}">
 	<table>
 		<tr>
 			<th>*카페 이름</th>

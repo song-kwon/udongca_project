@@ -86,16 +86,13 @@ table, th{
 <form action="/udongca_project/prBoard/prWrite.udc" enctype="multipart/form-data" method="post" role="form"><br>
 	<input type="hidden" name="cafeName" value="${requestScope.cafeName}">
 	<input type="hidden" name="cafeIntro" value="${requestScope.cafeIntro}">
-	<input type="hidden" name="cafeFeature"
-		value="${requestScope.cafeFeature}"> <input type="hidden"
-		name="operationHour" value="${requestScope.operationHour}"> <input
-		type="hidden" name="cafeTel" value="${requestScope.cafeTel}">
-	<input type="hidden" name="cafeAddress"
-		value="${requestScope.cafeAddress}"> <input type="hidden"
-		name="coporateNumber" value="${requestScope.coporateNumber}"> <input
-		type="hidden" name="managerName" value="${requestScope.managerName}">
-	<input type="hidden" name="managerTel"
-		value="${requestScope.managerTel}">
+	<input type="hidden" name="cafeFeature" value="${requestScope.cafeFeature}">
+	<input type="hidden" name="operationHour" value="${requestScope.operationHour}">
+	<input type="hidden" name="cafeTel" value="${requestScope.cafeTel}">
+	<input type="hidden" name="cafeAddress" value="${requestScope.cafeAddress}">
+	<input type="hidden" name="coporateNumber" value="${requestScope.coporateNumber}">
+	<input type="hidden" name="managerName" value="${requestScope.managerName}">
+	<input type="hidden" name="managerTel" value="${requestScope.managerTel}">
 	
 <table>
 	<tr>
