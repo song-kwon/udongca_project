@@ -3,6 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fb0d10514e172c531b661118b62d9c6f&libraries=services"></script>
 <style type="text/css">
+	table, th{
+		font-size:20px;
+		font-weigth:bold;
+	}
 	.carousel-inner > .item > img {
 	      top: 0;
 	      left: 0;
@@ -62,7 +66,7 @@
 	
 	
 	$(document).ready(function(){
-		
+		$(".sidenav").attr("style","height:1021px;")
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 		
 		mapLocation();
@@ -253,25 +257,26 @@
 		$("#content").empty();
 		$(".myReviewReplyArea").empty();
 		$("#content").attr("style", "");
+		$("#menuType").empty();
 		$.ajax({
 			"url":"/udongca_project/prBoard/menuList.udc",
 			"type":"POST",
 			"data":{cafeNumber:no,menuType:menuType},
 			"dataType":"json",
 			"success":function(obj){
+				
+				$("#menuType").append(menuType);
 				if(obj != ""){
 					$("#content").append(
-							"<div id='myCarousel' class='carousel slide'>"+
+							"<div id='myCarousel' class='carousel slide' style='margin-bottom:60px'>"+
 							"<ol class='carousel-indicators'></ol><div class='carousel-inner' role='listbox'></div>");
 					for(var i =0;i<obj.length;i++){
 
 						if(i==0){
-						$(".carousel-inner").append("<div class='item active'><span><font size=6>"+obj[i].menuType+
-							      "</font></span><p><p><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><font size=6>"+obj[i].menuName+"</font></div></div>");
+						$(".carousel-inner").append("<div class='item active'><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 						$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='0'  class='item1 active'></li>");
 						}else{
-							$(".carousel-inner").append("<div class='item'><span><font size=6>"+obj[i].menuType+
-								    "</font></span><p><p><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><font size=6>"+obj[i].menuName+"</font></div></div>");
+							$(".carousel-inner").append("<div class='item'><img src='/udongca_project/images/"+obj[i].menuFakeImage+"' alt='"+obj[i].menuName+"'><div class='carousel-caption'><h3>"+obj[i].menuName+"</h3></div></div>");
 							$(".carousel-indicators").append("<img src='/udongca_project/images/"+obj[i].menuFakeImage+"' data-target='#myCarousel' data-slide-to='"+(i)+"'  class='item"+(i+1)+"'></li>");
 						}
 					}
@@ -517,60 +522,13 @@
 		}
 	}
 </script>
-<style type="text/css">
-	table{
-		width:1280px;
-	}
-	table, th{
-		font-size:20px;
-		font-weigth:bold;
-		width:700px;
-	}
-	table,td{
-		font-size:18px;
-		width:1000px;
-	}
-
-	.carousel-inner > .item > img {
-		  padding-top:45px;
-	      top: 0;
-	      left: 0;
-	      width: 350px;
-	      height: 300px;
-	      align:center;
-	 } 
-	 .carousel-indicators{
-	 	bottom:-70px;
-	 }
-	 .carousel-indicators .active{
-	 	width:60px;
-	 	height:60px;
-	 }
-	.carousel-indicators > img{
-		width:50px;
-		height:50px;
-	}
-	
-	.replyContent{
-		text-indent: 20px;
-		height:30px;
-	}
-	.reReplyContent{
-		text-indent: 50px;
-		height:40px;
-	}
-	.reReply{
-		text-indent: 50px;
-	}
-</style>
-
-<div style="width:1000px; padding-top:20px; padding-left:50px;">
+<div style="width:1000px; padding-left:50px;">
 <input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
-<div><h1 id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
+<div><h1 style="margin-top:0px;" id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
 <div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>
-<table>
+<table style="width:950px;">
 	<tr>
-		<td rowspan="5" style="height:450px; width:300px; padding-right:15px;">
+		<td rowspan="5" style="width:300px; padding-right:15px;">
 			<!--
 				홍보글 객체에서 fakeImage를 불러 와, 이를 Split한 뒤 for 문으로 경로를 순차적으로 조회.
 			-->
@@ -638,8 +596,18 @@
 	</table>
 	
 		<div id="buttonArea" class="form-group" align="center" style="width:800px; padding-top:20px;"></div>
-			
-		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
+		<table style="margin-left:15%">
+		<tr>
+			<td>
+			<span id="menuType" style="font-size:x-large;"></span>
+			</td>
+		</tr>
+			<tr>
+			<td id="content">
+			</td>
+			</tr>
+		</table>
+		
 </div>
 
 <!-- Modal -->

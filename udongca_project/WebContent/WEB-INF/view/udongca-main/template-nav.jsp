@@ -55,7 +55,7 @@ nav{
 section{
 	padding: 15px;
 	margin-top:30px;
-	min-height:700px;
+	min-height:700px; 
 	float:left;
 }
 footer{
