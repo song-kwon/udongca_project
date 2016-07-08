@@ -60,8 +60,6 @@
 		cursor:default;
 		border-bottom:1.5px solid;
 }
-	
-=======
 	.cafeIntro {
 		width:250px;
 	}
@@ -71,7 +69,9 @@
 	#reviewContentText{
 		white-space:pre-wrap;
 	}
->>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
+		.reportContent{
+		display:none;
+	}
 </style>
 
 <script type="text/javascript">
@@ -92,6 +92,33 @@
 	
 	
 	$(document).ready(function(){
+		
+		$("#prReportReason").on('change',function(){
+			var text = this.value;
+			if(text == '직접 입력'){
+				$('.reportContent').show();
+			}else{
+				$('.reportContent').hide();
+			}
+		});
+		
+		$("#reviewReportReason").on('change',function(){
+			var text = this.value;
+			if(text == '직접 입력'){
+				$('.reportContent').show();
+			}else{
+				$('.reportContent').hide();
+			}
+		});
+		
+		$("#replyReportReason").on('change',function(){
+			var text = this.value;
+			if(text == '직접 입력'){
+				$('.reportContent').show();
+			}else{
+				$('.reportContent').hide();
+			}
+		});
 		
 		$("#imageArea").append("<img src='/udongca_project/images/" + cafeFakeImageArray[currentImageNumber] + "' height='300' width='400'>");
 		
@@ -606,6 +633,7 @@
 	.reReply{
 		text-indent: 50px;
 	}
+
 </style>
 
 <div style="width:1000px; padding-top:20px; padding-left:50px;">
@@ -710,7 +738,7 @@
 							<option>직접 입력</option>
 						</select>
 					</div>
-					<div>
+					<div class="reportContent" >
 						<label for="reportContent">신고 내용</label>
 						<input type="text" class="form-control" id="prReportContent" name="reportContent">
 					</div>
@@ -750,7 +778,7 @@
 							<option>직접 입력</option>
 						</select>
 					</div>
-					<div>
+					<div class="reportContent">
 						<label for="reportContent">신고 내용</label>
 						<input type="text" class="form-control" id="reviewReportContent" name="reportContent">
 					</div>
@@ -790,7 +818,7 @@
 							<option>직접 입력</option>
 						</select>
 					</div>
-					<div>
+					<div class="reportContent">
 						<label for="reportContent">신고 내용</label>
 						<input type="text" class="form-control" id="replyReportContent" name="reportContent">
 					</div>
