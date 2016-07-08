@@ -42,6 +42,7 @@
 	.modal-footer {
 		background-color: #FAEBD7;
 	}
+<<<<<<< HEAD
 	table#review_table{
 	height:15px; 
 	font-size:18px; 
@@ -49,7 +50,10 @@
 	table-layout:fixed;
 	}
 	td#td1:hover{text-decoration:underline;}
-	thead{
+	a#a1{
+		text-decoration:none;
+	}
+	thead#review_table_thead{
 		font-weight:bold; 
 		height:40px; 
 		text-align:center;
@@ -57,6 +61,7 @@
 		border-bottom:1.5px solid;
 }
 	
+=======
 	.cafeIntro {
 		width:250px;
 	}
@@ -66,6 +71,7 @@
 	#reviewContentText{
 		white-space:pre-wrap;
 	}
+>>>>>>> branch 'master' of https://github.com/song-kwon/udongca_project.git
 </style>
 
 <script type="text/javascript">
@@ -390,8 +396,8 @@
 					html += "<br><font size=3>아직 작성된 리뷰가 없습니다.<br></font>"
 				}
 				else{
-					html += "<div style='font-size:30px; padding-top:20px;'>방문 후기</div><br>";
-					html += "<table id='review_table'><thead><tr><td style='width:50px;'>No</td><td style='width:150px;'>제목</td><td style='width:250px'>리뷰 내용</td><td style='width:90px;'>작성 날짜</td></tr></thead>";
+					html += "<div style='font-size:30px; padding-top:20px; font-weight:bold;'>방문 후기</div><br>";
+					html += "<table style='height:15px; font-size:18px; text-align:center; table-layout:fixed;'><thead id='review_table_thead'><tr><td style='width:50px;'>No</td><td style='width:150px;'>제목</td><td style='width:250px'>리뷰 내용</td><td style='width:90px;'>작성 날짜</td></tr></thead>";
 					for (var i = 0; i < json.list.length; i++){
 						html += "<tr>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
@@ -673,7 +679,7 @@
 					<td><pre class="cafeIntro"><c:out value="${requestScope.prBoard.cafeIntro}"/></pre></td>
 				</tr>
 	</table>
-		<div id="buttonArea" class="form-group" align="right" style="width:800px; padding-top:20px;"></div>
+		<div id="buttonArea" class="form-group" align="right" style="width:900px; padding-top:20px;"></div>
 			
 		<div id="content" style="width:600px;height:250px; padding:300px;"></div>
 </div>
