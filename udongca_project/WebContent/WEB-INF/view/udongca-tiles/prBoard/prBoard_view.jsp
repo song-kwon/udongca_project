@@ -245,9 +245,6 @@
 			return window.confirm("정말 신고하겠습니까?");
 		});
 		
-		alert("${requestScope.initialPage2}");
-		alert("${requestScope.initialPage}");
-		
 		if ("${requestScope.initialPage2}"){
 			menuImage("${requestScope.prBoard.cafeNo}", "${requestScope.initialPage2}");
 		}
