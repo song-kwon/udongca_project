@@ -16,8 +16,6 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
 
-<script src="/udongca_project/scripts/jquery.loading-indicator.js"></script>
-<link type="text/css" rel="stylesheet" href="/udongca_project/css/jquery.loading-indicator.css" />
 
 <script type="text/javascript">
 $(document).ready(function(){

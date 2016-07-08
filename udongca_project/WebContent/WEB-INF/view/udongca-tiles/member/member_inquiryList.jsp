@@ -46,14 +46,14 @@ td#td2:hover{text-decoration:underline; color:red;}
 
 <div><h1>나의 1:1 문의 내역</h1></div>
 <br>
+<div align="left">
 	<table id="memberInquiryList">
 		<thead>
 			<tr>
-				<td>No</td>
-				<td>문의 제목</td>
-				<td>문의 내용</td>
-				<td>처리 결과</td>
-				<col width="50px"><col width="200px"><col width="300px"><col width="80px">
+				<td style="width:50px">No</td>
+				<td style="width:200px">문의 제목</td>
+				<td style="width:300px">문의 내용</td>
+				<td style="width:80px;">처리 결과</td>
 			</tr>
 		</thead>
 		<tbody class="tbody">
@@ -70,7 +70,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="3" align="center"><h3 style="color:red;">${requestScope.error }</td>
+					<td colspan="3" align="center"><h3 style="color:red;">${requestScope.error }</h3></td>
 				</tr>
 			</c:otherwise>
 			</c:choose>
@@ -115,3 +115,4 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<c:otherwise>▶</c:otherwise>
 		</c:choose>
 	</div>
+</div>

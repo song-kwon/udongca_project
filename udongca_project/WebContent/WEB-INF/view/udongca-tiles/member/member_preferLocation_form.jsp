@@ -79,5 +79,5 @@
 		</select>
 	<p>
 </div><br>
-<div align="center"><button id="preferLocation_modiftBtn">선호지역 수정</button></div>
+<div style="margin-left:20%"><button class="btn btn-default" id="preferLocation_modiftBtn">선호지역 수정</button></div>
 </div>

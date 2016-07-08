@@ -23,6 +23,7 @@ table, th{
 	<tr>
 		<th>비밀번호</th>
 		<td><input type="password" id="password"></td>
+	<tr>
+		<td colspan="2" align="center"><button id="verify" class="btn btn-default" style="margin-top:6px;">확인</button>
 </table>
-<div align="center"><button id="verify">확인</button></div>
 </div>
