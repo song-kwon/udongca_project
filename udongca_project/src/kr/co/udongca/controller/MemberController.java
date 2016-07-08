@@ -43,15 +43,17 @@ public class MemberController {
 
     @RequestMapping("member_myPage.udc")
     public String myPage(HttpSession session) {
-	Member login = (Member) session.getAttribute("login");
-	if (login != null) {
-	    if (login.getMemberType().equals("master"))
-		return "master/master_page.tiles";
-	    else
-		return "member/mypage.tiles";
-	} else {
-	    return "redirect:/loginPage.udc";
-	}
+    	Member login = (Member) session.getAttribute("login");
+    	if (login != null) {
+    		if (login.getMemberType().equals("master")){
+    			return "master/master_page.tiles";
+    		}
+    		else{
+    			return "member/mypage.tiles";
+    		}
+    	} else {
+    		return "redirect:/loginPage.udc";
+    	}
     }
 
     @RequestMapping("master_page.udc")
@@ -82,7 +84,9 @@ public class MemberController {
 		Member login = memberService.login(id, password);
 		if (login == null || login.getLoginPossibility().equals("Impossible")) {
 			return new ModelAndView("etc/login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
-		} else {
+		} else if(session.getAttribute("login") != null){
+			return new ModelAndView("redirect:/main.udc");
+		}else{
 			session.setAttribute("login", login);
 			
 			//메인 화면 뿌려줄 카페 , 공지, 리뷰 리스트 받아오기

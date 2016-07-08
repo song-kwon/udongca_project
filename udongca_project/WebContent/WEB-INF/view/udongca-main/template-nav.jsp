@@ -44,7 +44,7 @@ header{
 header, a{
 	color:sienna;
 }
-nav{
+nav, .col-md-2{
 	line-height: 70px;
 	background-color:burlywood;
 	width:180px;
@@ -56,7 +56,7 @@ nav{
 	color-link:saddlebrown;
 	height: 100%;
 }
-section{
+section, .col-md-8{
 	padding: 15px;
 	margin-top:30px;
 	min-height:700px;
@@ -102,11 +102,11 @@ input[type="button"]{
 <tiles:insertAttribute name="header"/>
 </header>
 
-<nav class="nav sidenav ">
+<nav class="nav sidenav col-md-2">
 <tiles:insertAttribute name="menu"/>
 </nav>
 
-<section class="nav_section">
+<section class="nav_section col-md-8">
 <tiles:insertAttribute name="body"/>
 </section>
 

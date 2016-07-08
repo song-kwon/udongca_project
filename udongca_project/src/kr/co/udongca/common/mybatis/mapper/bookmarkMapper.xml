@@ -5,15 +5,26 @@
 		ceil(rownum) no,memberId,cafeNo
 	</sql>
 	
-	<resultMap type="PRBoard" id="prBoard-fakeimage">
+	<resultMap type="PRBoard" id="prBoard-fakeImage">
 		<result column="cafeName" property="cafeName"/>
 		<result column="cafeFakeImage" property="cafeFakeImage"/>
 	</resultMap>
 	
 	<resultMap type="bookmark" id="bookmark-member-main">
 		<result column="cafeNo" property="cafeNo"/>
-		<association property="prBoard" javaType="PRBoard" resultMap="prBoard-fakeimage" />
-		
+		<association property="prBoard" javaType="PRBoard" resultMap="prBoard-fakeImage" />
+	</resultMap>
+	
+	<resultMap type="PRBoard" id="prboard-bookmark">
+		<result column="cafeAddress" property="cafeAddress"/>
+	</resultMap>
+	
+	<resultMap type="bookmark" id="bookmark-member-list">
+		<result column="no" property="no"/>
+		<result column="cafeNo" property="cafeNo"/>
+		<result column="memberId" property="memberId"/>
+		<result column="cafeName" property="cafeName"/>
+		<association property="prBoard" javaType="PRBoard" resultMap="prboard-bookmark"/>
 	</resultMap>
 	
 	<insert id="insertBookmark" parameterType="bookmark">
@@ -34,10 +45,10 @@
 		where memberId=#{memberId}
 	</select>
 	
-	<select id="memberBookmarkListPaging" parameterType="map" resultType="bookmark">
-		SELECT ceil(rownum) no, memberId, cafeNo , cafeName
-		FROM (SELECT CEIL(rownum/#{itemPerPage}) page, ceil(rownum) no, memberId,cafeNo,cafeName
-			FROM(SELECT ceil(rownum) no, b.memberId, b.cafeNo, p.cafeName
+	<select id="memberBookmarkListPaging" parameterType="map" resultMap="bookmark-member-list">
+		SELECT ceil(rownum) no, memberId, cafeNo , cafeName, cafeAddress
+		FROM (SELECT CEIL(rownum/#{itemPerPage}) page, ceil(rownum) no, memberId,cafeNo,cafeName,cafeAddress
+			FROM(SELECT ceil(rownum) no, b.memberId, b.cafeNo, p.cafeName,p.cafeAddress
 				FROM bookmark b , prboard p where b.memberId =  #{memberId} and p.cafeNo = b.cafeNo order by no asc
 					)
 				) 

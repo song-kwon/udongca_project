@@ -279,7 +279,7 @@ public class ReviewBoardController {
 	}
 	
 	@RequestMapping("myReviewCafe.udc")
-	public String myReviewDetail(int cafeNo,int reviewNo,ModelMap map){
+	public String myReviewDetail(int cafeNo,ModelMap map){
 		
 		return "redirect:/prBoard/prView.udc?cafeNo="+cafeNo;
 	}
