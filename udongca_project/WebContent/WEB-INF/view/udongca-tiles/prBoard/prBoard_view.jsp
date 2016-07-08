@@ -178,6 +178,10 @@
 		});
 		
 		$(document).on('click','.addReReply',function(){
+			if (!($('#reReplyContent').val())){
+				alert("리플 내용을 입력하세요");
+				return false;
+			}
 			var reReply = $(this).parent().parent();
 			$.ajax({
 				'url':'/udongca_project/review/addReReply.udc',

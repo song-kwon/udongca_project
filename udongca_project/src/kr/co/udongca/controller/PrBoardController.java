@@ -132,7 +132,7 @@ public class PrBoardController {
 				menuAdd(cafeNo, menuTypeArray[i], menuNameArray[i], menuImageArray[i], req, session);
 			}
 			
-			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+			return "redirect:/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
 		
 		else{
@@ -328,7 +328,7 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-			return "prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "redirect:prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 		}
 		else{
 			model.put("errorList", errorList);
@@ -683,7 +683,7 @@ public class PrBoardController {
 				}
 			}
 			
-			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+			return "redirect:/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
 		else{
 			model.put("errorList", errorList);

@@ -257,10 +257,10 @@ public class ReviewBoardController {
 		int ratingStars = Integer.parseInt((String)(map.get("ratingStars")));
 		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
-		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+		if(map.get("reviewTitle") == null || ((String)map.get("reviewTitle")).trim().equals("")){
 			errorList.add("리뷰 제목을 입력하세요");
 		}
-		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
+		else if(((String)map.get("reviewTitle")).getBytes("UTF-8").length > 50){
 			errorList.add("카페 이름이 너무 깁니다");
 		}
 		
@@ -300,7 +300,7 @@ public class ReviewBoardController {
 			prService.updateCafeRatingInPRBoard(inputMap);
 			prService.updateCafeReviewCountInPRBoard(inputMap);
 			
-			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
+			return "redirect:/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
 		else{
 			model.put("error", errorList);
