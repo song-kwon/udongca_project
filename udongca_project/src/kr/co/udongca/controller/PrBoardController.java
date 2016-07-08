@@ -38,14 +38,16 @@ public class PrBoardController {
 	 * @return
 	 */
 	@RequestMapping("prView.udc")
-	public String prView(int cafeNo, ModelMap map){
-		PRBoard pr = service.selectPRBoardByNo(cafeNo);
+	public String prView(@RequestParam Map map, ModelMap model){
+		PRBoard pr = service.selectPRBoardByNo(Integer.parseInt(((String)map.get("cafeNo"))));
 		if (pr == null){
-			map.put("error", "존재하지 않는 카페입니다");
+			model.put("error", "존재하지 않는 카페입니다");
 			return "error.tiles";
 		}
 		else{
-			map.put("prBoard", service.selectPRBoardByNo(cafeNo));
+			model.put("prBoard", pr);
+			model.put("initialPage", map.get("initialPage"));
+			model.put("initialPage2", map.get("initialPage2"));
 			return "prBoard/prBoard_view.tiles";
 		}
 	}
