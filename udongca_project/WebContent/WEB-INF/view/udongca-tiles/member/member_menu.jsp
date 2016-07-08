@@ -14,9 +14,33 @@ $(document).ready(function(){
 div#dropBtn{
 	color:sienna;
 }
-div#dropBtn:hover{color:saddlebrown; text-decoration:underline;}
 a{
 	color:sienna;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+ .nav-pills > li.active > a:focus{
+	background-color:#6b4004;
+}
+.nav>li>a{
+	font-size:15pt;
+}
+.nav > li > a:hover,
+.nav > li > a:focus{
+	background-color:#faebd7;
+}
+
+.nav-pills > li.active > div#dropBtn,
+.nav-pills > li.active > div#dropBtn:hover,
+ .nav-pills > li.active > div#dropBtn:focus{
+	background-color:#6b4004;
+}
+.nav > li > div#dropBtn:hover,
+.nav > li > a:focus{
+	color:red;
+	font-weight:bold;
+	background-color:#faebd7;
+	cursor:pointer;
 }
 
 </style>
@@ -25,21 +49,25 @@ a{
 <input type="hidden" value="${sessionScope.login.memberId }" id="loginId">
 <c:choose>
 	<c:when test="${sessionScope.login.memberType == 'licenseeMember' }">
-		<a href="/udongca_project/member/member_prBoard_list.udc">내 홍보글</a><br>
-		<a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a><br>
-		<a href="/udongca_project/member/memberInquiryListPaging.udc">1:1문의</a><br>
-		<a href="/udongca_project/member/member_verify.udc">정보수정</a><br>
-		<div id="dropBtn" style="cursor:pointer;">회원탈퇴</div><br>
+		<ul class="nav nav-pills nav-stacked">
+		<li class="li member"><a href="/udongca_project/member/member_prBoard_list.udc">내 홍보글</a></li>
+		<li class="li member"><a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a></li>
+		<li class="li member"><a href="/udongca_project/member/memberInquiryListPaging.udc">1:1문의</a></li>
+		<li class="li member"><a href="/udongca_project/member/member_verify.udc">정보수정</a></li>
+		<li class="li member"><div id="dropBtn" style="cursor:pointer;">회원탈퇴</div></li>
+		</ul>
 	</c:when>
 	<c:otherwise>
 		<div class="menuLink">
-			<a id="book" href="/udongca_project/member/member_bookmark.udc">즐겨찾기</a><br>
-			<a href="/udongca_project/member/member_preferLocation_form.udc">선호지역</a><br>
-			<a href="/udongca_project/member/memberReviewListPaging.udc">내가쓴리뷰</a><br>
-			<a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a><br>
-			<a href="/udongca_project/member/memberInquiryListPaging.udc">내 1:1문의 내역</a><br>
-			<a href="/udongca_project/member/member_verify.udc">정보수정</a><br>
-			<div id="dropBtn" style="cursor:pointer;">회원탈퇴</div><br>
+			<ul class="nav nav-pills nav-stacked">
+			<li class="li member"><a id="book" href="/udongca_project/member/member_bookmark.udc">즐겨찾기</a></li>
+			<li class="li member"><a href="/udongca_project/member/member_preferLocation_form.udc">선호지역</a></li>
+			<li class="li member"><a href="/udongca_project/member/memberReviewListPaging.udc">내가쓴리뷰</a></li>
+			<li class="li member"><a href="/udongca_project/member/memberReportListPaging.udc">신고내역</a></li>
+			<li class="li member"><a href="/udongca_project/member/memberInquiryListPaging.udc">내 1:1문의 내역</a></li>
+			<li class="li member"><a href="/udongca_project/member/member_verify.udc">정보수정</a></li>
+			<li class="li member"><div id="dropBtn" style="padding:12px;">회원탈퇴</div></li>
+			</ul>
 		</div>
 	</c:otherwise>
 </c:choose>
