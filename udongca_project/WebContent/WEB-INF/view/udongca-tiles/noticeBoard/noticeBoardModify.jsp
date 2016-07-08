@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <script  type="text/javascript">
 $(document).ready(function(){
+	$("input[type='text']").prop({"class":"form-control"});
 	$("#title").on("keyup keypress", function(){
 		if($(this).val().length>50){
 			$(this).val($(this).val().substr(0,50));
@@ -80,7 +81,7 @@ table{
 	<tr>
 		<td class="text">말머리</td>
 		<td>
-			<select id="category" name="category">
+			<select id="category" name="category" class="form-control" style="width:130px;">
 				<option>말머리선택</option>
 				<c:forEach items="${requestScope.map.codeList }" var="code">
 					<option ${code.codeName == requestScope.map.noticeBoard.category?'selected="selected"':'' }>${code.codeName }</option>
