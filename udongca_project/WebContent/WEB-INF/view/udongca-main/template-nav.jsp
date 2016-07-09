@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Comparible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1" >
-<META http-equiv="Cache-Control" content="no-store">
 <title>Insert title here</title>
 <script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>
@@ -59,6 +58,7 @@ nav, .col-md-2{
 }
 section, .col-md-8{
 	padding: 15px;
+	margin-left:50px;
 	margin-top:30px;
 	min-height:700px; 
 	float:left;

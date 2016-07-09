@@ -606,7 +606,7 @@
 		}
 	}
 </script>
-<div style="width:1000px; padding-left:50px;">
+<div style="width:1000px;">
 	<input type="hidden" id="cafeNo" value="${requestScope.prBoard.cafeNo}">
 	<div><h1 style="margin-top:0px;" id="cafeName">  ${requestScope.prBoard.cafeName }</h1></div><p>
 	<div style="color:darkorange;"><font size="4">&nbsp;&nbsp;안녕하세요! "${requestScope.prBoard.cafeName }"에 오신 것을 환영합니다!!</font></div><br>

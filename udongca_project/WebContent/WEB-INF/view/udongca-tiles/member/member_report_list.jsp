@@ -115,7 +115,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 <div class="modal fade" id="report_detail" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content" style="width:400px;">
+      <div class="modal-content" style="width:500px;">
         <div class="modal-header" align="center">
           <h4>신고 상세 내역</h4>
         </div>

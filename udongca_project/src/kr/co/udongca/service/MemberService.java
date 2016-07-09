@@ -61,4 +61,6 @@ public interface MemberService {
 	public Map memberPRBoardList(int page, String memberId);
 	
 	public List selectMemberPreferLocationAddress(String memberId);
+	
+	public List memberReportList(int page,String memberId);
 }

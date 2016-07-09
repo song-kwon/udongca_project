@@ -20,6 +20,7 @@ public interface ReportBoardService {
     public int updateReport(ReportBoard reportboard);
     
     public int deleteArticle(String reportType,int reportNo);
+   
     public ModelAndView memberReportList(int page, String memberId);
    
     public ReportBoard memberReportDetail(int reportboardNo);
@@ -29,4 +30,5 @@ public interface ReportBoardService {
     public int insertReport(ReportBoard reportboard);
     
     public int selectNextReportBoardSequence();
+    
 }
