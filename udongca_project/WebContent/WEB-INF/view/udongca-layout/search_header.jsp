@@ -83,7 +83,7 @@ $(document).ready(function(){
 	</c:otherwise>
 </c:choose>
 
-<div style="font-size: x-large;"><a href="/udongca_project/main.udc"><img src="/udongca_project/udongca-image/udongca_logo.jpg"></a></div>
+<div style="font-size: x-large;"><a href="/udongca_project/main.udc"><img style="width:300px;height:150px;" src="/udongca_project/udongca-image/udongca_logo.jpg"></a></div>
 <br>
 <div class="form-inline">
 	<div class="div2">

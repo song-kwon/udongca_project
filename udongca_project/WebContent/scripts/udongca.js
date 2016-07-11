@@ -58,7 +58,7 @@ $(document).ready(function(){
 						if(json.pageBean.previousPageGroup){
 							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 						}else{
-							$(".pagination").append('<li><a>◀</a></li>');
+							$(".pagination").append('<li><a href="#">◀</a></li>');
 						}
 						
 						for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -71,7 +71,7 @@ $(document).ready(function(){
 						if(json.pageBean.nextPageGroup){
 							$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
 						}else{
-							$(".pagination").append('<li><a >▶</a></li>');
+							$(".pagination").append('<li><a href="#">▶</a></li>');
 						}
 					}
 				}
@@ -108,7 +108,7 @@ $(document).ready(function(){
 					if(json.pageBean.previousPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a><li>');
 					}else{
-						$(".pagination").append('<li><a>◀</a></li>');
+						$(".pagination").append('<li><a href="#">◀</a></li>');
 					}
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -121,7 +121,7 @@ $(document).ready(function(){
 					if(json.pageBean.nextPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a></li>');
 					}else{
-						$(".pagination").append('<li><a>▶</a></li>');
+						$(".pagination").append('<li><a href="#">▶</a></li>');
 					}
 				}
 				
@@ -499,7 +499,7 @@ function themePage(page){
 				if(json.pageBean.previousPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 				}else{
-					$(".pagination").append('<li><a>◀</a></li>');
+					$(".pagination").append('<li><a href="#">◀</a></li>');
 				}
 				
 				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -512,7 +512,7 @@ function themePage(page){
 				if(json.pageBean.nextPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
 				}else{
-					$(".pagination").append('<li><a >▶</a></li>');
+					$(".pagination").append('<li><a href="#">▶</a></li>');
 				}
 			}
 		}
@@ -544,7 +544,7 @@ function themePage(page){
 					if(json.pageBean.previousPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+(json.pageBean.beginPage-1)+')">◀</a></li>');
 					}else{
-						$(".pagination").append('<li><a>◀</a></li>');
+						$(".pagination").append('<li><a href="#">◀</a></li>');
 					}
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -558,7 +558,7 @@ function themePage(page){
 				if(json.pageBean.nextPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+ ++json.pageBean.endPage +')">▶</a></li>');
 				}else{
-					$(".pagination").append('<li><a>▶</a></li>');
+					$(".pagination").append('<li><a href="#">▶</a></li>');
 				}
 			}
 		});
