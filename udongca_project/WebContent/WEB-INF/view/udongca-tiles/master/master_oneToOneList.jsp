@@ -53,16 +53,7 @@ td{
     padding-top: 0px;
     padding-right: 0px;
 }
-.pagination > .active > a,
-.pagination > .active > a:hover{
-	background-color:#6b4004;
-}
-.pagination > li > a{
-	color:#a2522d;
-}
-.pagination > li > a:hover{
-	color:#6b4004;
-}
+
 .modal-footer{
 	background-color:#faebd7;
 	border-radius:6px;
