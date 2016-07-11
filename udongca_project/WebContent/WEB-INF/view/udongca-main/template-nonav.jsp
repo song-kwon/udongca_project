@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<META http-equiv="Cache-Control" content="no-store">
-<META http-equiv="Cache-Control" content="no-cache"> 
 <title>Insert title here</title>
 <script type="text/javascript" src="/udongca_project/scripts/jquery.js"></script>
 <script type="text/javascript" src="/udongca_project/scripts/udongca.js"></script>

@@ -43,7 +43,7 @@ $(document).ready(function(){
 				"success":function(json){
 					submitString = "'"+submitString+"'";
 					$("#searchResult").empty();
-					$(".pagination").empty();
+					$("#pageNum").empty();
 					if (json == null || json.list.length == 0){
 						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 						return false;
@@ -54,7 +54,7 @@ $(document).ready(function(){
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
-						
+						$("#pageNum").append('<ul class="pagination"></ul>');
 						if(json.pageBean.previousPageGroup){
 							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 						}else{
@@ -92,7 +92,7 @@ $(document).ready(function(){
 			"dataType":"json",
 			"success":function(json){
 				$("#searchResult").empty();
-				$(".pagination").empty();
+				$("#pageNum").empty();
 				if (json == null || json.list.length == 0){
 					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 					return false;
@@ -104,6 +104,7 @@ $(document).ready(function(){
 					}
 					
 					
+					$("#pageNum").append('<ul class="pagination"></ul>');
 					if(json.pageBean.previousPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a><li>');
 					}else{
@@ -462,7 +463,7 @@ function themePage(page){
 					if(idx == json.pageBean.page)
 						$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 					else
-						$(".pagination").append('<li><a href="#" onclick="themePage('+submitString+','+idx+')"> '+idx+' </a></li>');
+						$(".pagination").append('<li><a href="#" onclick="themePage('+idx+')"> '+idx+' </a></li>');
 				}
 
 				if(json.pageBean.nextPageGroup){

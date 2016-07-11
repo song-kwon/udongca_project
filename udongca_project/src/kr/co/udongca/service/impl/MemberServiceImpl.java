@@ -19,6 +19,7 @@ import kr.co.udongca.common.util.SendEmailConfig;
 import kr.co.udongca.dao.CodeDao;
 import kr.co.udongca.dao.MemberDao;
 import kr.co.udongca.dao.PrBoardDao;
+import kr.co.udongca.dao.ReportBoardDao;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -32,10 +33,11 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDaoImpl;
 	@Autowired
 	private CodeDao codeDaoImpl;
-	
 	@Autowired
 	private PrBoardDao prBoardDao;
-
+	@Autowired
+	private ReportBoardDao reportDao;
+	
 	@Override
 	public Member login(String id, String password) {
 		if (memberDaoImpl.countSameId(id) == 0) {
@@ -264,5 +266,15 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		return prBoard;
+	}
+	
+	@Override
+	public List memberReportList(int page, String memberId) {
+		Map map = new HashMap<>();
+		map.put("page", page);
+		map.put("itemPerPage", Constants.ITEMS_PER_PAGE);
+		map.put("memberId", memberId);
+		
+		return reportDao.memberReportList(map);
 	}
 }

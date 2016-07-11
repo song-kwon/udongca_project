@@ -143,8 +143,10 @@ $(document).ready(function(){
               <label for="memberEmail_id" class="col-xs-1" style="width:100px">이메일</label>
               <input type="text" class="form-control" id="memberEmail_id" placeholder="이메일을 입력하세요">
             </div><br>
+            <div align="right">
               <button id="find_id_btn" type="button" class="btn btn-success btn-block" style="margin-top:15px;">찾기</button>
-              <button class="close" style="margin-top:15px;">닫기</button>
+              <button class="btn btn-default" data-dismiss="modal" style="margin-top:15px;">닫기</button>
+            </div>
           </form>
         </div>
       
@@ -178,8 +180,10 @@ $(document).ready(function(){
               <label for="memberEmail_pwd" class="col-xs-1" style="width:100px">이메일</label>
               <input type="text" class="form-control" id="memberEmail_pwd" placeholder="이메일을 입력하세요">
             </div><br>
+            <div align="right">
               <button id="find_pwd_btn" type="button" class="btn btn-success btn-block" style="margin-top:15px;">찾기</button>
-              <button class="close" style="margin-top:15px;">닫기</button>
+              <button class="btn btn-default" data-dismiss="modal" style="margin-top:15px;">닫기</button>
+            </div>
           </form>
         </div>
       

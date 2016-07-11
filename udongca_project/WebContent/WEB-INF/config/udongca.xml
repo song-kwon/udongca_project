@@ -23,7 +23,6 @@
 	<mvc:view-controller path="/loginPage.udc" view-name="etc/login.tiles" />
 	<mvc:view-controller path="/generalMemberJoinform.udc" view-name="etc/generalMemberJoinform.tiles"/>
 	<mvc:view-controller path="/licenseeMemberJoinform.udc" view-name="etc/licenseeMemberJoinform.tiles"/>
-	<mvc:view-controller path="/member/member_myPage.udc" view-name="member/mypage.tiles"/>
 	<mvc:view-controller path="/joinSelect.udc" view-name="etc/joinSelect.tiles"/>
 	<mvc:view-controller path="/member/member_list.udc" view-name="member/memberList.tiles"/> 
 	 <mvc:view-controller path="/noticeBoard/noticeBoardRegisterSuccess.udc" view-name="noticeBoard/noticeBoardRegisterSuccess.tiles"/>
