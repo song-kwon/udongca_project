@@ -444,12 +444,15 @@
 						html += "<tr onclick='reviewDetail(" + json.list[i].reviewNo + ")' style='cursor:pointer;'>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
 						html += "<td id='td1' style='text-align:left; cursor:pointer; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'><a href='javascript:void(0)' style='text-decoration:none;' >" + json.list[i].reviewTitle +"</a></td>";
-						html += "<td id='td2' style='text-align:left; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>" + json.list[i].reviewContent + "</td>";
+						html += "<td id='td2-" + i + "' style='text-align:left; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>" + json.list[i].reviewContent + "</td>";
 						html += "<td>" + json.list[i].reviewDate + "</td>";
 						html += "</tr>";
 					}
 					html += "</table><br>";
 					$("#content").append(html);
+					for (var i = 0; i < json.list.length; i++){
+						$("#td2-" + i).text(json.list[i].reviewContent);
+					}
 					
 					html = "";
 					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'><ul class='pagination'>";
