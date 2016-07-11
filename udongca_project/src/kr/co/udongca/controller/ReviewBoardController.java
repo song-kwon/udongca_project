@@ -152,11 +152,11 @@ public class ReviewBoardController {
 		ReviewBoard review = service.selectReview(reviewNo);
 		PRBoard pr = prService.selectPRBoardByNo(cafeNo);
 		
-		if(map.get("cafeName") == null || ((String)map.get("cafeName")).trim().equals("")){
+		if(map.get("reviewTitle") == null || ((String)map.get("reviewTitle")).trim().equals("")){
 			errorList.add("리뷰 제목을 입력하세요");
 		}
-		else if(((String)map.get("cafeName")).getBytes("UTF-8").length > 50){
-			errorList.add("카페 이름이 너무 깁니다");
+		else if(((String)map.get("reviewTitle")).getBytes("UTF-8").length > 50){
+			errorList.add("리뷰 제목이 너무 깁니다");
 		}
 		
 		if (errorList.size() == 0){
@@ -259,7 +259,7 @@ public class ReviewBoardController {
 			errorList.add("리뷰 제목을 입력하세요");
 		}
 		else if(((String)map.get("reviewTitle")).getBytes("UTF-8").length > 50){
-			errorList.add("카페 이름이 너무 깁니다");
+			errorList.add("리뷰 제목이 너무 깁니다");
 		}
 		
 		if (errorList.size() == 0){
