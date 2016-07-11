@@ -8,7 +8,7 @@
 		}
 		
 		$("#reviewTitle").on("blur", function(){
-			$("#reviewTitleTd").text(($("#reviewTitle").val()) ? "" : "입력 필수");
+			$("#reviewTitleTd").text(($("#reviewTitle").val()) ? (countUtf8($("#reviewTitle").val()) > 50 ? "글자 수 한도 초과" : "") : "입력 필수");
 		});
 		
 		$("#reviewContent").on("blur", function(){
@@ -21,7 +21,7 @@
 		
 		$("form").on("submit", function(){
 			if (!($("#reviewTitle").val() && $("#reviewContent").val())){
-				alert("필수 사항을 입력하세요");
+				alert("필수 사항이 입력되지 않았거나 입력 문장이 너무 깁니다");
 				return false;
 			}
 		});

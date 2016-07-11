@@ -50,28 +50,28 @@ $(document).ready(function(){
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
-						
+						$("#pageNum").append('<ul class="pagination"></ul>');
 						if(json.pageBean.previousPageGroup){
-							$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>&nbsp;&nbsp;');
+							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 						}else{
-							$("#pageNum").append('◀&nbsp;&nbsp;');
+							$(".pagination").append('<li><a>◀</a></li>');
 						}
 						
 						for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 							if(idx == json.pageBean.page)
-								$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
+								$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 							else
-								$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a>&nbsp;&nbsp;');
+								$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a></li>');
 						}
 						
 						if(json.pageBean.nextPageGroup){
-							$("#pageNum").append('<a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a>');
+							$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
 						}else{
-							$("#pageNum").append('▶');
+							$(".pagination").append('<li><a >▶</a></li>');
 						}
 					}
 				}
@@ -99,28 +99,29 @@ $(document).ready(function(){
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 						//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 					}
 					
 					
+					$("#pageNum").append('<ul class="pagination"></ul>');
 					if(json.pageBean.previousPageGroup){
-						$("#pageNum").append('<a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a>');
+						$(".pagination").append('<li><a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a><li>');
 					}else{
-						$("#pageNum").append('◀');
+						$(".pagination").append('<li><a>◀</a></li>');
 					}
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 						if(idx == json.pageBean.page)
-							$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
+							$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 						else
-							$("#pageNum").append('<a href="#" onclick="themePage('+submitString+','+idx+')"> '+idx+' </a>');
+							$(".pagination").append('<li><a href="#" onclick="themePage('+idx+')"> '+idx+' </a></li>');
 					}
 
 					if(json.pageBean.nextPageGroup){
-						$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
+						$(".pagination").append('<li><a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a></li>');
 					}else{
-						$("#pageNum").append('▶');
+						$(".pagination").append('<li><a>▶</a></li>');
 					}
 				}
 				
@@ -170,7 +171,7 @@ $(document).ready(function(){
 			'data':{'id':$('#id').val(),'password':$('#password').val()},
 			'success':function(txt){
 				if(txt == 'true')
-					location.replace('/udongca_project/member/member_modify_form.udc');
+					location.href='/udongca_project/member/member_modify_form.udc?flag='+txt;
 				else
 					alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
@@ -187,7 +188,7 @@ $(document).ready(function(){
 			'success':function(txt){
 				if(txt == 'success'){
 					alert("수정되었습니다. 메인페이지로 이동합니다.");
-					location.replace('/udongca_project/main.udc');
+					location.href='/udongca_project/main.udc';
 				}
 				else
 					alert(txt);
@@ -202,8 +203,8 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("#memberInquiryList").on("click", "tr", function(){//tr에 event 처리
-			location.replace('/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text());
+	$("#memberInquiryList").on("click", ".tr", function(){//tr에 event 처리
+			location.href='/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text();
 		});
 		
 	
@@ -424,10 +425,10 @@ function memberReportDetail(reportboardNo){
 function sessionCheck(memberId){
 	if(!memberId){
 		if(confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?\n(확인:로그인페이지 / 취소:메인페이지)')){
-			location.replace('http://192.168.0.116:4322/udongca_project/loginPage.udc');
+			location.href='http://192.168.0.116:4322/udongca_project/loginPage.udc';
 			return false;
 		}else{
-			location.replace('http://192.168.0.116:4322/udongca_project/main.udc');
+			location.href='http://192.168.0.116:4322/udongca_project/main.udc';
 			return false;
 		}
 	}
@@ -441,34 +442,35 @@ function themePage(page){
 		"dataType":"json",
 		"success":function(json){
 			$("#searchResult").empty();
-			$("#pageNum").empty();
+			$(".pagination").empty();
 			if (json == null || json.list.length == 0){
 				$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 				return false;
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
-					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
+					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 				}
 				
+				
 				if(json.pageBean.previousPageGroup){
-					$("#pageNum").append('<a href="#" onclick="themePage('+ (json.pageBean.beginPage-1) +')">◀</a>');
+					$(".pagination").append('<li><a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a><li>');
 				}else{
-					$("#pageNum").append('◀');
+					$(".pagination").append('<li><a>◀</a></li>');
 				}
 				
 				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 					if(idx == json.pageBean.page)
-						$("#pageNum").append('['+idx+']');
+						$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 					else
-						$("#pageNum").append('<a href="#" onclick="themePage('+idx+')"> '+idx+' </a>');
+						$(".pagination").append('<li><a href="#" onclick="themePage('+idx+')"> '+idx+' </a></li>');
 				}
-			}
-			if(json.pageBean.nextPageGroup){
-				$("#pageNum").append('<a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a>');
-			}else{
-				$("#pageNum").append('▶');
+
+				if(json.pageBean.nextPageGroup){
+					$(".pagination").append('<li><a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a></li>');
+				}else{
+					$(".pagination").append('<li><a>▶</a></li>');
+				}
 			}
 		}
 	
@@ -482,38 +484,38 @@ function themePage(page){
 		"data":"cafeAddress=" + submitString + "&page=" + page,
 		"dataType":"json",
 		"success":function(json){
-			submitString= "'"+submitString+"'";
+			submitString = "'"+submitString+"'";
 			$("#searchResult").empty();
-			$("#pageNum").empty();
+			$(".pagination").empty();
 			if (json == null || json.list.length == 0){
 				$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
 				return false;
 			}
 			else{
 				for(var i = 0; i < json.list.length; i++){
-					$("#searchResult").append("<div style='padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + " " + json.list[i].cafeName + "</a></div>");
+					$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
 					//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 				}
 				
 				
 				if(json.pageBean.previousPageGroup){
-					$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a>&nbsp;&nbsp;');
+					$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 				}else{
-					$("#pageNum").append('◀&nbsp;&nbsp;');
+					$(".pagination").append('<li><a>◀</a></li>');
 				}
 				
 				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 					if(idx == json.pageBean.page)
-						$("#pageNum").append('['+idx+']&nbsp;&nbsp;');
+						$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 					else
-						$("#pageNum").append('<a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a>&nbsp;&nbsp;');
+						$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a></li>');
 				}
-			}
-			
-			if(json.pageBean.nextPageGroup){
-				$("#pageNum").append('<a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a>');
-			}else{
-				$("#pageNum").append('▶');
+				
+				if(json.pageBean.nextPageGroup){
+					$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
+				}else{
+					$(".pagination").append('<li><a >▶</a></li>');
+				}
 			}
 		}
 	});
@@ -588,3 +590,51 @@ function themePage(page){
  function reviewPageGo(cafeNo,reviewNo){
 	 location.href="/udongca_project/review/myReviewCafe.udc?cafeNo="+cafeNo;
  }
+
+// UTF-8 형식 문자열 용량 측정 보조 Function
+function fixedCharCodeAt(str, idx) {
+	idx = idx || 0;
+	var code = str.charCodeAt(idx);
+	var hi, low;
+	if (0xD800 <= code && code <= 0xDBFF) { // High surrogate (could change last hex to 0xDB7F to treat high private surrogates as single characters)
+		hi = code;
+		low = str.charCodeAt(idx + 1);
+		if (isNaN(low)) {
+			throw 'Invaild characters or memory error';
+		}
+		return ((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
+	}
+	if (0xDC00 <= code && code <= 0xDFFF) { // Low surrogate
+		// We return false to allow loops to skip this iteration since should have already handled high surrogate above in the previous iteration
+		return false;
+		/*hi = str.charCodeAt(idx-1);
+		low = code;
+		return ((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;*/
+	}
+	return code;
+}
+
+// DB에 넣을 Data가 한도를 넘는지 알기 위해서는 문자열을 UTF-8 형식으로 용량 계산해야 함. 이를 위한 Function
+// http://stackoverflow.com/questions/2848462/count-bytes-in-textarea-using-javascript
+function countUtf8(str) {
+	var result = 0;
+	for (var n = 0; n < str.length; n++) {
+		var charCode = fixedCharCodeAt(str, n);
+		if (typeof charCode === "number") {
+			if (charCode < 128) {
+				result = result + 1;
+			} else if (charCode < 2048) {
+				result = result + 2;
+			} else if (charCode < 65536) {
+				result = result + 3;
+			} else if (charCode < 2097152) {
+				result = result + 4;
+			} else if (charCode < 67108864) {
+				result = result + 5;
+			} else {
+				result = result + 6;
+			}
+		}
+	}
+	return result;
+}

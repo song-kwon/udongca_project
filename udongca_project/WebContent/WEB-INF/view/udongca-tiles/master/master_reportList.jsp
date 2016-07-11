@@ -227,7 +227,7 @@
 							"success" : function(obj) {
 								if(obj==1){
 									alert("삭제성공");
-									$("#reportResult").val(" 게시글 삭제");
+									$("#reportResult").val("신고처리");
 									ajaxUpdate();
 								}else{
 									alert("이미 삭제된 게시글입니다.");
@@ -269,8 +269,7 @@
 								loginPossibility : $("#loginPossibility").val(),
 							},
 					"success" : function(obj) {
-						var text = $("#reportResult").val();
-							$("#reportResult").val(text+" 벌점 부과");
+							$("#reportResult").val("신고처리");
 							ajaxUpdate();
 					},
 					"beforeSend" : function(){
@@ -356,6 +355,17 @@ select#selectType{
 .pagination > li > a:hover{
 	color:#6b4004;
 }
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
+}
 </style>
 <div id="div">
 <input type="hidden" id="memberPenalty">
@@ -435,10 +445,10 @@ select#selectType{
 </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" onclick="update()">신고취소이유 등록</button>
-	<button type="button" class="btn btn-default" onclick="deleteArticle()">게시글삭제</button>
-	<button class="btn btn-default" data-toggle='modal' data-target='#memberModal' data-backdrop='static' id="penalty">id벌점</button>
-        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success" onclick="update()">신고취소이유 등록</button>
+	<button type="button" class="btn btn-success" onclick="deleteArticle()">게시글삭제</button>
+	<button class="btn btn-success" data-toggle='modal' data-target='#memberModal' data-backdrop='static' id="penalty">id벌점</button>
+        <button type="button" id="close" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
 </div>
@@ -483,8 +493,8 @@ select#selectType{
 </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" onclick="submit()">수정</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success" onclick="submit()">수정</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

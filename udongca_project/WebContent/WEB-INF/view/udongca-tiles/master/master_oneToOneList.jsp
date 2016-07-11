@@ -63,6 +63,17 @@ td{
 .pagination > li > a:hover{
 	color:#6b4004;
 }
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -235,8 +246,8 @@ td{
 </form>
       </div>
       <div class="modal-footer">
-      <button class="btn btn-default" onclick="requiryReply()">답변등록</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+      <button class="btn btn-success" onclick="requiryReply()">답변등록</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="close">Close</button>
       </div>
     </div>
 </div>

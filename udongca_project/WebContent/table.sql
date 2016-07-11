@@ -147,7 +147,7 @@ create table member(
 memberId	varchar2(50)	primary key,
 memberName	varchar2(50)	NOT NULL,
 memberPassword	varchar2(50)	NOT NULL,
-memberEmail	varchar2(100),
+memberEmail	varchar2(100) not null,
 memberPenalty	NUMBER	,
 loginpossibility	varchar2(50)	NOT NULL,
 memberType	varchar2(50)	NOT NULL
@@ -200,7 +200,7 @@ coporateNumber	varchar2(50)	NOT NULL,
 operationHour	varchar2(50)	NOT NULL,
 managerName	varchar2(50)	NOT NULL,
 managerTel	varchar2(50)	NOT NULL,
-cafeRating number null,
+cafeRating number null default 0,
 cafeRealImage	CLOB	NULL,
 cafeFakeImage	CLOB	NULL,
 cafeReviewCount number default 0,
@@ -319,7 +319,7 @@ replyDate	DATE	NOT NULL,
 replyGroup NUMBER not null,
 parentReply	NUMBER	NULL,
 targetName	varchar2(50)	NULL,
-reviewNO	NUMBER,
+reviewNO	NUMBER not null,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
 references review_board(reviewNo) on delete set null

@@ -12,17 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.udongca.common.util.SendEmailConfig;
-import kr.co.udongca.service.BookmarkService;
 import kr.co.udongca.service.MemberService;
 import kr.co.udongca.vo.Address;
 import kr.co.udongca.vo.Member;
@@ -190,12 +188,19 @@ public class MemberController {
 	}
 
 	@RequestMapping("member_modify_form.udc")
-	public String memberModifyForm(HttpSession session) {
+	public String memberModifyForm(@RequestParam(required = false,defaultValue="false")String flag,HttpSession session) {
 		Member login = (Member) session.getAttribute("login");
-		if (login != null && !login.getMemberType().equals("master"))
-			return "member/member_modify_form.tiles";
-		else
+		if (login != null && !login.getMemberType().equals("master")){
+			if(flag.equals("true")){
+				return "member/member_modify_form.tiles";
+			}
+			else{
+				return "redirect:/member_verify.udc";
+			}
+		}
+		else{
 			return "redirect:/loginPage.udc";
+		}
 	}
 
 	@RequestMapping("member_modify.udc")
@@ -220,7 +225,7 @@ public class MemberController {
 			mav = memberService.myPreferLocationPage(login.getMemberId());
 			return mav;
 		} else {
-			mav = new ModelAndView("loginPage.udc", "error", "로그인이 필요하다네");
+			mav = new ModelAndView("redirect:/loginPage.udc");
 			return mav;
 		}
 
@@ -347,6 +352,29 @@ public class MemberController {
 			e.printStackTrace();
 			return new ModelAndView("error.tiles", "error_message", e.getMessage());
 		}
+	}
+	
+	@RequestMapping("member_myPage_loading.udc")
+	@ResponseBody
+	public Map memberMyPage(HttpSession session){
+		
+		Map map = new HashMap<>();
+		
+		Member login = (Member)session.getAttribute("login");
+		
+		if(login == null){
+			map.put("loginError", "로그인이 필요한 페이지 입니다.");
+			return map;
+		}
+		
+		map.put("loginInfo", memberService.login(login.getMemberId(), login.getMemberPassword()));
+		if(memberService.memberReportList(1, login.getMemberId()).size() == 0){
+			map.put("reportError","신고 내역이 없습니다.");
+		}else{
+			map.put("reportList",memberService.memberReportList(1, login.getMemberId()));
+		}
+		map.put("inquiryList", memberService.memberInquiryList(1, login.getMemberId()));
+		return map;
 	}
 
 }

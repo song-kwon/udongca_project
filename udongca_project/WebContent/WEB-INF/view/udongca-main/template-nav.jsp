@@ -58,8 +58,9 @@ nav, .col-md-2{
 }
 section, .col-md-8{
 	padding: 15px;
+	margin-left:50px;
 	margin-top:30px;
-	min-height:700px;
+	min-height:700px; 
 	float:left;
 }
 footer{
@@ -83,6 +84,8 @@ textarea{
 	outline: none;
 }
 a:hover{color:saddlebrown;}
+
+
 button{
 	color:black;
 }
