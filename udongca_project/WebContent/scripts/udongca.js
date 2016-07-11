@@ -204,7 +204,7 @@ $(document).ready(function(){
 	});
 	
 	$("#memberInquiryList").on("click", ".tr", function(){//tr에 event 처리
-			location.href='/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').text();
+			location.href='/udongca_project/oneToOneInquiry/oneToOneInquiry.udc?inquiryNo='+$(this).find(':first').prop('id');
 		});
 		
 	
@@ -405,7 +405,7 @@ function memberReportDetail(reportboardNo){
 				
 				$('#memberId').append(detail.memberId);
 				
-				$('#reportReason').append(detail.reportReason);
+				$('#reportReason').append(detail.reportContent == null ? detail.reportReason : detail.reportContent);
 				
 				$('#reportResult').append(detail.reportResult == null ? '처리중입니다.':detail.reportResult);
 			},

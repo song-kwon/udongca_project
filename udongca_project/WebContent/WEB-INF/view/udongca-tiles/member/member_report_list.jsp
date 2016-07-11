@@ -67,7 +67,8 @@ td#td2:hover{text-decoration:underline; color:red;}
 					<c:forEach items="${requestScope.reportList.list }" var="list">
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
 							<td class="cursor">${list.myReportNo }</td>
-							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
+							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${empty list.reportContent ? list.reportReason
+																				: list.reportContent}</td>
 							<td class="cursor">${empty list.reportResult ? '처리중':'처리됨'}</td>
 						</tr>
 					</c:forEach>
