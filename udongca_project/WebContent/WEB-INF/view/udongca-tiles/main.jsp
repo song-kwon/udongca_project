@@ -247,7 +247,7 @@ a.list-group-item:hover{
 							<c:forEach begin="0" end="2" varStatus="no">
 							<c:forEach varStatus="status" items="${requestScope.preferLocation[no.index] }"  var="preferLocation">
 							<c:choose>
-							<c:when test="${no.index==0 }">
+							<c:when test="${status.index==0 }">
 							<img src="/udongca_project/images/${preferLocation.cafeFakeImage }" data-target='#preferCafe' data-slide-to='0'  class='item1 active'>
 							</c:when>
 							<c:otherwise>

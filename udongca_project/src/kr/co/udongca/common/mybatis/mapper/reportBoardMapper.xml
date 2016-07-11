@@ -52,10 +52,10 @@
 	</select>
 		
 	<select id="member_report_list" parameterType="map" resultType="reportBoard">
-	SELECT <include refid="report_board_column"/>
-		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="report_board_column"/>
-			     FROM(SELECT <include refid="report_board_column"/>
-					     FROM report_board WHERE memberId=#{memberId} order by reportboardNo desc
+	SELECT myReportNo,<include refid="report_board_column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, myReportNo,<include refid="report_board_column"/>
+			     FROM(SELECT ceil(rownum) myReportNo,<include refid="report_board_column"/>
+					     FROM report_board WHERE memberId=#{memberId} order by myReportNo desc
 					     )
 				 )
 		WHERE page = #{page}

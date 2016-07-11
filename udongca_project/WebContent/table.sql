@@ -9,6 +9,16 @@ grant all privileges to udongca; --모든 권한 주기
 		FROM PRboard
 		where ceil(rownum) <![CDATA[ < ]]> 10
 		ORDER BY (cafeRating/cafereviewcount) DESC
+		
+		SELECT myInquiryNo,inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+		FROM(SELECT CEIL(rownum/9) page, myInquiryNo,inquiryNo, inquiryType, inquiryTitle, inquiryContent, inquiryReply, memberId
+			     FROM(SELECT ceil(rownum) myInquiryNo,inquiryNo, inquiryTitle, inquiryType, inquiryContent, inquiryReply, memberId
+					     FROM onetoone_inquiry  where memberId = 123123 order by myInquiryNo desc ,  inquiryNo desc
+					     )
+				 )
+		WHERE page = 1
+		
+		
 --리뷰 등록시 홍보글 cafeRating 업데이트
 update prboard set cafeRating=(select cafeRating from prboard where cafeNo=1)+(select ratingStars from review_board where reviewNo = 9),cafeReviewCount=(select cafeReviewCount from prboard where cafeNo=1)+1 where cafeNo= 1;
 

@@ -6,7 +6,7 @@
 			<c:when test="${empty requestScope.result.error }">
 			<c:forEach items="${requestScope.result.list }" var="result">
 				<div style="margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;">
-					<a href="/udongca_project/prBoard/prView.udc?cafeNo=${result.cafeNo }"><img style="width:200px;height:200px;" src="/udongca_project/images/${result.cafeFakeImage} ">${result.cafeNo}&nbsp;&nbsp;${result.cafeName}</a>
+					<a href="/udongca_project/prBoard/prView.udc?cafeNo=${result.cafeNo }"><img style="width:200px;height:200px;" src="/udongca_project/images/${result.cafeFakeImage} ">${result.cafeName}</a>
 				</div>
 			</c:forEach>
 			</c:when>

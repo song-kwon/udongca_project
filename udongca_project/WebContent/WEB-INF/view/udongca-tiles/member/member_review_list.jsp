@@ -62,7 +62,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 					<c:forEach items="${requestScope.reviewList.list }"
 						var="reviewList">
 						<tr id="tr" onclick="reviewPageGo(${reviewList.cafeNo})">
-							<td>${reviewList.reviewNo }</td>
+							<td>${reviewList.myReviewNo }</td>
 							<td id="td1" class="cursor">${reviewList.reviewTitle }</td>
 							<td id="td2" class="cursor">${reviewList.reviewContent }</td>
 						</tr>

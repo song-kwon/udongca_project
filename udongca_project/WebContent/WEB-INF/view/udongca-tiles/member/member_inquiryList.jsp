@@ -61,7 +61,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<c:when test="${empty requestScope.error }">
 			<c:forEach items="${requestScope.list }" var="list">
 				<tr class="tr">
-					<td>${list.inquiryNo }</td>
+					<td>${list.myInquiryNo }</td>
 					<td id="td1" class="cursor"><span style="text-align:left; width:100px; text-weight:bold; color:red;">[${list.inquiryType }]</span>&nbsp;${list.inquiryTitle }</td>
 					<td id="td2" class="cursor">${list.inquiryContent }</td>
 					<td>${empty list.inquiryReply or list.inquiryReply==' '?'처리 중':'답변 완료' }</td>

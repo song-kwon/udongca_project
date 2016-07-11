@@ -83,7 +83,7 @@ $(document).ready(function(){
 	</c:otherwise>
 </c:choose>
 
-<div style="font-size: x-large;"><a href="/udongca_project/main.udc">우 동 카</a></div>
+<div style="font-size: x-large;"><a href="/udongca_project/main.udc"><img style="width:300px;height:150px;" src="/udongca_project/udongca-image/udongca_logo.jpg"></a></div>
 <br>
 <div class="form-inline">
 	<div class="div2">
@@ -120,9 +120,6 @@ $(document).ready(function(){
 	<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }"><div><a href="/udongca_project/prBoard_write_form.udc"><button>홍보글 등록하기</button></a></div></c:if>
 	</div>
 	<div>
-	<c:if test="${!empty sessionScope.login }">
-		${sessionScope.login.memberName }님! 반갑습니다.
-	</c:if>
 </div>
 	
 </div>

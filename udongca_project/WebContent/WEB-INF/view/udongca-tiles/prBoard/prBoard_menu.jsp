@@ -220,6 +220,7 @@ function deleteMenuType(){
 }
 .nav > li > a:hover,
 .nav > li > a:focus{
+	font-weight:bold;
 	background-color:#faebd7;
 }
 
@@ -243,8 +244,10 @@ function deleteMenuType(){
 			<li class="li"><a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a></li>	
 		</ul>
 			<div id="collapse1" class="panel-collapse collapse">
+			<ul class="nav nav-pills nav-stacked">
 				<ul class="list-group nav nav-pills nav-stacked" id="menuCategoryList">
 				</ul>
+			</ul>
 			</div>
 		<ul class="nav nav-pills nav-stacked">
 			<li class="li"><a data-toggle="collapse" style='cursor:pointer' onclick="deleteMenuType();collapseMenu();reviewList(1);return false;">리뷰</a></li>

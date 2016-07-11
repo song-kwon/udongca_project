@@ -5,15 +5,16 @@
 	<sql id="review-column">
 		reviewNo, reviewTitle, reviewDate, reviewContent, ratingStars, reviewRealImage, reviewFakeImage, memberId, cafeNo
 	</sql>
-
+	
+	
 	<select id="countMyReview" parameterType="string" resultType="int">
 		select count(reviewNo) from review_board where memberId=#{memberId}
 	</select>
 	
 	<select id="myReviewListPaging" parameterType="map" resultType="reviewBoard">
-		SELECT <include refid="review-column"/>
-		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="review-column"/>
-			     FROM(SELECT <include refid="review-column"/> FROM review_board where memberId = #{memberId} order by reviewNo asc
+		SELECT myReviewNo,<include refid="review-column"/>
+		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, myReviewNo,<include refid="review-column"/>
+			     FROM(SELECT ceil(rownum) myReviewNo,<include refid="review-column"/> FROM review_board where memberId = #{memberId} order by myReviewNo desc
 					     )
 				 )
 		WHERE page = #{page}
