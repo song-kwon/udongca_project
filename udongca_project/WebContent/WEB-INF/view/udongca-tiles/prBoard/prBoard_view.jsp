@@ -422,7 +422,7 @@
 	}
 	
 	function reviewList(page){
-		$(".sidenav").attr("style","height:1085px;")
+		$(".sidenav").attr("style","height:1110px;")
 		currentPage = page;
 		var html = "";
 		$("#content").empty();
