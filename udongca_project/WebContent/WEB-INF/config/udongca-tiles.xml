@@ -90,4 +90,8 @@
 		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/prBoard/reviewWrite_menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/prBoard/review_modifyForm.jsp"/>
 	</definition>
+	<definition name="prBoard/menu_modifyForm.tiles" extends="default-nav.tiles">
+		<put-attribute name="menu" value="/WEB-INF/view/udongca-tiles/prBoard/reviewWrite_menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/udongca-tiles/prBoard/menu_modifyForm.jsp"/>
+	</definition>
 </tiles-definitions>
