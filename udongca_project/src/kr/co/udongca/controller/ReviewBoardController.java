@@ -122,13 +122,14 @@ public class ReviewBoardController {
 	}
 	
 	@RequestMapping("reviewModifyForm.udc")
-	public String reviewModifyForm(int reviewNo, String writerId,
+	public String reviewModifyForm(int reviewNo, int cafeNo, String writerId,
 			ModelMap map, HttpSession session){
 		Member mem = (Member)session.getAttribute("login");
 		if (mem == null || !mem.getMemberId().equals(writerId)){
 			return "redirect:/loginPage.udc";
 		}
 		map.put("review", service.selectReview(reviewNo));
+		map.put("cafeNo", cafeNo);
 		return "prBoard/review_modifyForm.tiles";
 	}
 	
