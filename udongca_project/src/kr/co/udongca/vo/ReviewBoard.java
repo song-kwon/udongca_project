@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class ReviewBoard {
 
+	private int myReviewNo;
 	private int reviewNo;
 	private String reviewTitle;
 	private Date reviewDate;
@@ -18,7 +19,7 @@ public class ReviewBoard {
 	public ReviewBoard(){}
 	
 	public ReviewBoard(int reviewNo, String reviewTitle, Date reviewDate, String reviewContent, int ratingStars,
-			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo) {
+			String memberId, String reviewRealImage, String reviewFakeImage, int cafeNo,int myReviewNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -29,6 +30,7 @@ public class ReviewBoard {
 		this.reviewRealImage = reviewRealImage;
 		this.reviewFakeImage = reviewFakeImage;
 		this.cafeNo = cafeNo;
+		this.myReviewNo=myReviewNo;
 	}
 
 	public int getReviewNo() {
@@ -110,6 +112,15 @@ public class ReviewBoard {
 	public void setPrBoard(PRBoard prBoard) {
 		this.prBoard = prBoard;
 	}
+	
+
+	public int getMyReviewNo() {
+		return myReviewNo;
+	}
+
+	public void setMyReviewNo(int myReviewNo) {
+		this.myReviewNo = myReviewNo;
+	}
 
 	@Override
 	public int hashCode() {
@@ -117,6 +128,7 @@ public class ReviewBoard {
 		int result = 1;
 		result = prime * result + cafeNo;
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + myReviewNo;
 		result = prime * result + ((prBoard == null) ? 0 : prBoard.hashCode());
 		result = prime * result + ratingStars;
 		result = prime * result + ((reviewContent == null) ? 0 : reviewContent.hashCode());
@@ -143,6 +155,8 @@ public class ReviewBoard {
 			if (other.memberId != null)
 				return false;
 		} else if (!memberId.equals(other.memberId))
+			return false;
+		if (myReviewNo != other.myReviewNo)
 			return false;
 		if (prBoard == null) {
 			if (other.prBoard != null)
@@ -183,9 +197,9 @@ public class ReviewBoard {
 
 	@Override
 	public String toString() {
-		return "ReviewBoard [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewDate=" + reviewDate
-				+ ", reviewContent=" + reviewContent + ", ratingStars=" + ratingStars + ", memberId=" + memberId
-				+ ", reviewRealImage=" + reviewRealImage + ", reviewFakeImage=" + reviewFakeImage + ", cafeNo=" + cafeNo
-				+ ", prBoard=" + prBoard + "]";
+		return "ReviewBoard [myReviewNo=" + myReviewNo + ", reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle
+				+ ", reviewDate=" + reviewDate + ", reviewContent=" + reviewContent + ", ratingStars=" + ratingStars
+				+ ", memberId=" + memberId + ", reviewRealImage=" + reviewRealImage + ", reviewFakeImage="
+				+ reviewFakeImage + ", cafeNo=" + cafeNo + ", prBoard=" + prBoard + "]";
 	}
 }

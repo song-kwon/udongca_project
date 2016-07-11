@@ -61,7 +61,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			<c:when test="${empty requestScope.error }">
 			<c:forEach items="${requestScope.list }" var="list">
 				<tr class="tr">
-					<td>${list.inquiryNo }</td>
+					<td>${list.myInquiryNo }</td>
 					<td id="td1" class="cursor"><span style="text-align:left; width:100px; text-weight:bold; color:red;">[${list.inquiryType }]</span>&nbsp;${list.inquiryTitle }</td>
 					<td id="td2" class="cursor">${list.inquiryContent }</td>
 					<td>${empty list.inquiryReply or list.inquiryReply==' '?'처리 중':'답변 완료' }</td>
@@ -84,35 +84,37 @@ td#td2:hover{text-decoration:underline; color:red;}
 			type="button" value="문의 등록"></a>
 	</div>
 	<div align="center">
+		<ul class="pagination">
 		<c:choose>
 			<c:when test="${requestScope.pageBean.previousPageGroup }">
-				<a
-					href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.beginPage-1 }">◀</a>
+				<li><a
+					href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.beginPage-1 }">◀</a></li>
 			</c:when>
-			<c:otherwise>◀</c:otherwise>
+			<c:otherwise><li><a href="#">◀</a></li></c:otherwise>
 		</c:choose>
 		<!-- 숫자 -->
-		<c:if test="${requestScope.pageBean.endPage == 0 }">[1]</c:if>
+		<c:if test="${requestScope.pageBean.endPage == 0 }"><li class="active"><a href="#" >1</a></li></c:if>
 		<c:forEach begin="${requestScope.pageBean.beginPage }"
 			end="${requestScope.pageBean.endPage }" var="p">
 			<c:choose>
 				<c:when test="${p != requestScope.pageBean.page }">
-					<a
+					<li><a 
 						href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${p }">
-						${p } </a>&nbsp;&nbsp;
+						${p } </a></li>
 				</c:when>
 				<c:otherwise>
-			[${p }]&nbsp;&nbsp;
+			<li class="active"><a href="#" >${p }</a></li>
 		</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<!-- 다음페이지그룹 -->
 		<c:choose>
 			<c:when test="${requestScope.pageBean.nextPageGroup }">
-				<a
-					href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.endPage+1 }">▶</a>
+				<li><a
+					href="/udongca_project/member/memberInquiryListPaging.udc?pnum=${requestScope.pageBean.endPage+1 }">▶</a></li>
 			</c:when>
-			<c:otherwise>▶</c:otherwise>
+			<c:otherwise><li><a href="#">▶</a></li></c:otherwise>
 		</c:choose>
+		</ul>
 	</div>
 </div>

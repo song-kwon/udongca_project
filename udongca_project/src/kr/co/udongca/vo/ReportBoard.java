@@ -2,6 +2,7 @@ package kr.co.udongca.vo;
 
 public class ReportBoard {
 
+	private int myReportNo;
 	private int reportboardNo;
 	private String reportMemberId;
 	private String reportReason;
@@ -122,6 +123,15 @@ public class ReportBoard {
 
 	public void setMember(Member member) {
 		this.member = member;
+	}
+
+	
+	public int getMyReportNo() {
+		return myReportNo;
+	}
+
+	public void setMyReportNo(int myReportNo) {
+		this.myReportNo = myReportNo;
 	}
 
 	@Override

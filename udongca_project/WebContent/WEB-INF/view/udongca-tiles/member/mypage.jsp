@@ -58,7 +58,7 @@
 												$("#memberReportList")
 														.append(
 																"<tr onclick='memberReportDetail("+object.reportList[idx].reportboardNo+")'><td>"
-																		+ object.reportList[idx].reportboardNo
+																		+ object.reportList[idx].myReportNo
 																		+ "</td><td>["
 																		+ object.reportList[idx].reportType
 																		+ "]"
@@ -85,7 +85,7 @@
 												$("#memberInquiryList")
 														.append(
 																"<tr class='tr'><td>"
-																		+ object.inquiryList.list[idx].inquiryNo
+																		+ object.inquiryList.list[idx].myInquiryNo
 																		+ "</td><td>"
 																		+ object.inquiryList.list[idx].inquiryTitle
 																		+ "</td><td>["

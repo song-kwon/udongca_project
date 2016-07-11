@@ -56,7 +56,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 				<tbody class="tbody" id="reportList">
 					<c:forEach items="${requestScope.reportList.list }" var="list">
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
-							<td class="cursor">${list.reportboardNo }</td>
+							<td class="cursor">${list.myReportNo }</td>
 							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
 							<td class="cursor">${empty list.reportResult ? '처리중':'처리됨'}</td>
 						</tr>
@@ -66,15 +66,16 @@ td#td2:hover{text-decoration:underline; color:red;}
 			
 			<!-- 이전페이지그룹 -->
 			<div style="text-align: center; margin-top: 6px; width:800px;">
+				<ul class="pagination">
 				<c:choose>
 					<c:when
 						test="${requestScope.reportList.pageBean.previousPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/memberReportListPaging.udc?pnum=${requestScope.reportList.pageBean.beginPage-1 }">
-							◀ </a>
+							◀ </a></li>
 					</c:when>
 					<c:otherwise>
-		◀ 	
+		<li><a href="#">◀</a></li> 	
  	</c:otherwise>
 				</c:choose>
 				<!-- 숫자 -->
@@ -82,26 +83,27 @@ td#td2:hover{text-decoration:underline; color:red;}
 					end="${requestScope.reportList.pageBean.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p != requestScope.reportList.pageBean.page }">
-							<a
+							<li ><a
 								href="/udongca_project/member/memberReportListPaging.udc?pnum=${p }">
-								${p } </a>&nbsp;&nbsp;
+								${p } </a></li>
 						</c:when>
 						<c:otherwise>
-			[${p }]&nbsp;&nbsp;
+			<li class="active"><a href="#">${p }</a></li>
 		</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 다음페이지그룹 -->
 				<c:choose>
 					<c:when test="${requestScope.reportList.pageBean.nextPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/memberReportListPaging.udc?pnum=${requestScope.reportList.pageBean.endPage+1 }">
-							▶ </a>
+							▶ </a></li>
 					</c:when>
 					<c:otherwise>
-		▶
+		<li><a href="#">▶</a></li>
 	</c:otherwise>
 				</c:choose>
+				</ul>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -112,7 +114,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 	</c:choose>
 </div>
 
-<div class="modal fade" id="report_detail" role="dialog">
+<div  class="modal fade" id="report_detail" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content" style="width:500px;">
@@ -137,7 +139,7 @@ td#td2:hover{text-decoration:underline; color:red;}
               <label for="reportResult" style="width:100px">처리결과</label>
               <div class="form-control" id="reportResult" style="height:200px;"></div>
             </div><br>
-              <button class="close" style="margin-top:15px;">닫기</button>
+              <button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
           </form>
         </div>
       

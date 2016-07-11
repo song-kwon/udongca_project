@@ -45,12 +45,12 @@ $(document).ready(function(){
 					$("#searchResult").empty();
 					$("#pageNum").empty();
 					if (json == null || json.list.length == 0){
-						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색 결과가 없습니다.</h3></td>');
 						return false;
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
+							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
@@ -58,7 +58,7 @@ $(document).ready(function(){
 						if(json.pageBean.previousPageGroup){
 							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 						}else{
-							$(".pagination").append('<li><a>◀</a></li>');
+							$(".pagination").append('<li><a href="#">◀</a></li>');
 						}
 						
 						for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -71,7 +71,7 @@ $(document).ready(function(){
 						if(json.pageBean.nextPageGroup){
 							$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
 						}else{
-							$(".pagination").append('<li><a >▶</a></li>');
+							$(".pagination").append('<li><a href="#">▶</a></li>');
 						}
 					}
 				}
@@ -94,12 +94,12 @@ $(document).ready(function(){
 				$("#searchResult").empty();
 				$("#pageNum").empty();
 				if (json == null || json.list.length == 0){
-					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색 결과가 없습니다.</h3></td>');
 					return false;
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>" + json.list[i].cafeNo + "&nbsp;&nbsp;" + json.list[i].cafeName + "</a></div>");
+						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
 						//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 					}
 					
@@ -108,7 +108,7 @@ $(document).ready(function(){
 					if(json.pageBean.previousPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="themePage('+(json.pageBean.beginPage-1)+')">◀</a><li>');
 					}else{
-						$(".pagination").append('<li><a>◀</a></li>');
+						$(".pagination").append('<li><a href="#">◀</a></li>');
 					}
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -121,7 +121,7 @@ $(document).ready(function(){
 					if(json.pageBean.nextPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="themePage('+ ++json.pageBean.endPage +')">▶</a></li>');
 					}else{
-						$(".pagination").append('<li><a>▶</a></li>');
+						$(".pagination").append('<li><a href="#">▶</a></li>');
 					}
 				}
 				
@@ -394,7 +394,6 @@ function randColor() {
 }
 
 function memberReportDetail(reportboardNo){
-	$('.tbody').on('click','tr td',function(){
 		$('#report_detail').modal();
 		$.ajax({
 			'url':'/udongca_project/member/memberReportDetail.udc',
@@ -418,7 +417,6 @@ function memberReportDetail(reportboardNo){
 				
 			}
 		})
-	});
 	//window.open('/udongca_project/member/memberReportDetail.udc?reportboardNo='+reportboardNo,'newWin','width=400px height=610px');
 }
 
@@ -501,7 +499,7 @@ function themePage(page){
 				if(json.pageBean.previousPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
 				}else{
-					$(".pagination").append('<li><a>◀</a></li>');
+					$(".pagination").append('<li><a href="#">◀</a></li>');
 				}
 				
 				for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -514,7 +512,7 @@ function themePage(page){
 				if(json.pageBean.nextPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
 				}else{
-					$(".pagination").append('<li><a >▶</a></li>');
+					$(".pagination").append('<li><a href="#">▶</a></li>');
 				}
 			}
 		}
@@ -546,7 +544,7 @@ function themePage(page){
 					if(json.pageBean.previousPageGroup){
 						$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+(json.pageBean.beginPage-1)+')">◀</a></li>');
 					}else{
-						$(".pagination").append('<li><a>◀</a></li>');
+						$(".pagination").append('<li><a href="#">◀</a></li>');
 					}
 					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
@@ -560,7 +558,7 @@ function themePage(page){
 				if(json.pageBean.nextPageGroup){
 					$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+ ++json.pageBean.endPage +')">▶</a></li>');
 				}else{
-					$(".pagination").append('<li><a>▶</a></li>');
+					$(".pagination").append('<li><a href="#">▶</a></li>');
 				}
 			}
 		});

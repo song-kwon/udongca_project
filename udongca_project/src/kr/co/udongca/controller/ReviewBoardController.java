@@ -208,8 +208,7 @@ public class ReviewBoardController {
 			
 			prService.updateCafeRatingInPRBoard(inputMap);
 			
-			service.updateReview(new ReviewBoard(
-					reviewNo,
+			service.updateReview(new ReviewBoard(reviewNo,
 					(String)map.get("reviewTitle"),
 					null,
 					(String)map.get("reviewContent"),
@@ -217,8 +216,7 @@ public class ReviewBoardController {
 					null,
 					resultRealImage,
 					resultFakeImage,
-					0
-			));
+					0,0));
 			
 			return "/prBoard/prView.udc?cafeNo=" + cafeNo;
 		}
