@@ -444,12 +444,15 @@
 						html += "<tr onclick='reviewDetail(" + json.list[i].reviewNo + ")' style='cursor:pointer;'>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
 						html += "<td id='td1' style='text-align:left; cursor:pointer; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'><a href='javascript:void(0)' style='text-decoration:none;' >" + json.list[i].reviewTitle +"</a></td>";
-						html += "<td id='td2' style='text-align:left; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>" + json.list[i].reviewContent + "</td>";
+						html += "<td id='td2-" + i + "' style='text-align:left; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>" + json.list[i].reviewContent + "</td>";
 						html += "<td>" + json.list[i].reviewDate + "</td>";
 						html += "</tr>";
 					}
 					html += "</table><br>";
 					$("#content").append(html);
+					for (var i = 0; i < json.list.length; i++){
+						$("#td2-" + i).text(json.list[i].reviewContent);
+					}
 					
 					html = "";
 					html += "</table><br><div style='padding-left:400px;'><ul class='pagination'>";
@@ -522,7 +525,6 @@
 				for (var i = 0; i < reviewImageArray.length - 1; i++){
 					$("#reviewContent").append("<img src='/udongca_project/images/" + reviewImageArray[i] + "' height='300' width='300'><br>");
 				}
-				$("#reviewContentText").text(json.review.reviewContent);
 				$("#reviewContentText").append(document.createTextNode(json.review.reviewContent));
 				
 				html = "<table style='width:950px;' id='replyBoard'>";
