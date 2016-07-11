@@ -50,16 +50,6 @@ tr#tr, td{
 
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
-.pagination > .active > a,
-.pagination > .active > a:hover{
-	background-color:#6b4004;
-}
-.pagination > li > a{
-	color:#a2522d;
-}
-.pagination > li > a:hover{
-	color:#6b4004;
-}
 </style>
 
 <div><h1>공지 사항</h1></div>
