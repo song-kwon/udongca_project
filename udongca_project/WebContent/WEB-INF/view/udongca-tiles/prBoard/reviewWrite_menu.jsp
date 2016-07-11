@@ -38,20 +38,8 @@ $(document).ready(function(){
 }
 .nav > li > a:hover,
 .nav > li > a:focus{
-	background-color:#faebd7;
-}
-
-.nav-pills > li.active > div#dropBtn,
-.nav-pills > li.active > div#dropBtn:hover,
- .nav-pills > li.active > div#dropBtn:focus{
-	background-color:#6b4004;
-}
-.nav > li > div#dropBtn:hover,
-.nav > li > a:focus{
-	color:red;
 	font-weight:bold;
 	background-color:#faebd7;
-	cursor:pointer;
 }
 </style>
 <div id="prboard_nav" style="width:180px;">

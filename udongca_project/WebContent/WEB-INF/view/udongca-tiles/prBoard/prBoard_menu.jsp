@@ -220,6 +220,7 @@ function deleteMenuType(){
 }
 .nav > li > a:hover,
 .nav > li > a:focus{
+	font-weight:bold;
 	background-color:#faebd7;
 }
 
