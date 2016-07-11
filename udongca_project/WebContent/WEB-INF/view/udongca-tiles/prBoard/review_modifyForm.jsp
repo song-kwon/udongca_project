@@ -18,8 +18,8 @@
 		});
 		
 		for(var i = 0; i < reviewFakeImageArrayNumber; i++){
-			$("#reviewImages").append("<img src='/udongca_project/images/" + reviewFakeImageArray[i] + "' class='image" + i + "' height='300' width='400'>");
-			$("#reviewImages").append("<button onclick='deleteImage(" + i + ")' class='image" + i + " btn btn-default'>삭제</button>");
+			$("#reviewImages").append("<img src='/udongca_project/images/" + reviewFakeImageArray[i] + "' class='image" + i + "' height='20' width='20'>");
+			$("#reviewImages").append("<button onclick='deleteImage(" + i + ")' class='image" + i + "'>삭제</button>");
 			$("#reviewImages").append("<input type='hidden' name='modifiedReviewFakeImage' value='" + reviewFakeImageArray[i] + "' class='image" + i + "'>");
 			$("#reviewImages").append("<input type='hidden' name='modifiedReviewRealImage' value='" + reviewRealImageArray[i] + "' class='image" + i + "'>");
 			$("#reviewImages").append("<br class='image" + i + "'>");
@@ -83,20 +83,7 @@
 		}
 	}
 </script>
-<style type="text/css">
-table{
-	margin:30px;
-	margin-top:20px;
-	margin-bottom:20px;
-	text-align:left;
-	font-size:18px;
-}
-.div{
-	border:1px dotted;
-	height:auto;
-	background-color:antiquewhite;
-}
-
+<style>
 .text{
 	color:black;
 	font-weight:bold;
@@ -118,12 +105,12 @@ table{
 	<input type="hidden" name="reviewFakeImage" value="${requestScope.review.reviewFakeImage}">
 	<table>
 		<tr>
-			<td class="text">*제목</td>
+			<td><b>제목</b></td>
 			<td><input type="text" name="reviewTitle" id="reviewTitle" value="${requestScope.review.reviewTitle}"></td>
 			<td id="reviewTitleTd"></td>
 		</tr>
 		<tr>
-			<td class="text">등급</td>
+			<td>등급</td>
 			<td>
 				<select name="ratingStars" id="ratingStars" class="form-control" style="width:130px;">
 					<c:forEach var="i" begin="1" end="5">
@@ -141,25 +128,23 @@ table{
 			<td></td>
 		</tr>
 		<tr>
-			<td class="text">*내용</td>
-			<td><textarea rows="30" cols="80" name="reviewContent" id="reviewContent">${requestScope.review.reviewContent}</textarea></td>
+			<td><b>내용</b></td>
+			<td><textarea rows="10" cols="20" name="reviewContent" id="reviewContent">${requestScope.review.reviewContent}</textarea></td>
 			<td id="reviewContentTd"></td>
 		</tr>
 		<tr>
-			<td class="text">기존 이미지</td>
-			<td id="reviewImages" style="padding:10px;"></td>
+			<td>기존 리뷰 이미지</td>
+			<td id="reviewImages"></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td class="text">추가 이미지</td>
-			<td  style="padding:10px;"><input type="file" name="addReviewImage" multiple="multiple"></td>
+			<td>추가 리뷰 이미지</td>
+			<td><input type="file" name="addReviewImage" multiple="multiple"></td>
 			<td></td>
 		</tr>
+		<tr>
+			<td><input type="submit" value="확인"></td>
+			<td><input type="button" value="취소" id="cancel"></td>
+			<td></td>
 	</table>
-</div>
-<br>
-	<div align="center" style="width:800px;">
-		<input type="submit" value="리뷰 수정">
-		<input type="button" value="취소" id="cancel">
-	</div>
 </form>
