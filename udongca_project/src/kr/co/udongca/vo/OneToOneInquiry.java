@@ -2,6 +2,7 @@ package kr.co.udongca.vo;
 
 public class OneToOneInquiry {
 
+	private int myInquiryNo;
 	private int inquiryNo;
 	private String inquiryTitle;
 	private String inquiryType;
@@ -113,6 +114,16 @@ public class OneToOneInquiry {
 		this.member = member;
 	}
 	
+	
+	
+	public int getMyInquiryNo() {
+		return myInquiryNo;
+	}
+
+	public void setMyInquiryNo(int myInquiryNo) {
+		this.myInquiryNo = myInquiryNo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

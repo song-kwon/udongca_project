@@ -56,7 +56,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 				<tbody class="tbody" id="reportList">
 					<c:forEach items="${requestScope.reportList.list }" var="list">
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
-							<td class="cursor">${list.reportboardNo }</td>
+							<td class="cursor">${list.myReportNo }</td>
 							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
 							<td class="cursor">${empty list.reportResult ? '처리중':'처리됨'}</td>
 						</tr>
@@ -112,7 +112,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 	</c:choose>
 </div>
 
-<div class="modal fade" id="report_detail" role="dialog">
+<div  class="modal fade" id="report_detail" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content" style="width:500px;">
@@ -137,7 +137,7 @@ td#td2:hover{text-decoration:underline; color:red;}
               <label for="reportResult" style="width:100px">처리결과</label>
               <div class="form-control" id="reportResult" style="height:200px;"></div>
             </div><br>
-              <button class="close" style="margin-top:15px;">닫기</button>
+              <button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
           </form>
         </div>
       
