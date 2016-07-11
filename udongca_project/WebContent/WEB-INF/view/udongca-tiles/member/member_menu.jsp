@@ -27,6 +27,7 @@ a{
 }
 .nav > li > a:hover,
 .nav > li > a:focus{
+	font-weight:bold;
 	background-color:#faebd7;
 }
 
@@ -36,7 +37,7 @@ a{
 	background-color:#6b4004;
 }
 .nav > li > div#dropBtn:hover,
-.nav > li > a:focus{
+.nav > li > div#dropBtn:focus{
 	color:red;
 	font-weight:bold;
 	background-color:#faebd7;
