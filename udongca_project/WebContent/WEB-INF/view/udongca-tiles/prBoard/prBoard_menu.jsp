@@ -206,20 +206,37 @@ function collapseMenu(){
 		$('#cafeMenuList').trigger('click');	
 }
 </script>
-<style type="text/css">
+<style>
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+ .nav-pills > li.active > a:focus{
+	background-color:#6b4004;
+}
+.nav>li>a{
+	font-weight: bold;
+	font-size:12pt;
+}
+.nav > li > a:hover,
+.nav > li > a:focus{
+	background-color:#faebd7;
+}
 </style>
 <div id="prboard_nav">
 	<div id="optionList">
 		<div class="panel-group">
-			<a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a><br>
+		<ul class="nav nav-pills nav-stacked">
+			<li class="li member"><a data-toggle="collapse" onclick="collapseMenu();mapLocation();return false;">지도</a></li>
 			
-			<a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a><br>		
+			<li class="li member"><a id="cafeMenuList" class="collapsed" data-toggle="collapse" href="#collapse1">메뉴</a></li>
+		</ul>
 			<div id="collapse1" class="panel-collapse collapse">
+			<ul class="nav nav-pills nav-stacked">
 				<ul class="list-group" id="menuCategoryList">
 				</ul>
 			</div>
 			
-			<a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a>
+			<li class="li member"><a data-toggle="collapse" onclick="collapseMenu();reviewList(1);return false;">리뷰</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
