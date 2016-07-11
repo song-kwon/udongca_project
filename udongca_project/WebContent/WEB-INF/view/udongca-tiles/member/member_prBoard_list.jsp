@@ -63,7 +63,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 			</table>
 			
 			<!-- 이전페이지그룹 -->
-			<div style="text-align: center; margin-top: 6px;">
+			<div align="center" style="text-align: center; margin-top: 6px; width:800px;">
 				<ul class="pagination">
 				<c:choose>
 					<c:when
@@ -77,6 +77,7 @@ td#td2:hover{text-decoration:underline; color:red;}
  	</c:otherwise>
 				</c:choose>
 				<!-- 숫자 -->
+				<c:if test="${requestScope.pageBean.endPage == 0 }"><li class="active"><a href="#" >1</a></li></c:if>
 				<c:forEach begin="${requestScope.pageBean.beginPage }"
 					end="${requestScope.pageBean.endPage }" var="p">
 					<c:choose>
@@ -101,6 +102,7 @@ td#td2:hover{text-decoration:underline; color:red;}
 		<li><a href="#">▶</a></li>
 	</c:otherwise>
 				</c:choose>
+				</ul>
 			</div>
 		</c:when>
 		<c:otherwise>

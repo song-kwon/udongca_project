@@ -50,7 +50,7 @@ $(document).ready(function(){
 					}
 					else{
 						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo='"+json.list[i].cafeNo+"><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
+							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
 							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 						}
 						
@@ -532,7 +532,7 @@ function themePage(page){
 				$(".pagination").empty();
 				
 				if (json == null || json.list == null){
-					$("#tbody").append('<td colspan="3" align="center"><h3 style="color:red;">검색결과가 없습니다.</h3></td>');
+					$("#tbody").append('<td colspan="3" align="center"><h3 style="color:red;">'+json.error+'</h3></td>');
 					return false;
 				}
 				else{

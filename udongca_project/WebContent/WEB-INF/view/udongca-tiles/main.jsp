@@ -227,7 +227,7 @@ a.list-group-item:hover{
 				<div class="list-group">
 					<c:forEach items="${requestScope.notice }" var="notice" varStatus="status">
 						<c:choose>
-							<c:when test="${status.index<=5 }">
+							<c:when test="${status.index<5 }">
 								<a class="list-group-item" href="/udongca_project/noticeBoard/noticeBoard.udc?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a>
 							</c:when>		
 						</c:choose>
@@ -347,7 +347,7 @@ a.list-group-item:hover{
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">
 								<c:choose>
-									<c:when test="${status.index<=5 }">
+									<c:when test="${status.index<5 }">
 										<a class="list-group-item" href="/udongca_project/prBoard/prView.udc?cafeNo=${reviewBoard.cafeNo }">${reviewBoard.reviewTitle }</a>
 									</c:when>		
 								</c:choose>
@@ -415,7 +415,7 @@ a.list-group-item:hover{
 				<div class="list-group">
 					<c:forEach items="${requestScope.notice }" var="notice" varStatus="status">
 						<c:choose>
-							<c:when test="${status.index<=5 }">
+							<c:when test="${status.index<5 }">
 								<a class="list-group-item" href="/udongca_project/noticeBoard/noticeBoard.udc?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a>
 							</c:when>		
 						</c:choose>
@@ -477,7 +477,7 @@ a.list-group-item:hover{
 						<div class="list-group">
 							<c:forEach items="${requestScope.reviewBoard }" var="reviewBoard" varStatus="status">
 								<c:choose>
-									<c:when test="${status.index<=5 }">
+									<c:when test="${status.index<5 }">
 										<a class="list-group-item" href="/udongca_project/prBoard/prView.udc?cafeNo=${reviewBoard.cafeNo }">${reviewBoard.reviewTitle }</a>
 									</c:when>		
 								</c:choose>

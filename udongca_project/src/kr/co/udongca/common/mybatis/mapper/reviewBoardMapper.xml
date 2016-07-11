@@ -95,7 +95,7 @@
 	<select id="selectMainReviewList" resultType="reviewBoard">
 		select * 
 		from review_board
-		where ceil(rownum) <![CDATA[ < ]]> 11 order by reviewDate desc
+		where ceil(rownum) <![CDATA[ < ]]> 11 order by reviewNo desc
 	</select>
 	
 	<select id="selectReviewNoByCafeNo" parameterType="int" resultType="int">
