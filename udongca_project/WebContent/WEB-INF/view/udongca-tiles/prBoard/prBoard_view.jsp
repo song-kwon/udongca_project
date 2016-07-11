@@ -522,7 +522,6 @@
 				for (var i = 0; i < reviewImageArray.length - 1; i++){
 					$("#reviewContent").append("<img src='/udongca_project/images/" + reviewImageArray[i] + "' height='300' width='300'><br>");
 				}
-				$("#reviewContentText").text(json.review.reviewContent);
 				$("#reviewContentText").append(document.createTextNode(json.review.reviewContent));
 				
 				html = "<table style='width:950px;' id='replyBoard'>";
