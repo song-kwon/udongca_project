@@ -11,7 +11,7 @@
 	SELECT <include refid="report_board_column"/>
 		FROM(SELECT CEIL(rownum/#{itemPerPage}) page, <include refid="report_board_column"/>
 			     FROM(SELECT <include refid="report_board_column"/>
-					     FROM report_board WHERE reporttype= #{reportType} order by reportboardNo desc
+					     FROM report_board WHERE reportType like '%${reportType}%' order by reportboardNo desc
 					     )
 				 )
 		WHERE page = #{page}
