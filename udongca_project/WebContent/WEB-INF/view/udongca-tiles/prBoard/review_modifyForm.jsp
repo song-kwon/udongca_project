@@ -69,7 +69,7 @@
 			return false;
 		}else{
 			if(checkRatingStars==false){
-				var ratingResult=confirm("기본 등급은 1점입니다. 계속 진행하시겠습니까?");
+				var ratingResult=confirm("기본 등급은 1점입니다. 등록하시겠습니까?");
 				if(ratingResult==true)
 					return true;
 				else
@@ -100,11 +100,12 @@ table{
 .text{
 	color:black;
 	font-weight:bold;
-	width:100px;
+	width:130px;
 	height:40px;
 }
 
 </style>
+
 
 
 <div><h1>리뷰 수정</h1></div>
@@ -147,17 +148,17 @@ table{
 		</tr>
 		<tr>
 			<td class="text">기존 이미지</td>
-			<td id="reviewImages" style="padding:10px;"></td>
+			<td id="reviewImages" style="padding:20px;"></td>
 			<td></td>
 		</tr>
 		<tr>
 			<td class="text">추가 이미지</td>
-			<td  style="padding:10px;"><input type="file" name="addReviewImage" multiple="multiple"></td>
+			<td><input type="file" name="addReviewImage" multiple="multiple"></td>
 			<td></td>
 		</tr>
 	</table>
 </div>
-<br>
+	<br>
 	<div align="center" style="width:800px;">
 		<input type="submit" value="리뷰 수정">
 		<input type="button" value="취소" id="cancel">
