@@ -460,7 +460,6 @@
 					}
 					
 					html += "<li><a href='javascript:void(0" + ((!json.pageBean.nextPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.endPage+1))) + ")'" + ">▶</a></li></div>";
-					alert(html);
 				}
 				
 				if ("${sessionScope.login.memberType}" == "generalMember"){
