@@ -89,7 +89,6 @@ public class ReportBoardController {
 	@ResponseBody
 	@Transactional
 	public int deleteArticle(@RequestParam("reportType") String reportType, @RequestParam("reportNO") int reportNo) {
-		System.out.println(reportType+"  "+reportNo);
 		return reportService.deleteArticle(reportType, reportNo);
 	}
 

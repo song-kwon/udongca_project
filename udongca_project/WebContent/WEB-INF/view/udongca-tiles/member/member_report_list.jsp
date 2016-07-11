@@ -36,7 +36,17 @@ tr#tr, td{
 .cursor{
 	cursor:pointer;
 }
-
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
+}
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
 </style>
@@ -139,7 +149,9 @@ td#td2:hover{text-decoration:underline; color:red;}
               <label for="reportResult" style="width:100px">처리결과</label>
               <div class="form-control" id="reportResult" style="height:200px;"></div>
             </div><br>
-              <button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
+            <div align="right">
+				<button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
+			</div>
           </form>
         </div>
       

@@ -53,7 +53,7 @@
 				return false;
 			}else{
 				if(checkRatingStars==false){
-					var ratingResult=confirm("기본 등급은 1점입니다. 계속 진행하시겠습니까?");
+					var ratingResult=confirm("기본 등급은 1점입니다. 등록하시겠습니까?");
 					if(ratingResult==true)
 						return true;
 					else

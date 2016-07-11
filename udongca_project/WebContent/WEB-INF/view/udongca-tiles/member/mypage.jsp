@@ -138,7 +138,24 @@ table, tbody {
 	cursor:pointer;
 	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
-
+.panel-default > .panel-heading{
+	background-image:linear-gradient(to bottom, #faebd7 0%, rgba(218, 159, 76, 0.68) 100%);
+}
+.panel-title>a{
+	font-weight: bold;
+	font-size:12pt;
+}
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
+}
 #memberReportList tr:hover,#memberInquiryList tr:hover{text-decoration:underline; color:red;}
 </style>
 <div class="nav_bodyDiv">
