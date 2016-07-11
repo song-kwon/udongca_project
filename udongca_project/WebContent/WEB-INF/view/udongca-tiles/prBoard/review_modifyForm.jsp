@@ -18,8 +18,8 @@
 		});
 		
 		for(var i = 0; i < reviewFakeImageArrayNumber; i++){
-			$("#reviewImages").append("<img src='/udongca_project/images/" + reviewFakeImageArray[i] + "' class='image" + i + "' height='20' width='20'>");
-			$("#reviewImages").append("<button onclick='deleteImage(" + i + ")' class='image" + i + "'>삭제</button>");
+			$("#reviewImages").append("<img src='/udongca_project/images/" + reviewFakeImageArray[i] + "' class='image" + i + "' height='300' width='400'>");
+			$("#reviewImages").append("<button onclick='deleteImage(" + i + ")' class='image" + i + " btn btn-default'>삭제</button>");
 			$("#reviewImages").append("<input type='hidden' name='modifiedReviewFakeImage' value='" + reviewFakeImageArray[i] + "' class='image" + i + "'>");
 			$("#reviewImages").append("<input type='hidden' name='modifiedReviewRealImage' value='" + reviewRealImageArray[i] + "' class='image" + i + "'>");
 			$("#reviewImages").append("<br class='image" + i + "'>");
@@ -69,7 +69,7 @@
 			return false;
 		}else{
 			if(checkRatingStars==false){
-				var ratingResult=confirm("기본 등급은 1점입니다. 계속 진행하시겠습니까?");
+				var ratingResult=confirm("기본 등급은 1점입니다. 등록하시겠습니까?");
 				if(ratingResult==true)
 					return true;
 				else
@@ -83,15 +83,29 @@
 		}
 	}
 </script>
-<style>
+<style type="text/css">
+table{
+	margin:30px;
+	margin-top:20px;
+	margin-bottom:20px;
+	text-align:left;
+	font-size:18px;
+}
+.div{
+	border:1px dotted;
+	height:auto;
+	background-color:antiquewhite;
+}
+
 .text{
 	color:black;
 	font-weight:bold;
-	width:100px;
+	width:130px;
 	height:40px;
 }
 
 </style>
+
 
 
 <div><h1>리뷰 수정</h1></div>
@@ -105,12 +119,12 @@
 	<input type="hidden" name="reviewFakeImage" value="${requestScope.review.reviewFakeImage}">
 	<table>
 		<tr>
-			<td><b>제목</b></td>
+			<td class="text">*제목</td>
 			<td><input type="text" name="reviewTitle" id="reviewTitle" value="${requestScope.review.reviewTitle}"></td>
 			<td id="reviewTitleTd"></td>
 		</tr>
 		<tr>
-			<td>등급</td>
+			<td class="text">등급</td>
 			<td>
 				<select name="ratingStars" id="ratingStars" class="form-control" style="width:130px;">
 					<c:forEach var="i" begin="1" end="5">
@@ -128,23 +142,25 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td><b>내용</b></td>
-			<td><textarea rows="10" cols="20" name="reviewContent" id="reviewContent">${requestScope.review.reviewContent}</textarea></td>
+			<td class="text">*내용</td>
+			<td><textarea rows="30" cols="80" name="reviewContent" id="reviewContent">${requestScope.review.reviewContent}</textarea></td>
 			<td id="reviewContentTd"></td>
 		</tr>
 		<tr>
-			<td>기존 리뷰 이미지</td>
-			<td id="reviewImages"></td>
+			<td class="text">기존 이미지</td>
+			<td id="reviewImages" style="padding:20px;"></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>추가 리뷰 이미지</td>
+			<td class="text">추가 이미지</td>
 			<td><input type="file" name="addReviewImage" multiple="multiple"></td>
 			<td></td>
 		</tr>
-		<tr>
-			<td><input type="submit" value="확인"></td>
-			<td><input type="button" value="취소" id="cancel"></td>
-			<td></td>
 	</table>
+</div>
+	<br>
+	<div align="center" style="width:800px;">
+		<input type="submit" value="리뷰 수정">
+		<input type="button" value="취소" id="cancel">
+	</div>
 </form>
