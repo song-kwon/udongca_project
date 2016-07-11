@@ -439,7 +439,7 @@
 				}
 				else{
 					html += "<div style='font-size:30px;'>방문 후기</div><br>";
-					html += "<table id='review_table' style='width:950px;'><thead><tr><td style='width:50px;'>No</td><td style='width:150px;'>제목</td><td style='width:250px'>리뷰 내용</td><td style='width:90px;'>작성 날짜</td></tr></thead>";
+					html += "<table id='review_table' style='width:950px;'><thead id='review_table_thead'><tr><td style='width:50px;'>No</td><td style='width:150px;'>제목</td><td style='width:250px'>리뷰 내용</td><td style='width:90px;'>작성 날짜</td></tr></thead>";
 					for (var i = 0; i < json.list.length; i++){
 						html += "<tr onclick='reviewDetail(" + json.list[i].reviewNo + ")' style='cursor:pointer;'>";
 						html += "<td>" + json.list[i].reviewNo + "</td>";
