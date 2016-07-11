@@ -597,7 +597,7 @@
 		if(login==true){
 			window.location.href = "/udongca_project/review/reviewWriteForm.udc?cafeNo=" + $("#cafeNo").val();
 		}else{
-			alert("리뷰 작성을 위해서는 로그인이 필요합니다.");
+			alert("리뷰 작성은 일반 회원만 가능합니다.");
 			return false;
 		}
 	}
