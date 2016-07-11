@@ -454,15 +454,12 @@
 					html = "";
 					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'><ul class='pagination'>";
 					html += "<li><a href='javascript:void(0" + ((!json.pageBean.previousPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.beginPage-1))) + ")'" + ">◀</a></li>";
-					alert(html);
 					
 					for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
 						html += "<li" + ((i == page) ? (" class='active'><a") : ("><a href='javascript:void(0)' onclick='reviewList(" + i + ")'")) + ">" + i + "</a></li>";
-						alert(html);
 					}
 					
 					html += "<li><a href='javascript:void(0" + ((!json.pageBean.nextPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.endPage+1))) + ")'" + ">▶</a></li>";
-					alert(html);
 				}
 				
 				if ("${sessionScope.login.memberType}" == "generalMember"){
@@ -604,7 +601,7 @@
 	}
 	
 	function reviewModifyForm(reviewNo, writerId){
-		window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId;
+		window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId + "&cafeNo=" + $("#cafeNo").val();
 	}
 	
 	function reviewDelete(reviewNo, writerId){
