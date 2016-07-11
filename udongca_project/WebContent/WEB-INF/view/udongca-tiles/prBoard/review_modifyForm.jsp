@@ -7,12 +7,14 @@
 	var reviewFakeImageArrayNumber = reviewFakeImageArray.length - 1;
 	
 	$(document).ready(function(){
-		$("#reviewTitle").on("blur", function(){
-			$("#reviewTitleTd").text(($("#reviewTitle").val()) ? "" : "입력 필수");
-		});
+		$("button").prop({"class":"btn btn-default"});
+		$("input[type='text']").prop({"class":"form-control"});
 		
-		$("#reviewContent").on("blur", function(){
-			$("#reviewContentTd").text(($("#reviewContent").val()) ? "" : "입력 필수");
+		$("#reviewTitle").on("keyup keypress", function(){
+			if($(this).val().length>50){
+				$(this).val($(this).val().substr(0,50));
+				return false;
+			}
 		});
 		
 		for(var i = 0; i < reviewFakeImageArrayNumber; i++){
@@ -27,22 +29,75 @@
 			history.back();
 		});
 		
-		$("form").on("submit", function(){
-			if (!($("#reviewTitle").val() && $("#reviewContent").val())){
-				alert("필수 사항을 입력하세요");
-				return false;
-			}
-		});
 	});
 	
 	function deleteImage(i){
 		$(".image" + i).remove();
 	}
-</script>
+	
+	function chkTitle(){
+		if(!$("#reviewTitle").val()){
+			return false;
+		}else
+			return true;
+	}
+	function chkContent(){
+		if(!$("#reviewContent").val()){
+			return false;
+		}else
+			return true;
+	}
 
-<h2>리뷰 수정</h2><br>
-<b>굵은 글씨 항목은 필수 입력 사항을 나타냅니다.</b><br>
-<form action="/udongca_project/review/reviewModify.udc" enctype="multipart/form-data" method="post">
+	function chkRatingStars(){
+		if($("#ratingStars").val()=="1"){
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	function checkSubmit(){
+		var checkRatingStars = chkRatingStars();
+		var checkTitle = chkTitle();
+		var checkContent = chkContent();
+		
+		if(checkTitle==false){
+			alert("제목을 입력해주세요.");
+			return false;
+		}else if(checkContent==false){
+			alert("내용을 입력해주세요.");
+			return false;
+		}else{
+			if(checkRatingStars==false){
+				var ratingResult=confirm("기본 등급은 1점입니다. 계속 진행하시겠습니까?");
+				if(ratingResult==true)
+					return true;
+				else
+					return false;
+			}
+			var result = confirm("등록하시겠습니까?");
+			if(result==true)
+				return true;
+			else
+				return false;
+		}
+	}
+</script>
+<style>
+.text{
+	color:black;
+	font-weight:bold;
+	width:100px;
+	height:40px;
+}
+
+</style>
+
+
+<div><h1>리뷰 수정</h1></div>
+<div style="color:red;"><font size="3">*표시 항목은 필수 입력 사항입니다.</font></div><br>
+<form action="/udongca_project/review/reviewModify.udc" enctype="multipart/form-data" method="post" onsubmit="return checkSubmit();">
+	<div class="div">
 	<input type="hidden" name="reviewNo" value="${requestScope.review.reviewNo}">
 	<input type="hidden" name="cafeNo" value="${requestScope.review.cafeNo}">
 	<input type="hidden" name="writerId" value="${requestScope.review.memberId}">
@@ -57,7 +112,7 @@
 		<tr>
 			<td>등급</td>
 			<td>
-				<select name="ratingStars" id="ratingStars">
+				<select name="ratingStars" id="ratingStars" class="form-control" style="width:130px;">
 					<c:forEach var="i" begin="1" end="5">
 						<c:choose>
 							<c:when test="${requestScope.review.ratingStars eq i}">

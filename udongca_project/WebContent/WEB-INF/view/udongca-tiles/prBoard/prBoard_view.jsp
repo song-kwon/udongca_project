@@ -448,14 +448,18 @@
 						html += "<td>" + json.list[i].reviewDate + "</td>";
 						html += "</tr>";
 					}
-					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'>";
-					html += ((!json.pageBean.previousPageGroup) ? "◀&nbsp;&nbsp;" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.beginPage-1) + ")'>◀</a>&nbsp;&nbsp;");
+					html += "</table><br>";
+					$("#content").append(html);
+					
+					html = "";
+					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'><ul class='pagination'>";
+					html += "<li><a href='javascript:void(0" + ((!json.pageBean.previousPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.beginPage-1))) + ")'" + ">◀</a></li>";
 					
 					for (var i = json.pageBean.beginPage; i < json.pageBean.endPage+1; i++){
-						html += ((i == page) ? "<b>" + i + "</b>&nbsp;&nbsp;" : "<a href='javascript:void(0)' onclick='reviewList(" + i + ")'>" + i + "</a>&nbsp;&nbsp;");
+						html += "<li" + ((i == page) ? (" class='active'><a") : ("><a href='javascript:void(0)' onclick='reviewList(" + i + ")'")) + ">" + i + "</a></li>";
 					}
 					
-					html += ((!json.pageBean.nextPageGroup) ? "▶" : "<a href='javascript:void(0)' onclick='reviewList(" + (json.pageBean.endPage+1) + ")'>▶</a><br></div>");
+					html += "<li><a href='javascript:void(0" + ((!json.pageBean.nextPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.endPage+1))) + ")'" + ">▶</a></li>";
 				}
 				
 				if ("${sessionScope.login.memberType}" == "generalMember"){
@@ -597,7 +601,7 @@
 	}
 	
 	function reviewModifyForm(reviewNo, writerId){
-		window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId;
+		window.location.href = "/udongca_project/review/reviewModifyForm.udc?reviewNo=" + reviewNo + "&writerId=" + writerId + "&cafeNo=" + $("#cafeNo").val();
 	}
 	
 	function reviewDelete(reviewNo, writerId){
