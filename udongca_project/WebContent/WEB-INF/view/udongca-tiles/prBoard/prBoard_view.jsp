@@ -452,7 +452,7 @@
 					$("#content").append(html);
 					
 					html = "";
-					html += "</table><br><div align='center' style='font-size:x-large; width:950px; padding-top:15px;'><ul class='pagination'>";
+					html += "</table><br><div style='padding-left:400px;'><ul class='pagination'>";
 					html += "<li><a href='javascript:void(0" + ((!json.pageBean.previousPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.beginPage-1))) + ")'" + ">◀</a></li>";
 					alert(html);
 					
@@ -461,7 +461,7 @@
 						alert(html);
 					}
 					
-					html += "<li><a href='javascript:void(0" + ((!json.pageBean.nextPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.endPage+1))) + ")'" + ">▶</a></li>";
+					html += "<li><a href='javascript:void(0" + ((!json.pageBean.nextPageGroup) ? "" : (" onclick='reviewList(" + (json.pageBean.endPage+1))) + ")'" + ">▶</a></li></div>";
 					alert(html);
 				}
 				
