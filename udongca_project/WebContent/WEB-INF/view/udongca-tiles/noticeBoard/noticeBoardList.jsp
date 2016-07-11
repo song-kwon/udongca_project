@@ -50,6 +50,16 @@ tr#tr, td{
 
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
+}
 </style>
 
 <div><h1>공지 사항</h1></div>
@@ -82,14 +92,14 @@ td#td2:hover{text-decoration:underline; color:red;}
 
 <div align="center">
 <!-- 이전페이지그룹 -->
+<ul class='pagination'>
 <c:choose>
 	<c:when test="${requestScope.map.pageBean.previousPageGroup }">
-		<a
-			href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${requestScope.map.pageBean.beginPage-1 }">
-			◀ </a>
+		<li><a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${requestScope.map.pageBean.beginPage-1 }">
+			◀ </a></li>
 	</c:when>
 	<c:otherwise>
-		◀ 	
+	<li><a>◀ </a></li>
  	</c:otherwise>
 </c:choose>
 <!-- 숫자 -->
@@ -97,24 +107,25 @@ td#td2:hover{text-decoration:underline; color:red;}
 	end="${requestScope.map.pageBean.endPage }" var="p">
 	<c:choose>
 		<c:when test="${p != requestScope.map.pageBean.page }">
-			<a
+			<li><a
 				href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${p }">
-				${p } </a>&nbsp;&nbsp;
+				${p } </a></li>
 		</c:when>
 		<c:otherwise>
-			[${p }]&nbsp;&nbsp;
+			<li id='pnum' class='active'><a>${p }</a></li>
 		</c:otherwise>
 	</c:choose>
 </c:forEach>
 <!-- 다음페이지그룹 -->
 <c:choose>
 	<c:when test="${requestScope.map.pageBean.nextPageGroup }">
-		<a
+		<li><a
 			href="/udongca_project/noticeBoard/noticeBoardListPaging.udc?pnum=${requestScope.map.pageBean.endPage+1 }">
-			▶ </a>
+			▶ </a></li>
 	</c:when>
 	<c:otherwise>
-		▶
+		<li><a>▶</a></li>
 	</c:otherwise>
 </c:choose>
+</ul>
 </div>
