@@ -1,20 +1,31 @@
 package kr.co.udongca.controller;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.udongca.service.impl.PrBoardServiceImpl;
-import kr.co.udongca.vo.*;
+import kr.co.udongca.vo.Code;
+import kr.co.udongca.vo.Member;
+import kr.co.udongca.vo.Menu;
+import kr.co.udongca.vo.PRBoard;
 
 /**
  * 홍보글에 관련된 Controller
@@ -330,7 +341,7 @@ public class PrBoardController {
 					0,
 					0,
 					null));
-			return "redirect:prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
+			return "redirect:/prBoard/prView.udc?cafeNo=" + map.get("cafeNo");
 		}
 		else{
 			model.put("errorList", errorList);

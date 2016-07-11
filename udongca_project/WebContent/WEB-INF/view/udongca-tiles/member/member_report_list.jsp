@@ -36,7 +36,17 @@ tr#tr, td{
 .cursor{
 	cursor:pointer;
 }
-
+.modal-footer{
+	background-color:#faebd7;
+	border-radius:6px;
+}
+.modal-header{
+	background-color:darkgoldenrod;
+	border-radius:6px;
+}
+.modal-title{
+	color:white;
+}
 td#td1:hover{text-decoration:underline; color:red;}
 td#td2:hover{text-decoration:underline; color:red;}
 </style>
@@ -57,7 +67,8 @@ td#td2:hover{text-decoration:underline; color:red;}
 					<c:forEach items="${requestScope.reportList.list }" var="list">
 						<tr id="tr" onclick="memberReportDetail(${list.reportboardNo})">
 							<td class="cursor">${list.myReportNo }</td>
-							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${list.reportReason }</td>
+							<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="cursor">[${list.reportType}]${empty list.reportContent ? list.reportReason
+																				: list.reportContent}</td>
 							<td class="cursor">${empty list.reportResult ? '처리중':'처리됨'}</td>
 						</tr>
 					</c:forEach>
@@ -139,7 +150,9 @@ td#td2:hover{text-decoration:underline; color:red;}
               <label for="reportResult" style="width:100px">처리결과</label>
               <div class="form-control" id="reportResult" style="height:200px;"></div>
             </div><br>
-              <button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
+            <div align="right">
+				<button class="btn btn-default" data-dismiss="modal" style="margin-top: 15px;">닫기</button>
+			</div>
           </form>
         </div>
       

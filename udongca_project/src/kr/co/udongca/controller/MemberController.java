@@ -132,7 +132,7 @@ public class MemberController {
 			String memberId = member.getMemberId();
 			
 			SendEmailConfig sendEmail = new SendEmailConfig();
-			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
+			sendEmail.sendEmail(member, "<a href='http://192.168.0.116:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
 			return "redirect:/member/joinSuccess.udc?memberId=" + memberId;
 		}
 	}
@@ -150,7 +150,7 @@ public class MemberController {
 			String memberId = member.getMemberId();
 			
 			SendEmailConfig sendEmail = new SendEmailConfig();
-			sendEmail.sendEmail(member, "<a href='http://127.0.0.1:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
+			sendEmail.sendEmail(member, "<a href='http://192.168.0.116:5000/udongca_project/member/memberLoginPossible.udc?memberId="+memberId+"'><input type='button' value='이메일 인증 완료'></a>","회원가입 - 이메일 인증");
 			return "redirect:/member/joinSuccess.udc?memberId=" + member.getMemberId();
 		}
 	}

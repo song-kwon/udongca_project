@@ -166,7 +166,7 @@ public class MemberServiceImpl implements MemberService {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format(
-					"%s님의 아이디는 %s 입니다. <br> <a href='http://127.0.0.1:5000/udongca_project/'>우동카</a>로 이동",
+					"%s님의 아이디는 %s 입니다. <br> <a href='http://192.168.0.116:5000/udongca_project/'>우동카</a>로 이동",
 					findMember.getMemberName(), findMember.getMemberId());
 			send.sendEmail(findMember, content,title);
 			
@@ -194,7 +194,7 @@ public class MemberServiceImpl implements MemberService {
 			Member findMember = memberDaoImpl.memberIdFind(member);
 			SendEmailConfig send = new SendEmailConfig();
 			String content = String.format(
-					"%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:4322/udongca_project/'>우동카</a>로 이동",
+					"%s님의 아이디는 %s , 비밀번호는 %s 입니다. <br> <a href='http://192.168.0.116:5000/udongca_project/'>우동카</a>로 이동",
 					findMember.getMemberName(), findMember.getMemberId(), findMember.getMemberPassword());
 			send.sendEmail(findMember, content,title);
 			return member.getMemberId()+"의 비밀번호를"+member.getMemberEmail()+"로 보내드렸습니다.";
