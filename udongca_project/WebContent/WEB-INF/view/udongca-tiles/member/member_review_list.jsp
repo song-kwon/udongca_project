@@ -72,15 +72,16 @@ td#td2:hover{text-decoration:underline; color:red;}
 			
 			<div align="center">
 				<!-- 이전페이지그룹 -->
+				<ul class="pagination">
 				<c:choose>
 					<c:when
 						test="${requestScope.reviewList.pageBean.previousPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/memberReviewListPaging.udc?pnum=${requestScope.reviewList.pageBean.beginPage-1 }">
-							◀ </a>
+							◀ </a></li>
 					</c:when>
 					<c:otherwise>
-		◀ 	
+		<li><a href="#">◀</a></li> 	
  	</c:otherwise>
 				</c:choose>
 				<!-- 숫자 -->
@@ -88,26 +89,27 @@ td#td2:hover{text-decoration:underline; color:red;}
 					end="${requestScope.reviewList.pageBean.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p != requestScope.reviewList.pageBean.page }">
-							<a
+							<li><a 
 								href="/udongca_project/member/memberReviewListPaging.udc?pnum=${p }">
-								${p } </a>&nbsp;&nbsp;
+								${p } </a></li>
 						</c:when>
 						<c:otherwise>
-			[${p }]&nbsp;&nbsp;
+			<li class="active"><a href="#">${p }</a></li>
 		</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 다음페이지그룹 -->
 				<c:choose>
 					<c:when test="${requestScope.reviewList.pageBean.nextPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/memberReviewListPaging.udc?pnum=${requestScope.reviewList.pageBean.endPage+1 }">
-							▶ </a>
+							▶ </a></li>
 					</c:when>
 					<c:otherwise>
-		▶
+		<li><a href="#">▶</a></li>
 	</c:otherwise>
 				</c:choose>
+				</ul>
 			</div>
 		</c:when>
 			<c:otherwise>

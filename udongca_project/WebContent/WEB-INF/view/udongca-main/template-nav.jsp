@@ -95,7 +95,16 @@ input[type="submit"]{
 input[type="button"]{
 	color:black;
 }
-
+.pagination > .active > a,
+.pagination > .active > a:hover{
+	background-color:#6b4004;
+}
+.pagination > li > a{
+	color:#a2522d;
+}
+.pagination > li > a:hover{
+	color:#6b4004;
+}
 </style>
 </head>
 
