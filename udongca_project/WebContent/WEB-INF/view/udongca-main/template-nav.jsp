@@ -95,6 +95,10 @@ input[type="submit"]{
 input[type="button"]{
 	color:black;
 }
+
+select{
+	width:150px !important;
+}
 .pagination > .active > a,
 .pagination > .active > a:hover{
 	background-color:#6b4004;

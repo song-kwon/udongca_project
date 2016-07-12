@@ -332,7 +332,7 @@ targetName	varchar2(50)	NULL,
 reviewNO	NUMBER not null,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
-references review_board(reviewNo) on delete set null
+references review_board(reviewNo) on delete cascade
 );
 
 insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test1',sysdate,1,0,'',1);

@@ -80,7 +80,7 @@ public class MemberController {
 	public ModelAndView login(String id, String password, HttpSession session) throws Exception {
 
 		Member login = memberService.login(id, password);
-		if (login == null || login.getLoginPossibility().equals("Impossible")) {
+		if (login == null || login.getLoginPossibility().equals("impossible")) {
 			return new ModelAndView("etc/login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");
 		} else if(session.getAttribute("login") != null){
 			return new ModelAndView("redirect:/main.udc");

@@ -84,7 +84,7 @@
 											for (var idx = 0; idx < object.inquiryList.list.length; idx++) {
 												$("#memberInquiryList")
 														.append(
-																"<tr class='tr'><td>"
+																"<tr class='tr'><td id='"+object.inquiryList.list[idx].inquiryNo+"'>"
 																		+ object.inquiryList.list[idx].myInquiryNo
 																		+ "</td><td>"
 																		+ object.inquiryList.list[idx].inquiryTitle

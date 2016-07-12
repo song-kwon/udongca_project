@@ -140,7 +140,9 @@
 						}
 					});
 				}
-				$("#buttonArea").append("<button onclick='prReport()' class='btn btn-default'>홍보글 신고</button>");
+				if("${sessionScope.login.memberType}" == "generalMember" || "${sessionScope.login.memberType}" == "licenseeMember"){
+					$("#buttonArea").append("<button onclick='prReport()' class='btn btn-default'>홍보글 신고</button>");
+				}
 			}
 		}
 		

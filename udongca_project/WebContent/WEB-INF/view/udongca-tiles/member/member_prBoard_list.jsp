@@ -63,43 +63,46 @@ td#td2:hover{text-decoration:underline; color:red;}
 			</table>
 			
 			<!-- 이전페이지그룹 -->
-			<div style="text-align: center; margin-top: 6px;">
+			<div align="center" style="text-align: center; margin-top: 6px; width:800px;">
+				<ul class="pagination">
 				<c:choose>
 					<c:when
 						test="${requestScope.pageBean.previousPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/member_prBoard_list.udc?pnum=${requestScope.pageBean.beginPage-1 }">
-							◀ </a>
+							◀ </a></li>
 					</c:when>
 					<c:otherwise>
-		◀ 	
+		<li><a href="#">◀</a></li> 	
  	</c:otherwise>
 				</c:choose>
 				<!-- 숫자 -->
+				<c:if test="${requestScope.pageBean.endPage == 0 }"><li class="active"><a href="#" >1</a></li></c:if>
 				<c:forEach begin="${requestScope.pageBean.beginPage }"
 					end="${requestScope.pageBean.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p != requestScope.pageBean.page }">
-							<a
+							<li><a
 								href="/udongca_project/member/member_prBoard_list.udc?pnum=${p }">
-								${p } </a>&nbsp;&nbsp;
+								${p } </a></li>
 						</c:when>
 						<c:otherwise>
-			[${p }]&nbsp;&nbsp;
+			<li class="active"><a href="#">${p }</a></li>
 		</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 다음페이지그룹 -->
 				<c:choose>
 					<c:when test="${requestScope.pageBean.nextPageGroup }">
-						<a
+						<li><a
 							href="/udongca_project/member/member_prBoard_list.udc?pnum=${requestScope.pageBean.endPage+1 }">
-							▶ </a>
+							▶ </a></li>
 					</c:when>
 					<c:otherwise>
-		▶
+		<li><a href="#">▶</a></li>
 	</c:otherwise>
 				</c:choose>
+				</ul>
 			</div>
 		</c:when>
 		<c:otherwise>
