@@ -40,27 +40,27 @@ $(document).ready(function(){
 
 <style type="text/css">
 div#ccMenu{
-color:peachpuff;
+color:antiquewhite;
 font-size:18px;
 cursor:pointer;
 }
 </style>
 
 
-<div id="ccMenu" style="float:right;"><div>고객센터▼</div></div>
+<div id="ccMenu" style="float:right;"><div>&nbsp;고객센터▼</div></div>
 <div>
 	<div id="subMenu" style="display:none;">
-		<div><a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc">공지사항</a></div>
+		<div><a href="/udongca_project/noticeBoard/noticeBoardListPaging.udc" class="menu">공지사항</a></div>
 		<div>
 			<c:choose>
 				<c:when test="${sessionScope.login.memberId=='udongca' }">
-					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc">1:1문의관리</a>
+					<a href="/udongca_project/oneToOneInquiry/oneToOneInquiryListPaging.udc" class="menu">1:1문의관리</a>
 				</c:when>
 				<c:when test="${!empty sessionScope.login.memberId }">
-					<a href="/udongca_project/oneToOneInquiry/registerOneToOneInquiryform.udc?codeType=inquiry_type">1:1문의하기</a>
+					<a href="/udongca_project/oneToOneInquiry/registerOneToOneInquiryform.udc?codeType=inquiry_type" class="menu">1:1문의하기</a>
 				</c:when>
 				<c:otherwise>
-					<a href="/udongca_project/loginPage.udc">1:1문의</a>
+					<a href="/udongca_project/loginPage.udc" class="menu">1:1문의</a>
 				</c:otherwise>
 			</c:choose>
 		</div>

@@ -43,7 +43,7 @@ header{
 }
 header, a{
 	font-size:15px;
-	color:peachpuff;
+	color:antiquewhite;
 }
 nav, .col-md-2{
 	line-height: 70px;
@@ -72,10 +72,13 @@ footer{
 	clear:both;
 	width:1280px;
 }
-a{
+.menu{
 	font-size:18px;
-	color:peachpuff;
+	color:antiquewhite;
 	text-decoration: none;
+}
+a{
+	color:sienna;
 }
 #wrap{
 	width:1280px !important;
@@ -85,7 +88,7 @@ a{
 textarea{
 	outline: none;
 }
-a:hover{color:navajowhite; font-weight:bold;}
+a:hover{color:saddlebrown; font-weight:bold;}
 
 
 button{
