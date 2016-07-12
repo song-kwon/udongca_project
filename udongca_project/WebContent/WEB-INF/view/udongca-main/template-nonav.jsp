@@ -38,7 +38,8 @@ header {
 	min-height: 190px;
 }
 header, a{
-	color:sienna;
+	font-size:15px;
+	color:peachpuff;
 }
 
 nav {
@@ -71,7 +72,8 @@ footer {
 	width:1280px;
 }
 a{
-	color:sienna;
+	font-size:18px;
+	color:peachpuff;
 	text-decoration: none;
 }
 #wrap{
@@ -85,7 +87,7 @@ a{
 textarea{
 	outline: none;
 }
-a:hover{color:saddlebrown;}
+a:hover{color:navajowhite; font-weight:bold;}
 button{
 	color:black;
 }

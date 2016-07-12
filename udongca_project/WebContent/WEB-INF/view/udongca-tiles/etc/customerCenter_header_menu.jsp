@@ -40,7 +40,8 @@ $(document).ready(function(){
 
 <style type="text/css">
 div#ccMenu{
-color:sienna;
+color:peachpuff;
+font-size:18px;
 cursor:pointer;
 }
 </style>
