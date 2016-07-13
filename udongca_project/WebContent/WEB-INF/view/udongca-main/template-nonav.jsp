@@ -38,7 +38,8 @@ header {
 	min-height: 190px;
 }
 header, a{
-	color:sienna;
+	font-size:15px;
+	color:antiquewhite;
 }
 
 nav {
@@ -70,9 +71,13 @@ footer {
 	clear: both;
 	width:1280px;
 }
+.menu{
+	font-size:18px;
+	color:antiquewhite;
+	text-decoration: none;
+}
 a{
 	color:sienna;
-	text-decoration: none;
 }
 #wrap{
 	width:1280px !important;
@@ -85,7 +90,7 @@ a{
 textarea{
 	outline: none;
 }
-a:hover{color:saddlebrown;}
+a:hover{color:saddlebrown; font-weight:bold;}
 button{
 	color:black;
 }

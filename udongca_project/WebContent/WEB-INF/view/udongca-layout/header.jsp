@@ -67,6 +67,9 @@ $(document).ready(function(){
 .col-xs-offset-1{
     margin-left: 14%;
 }
+div#menu1,a:hover{color:navajowhite; font-weight:bold;}
+div#menu2,a:hover{color:navajowhite; font-weight:bold;}
+div#menu3,a:hover{color:navajowhite; font-weight:bold;}
 </style>
 
 <div id="header_div">
@@ -74,15 +77,15 @@ $(document).ready(function(){
 	<c:when test="${sessionScope.login != null}">
 		<c:choose>
 			<c:when test="${sessionScope.login.memberType =='master'}" >
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/master_page.udc">관리자페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
-					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+				<div id="menu1" style="text-align:right;height:65px;"><a href="/udongca_project/main.udc" class="menu">메인&nbsp;</a>|<a href="/udongca_project/member/logout.udc" class="menu">&nbsp;로그아웃&nbsp;</a>|<a href="/udongca_project/member/master_page.udc" class="menu">&nbsp;관리자페이지&nbsp;</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
+					<div style="font-size:18px; font-weight:bold; color:antiquewhite;">
 						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
 					</div>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/member/logout.udc">로그아웃</a>|<a href="/udongca_project/member/member_myPage.udc">마이페이지</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
-					<div style="font-size:15px; font-weight:bold; color:antiquewhite;">
+				<div id="menu2" style="text-align:right;height:65px;"><a href="/udongca_project/main.udc" class="menu">메인&nbsp;</a>|<a href="/udongca_project/member/logout.udc" class="menu">&nbsp;로그아웃&nbsp;</a>|<a href="/udongca_project/member/member_myPage.udc" class="menu">&nbsp;마이페이지&nbsp;</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/>
+					<div style="font-size:18px; font-weight:bold; color:antiquewhite;">
 						${sessionScope.login.memberName }님! 반갑습니다.&nbsp;&nbsp;
 					</div>
 					<c:if test="${sessionScope.login.memberType eq 'licenseeMember' }">
@@ -94,7 +97,7 @@ $(document).ready(function(){
 	</c:when>
 	
 	<c:otherwise>
-		<div style="text-align:right;height:65px;"><a href="/udongca_project/main.udc">메인</a>|<a href="/udongca_project/joinSelect.udc">회원가입</a>|<a href="/udongca_project/loginPage.udc">로그인</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/></div>
+		<div id="menu3" style="text-align:right;height:65px;"><a href="/udongca_project/main.udc" class="menu">메인&nbsp;</a>|<a href="/udongca_project/joinSelect.udc" class="menu">&nbsp;회원가입&nbsp;</a>|<a href="/udongca_project/loginPage.udc" class="menu">&nbsp;로그인&nbsp;</a>|<jsp:include page="/WEB-INF/view/udongca-tiles/etc/customerCenter_header_menu.jsp"/></div>
 	</c:otherwise>
 </c:choose>
 
