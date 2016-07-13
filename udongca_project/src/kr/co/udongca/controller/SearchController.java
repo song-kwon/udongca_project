@@ -95,7 +95,12 @@ public class SearchController {
 	
 	@RequestMapping("address_search_result.udc")
 	public String mainAddressSearchResult(String address1,String address2,ModelMap map){
-		String cafeAddress = address1+" "+address2;
+		String cafeAddress = null;
+		if(address2.equals("전체")){
+			cafeAddress=address1;
+		}else{
+			cafeAddress = address1+" "+address2;
+		}
 		if(cafeAddress.equals("세종특별자치시 세종시")) cafeAddress="세종특별자치시";
 		
 		map.put("result", locationSearchResult(cafeAddress, 1));

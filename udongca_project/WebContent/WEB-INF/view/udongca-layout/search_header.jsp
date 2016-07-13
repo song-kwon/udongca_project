@@ -100,7 +100,7 @@ $(document).ready(function(){
 	</div>
 	<div class="col-xs-2">
 	<select class="form-control" id="address2" style="width:auto;">
-	<option value=0>시/도 먼저 선택</option>
+	<option value=0>전체</option>
 		<c:forEach items="${requestScope.result.middleCategory}" var="middleList" varStatus="status">
 			<option value="${middleList.middleCategoryNo }"
 				${param.address2 == middleList.addressName ? 'selected':'' }>${middleList.addressName }</option>

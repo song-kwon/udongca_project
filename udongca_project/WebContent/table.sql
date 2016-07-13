@@ -18,6 +18,8 @@ grant all privileges to udongca; --모든 권한 주기
 				 )
 		WHERE page = 1
 		
+
+		delete from review_board where reviewNo = 6
 		
 --리뷰 등록시 홍보글 cafeRating 업데이트
 update prboard set cafeRating=(select cafeRating from prboard where cafeNo=1)+(select ratingStars from review_board where reviewNo = 9),cafeReviewCount=(select cafeReviewCount from prboard where cafeNo=1)+1 where cafeNo= 1;
@@ -332,7 +334,7 @@ targetName	varchar2(50)	NULL,
 reviewNO	NUMBER not null,
 constraint review_reply_reviewNo_fk
 foreign key (reviewNo)
-references review_board(reviewNo) on delete set null
+references review_board(reviewNo) on delete cascade
 );
 
 insert into review_reply values(review_reply_replyNo_seq.nextval,'scott','test1',sysdate,1,0,'',1);
