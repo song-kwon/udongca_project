@@ -32,7 +32,7 @@ public interface MemberService {
 
 	public List<Address> middleList(int majorNo);
 
-	public List memberList(int page);
+	public List<Member> memberList(int page);
 
 	public int managePreferLocation(PreferLocation location);
 

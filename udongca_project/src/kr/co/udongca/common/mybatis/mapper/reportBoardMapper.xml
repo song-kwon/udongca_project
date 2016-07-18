@@ -34,14 +34,19 @@
 	<select id="count_report_list_all" parameterType="string" resultType="_int">
 	SELECT count(reportboardNo) FROM report_board 
 	</select>
+	
 	<select id="report_info" parameterType="_int" resultType="reportBoard">
-		SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason, reportType, reportNO, memberId
+		SELECT reportboardNo, reportMemberId, reportReason, reportContent, reportResult, reportCancelReason
+				  , reportType, reportNO, memberId
 		FROM report_board
 		WHERE reportboardNo = #{reportboardNo}
 	</select>
+	
 	<update id="update_info" parameterType="map">
-		UPDATE report_board SET reportResult = #{reportResult}, reportCancelReason = #{reportCancelReason} WHERE reportboardNo = #{reportboardNo}
+		UPDATE report_board SET reportResult = #{reportResult}, reportCancelReason = #{reportCancelReason} 
+		WHERE reportboardNo = #{reportboardNo}
 	</update>
+	
 	<delete id="delete_article" parameterType="map">
 		DELETE FROM ${reportType} WHERE ${CorR}No = #{reportNo}
 	</delete>

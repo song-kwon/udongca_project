@@ -93,11 +93,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	
-	public List memberList(int page) {
-		List list = memberDaoImpl.selectList(page);
+	public List<Member> memberList(int page) {
+		List<Member> list = memberDaoImpl.selectList(page);
 		
 		return list;
 	}
+	
 	public PagingBean page(int page){
 	    return new PagingBean(memberDaoImpl.countMember(), page);
 	}

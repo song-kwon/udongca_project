@@ -57,7 +57,7 @@ public class ReportBoardDaoImpl implements ReportBoardDao{
 	    return session.delete("reportMapper.delete_article",map);
 	}
     }
-    public List selectList(int page){
+    public List<ReportBoard> selectList(int page){
 	 HashMap param = new HashMap();
 	    param.put("itemPerPage", Constants.ITEMS_PER_PAGE);
 	    param.put("page", page);
