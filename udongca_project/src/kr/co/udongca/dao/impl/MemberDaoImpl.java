@@ -56,6 +56,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("memberMapper.count_same_id", memberId);
 	}
 	
+	@Override
+	public int countSameEmail(String memberEmail){
+		return session.selectOne("memberMapper.count_same_email", memberEmail);
+	}
+	
 
 	@Override
 	public List<Address> selectMajor() {
@@ -70,6 +75,11 @@ public class MemberDaoImpl implements MemberDao {
 
 	public Member findById(String memberId) {
 		return session.selectOne("memberMapper.find_by_id", memberId);
+	}
+	
+	@Override
+	public Member findByEmail(String memberEmail){
+		return session.selectOne("memberMapper.find_by_email", memberEmail);
 	}
 
 	@Override

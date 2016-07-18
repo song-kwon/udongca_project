@@ -63,4 +63,8 @@ public interface MemberService {
 	public List selectMemberPreferLocationAddress(String memberId);
 	
 	public List memberReportList(int page,String memberId);
+
+	public Member findByEmail(String memberEmail);
+
+	public int countSameEmail(String memberEmail);
 }

@@ -67,12 +67,25 @@ public class MemberController {
 		String number = "" + memberService.countSameId(memberId);
 		return number;
 	}
+    
+    @RequestMapping("countSameEmail.udc")
+    @ResponseBody
+    public String countSameEmail(String memberEmail){
+    	String number = "" + memberService.countSameEmail(memberEmail);
+    	return number;
+    }
 
 	@RequestMapping("findById.udc")
 	public Member findById(String memberId) {
 		Member member = memberService.findById(memberId);
 		return member;
 	}
+    
+    @RequestMapping("findByEmail.udc")
+    public Member findByEmail(String memberEmail){
+    	Member member = memberService.findByEmail(memberEmail);
+    	return member;
+    }
 
 	@RequestMapping("login.udc")
 	public ModelAndView login(String id, String password, HttpSession session) throws Exception {

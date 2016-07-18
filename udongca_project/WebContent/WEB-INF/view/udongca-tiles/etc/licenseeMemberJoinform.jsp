@@ -24,6 +24,42 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#emailVerification").on("click",function(){
+		$.ajax({
+			"url":"/udongca_project/member/countSameEmail.udc",
+			"type":"POST",
+			"data":"memberEmail="+$("#email").val()+"@"+$("#emailAddress").val(),
+			"dataType":"text",
+			"success" : function(countSameEmail){
+				if(countSameEmail!=0){
+					alert("이미 가입되어있는 이메일입니다. 다른 이메일을 입력해주세요.");
+					$("#email").focus();
+				}else{
+					var result = confirm("'"+$.trim($("#email").val())+"@"+$("#emailAddress").val()+"'"+"는 사용 가능한 이메일입니다. 사용하시겠습니까?");
+					if(result == false){
+						$("#email").focus();
+					}else{
+						$("#emailVerify").val(true);
+					}
+				}
+			},
+			"beforeSend" : function chkEmail(){
+				if($("#email").val()==''){
+					alert("이메일은 필수입력사항입니다.");
+					return false;
+				}else if($("#emailAddress").val()=="이메일선택"){
+					alert("이메일 주소를 선택해주세요.")
+					return false;
+				}
+				return true;
+			}
+		});
+	});
+	
+	$("#email").on("focus",function(){
+		$("#emailVerify").val(false);
+	});
+	
 	$("#idVerification").on("click",function(){
 		$.ajax({
 				"url":"/udongca_project/member/countSameId.udc",
@@ -163,7 +199,7 @@ function chkEmail(){
 }
 
 function checkSubmit(){
-	if($("#idVerify").val()=="true"){
+	if($("#idVerify").val()=="true" && $("#emailVerify").val()=="true"){
 		//가입 하기 전, 비밀번호 확인과 이메일 확인
 		var checkPassword1 = chkPwd1();
 		var checkPassword2 = chkPwd2();
@@ -173,8 +209,11 @@ function checkSubmit(){
 			return true;
 		}else
 			return false;
-	}else{
+	}else if($("#idVerify").val()=="false"){
 		alert("아이디 확인을 해주세요.");
+		return false;
+	}else{
+		alert("이메일 확인을 해주세요.");
 		return false;
 	}
 }
@@ -190,7 +229,7 @@ table{
 
 table, th{
 	text-align:left;
-	width:480px;
+	width:580px;
 }
 
 .width_size2{
@@ -242,6 +281,7 @@ table, th{
 				<option>nate.com</option>
 			</select>
 		</td>
+		<td>&nbsp;<input type="button" id="emailVerification" value="이메일 확인"></td>
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 </table>
