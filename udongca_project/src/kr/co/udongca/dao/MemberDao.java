@@ -68,4 +68,8 @@ public interface MemberDao {
 	public int countMemberPRBoard(String memberId);
 	
 	public Map selectMemberPreferLocationAddress(Map map);
+
+	public Member findByEmail(String memberEmail);
+
+	public int countSameEmail(String memberEmail);
 }

@@ -45,6 +45,11 @@
 	<select id="count_same_id" parameterType="String" resultType="int">
 		SELECT count(memberId) FROM member WHERE memberId=#{memberId}
 	</select>
+	
+	<select id="count_same_email" parameterType="String" resultType="int">
+		SELECT count(memberEmail) FROM member WHERE memberEmail=#{memberEmail}
+	</select>
+	
 	<select id="member_list" resultType="member">
 		<include refid="select-basic"/>
 	</select>
@@ -59,6 +64,10 @@
 	</select>
 	<select id="find_by_id" parameterType="String" resultType="member">
 		SELECT memberId, memberName, memberPassword, memberEmail, memberPenalty, loginPossibility, memberType FROM member WHERE memberId=#{memberId}
+	</select>
+	
+	<select id="find_by_email" parameterType="String" resultType="member">
+		SELECT memberId, memberName, memberPassword, memberEmail, memberPenalty, loginPossibility, memberType FROM member WHERE memberEmail=#{memberEmail}
 	</select>
 	
 	<select id="count_member" resultType="_int">

@@ -72,6 +72,11 @@ public class MemberServiceImpl implements MemberService {
 	public int countSameId(String memberId) {
 		return memberDaoImpl.countSameId(memberId);
 	}
+	
+	@Override
+	public int countSameEmail(String memberEmail){
+		return memberDaoImpl.countSameEmail(memberEmail);
+	}
 
 	public List<Address> middleList(int majorNo) {
 		// TODO Auto-generated method stub
@@ -81,6 +86,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findById(String memberId) {
 		return memberDaoImpl.findById(memberId);
+	}
+	
+	@Override
+	public Member findByEmail(String memberEmail){
+		return memberDaoImpl.findByEmail(memberEmail);
 	}
 
 	public int generalMemberJoin(Member member) {
