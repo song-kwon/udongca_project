@@ -2,7 +2,7 @@ $(document).ready(function(){
 	
 	$("#address1").on("change", function(){
 		var es = this;
-		$("#address2").empty().append("<option>군/구</option>");
+		$("#address2").empty().append("<option value='0'>전체</option>");
 		if ($(this).val() == "시/도"){
 			alert("올바른 시/도를 선택하세요");
 			$("#address1").focus();
@@ -25,58 +25,64 @@ $(document).ready(function(){
 
 	$("#searchAddress").on("click", function(){
 		$("#theme").val(0);
-		if ($("#address1").val() == 0 || $("#address2").val() == 0){
-			alert("올바른 지역을 선택하세요");
-			($("#address1").val() == 0) ? $("#address1").focus() : $("#address2").focus();
+		
+		if ($("#address1").val() == 0){
+			alert("시/도를 선택하세요");
 			return false;
 		}
-		else{
+
+		if($("#address2").val()==0){
+			var submitString = $("#address1 option:selected").text();
+			alert(submitString)
+		}else{
 			var submitString = $("#address1 option:selected").text() + " " + $("#address2 option:selected").text();
 			if (submitString == "세종특별자치시 세종시"){
 				submitString = "세종특별자치시";
 			}
-			$.ajax({
-				"url":"/udongca_project/search/locationSearchResult.udc",
-				"type":"POST",
-				"data":"cafeAddress=" + submitString + "&page=" + 1,
-				"dataType":"json",
-				"success":function(json){
-					submitString = "'"+submitString+"'";
-					$("#searchResult").empty();
-					$("#pageNum").empty();
-					if (json == null || json.list.length == 0){
-						$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색 결과가 없습니다.</h3></td>');
-						return false;
+		}
+		alert(submitString);
+		
+		$.ajax({
+			"url":"/udongca_project/search/locationSearchResult.udc",
+			"type":"POST",
+			"data":"cafeAddress=" + submitString + "&page=" + 1,
+			"dataType":"json",
+			"success":function(json){
+				submitString = "'"+submitString+"'";
+				$("#searchResult").empty();
+				$("#pageNum").empty();
+				if (json == null || json.list.length == 0){
+					$("#searchResult").append('<td colspan="3" align="center"><h3 style="color:red;">검색 결과가 없습니다.</h3></td>');
+					return false;
+				}
+				else{
+					for(var i = 0; i < json.list.length; i++){
+						$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
+						//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
 					}
-					else{
-						for(var i = 0; i < json.list.length; i++){
-							$("#searchResult").append("<div style='margin-left:10px;margin-top:20px;padding-right: 10px;padding-top: 10px;width:200px;height:220px;float:left; text-align: center;'><a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'><img style='width:200px;height:200px;' src='../images/" + json.list[i].cafeFakeImage + "'>"+ json.list[i].cafeName + "</a></div>");
-							//$("#searchResult").append(" " + json[i].cafeNo + " " + json[i].cafeName + "<br>");
-						}
-						
-						$("#pageNum").append('<ul class="pagination"></ul>');
-						if(json.pageBean.previousPageGroup){
-							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
-						}else{
-							$(".pagination").append('<li><a href="#">◀</a></li>');
-						}
-						
-						for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
-							if(idx == json.pageBean.page)
-								$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
-							else
-								$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a></li>');
-						}
-						
-						if(json.pageBean.nextPageGroup){
-							$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
-						}else{
-							$(".pagination").append('<li><a href="#">▶</a></li>');
-						}
+					
+					$("#pageNum").append('<ul class="pagination"></ul>');
+					if(json.pageBean.previousPageGroup){
+						$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+(json.pageBean.beginPage-1)+')">◀</a></li>');
+					}else{
+						$(".pagination").append('<li><a href="#">◀</a></li>');
+					}
+					
+					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
+						if(idx == json.pageBean.page)
+							$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
+						else
+							$(".pagination").append('<li><a href="#" onclick="addressPage('+submitString+','+idx+')"> '+idx+' </a></li>');
+					}
+					
+					if(json.pageBean.nextPageGroup){
+						$(".pagination").append('<li><a href="#" onclick="addressPage('+ submitString+','+ ++json.pageBean.endPage +')">▶</a></li>');
+					}else{
+						$(".pagination").append('<li><a href="#">▶</a></li>');
 					}
 				}
-			});
-		}
+			}
+		});
 	});
 	
 	

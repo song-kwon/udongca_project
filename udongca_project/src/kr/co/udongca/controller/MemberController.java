@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -91,7 +93,6 @@ public class MemberController {
 
 	@RequestMapping("login.udc")
 	public ModelAndView login(String id, String password, HttpSession session) throws Exception {
-
 		Member login = memberService.login(id, password);
 		if (login == null || login.getLoginPossibility().equals("impossible")) {
 			return new ModelAndView("etc/login.tiles", "error", "회원이 아니거나 정지된 회원입니다.");

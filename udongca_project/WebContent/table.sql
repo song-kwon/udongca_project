@@ -18,6 +18,8 @@ grant all privileges to udongca; --모든 권한 주기
 				 )
 		WHERE page = 1
 		
+
+		delete from review_board where reviewNo = 6
 		
 --리뷰 등록시 홍보글 cafeRating 업데이트
 update prboard set cafeRating=(select cafeRating from prboard where cafeNo=1)+(select ratingStars from review_board where reviewNo = 9),cafeReviewCount=(select cafeReviewCount from prboard where cafeNo=1)+1 where cafeNo= 1;
