@@ -32,7 +32,7 @@ function link(id){
 		"success":function(obj){
 			$("#loginPossibility").empty();
 			$.each(obj.code,function(){
-				$("#loginPossibility").append("<option id='"+this.codeIde='"+this.codeId+"'>"+this.codeName+"</option>")
+				$("#loginPossibility").append("<option id='"+this.codeId+"' value='"+this.codeId+"'>"+this.codeName+"</option>")
 			});
 			$("#memberId").val(obj.memberInfo.memberId);
 			$("#memberName").val(obj.memberInfo.memberName);
@@ -69,16 +69,13 @@ function link(id){
 			$("#table").empty();
 			$.each(obj['list'],function(){
 				
-				 $("#table").append("<tr class='cursor' data-toggle='modal' data-backdrop='static' data-tal' id='td2'"
-						 +" onclick="
-						 +"'link("+'"'+this.memberId+'"'+")'><td>"+this.memtd><td >"+this.memberName+"</td><td>"
-						 +this.memberEmail+"</td><td>"+this.memberPenalty+"</td><td>"+this.loginPossibid></tr>");
+				 $("#table").append("<tr class='cursor' data-toggle='modal' data-backdrop='static' data-target='#myModal' id='td2' onclick='link("+'"'+this.memberId+'"'+")'><td>"+this.memberId+"</td><td >"+this.memberName+"</td><td>"+this.memberEmail+"</td><td>"+this.memberPenalty+"</td><td>"+this.loginPossibility+"</td></tr>");
 			});
 			
 			$("#page").empty();
 			 $("#page").append("<ul class='pagination'></ul>")
 			 if(page.previousPageGroup){
-				 $(".pagination").append("<li><a onclick=listAndPage("+(page.beginPage-1)+") style='cursor:pointer;'i>");
+				 $(".pagination").append("<li><a onclick=listAndPage("+(page.beginPage-1)+") style='cursor:pointer;'>◀</a></li>");
 			 }else{
 				 $(".pagination").append("<li><a>◀</a></li>");
 			 }
@@ -88,13 +85,12 @@ function link(id){
 				if(page.page!=i){
 					$(".pagination").append("<li><a onclick=listAndPage("+i+") style='cursor:pointer;'>"+i+"</a></li>");
 				}else{
-					$nation").append("<li class='active'><a>"+i+"</a></li>");
+					$(".pagination").append("<li class='active'><a>"+i+"</a></li>");
 				}
 			} 
 			 if(page.nextPageGroup){
-				 $(".pag
-			 ").append("<li><a onclick=listAndPage("+(page.endPage+1)+") style='cursor:pointer;'>▶</a></li>");
-	
+				 $(".pagination").append("<li><a onclick=listAndPage("+(page.endPage+1)+") style='cursor:pointer;'>▶</a></li>");
+			 }else{
 				 $(".pagination").append("<li><a>▶</a></li>");
 			 }
 		},
@@ -106,28 +102,15 @@ function link(id){
 	
 }
  function submit(){
-		var va
-			lue=0;
-		 
-	forr i =0;i<$(".fa").len
-		i++){
-			if
-		 .fa")[i].className=="fa fa-thumbs-do
-			
+		var value=0;
+		 for(var i =0;i<$(".fa").length;i++){
+			if($(".fa")[i].className=="fa fa-thumbs-down"){
 				value++;
 			}
 		} 
-			if(value>=3 && $
-				inPossib
-			)
-		)=
-			ssible"){
+			if(value>=3 && $("#loginPossibility").val()=="possible"){
 				alert("벌점3점이상 로그인 불가");
-				$("#loginPoss
-				ty").val("impossible");
-					return false;
-			}
-			if(value<3 && $(
+				$("#loginPossibility").val("impossible");
 				return false;
 			}
 			if(value<3 && $("#loginPossibility").val()=="impossible"){
@@ -166,7 +149,8 @@ function link(id){
 		});
 	}
 
-ss">
+</script> 
+<style type="text/css">
 nav{
 	line-height: 40px;
 }
