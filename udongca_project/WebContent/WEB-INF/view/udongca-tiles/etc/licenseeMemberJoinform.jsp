@@ -281,7 +281,7 @@ table, th{
 				<option>nate.com</option>
 			</select>
 		</td>
-		<td>&nbsp;<input type="button" id="emailVerification" value="이메일 확인"></td>
+		<td><input type="button" id="emailVerification" value="이메일 확인"></td>
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 </table>

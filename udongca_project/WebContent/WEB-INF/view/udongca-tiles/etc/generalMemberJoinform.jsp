@@ -263,7 +263,7 @@ table, th{
 	<tr>
 		<th>이메일</th>
 		<td><input type="text" id="email" name="memberEmail" value="${requestScope.member.memberEmail }"></td>
-		<td class="input-group"><span class="input-group-addon">@</span><select id="emailAddress" name="emailAddress" style="width:130px;"class="form-control" aria-describedby="inputGroupSuccess1Status">
+		<td class="input-group"><span class="input-group-addon">@</span><select id="emailAddress" name="emailAddress" style="width:130px;"class="form-control col-xs-2" aria-describedby="inputGroupSuccess1Status">
 				<option>이메일선택</option>
 				<option>naver.com</option>
 				<option>daum.net</option>
@@ -272,7 +272,7 @@ table, th{
 				<option>nate.com</option>
 			</select>
 		</td>
-		<td>&nbsp;<input type="button" id="emailVerification" value="이메일 확인"></td>
+		<td><input type="button" id="emailVerification" value="이메일 확인"></td>
 		<td><span class="error"><form:errors path="member.memberEmail"/></span></td>
 	</tr>
 </table>

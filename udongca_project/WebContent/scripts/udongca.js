@@ -537,34 +537,36 @@ function themePage(page){
 				$(".pagination").empty();
 				
 				if (json == null || json.list == null){
-					$("#tbody").append('<td colspan="3" align="center"><h3 style="color:red;">'+json.error+'</h3></td>');
+					$("#tbody").append('<td colspan="3" align="center"><h3 style="color:red;">'
+							+json.error+'</h3></td>');
 					return false;
 				}
 				else{
 					for(var i = 0; i < json.list.length; i++){
-						$("#tbody").append("<tr id='"+json.list[i].cafeNo+"'><td style='width: 75px; height:40px; text-align: center'>"
-								+"<button onclick='deleteBookmark("+json.list[i].cafeNo+")' class='btn btn-default' >"
-								+"<span class='glyphicon glyphicon-remove'></span></button></td><td>"
+						$("#tbody").append("<tr id='"+json.list[i].cafeNo+"'><td style='width: 75px; "
+								+" height:40px; text-align: center'><button onclick='deleteBookmark("
+								+json.list[i].cafeNo+")' class='btn btn-default' ><span class='glyphicon "
+								+" glyphicon-remove'></span></button></td><td>"
 								+"<a href='/udongca_project/prBoard/prView.udc?cafeNo="+json.list[i].cafeNo+"'>"
 								+json.list[i].cafeName+"</a></td><td>"+json.list[i].prBoard.cafeAddress+"</td>");
 					}
-					
 					if(json.pageBean.previousPageGroup){
-						$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+(json.pageBean.beginPage-1)+')">◀</a></li>');
+						$(".pagination").append('<li><a href="#" onclick="bookmarkPage('
+								+(json.pageBean.beginPage-1)+')">◀</a></li>');
 					}else{
 						$(".pagination").append('<li><a href="#">◀</a></li>');
 					}
-					
 					for(var idx = json.pageBean.beginPage ; idx <= json.pageBean.endPage ; idx++){
 						if(idx == json.pageBean.page)
 							$(".pagination").append('<li class="active"><a>'+idx+'</a></li>');
 						else
-							$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+idx+')"> '+idx+' </a></li>');
+							$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+idx+')"> '
+									+idx+' </a></li>');
 					}
 				}
-				
 				if(json.pageBean.nextPageGroup){
-					$(".pagination").append('<li><a href="#" onclick="bookmarkPage('+ ++json.pageBean.endPage +')">▶</a></li>');
+					$(".pagination").append('<li><a href="#" onclick="bookmarkPage('
+							+ ++json.pageBean.endPage +')">▶</a></li>');
 				}else{
 					$(".pagination").append('<li><a href="#">▶</a></li>');
 				}
