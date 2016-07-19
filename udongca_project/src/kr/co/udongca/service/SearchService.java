@@ -35,4 +35,6 @@ public interface SearchService {
 	public Map selectPRBoardListByFeature (Map map);
 	
 	public List<Code> selectThemeCategroy();
+	
+	public Map selectPRBoardListByFeatureOther(Map map);
 }

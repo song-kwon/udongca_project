@@ -77,11 +77,18 @@ public class SearchController {
 	@RequestMapping("themeSearchResult.udc")
 	@ResponseBody
 	public Map themeSearchResult(String cafeFeature, int page){
-		HashMap map = new HashMap();
-		map.put ("cafeFeature", cafeFeature);
-		map.put ("page", page);
-		map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
-		return service.selectPRBoardListByFeature(map);
+		if(!cafeFeature.equals("cafeTheme6")){
+			HashMap map = new HashMap();
+			map.put ("cafeFeature", cafeFeature);
+			map.put ("page", page);
+			map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
+			return service.selectPRBoardListByFeature(map);
+		}else{
+			HashMap map = new HashMap();
+			map.put ("page", page);
+			map.put ("itemsPerPage", Constants.ITEMS_PER_PAGE);
+			return service.selectPRBoardListByFeatureOther(map);
+		}
 	}
 	
 	/**
@@ -110,9 +117,9 @@ public class SearchController {
 	
 	@RequestMapping("theme_search_result.udc")
 	public String mainThemeSearchResult(String cafeFeature,ModelMap map){
-		map.put("result", themeSearchResult(cafeFeature, 1));
-		map.put("searchType", "theme");
-		return "search/search_result.tiles";
+			map.put("result", themeSearchResult(cafeFeature, 1));
+			map.put("searchType", "theme");
+			return "search/search_result.tiles";
 	}
 	
 }

@@ -55,7 +55,6 @@ function link(id){
 			
 		}
 	});
-
 }
  function listAndPage(pnum){
 	 $("#pnum").val(pnum);
@@ -148,7 +147,6 @@ function link(id){
 			}
 		});
 	}
-
 </script> 
 <style type="text/css">
 nav{

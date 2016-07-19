@@ -75,4 +75,14 @@ public class SearchDaoImpl implements SearchDao {
 	public int selectMajorCategoryNoByAddress(String majorAddress) {
 		return session.selectOne("addressMapper.selectMajorCategoryNoByAddress",majorAddress);
 	}
+	
+	@Override
+	public List<PRBoard> selectPRBoardListByFeatureOther(Map map) {
+		return session.selectList("prBoardMapper.selectPRBoardListByFeatureOther",map);
+	}
+	
+	@Override
+	public int countOtherFeature() {
+		return session.selectOne("prBoardMapper.countOtherFeature");
+	}
 }

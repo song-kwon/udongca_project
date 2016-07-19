@@ -56,4 +56,8 @@ public interface SearchDao {
 	public List<Address> selectMiddle(int majorNo);
 	
 	public int selectMajorCategoryNoByAddress(String majorAddress);
+	
+	public List<PRBoard> selectPRBoardListByFeatureOther(Map map);
+	
+	public int countOtherFeature();
 }

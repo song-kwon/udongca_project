@@ -74,5 +74,18 @@ public class SearchServiceImpl implements SearchService{
 		return dao.selectThemeCategory();
 	}
 	
-	
+	@Override
+	public Map selectPRBoardListByFeatureOther(Map map) {
+		int total = dao.countOtherFeature();
+		int page = (int)map.get("page");
+		PagingBean pagingBean = new PagingBean(total,page);
+		map.put("pageBean", pagingBean);
+		map.put("majorCategory",dao.selectMajor());
+		List list = dao.selectPRBoardListByFeature(map);
+		if(list.isEmpty()){
+			map.put("error", "검색결과가 없습니다.");
+		}
+		map.put("list",dao.selectPRBoardListByFeatureOther(map));
+		return map;
+	}
 }

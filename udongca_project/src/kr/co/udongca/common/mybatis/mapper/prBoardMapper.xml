@@ -251,4 +251,37 @@
 	<update id="updateCafeRatingInPRBoard" parameterType="map">
 		UPDATE PRBoard SET cafeRating = #{cafeRating} WHERE cafeNo = #{cafeNo}
 	</update>
+	
+	<select id="countOtherFeature" resultType="int">
+		select count(cafeNo) from prBoard
+		where cafeFeature like '%wifi%' or cafeFeature like '%socket%' or cafeFeature like '%smoking%' or cafeFeature like '%park%'
+	</select>
+	
+	<select id="selectPRBoardListByFeatureOther" parameterType="map" resultType="PRBoard">
+		SELECT
+			cafeNo cafeNo,
+			cafeName cafeName,
+			cafeFakeImage cafeFakeImage
+		FROM (
+			SELECT
+				CEIL(rownum/#{itemsPerPage}) page,
+				cafeNo,
+				cafeName,
+				cafeFeature,
+				cafeAddress,
+				cafeFakeImage
+			FROM (
+				SELECT
+					cafeNo,
+					cafeName,
+					cafeFeature,
+					cafeAddress,
+					cafeFakeImage
+				FROM PRboard
+				where cafeFeature like '%wifi%' or cafeFeature like '%socket%' or cafeFeature like '%smoking%' or cafeFeature like '%park%'
+				ORDER BY cafeNo DESC
+				)
+			)
+		WHERE page = #{page} 
+	</select>
 </mapper>

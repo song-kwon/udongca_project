@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.udongca.service.impl.PrBoardServiceImpl;
+import kr.co.udongca.service.PrBoardService;
 import kr.co.udongca.vo.Code;
 import kr.co.udongca.vo.Member;
 import kr.co.udongca.vo.Menu;
@@ -40,7 +40,7 @@ public class PrBoardController {
 	 * 객체는 Spring Container가 주입.
 	 */
 	@Autowired
-	private PrBoardServiceImpl service;
+	private PrBoardService service;
 	
 	/**
 	 * 구현 완료

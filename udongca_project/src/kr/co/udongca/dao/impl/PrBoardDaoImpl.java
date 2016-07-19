@@ -120,4 +120,5 @@ public class PrBoardDaoImpl implements PrBoardDao{
 	public int selectCafeRatingInPRBoard(int cafeNo) {
 		return session.selectOne(prBoardNamespace+"selectCafeRatingInPRBoard", cafeNo);
 	}
+	
 }
